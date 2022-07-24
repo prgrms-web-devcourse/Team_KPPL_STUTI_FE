@@ -1,5 +1,5 @@
-import { CustomButton } from '@src/components/Button/style';
 import React from 'react';
+import { CustomButton } from '@src/components/Button/style';
 
 export interface styleProps {
   backgroundColor?: string;

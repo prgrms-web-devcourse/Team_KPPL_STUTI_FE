@@ -1,10 +1,10 @@
-import React from 'react';
-import { Global } from '@emotion/react';
-import styled from '@emotion/styled';
 import { Provider } from 'react-redux';
-import store from '@store';
+import React from 'react';
 import reset from '@styles/reset';
+import store from '@store';
 import Routers from '@router';
+import styled from '@emotion/styled';
+import { Global } from '@emotion/react';
 
 const Layout = styled.div`
   max-width: 1280px;

@@ -1,8 +1,8 @@
 import { Switch, BrowserRouter } from 'react-router-dom';
 import { Redirect, Route } from 'react-router';
-import Home from '@src/pages/Home';
-import Sub from '@src/pages/Sub';
 import { HOME, SUB } from '@src/router/path';
+import Sub from '@src/pages/Sub';
+import Home from '@src/pages/Home';
 
 function Routers() {
   return (

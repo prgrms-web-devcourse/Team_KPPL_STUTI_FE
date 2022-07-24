@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
-import { Button } from '@mui/material';
 import { styleProps } from '@src/components/Button/Button';
+import { Button } from '@mui/material';
+import styled from '@emotion/styled';
 
 export const CustomButton = styled(Button)<styleProps>`
   background-color: ${({ backgroundColor = 'gray' }) => backgroundColor};

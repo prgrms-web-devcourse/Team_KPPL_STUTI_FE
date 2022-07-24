@@ -1,13 +1,13 @@
-import { SampleButton } from '@src/components';
-import { CounterWrapper, CountWrapper } from '@src/containers/Counter/style';
+import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 import {
   decrement,
   increment,
   incrementByAmount,
   selectCount,
 } from '@src/store/slices/counter';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { CounterWrapper, CountWrapper } from '@src/containers/Counter/style';
+import { SampleButton } from '@src/components';
 
 function Counter() {
   const count = useSelector(selectCount);
