@@ -33,7 +33,8 @@ module.exports = {
         'prefer-arrow-callback': 'off',
       },
     ],
-    'quotes': ['error', 'single'],
+    quotes: ['error', 'single'],
+    'jsx-quotes': ['error', 'prefer-single'],
     'react/react-in-jsx-scope': 'off',
     'import/order': [
       'error',
@@ -55,7 +56,10 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/named': 'off',
   },
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    parser: '@typescript-eslint/parser',
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
 };
