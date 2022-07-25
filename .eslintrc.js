@@ -20,19 +20,6 @@ module.exports = {
     'prettier',
   ],
   rules: {
-    'prettier/prettier': [
-      'off',
-      {
-        endOfLine: 'auto',
-        printWidth: 80,
-        semi: true,
-        singleQuote: true,
-        tabWidth: 2,
-        trailingComma: 'all',
-        'arrow-body-style': 'off',
-        'prefer-arrow-callback': 'off',
-      },
-    ],
     quotes: ['error', 'single'],
     'jsx-quotes': ['error', 'prefer-single'],
     'react/react-in-jsx-scope': 'off',
