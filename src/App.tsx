@@ -7,7 +7,7 @@ import styled from '@emotion/styled';
 import { Global } from '@emotion/react';
 
 const Layout = styled.div`
-  max-width: 1280px;
+  max-width: 640px;
   margin: 0 auto;
 `;
 
