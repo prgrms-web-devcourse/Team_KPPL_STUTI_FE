@@ -33,6 +33,7 @@ module.exports = {
         'prefer-arrow-callback': 'off',
       },
     ],
+    'quotes': ['error', 'single'],
     'react/react-in-jsx-scope': 'off',
     'import/order': [
       'error',
