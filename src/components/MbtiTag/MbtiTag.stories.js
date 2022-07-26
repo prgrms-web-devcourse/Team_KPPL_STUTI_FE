@@ -27,6 +27,7 @@ export default {
       ],
       control: { type: 'select' },
     },
+    cursor: { control: { type: 'boolean' } },
   },
 };
 

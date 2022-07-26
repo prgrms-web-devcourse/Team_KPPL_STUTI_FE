@@ -75,4 +75,5 @@ export const CustomChip = styled(Chip)<props>`
   width: ${({ width = '80px' }) => width};
   height: ${({ height = '30px' }) => height};
   border-color: ${setMbtiColor};
+  cursor: ${({ cursor = false }) => (cursor ? 'pointer' : 'default')};
 `;

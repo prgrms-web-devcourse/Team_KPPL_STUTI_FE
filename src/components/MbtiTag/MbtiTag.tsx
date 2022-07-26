@@ -5,9 +5,10 @@ export interface props {
   width?: string;
   height?: string;
   mbti: string;
+  cursor?: boolean;
 }
 
-function MbtiTag({ width, height, mbti }: props) {
+function MbtiTag({ width, height, mbti, cursor }: props) {
   return (
     <CustomChip
       label={mbti}
@@ -15,6 +16,7 @@ function MbtiTag({ width, height, mbti }: props) {
       width={width}
       height={height}
       mbti={mbti}
+      cursor={cursor}
     />
   );
 }
