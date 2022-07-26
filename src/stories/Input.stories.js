@@ -56,7 +56,7 @@ Example.propTypes = {
   children: PropTypes.node,
 };
 
-export const Default = () => (
+export const TextVariant = () => (
   <MuiProvider>
     <Example title='input only'>
       <TextField id='input-only' />
