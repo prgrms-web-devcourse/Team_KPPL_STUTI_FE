@@ -1,5 +1,6 @@
-import { MuiProvider } from 'MuiProvider';
 import Typography from '@mui/material/Typography';
+
+import { MuiProvider } from '../styles/MuiProvider';
 
 export default {
   title: 'Typography',

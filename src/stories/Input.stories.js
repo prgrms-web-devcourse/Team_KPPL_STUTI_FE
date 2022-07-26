@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { MuiProvider } from 'MuiProvider';
-import Button from '@mui/materialButton';
+import PropTypes from 'prop-types';
 import TextField from '@mui/material/TextField';
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
@@ -8,6 +7,9 @@ import MenuItem from '@mui/material/MenuItem';
 import FormLabel from '@mui/material/FormLabel';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
+import Button from '@mui/material/Button';
+
+import { MuiProvider } from '../styles/MuiProvider';
 
 export default {
   title: 'Input',
@@ -22,6 +24,12 @@ export default {
     },
   },
 };
+
+export const Text = (args) => (
+  <MuiProvider>
+    <TextField id='input' {...args} />
+  </MuiProvider>
+);
 
 const Example = ({ title, children }) => (
   <div
@@ -42,6 +50,11 @@ const Example = ({ title, children }) => (
     {children}
   </div>
 );
+
+Example.propTypes = {
+  title: PropTypes.string,
+  children: PropTypes.node,
+};
 
 export const Default = () => (
   <MuiProvider>
@@ -79,13 +92,7 @@ export const Default = () => (
   </MuiProvider>
 );
 
-export const Text = (args) => (
-  <MuiProvider>
-    <TextField id='input' {...args} />
-  </MuiProvider>
-);
-
-export const Select = (args) => {
+export const Select = () => {
   const currencies = [
     {
       value: 'USD',
@@ -129,7 +136,7 @@ export const Select = (args) => {
   );
 };
 
-export const Radios = (args) => (
+export const Radios = () => (
   <MuiProvider>
     <FormControl>
       <FormLabel id='demo-radio-buttons-group-label'>Gender</FormLabel>
@@ -146,13 +153,13 @@ export const Radios = (args) => (
   </MuiProvider>
 );
 
-export const File = (args) => (
+export const File = () => (
   <MuiProvider>
-    <Button variant='contained' component='label'>
+    <Button component='label'>
       Upload
       <input hidden accept='image/*' multiple type='file' />
     </Button>
   </MuiProvider>
 );
 
-export const DatePicker = (args) => <MuiProvider></MuiProvider>;
+export const DatePicker = () => <MuiProvider></MuiProvider>;
