@@ -10,7 +10,7 @@ function Routers() {
       <Switch>
         <Route exact path={SUB} component={Sub} />
         <Route exact path={HOME} component={Home} />
-        <Route path="*" render={() => <Redirect to="/error" />} />
+        <Route path='*' render={() => <Redirect to='/error' />} />
       </Switch>
     </BrowserRouter>
   );

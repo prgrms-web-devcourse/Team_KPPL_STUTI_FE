@@ -17,20 +17,20 @@ function Counter() {
   return (
     <CounterWrapper style={{ display: 'flex' }}>
       <SampleButton
-        content="+"
+        content='+'
         click={() => {
           dispatch(increment());
         }}
       />
       <CountWrapper>{count}</CountWrapper>
       <SampleButton
-        content="-"
+        content='-'
         click={() => {
           dispatch(decrement());
         }}
       />
       <SampleButton
-        content="+2"
+        content='+2'
         click={() => {
           dispatch(incrementByAmount(2));
         }}
