@@ -1,10 +1,10 @@
 import { Provider } from 'react-redux';
-import React from 'react';
-import reset from '@styles/reset';
 import store from '@store';
 import Routers from '@router';
+import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
-import { Global } from '@emotion/react';
+
+import { GlobalStyle, MuiProvider } from './styles';
 
 const Layout = styled.div`
   max-width: 640px;
@@ -14,10 +14,15 @@ const Layout = styled.div`
 function App(): JSX.Element {
   return (
     <Provider store={store}>
-      <Global styles={reset} />
-      <Layout>
-        <Routers />
-      </Layout>
+      <GlobalStyle />
+      <MuiProvider>
+        <Button variant='text' color='secondary' size='small'>
+          버튼
+        </Button>
+        <Layout>
+          <Routers />
+        </Layout>
+      </MuiProvider>
     </Provider>
   );
 }
