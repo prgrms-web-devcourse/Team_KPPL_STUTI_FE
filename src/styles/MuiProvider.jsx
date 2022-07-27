@@ -320,6 +320,57 @@ const theme = createTheme({
         closeOnSelect: true,
       },
     },
+    MuiAvatar: {
+      styleOverrides: {
+        root: {
+          fontSize: '16px',
+          backgroundColor: '#007FFF',
+        },
+        rounded: {
+          fontSize: '16px',
+          backgroundColor: '#007FFF',
+        },
+        square: {
+          fontSize: '16px',
+          backgroundColor: '#007FFF',
+        },
+        string: {
+          fontSize: '16px',
+          backgroundColor: '#007FFF',
+        },
+      },
+    },
+    MuiAvatarGroup: {
+      defaultProps: {
+        max: 4,
+      },
+      styleOverrides: {
+        root: {
+          width: '192px',
+          height: '54px',
+          padding: '0 8px',
+          alignItems: 'center',
+        },
+        rounded: {
+          width: '192px',
+          height: '54px',
+          padding: '0 8px',
+          alignItems: 'center',
+        },
+        square: {
+          width: '192px',
+          height: '54px',
+          padding: '0 8px',
+          alignItems: 'center',
+        },
+        string: {
+          width: '192px',
+          height: '54px',
+          padding: '0 8px',
+          alignItems: 'center',
+        },
+      },
+    },
   },
 });
 
