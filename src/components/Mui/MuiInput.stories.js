@@ -9,8 +9,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 
-import { MuiProvider } from '../../styles';
-
 export default {
   title: 'Mui/Input',
   component: TextField,
@@ -25,11 +23,7 @@ export default {
   },
 };
 
-export const Text = (args) => (
-  <MuiProvider>
-    <TextField id='input' {...args} />
-  </MuiProvider>
-);
+export const Text = (args) => <TextField id='input' {...args} />;
 
 const Example = ({ title, children }) => (
   <div
@@ -57,7 +51,7 @@ Example.propTypes = {
 };
 
 export const TextVariant = () => (
-  <MuiProvider>
+  <>
     <Example title='input only'>
       <TextField id='input-only' />
     </Example>
@@ -89,7 +83,7 @@ export const TextVariant = () => (
     <Example title='multiline'>
       <TextField id='multiline' multiline />
     </Example>
-  </MuiProvider>
+  </>
 );
 
 export const Select = () => {
@@ -118,48 +112,42 @@ export const Select = () => {
   };
 
   return (
-    <MuiProvider>
-      <TextField
-        id='outlined-select-currency'
-        select
-        label='Select'
-        value={currency}
-        onChange={handleChange}
-      >
-        {currencies.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label}
-          </MenuItem>
-        ))}
-      </TextField>
-    </MuiProvider>
+    <TextField
+      id='outlined-select-currency'
+      select
+      label='Select'
+      value={currency}
+      onChange={handleChange}
+    >
+      {currencies.map((option) => (
+        <MenuItem key={option.value} value={option.value}>
+          {option.label}
+        </MenuItem>
+      ))}
+    </TextField>
   );
 };
 
 export const Radios = () => (
-  <MuiProvider>
-    <FormControl>
-      <FormLabel id='demo-radio-buttons-group-label'>Gender</FormLabel>
-      <RadioGroup
-        aria-labelledby='demo-radio-buttons-group-label'
-        defaultValue='female'
-        name='radio-buttons-group'
-      >
-        <FormControlLabel value='female' control={<Radio />} label='Female' />
-        <FormControlLabel value='male' control={<Radio />} label='Male' />
-        <FormControlLabel value='other' control={<Radio />} label='Other' />
-      </RadioGroup>
-    </FormControl>
-  </MuiProvider>
+  <FormControl>
+    <FormLabel id='demo-radio-buttons-group-label'>Gender</FormLabel>
+    <RadioGroup
+      aria-labelledby='demo-radio-buttons-group-label'
+      defaultValue='female'
+      name='radio-buttons-group'
+    >
+      <FormControlLabel value='female' control={<Radio />} label='Female' />
+      <FormControlLabel value='male' control={<Radio />} label='Male' />
+      <FormControlLabel value='other' control={<Radio />} label='Other' />
+    </RadioGroup>
+  </FormControl>
 );
 
 export const File = () => (
-  <MuiProvider>
-    <Button component='label'>
-      Upload
-      <input hidden accept='image/*' multiple type='file' />
-    </Button>
-  </MuiProvider>
+  <Button component='label'>
+    Upload
+    <input hidden accept='image/*' multiple type='file' />
+  </Button>
 );
 
-export const DatePicker = () => <MuiProvider></MuiProvider>;
+// export const DatePicker = () => ();

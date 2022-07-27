@@ -1,7 +1,5 @@
 import Chip from '@mui/material/Chip';
 
-import { MuiProvider } from '../../styles';
-
 export default {
   title: 'Mui/Chip',
   component: Chip,
@@ -18,11 +16,7 @@ export default {
   },
 };
 
-const Template = (args) => (
-  <MuiProvider>
-    <Chip {...args} />
-  </MuiProvider>
-);
+const Template = (args) => <Chip {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
