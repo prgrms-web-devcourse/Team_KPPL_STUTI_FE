@@ -15,6 +15,8 @@ import Button from '@mui/material/Button';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 
+import { MuiProvider } from '../../styles';
+
 export default {
   title: 'Mui/Input',
   component: TextField,

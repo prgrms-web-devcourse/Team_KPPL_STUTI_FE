@@ -1,5 +1,7 @@
 import Chip from '@mui/material/Chip';
 
+import { MuiProvider } from '../../styles';
+
 export default {
   title: 'Mui/Chip',
   component: Chip,
