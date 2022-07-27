@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 
-import { MuiProvider } from '../../styles/MuiProvider';
+import { MuiProvider } from '../../styles';
 
 export default {
   title: 'Mui/Menu',

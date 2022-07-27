@@ -1,6 +1,6 @@
 import SettingsIcon from '@mui/icons-material/Settings';
 
-import { MuiProvider } from '../../styles/MuiProvider';
+import { MuiProvider } from '../../styles';
 
 export default {
   title: 'Mui/Icon',

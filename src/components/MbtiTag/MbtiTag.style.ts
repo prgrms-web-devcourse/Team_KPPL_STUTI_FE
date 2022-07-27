@@ -1,8 +1,8 @@
-import { props } from '@src/components/MbtiTag/MbtiTag';
+import { Props } from '@src/components/MbtiTag/MbtiTag';
 import { Chip } from '@mui/material';
 import styled from '@emotion/styled';
 
-const setMbtiColor = ({ mbti }: props) => {
+const setMbtiColor = ({ mbti }: Props) => {
   if (mbti === 'ISTJ') {
     return '#24a347';
   }
@@ -70,10 +70,16 @@ const setMbtiColor = ({ mbti }: props) => {
   return '#000';
 };
 
-export const CustomChip = styled(Chip)<props>`
+const setMbtiBorderColor = (props: Props) => {
+  const color = setMbtiColor(props);
+  const r = parseInt(color.slice(1, 3), 16);
+  const g = parseInt(color.slice(3, 5), 16);
+  const b = parseInt(color.slice(5), 16);
+  return `rgba(${r}, ${g}, ${b}, 0.5)`;
+};
+
+export const CustomChip = styled(Chip)<Props>`
   color: ${setMbtiColor};
-  width: ${({ width = '80px' }) => width};
-  height: ${({ height = '30px' }) => height};
-  border-color: ${setMbtiColor};
+  border-color: ${setMbtiBorderColor};
   cursor: ${({ cursor = false }) => (cursor ? 'pointer' : 'default')};
 `;
