@@ -1,4 +1,5 @@
 import Proptypes from 'prop-types';
+import moment from 'moment';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -309,6 +310,14 @@ const theme = createTheme({
         notchedOutline: ({ _, theme }) => ({
           border: `1px solid ${theme.palette.divider}`,
         }),
+      },
+    },
+    MuiDatePicker: {
+      defaultProps: {
+        disablePast: true,
+        inputFormat: 'YYYY-MM-DD',
+        minDate: moment(),
+        closeOnSelect: true,
       },
     },
   },
