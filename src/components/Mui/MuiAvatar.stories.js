@@ -39,11 +39,11 @@ export const AvatarsGroup = () => {
         <Avatar alt='User 5' src='https://picsum.photos/id/1030/200/300' />
       </AvatarGroup>
       <AvatarGroup>
-        <Avatar>A</Avatar>
-        <Avatar>B</Avatar>
-        <Avatar>C</Avatar>
-        <Avatar>D</Avatar>
-        <Avatar>E</Avatar>
+        <Avatar alt='User 1'>A</Avatar>
+        <Avatar alt='User 2'>B</Avatar>
+        <Avatar alt='User 3'>C</Avatar>
+        <Avatar alt='User 4'>D</Avatar>
+        <Avatar alt='User 5'>E</Avatar>
       </AvatarGroup>
     </MuiProvider>
   );
