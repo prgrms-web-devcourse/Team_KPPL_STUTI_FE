@@ -1,4 +1,4 @@
-import React from 'react';
+import { MuiProvider } from '../../styles';
 
 import MbtiTag from './MbtiTag';
 
@@ -27,11 +27,14 @@ export default {
       ],
       control: { type: 'select' },
     },
-    cursor: { control: { type: 'boolean' } },
   },
 };
 
-const Template = (args) => <MbtiTag {...args} />;
+const Template = (args) => (
+  <MuiProvider>
+    <MbtiTag {...args} />
+  </MuiProvider>
+);
 
 export const MBTI = Template.bind({});
 MBTI.args = {

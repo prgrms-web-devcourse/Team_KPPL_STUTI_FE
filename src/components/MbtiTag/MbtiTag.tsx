@@ -1,24 +1,12 @@
-import React from 'react';
-import { CustomChip } from '@src/components/MbtiTag/style';
+import { CustomChip } from './MbtiTag.style';
 
-export interface props {
-  width?: string;
-  height?: string;
+export interface Props {
   mbti: string;
-  cursor?: boolean;
+  size?: 'small' | 'medium';
 }
 
-function MbtiTag({ width, height, mbti, cursor }: props) {
-  return (
-    <CustomChip
-      label={mbti}
-      variant='outlined'
-      width={width}
-      height={height}
-      mbti={mbti}
-      cursor={cursor}
-    />
-  );
+function MbtiTag({ mbti, size }: Props) {
+  return <CustomChip label={mbti} size={size} mbti={mbti} />;
 }
 
 export default MbtiTag;
