@@ -4,10 +4,10 @@ import Menu from '@mui/material/Menu';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
 
-import { MuiProvider } from '../styles/MuiProvider';
+import { MuiProvider } from '../../styles/MuiProvider';
 
 export default {
-  title: 'Menu',
+  title: 'Mui/Menu',
 };
 
 export const Default = () => {

@@ -1,9 +1,9 @@
 import SettingsIcon from '@mui/icons-material/Settings';
 
-import { MuiProvider } from '../styles/MuiProvider';
+import { MuiProvider } from '../../styles/MuiProvider';
 
 export default {
-  title: 'Icon',
+  title: 'Mui/Icon',
   component: SettingsIcon,
   argTypes: {
     fontSize: {

@@ -1,7 +1,6 @@
 import { Provider } from 'react-redux';
 import store from '@store';
 import Routers from '@router';
-import Button from '@mui/material/Button';
 import styled from '@emotion/styled';
 
 import { GlobalStyle, MuiProvider } from './styles';
@@ -16,9 +15,6 @@ function App(): JSX.Element {
     <Provider store={store}>
       <GlobalStyle />
       <MuiProvider>
-        <Button variant='text' color='secondary' size='small'>
-          버튼
-        </Button>
         <Layout>
           <Routers />
         </Layout>

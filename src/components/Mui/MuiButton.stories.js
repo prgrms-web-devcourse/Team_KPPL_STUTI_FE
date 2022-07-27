@@ -1,9 +1,9 @@
 import Button from '@mui/material/Button';
 
-import { MuiProvider } from '../styles/MuiProvider';
+import { MuiProvider } from '../../styles/MuiProvider';
 
 export default {
-  title: 'Button',
+  title: 'Mui/Button',
   component: Button,
   argTypes: {
     variant: {
