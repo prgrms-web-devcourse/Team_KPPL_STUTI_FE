@@ -346,26 +346,18 @@ const theme = createTheme({
       },
       styleOverrides: {
         root: {
-          width: '192px',
-          height: '54px',
           padding: '0 8px',
           alignItems: 'center',
         },
         rounded: {
-          width: '192px',
-          height: '54px',
           padding: '0 8px',
           alignItems: 'center',
         },
         square: {
-          width: '192px',
-          height: '54px',
           padding: '0 8px',
           alignItems: 'center',
         },
         string: {
-          width: '192px',
-          height: '54px',
           padding: '0 8px',
           alignItems: 'center',
         },
