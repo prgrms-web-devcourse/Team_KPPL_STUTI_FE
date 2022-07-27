@@ -9,7 +9,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 
-import { MuiProvider } from '../../styles/MuiProvider';
+import { MuiProvider } from '../../styles';
 
 export default {
   title: 'Mui/Input',
