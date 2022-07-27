@@ -1,13 +1,19 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
+import { DatePicker } from '@mui/x-date-pickers';
 import TextField from '@mui/material/TextField';
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 import MenuItem from '@mui/material/MenuItem';
 import FormLabel from '@mui/material/FormLabel';
+import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
+import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarIcon from '@mui/icons-material/Star';
 
 export default {
   title: 'Mui/Input',
@@ -150,4 +156,63 @@ export const File = () => (
   </Button>
 );
 
-// export const DatePicker = () => ();
+export const BasicCheckBoxes = () => {
+  return (
+    <>
+      <Example title='Basic CheckBoxes'>
+        <Checkbox checked />
+        <Checkbox />
+        <Checkbox disabled />
+        <Checkbox disabled checked />
+      </Example>
+      <Example title='Icon CheckBoxes'>
+        <Checkbox icon={<StarBorderIcon />} checkedIcon={<StarIcon />} />
+      </Example>
+    </>
+  );
+};
+
+export const LabelCheckBoxes = () => {
+  return (
+    <>
+      <FormGroup>
+        <FormControlLabel
+          control={<Checkbox value='label 1' />}
+          label='Label 1'
+        />
+        <FormControlLabel
+          control={<Checkbox value='label 2' />}
+          label='Label 2'
+        />
+        <FormControlLabel
+          control={<Checkbox value='label 3' />}
+          label='Label 3'
+        />
+        <FormControlLabel
+          control={<Checkbox value='label 4' />}
+          label='Label 4'
+        />
+        <FormControlLabel
+          disabled
+          control={<Checkbox value='disabled' />}
+          label='Disabled'
+        />
+      </FormGroup>
+    </>
+  );
+};
+
+export const BasicDatePicker = () => {
+  const [date, setDate] = useState(moment());
+  return (
+    <DatePicker
+      label='date picker label name'
+      value={date}
+      selected={date}
+      onChange={(newValue) => {
+        setDate(newValue);
+      }}
+      renderInput={(params) => <TextField {...params} />}
+    />
+  );
+};
