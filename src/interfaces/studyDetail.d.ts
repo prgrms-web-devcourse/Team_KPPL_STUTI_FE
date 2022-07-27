@@ -31,6 +31,7 @@ export interface detailQuestionsType {
 export interface studyDetailType {
   topic: string;
   title: string;
+  imageUrl: string;
   member: detailMemberType;
   preferredMbtis: string[];
   isOnline: boolean;
