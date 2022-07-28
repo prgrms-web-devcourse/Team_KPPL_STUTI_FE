@@ -12,7 +12,7 @@ import {
 } from './style';
 
 function NavigationHeader() {
-  const user = { id: 1 };
+  const [isLogin, setIsLogin] = useState(true);
   const [el, setEl] = useState<HTMLElement | null>(null);
   const isOpen = Boolean(el);
 
@@ -45,7 +45,7 @@ function NavigationHeader() {
             </NavWrapper>
           </NavContainer>
           <LoginWrapper>
-            {user ? (
+            {isLogin ? (
               <>
                 <ClickAwayListener onClickAway={handleClose}>
                   <Avatar alt='User Profile' src='' onClick={handleClick} />
@@ -70,7 +70,9 @@ function NavigationHeader() {
                     <Link to={'#'}>프로필 수정</Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link to={'#'}>로그아웃</Link>
+                    <Link to={'#'} onClick={() => setIsLogin(false)}>
+                      로그아웃
+                    </Link>
                   </MenuItem>
                 </Menu>
               </>
