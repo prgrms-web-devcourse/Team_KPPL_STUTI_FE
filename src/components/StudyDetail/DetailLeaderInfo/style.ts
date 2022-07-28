@@ -4,6 +4,7 @@ export const LeaderInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-top: 30px;
 `;
 
 export const LeaderInfoWrapper = styled.div`
