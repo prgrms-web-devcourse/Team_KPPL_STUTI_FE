@@ -1,7 +1,7 @@
 import StudyCreateLabelInput from './StudyCreateLabelInput';
 
 export default {
-  title: 'Components/StudyCreateLabelInput',
+  title: 'Components/StudyCreate',
   component: StudyCreateLabelInput,
 };
 

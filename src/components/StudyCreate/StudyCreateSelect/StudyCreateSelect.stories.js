@@ -1,7 +1,7 @@
 import StudyCreateSelect from './StudyCreateSelect';
 
 export default {
-  title: 'Components/StudyCreateSelect',
+  title: 'Components/StudyCreate',
   component: StudyCreateSelect,
 };
 

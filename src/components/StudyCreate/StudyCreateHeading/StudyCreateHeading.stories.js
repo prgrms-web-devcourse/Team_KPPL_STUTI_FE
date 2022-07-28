@@ -1,7 +1,7 @@
 import StudyCreateHeading from './StudyCreateHeading';
 
 export default {
-  title: 'Components/StudyCreateHeading',
+  title: 'Components/StudyCreate',
   component: StudyCreateHeading,
 };
 
