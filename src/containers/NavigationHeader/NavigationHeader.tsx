@@ -1,6 +1,18 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import { Avatar, ClickAwayListener, Menu, MenuItem } from '@mui/material';
+import {
+  Avatar,
+  Button,
+  ClickAwayListener,
+  IconButton,
+  Menu,
+  MenuItem,
+  Modal,
+  Typography,
+} from '@mui/material';
+import GoogleIcon from '@mui/icons-material/Google';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import CloseIcon from '@mui/icons-material/Close';
 
 import {
   HeaderContainer,
@@ -9,24 +21,36 @@ import {
   LogoWrapper,
   LoginWrapper,
   LoginButton,
+  ModalContainer,
+  ModalWrapper,
+  LoginButtonContainer,
 } from './style';
 
 function NavigationHeader() {
   const [isLogin, setIsLogin] = useState(true);
-  const [el, setEl] = useState<HTMLElement | null>(null);
-  const isOpen = Boolean(el);
+  const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
+  const [isModal, setIsModal] = useState(false);
+  const isMenuOpen = Boolean(menuEl);
 
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    setEl(event.currentTarget);
+  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setMenuEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setEl(null);
+  const handleMenuClose = () => {
+    setMenuEl(null);
   };
 
   const popupModal = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
-    console.log('login modal');
+    setIsModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModal(false);
+  };
+
+  const handleLogout = () => {
+    setIsLogin(false);
   };
 
   return (
@@ -47,12 +71,19 @@ function NavigationHeader() {
           <LoginWrapper>
             {isLogin ? (
               <>
-                <ClickAwayListener onClickAway={handleClose}>
-                  <Avatar alt='User Profile' src='' onClick={handleClick} />
+                <ClickAwayListener onClickAway={handleMenuClose}>
+                  <Avatar
+                    alt='User Profile'
+                    src=''
+                    onClick={handleMenuOpen}
+                    sx={{
+                      cursor: 'pointer',
+                    }}
+                  />
                 </ClickAwayListener>
                 <Menu
-                  open={isOpen}
-                  anchorEl={el}
+                  open={isMenuOpen}
+                  anchorEl={menuEl}
                   autoFocus={false}
                   anchorOrigin={{
                     vertical: 'bottom',
@@ -70,18 +101,54 @@ function NavigationHeader() {
                     <Link to={'#'}>프로필 수정</Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link to={'#'} onClick={() => setIsLogin(false)}>
+                    <Link to={'#'} onClick={handleLogout}>
                       로그아웃
                     </Link>
                   </MenuItem>
                 </Menu>
               </>
             ) : (
-              <LoginButton>
-                <Link to='#' onClick={popupModal}>
-                  로그인/회원가입
-                </Link>
-              </LoginButton>
+              <>
+                <LoginButton>
+                  <Link to='#' onClick={popupModal}>
+                    로그인/회원가입
+                  </Link>
+                </LoginButton>
+                <Modal open={isModal} onClose={handleCloseModal}>
+                  <ModalContainer>
+                    <IconButton
+                      onClick={handleCloseModal}
+                      sx={{
+                        position: 'absolute',
+                        right: 8,
+                        top: 8,
+                      }}
+                    >
+                      <CloseIcon />
+                    </IconButton>
+                    <ModalWrapper>
+                      <Typography variant='h3' align='center'>
+                        로그인/회원가입
+                      </Typography>
+                      <LoginButtonContainer>
+                        <Button variant='outlined' color='secondary'>
+                          <GoogleIcon sx={{ position: 'absolute', left: 20 }} />
+                          구글 계정으로 계속하기
+                        </Button>
+                        <Button variant='outlined' color='secondary'>
+                          <GitHubIcon
+                            sx={{
+                              position: 'absolute',
+                              left: 20,
+                            }}
+                          />
+                          깃허브 계정으로 계속하기
+                        </Button>
+                      </LoginButtonContainer>
+                    </ModalWrapper>
+                  </ModalContainer>
+                </Modal>
+              </>
             )}
           </LoginWrapper>
         </HeaderContainer>
