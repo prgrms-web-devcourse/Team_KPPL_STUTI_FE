@@ -1,4 +1,4 @@
-import axiosInstance from '@src/api/axiosInstance';
+import axiosInstance from '@apis/axiosInstance';
 
 export const getStudyDetailInfomation = async () => {
   try {
