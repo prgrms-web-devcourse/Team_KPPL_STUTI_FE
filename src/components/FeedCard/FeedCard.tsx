@@ -1,4 +1,4 @@
-import { ContentsWrapper, FeedContent } from '@src/components/FeedCard/style';
+import { ContentsWrapper } from '@src/components/FeedCard/style';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import {
@@ -12,6 +12,8 @@ import {
 } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+
+import TypographyButton from './TypographyButton/TypographyButton';
 
 function FeedCard() {
   return (
@@ -54,10 +56,10 @@ function FeedCard() {
               open.)
             </Typography>
           </ContentsWrapper>
-          <Typography sx={{ cursor: 'pointer' }}>더보기</Typography>
+          <TypographyButton>더보기</TypographyButton>
         </CardContent>
         <Box sx={{ margin: '1rem 1rem' }}>
-          <CardMedia //image resize해서 받아서 상관 없다.
+          <CardMedia
             component='img'
             image='https://picsum.photos/id/1026/300'
             alt='User 1'
@@ -70,10 +72,8 @@ function FeedCard() {
           <IconButton aria-label='settings'>
             <FavoriteBorderIcon />
           </IconButton>
-          <Typography>99(좋아요수)</Typography>
-          <Typography sx={{ margin: '0 1rem 0 auto', cursor: 'pointer' }}>
-            댓글 199개
-          </Typography>
+          <TypographyButton>99(좋아요수)</TypographyButton>
+          <TypographyButton margin='0 1rem 0 auto'>댓글 199개</TypographyButton>
         </CardActions>
       </Card>
     </>
