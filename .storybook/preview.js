@@ -1,4 +1,4 @@
-import { MuiProvider, GlobalStyle } from '../src/styles';
+import { MuiProvider, GlobalStyle } from '@styles';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },

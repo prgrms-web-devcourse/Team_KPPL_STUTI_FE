@@ -9,7 +9,7 @@ module.exports = {
     '@storybook/preset-create-react-app',
   ],
   webpackFinal: async (config) => {
-    config.resolve.plugins.push(new TsconfigPathsPlugin({}));
+    config.resolve.plugins.push(new TsconfigPathsPlugin());
     return config;
   },
   framework: '@storybook/react',
