@@ -14,7 +14,7 @@ function FeedMenuIconButton() {
     setAnchorEl(null);
   };
   return (
-    <div style={{ margin: '100px' }}>
+    <>
       <IconButton
         id='feed-button'
         aria-controls={open ? 'feed-menu' : undefined}
@@ -42,7 +42,7 @@ function FeedMenuIconButton() {
         <MenuItem onClick={handleClose}>수정</MenuItem>
         <MenuItem onClick={handleClose}>삭제</MenuItem>
       </Menu>
-    </div>
+    </>
   );
 }
 

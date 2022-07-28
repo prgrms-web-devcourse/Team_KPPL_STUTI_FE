@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   ContentsWrapper,
   FeedBoxWrapper,
@@ -16,12 +17,16 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 import FeedTypographyButton from './FeedTypographyButton/FeedTypographyButton';
+import FeedMenuIconButton from './FeedMenuIconButton/FeedMenuIconButton';
 
 export interface BoxProps {
   margin?: string;
 }
 
 function FeedCard() {
+  const handlehi = (e: React.MouseEvent<HTMLElement>) => {
+    console.log(e.currentTarget);
+  };
   return (
     <Card sx={{ width: '608px', borderRadius: '8px' }}>
       <CardHeader
@@ -32,11 +37,7 @@ function FeedCard() {
             sx={{ cursor: 'pointer' }}
           />
         }
-        action={
-          <IconButton aria-label='settings'>
-            <MoreHorizIcon />
-          </IconButton>
-        }
+        action={<FeedMenuIconButton />}
         title='Paeng'
         subheader='1시간전'
         sx={{ margin: '0.5rem 0 -0.5rem 0' }}
