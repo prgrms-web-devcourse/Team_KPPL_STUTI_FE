@@ -157,14 +157,6 @@ export const File = () => (
 );
 
 export const BasicCheckBoxes = () => {
-  const colors = [
-    '#007FFF',
-    '#6B7280',
-    '#EF4444',
-    '#F59E0B',
-    '#3B82F6',
-    '#14B86A',
-  ];
   return (
     <>
       <Example title='Basic CheckBoxes'>
@@ -173,96 +165,39 @@ export const BasicCheckBoxes = () => {
         <Checkbox disabled />
         <Checkbox disabled checked />
       </Example>
-      <Example title='Color Custom CheckBoxes'>
-        {colors.map((color) => {
-          return (
-            <Checkbox
-              checked
-              key={color}
-              sx={{
-                color: color,
-                '&.Mui-checked': {
-                  color: color,
-                },
-              }}
-            />
-          );
-        })}
-      </Example>
-      <Example title='Size Custom CheckBoxes'>
-        <Checkbox sx={{ '& .MuiSvgIcon-root': { fontSize: 16 } }} />
-        <Checkbox sx={{ '& .MuiSvgIcon-root': { fontSize: 32 } }} />
-      </Example>
       <Example title='Icon CheckBoxes'>
-        <Checkbox
-          icon={<StarBorderIcon />}
-          checkedIcon={
-            <StarIcon
-              sx={{
-                color: colors[0],
-              }}
-            />
-          }
-        />
+        <Checkbox icon={<StarBorderIcon />} checkedIcon={<StarIcon />} />
       </Example>
     </>
   );
 };
 
 export const LabelCheckBoxes = () => {
-  const [checkedList, setCheckedList] = useState([]);
-  const onCheckedElement = (checked, item) => {
-    if (checked) {
-      setCheckedList([...checkedList, item]);
-    } else {
-      setCheckedList(checkedList.filter((element) => element !== item));
-    }
-  };
   return (
     <>
       <FormGroup>
         <FormControlLabel
-          onChange={(e) => {
-            onCheckedElement(e.target.checked, e.target.value);
-          }}
           control={<Checkbox value='label 1' />}
           label='Label 1'
         />
         <FormControlLabel
-          onChange={(e) => {
-            onCheckedElement(e.target.checked, e.target.value);
-          }}
           control={<Checkbox value='label 2' />}
           label='Label 2'
         />
         <FormControlLabel
-          onChange={(e) => {
-            onCheckedElement(e.target.checked, e.target.value);
-          }}
           control={<Checkbox value='label 3' />}
           label='Label 3'
         />
         <FormControlLabel
-          onChange={(e) => {
-            onCheckedElement(e.target.checked, e.target.value);
-          }}
           control={<Checkbox value='label 4' />}
           label='Label 4'
         />
         <FormControlLabel
-          onChange={(e) => {
-            onCheckedElement(e.target.checked, e.target.value);
-          }}
           disabled
           control={<Checkbox value='disabled' />}
           label='Disabled'
         />
       </FormGroup>
-      <Example title='Checked List'>
-        {checkedList.map((item) => {
-          return <div key={item}>{item}</div>;
-        })}
-      </Example>
     </>
   );
 };
