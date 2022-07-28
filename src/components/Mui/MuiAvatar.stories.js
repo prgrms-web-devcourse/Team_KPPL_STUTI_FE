@@ -1,36 +1,21 @@
+import React from 'react';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import Avatar from '@mui/material/Avatar';
-
-import { MuiProvider } from '../../styles/MuiProvider';
 
 export default {
   title: 'Mui/Avatar',
   component: Avatar,
-  argTypes: {
-    variant: {
-      options: ['circular', 'rounded', 'square', 'string'],
-      control: { type: 'radio' },
-    },
-    src: {
-      control: { type: 'text' },
-    },
-  },
 };
 
-const Template = (args) => (
-  <MuiProvider>
-    <Avatar {...args} />
-  </MuiProvider>
-);
+const Template = (args) => <Avatar {...args} />;
 export const Default = Template.bind({});
 Default.args = {
-  variant: 'circular',
   src: 'https://picsum.photos/id/1027/200/300',
 };
 
 export const AvatarsGroup = () => {
   return (
-    <MuiProvider>
+    <>
       <AvatarGroup>
         <Avatar alt='User 1' src='https://picsum.photos/id/1026/200/300' />
         <Avatar alt='User 2' src='https://picsum.photos/id/1027/200/300' />
@@ -45,6 +30,6 @@ export const AvatarsGroup = () => {
         <Avatar alt='User 4'>D</Avatar>
         <Avatar alt='User 5'>E</Avatar>
       </AvatarGroup>
-    </MuiProvider>
+    </>
   );
 };
