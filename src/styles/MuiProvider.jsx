@@ -1,4 +1,5 @@
 import Proptypes from 'prop-types';
+import moment from 'moment';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -309,6 +310,57 @@ const theme = createTheme({
         notchedOutline: ({ _, theme }) => ({
           border: `1px solid ${theme.palette.divider}`,
         }),
+      },
+    },
+    MuiDatePicker: {
+      defaultProps: {
+        disablePast: true,
+        inputFormat: 'YYYY-MM-DD',
+        minDate: moment(),
+        closeOnSelect: true,
+      },
+    },
+    MuiAvatar: {
+      styleOverrides: {
+        root: {
+          fontSize: '16px',
+          backgroundColor: '#007FFF',
+        },
+        rounded: {
+          fontSize: '16px',
+          backgroundColor: '#007FFF',
+        },
+        square: {
+          fontSize: '16px',
+          backgroundColor: '#007FFF',
+        },
+        string: {
+          fontSize: '16px',
+          backgroundColor: '#007FFF',
+        },
+      },
+    },
+    MuiAvatarGroup: {
+      defaultProps: {
+        max: 4,
+      },
+      styleOverrides: {
+        root: {
+          padding: '0 8px',
+          alignItems: 'center',
+        },
+        rounded: {
+          padding: '0 8px',
+          alignItems: 'center',
+        },
+        square: {
+          padding: '0 8px',
+          alignItems: 'center',
+        },
+        string: {
+          padding: '0 8px',
+          alignItems: 'center',
+        },
       },
     },
   },
