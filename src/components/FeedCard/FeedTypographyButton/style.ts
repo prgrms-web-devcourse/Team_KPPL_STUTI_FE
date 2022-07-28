@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
 import styled from '@emotion/styled';
 
-import { Props } from './TypographyButton';
+import { Props } from './FeedTypographyButton';
 
 export const CustomTypography = styled(Typography)<Props>`
   display: inline-block;

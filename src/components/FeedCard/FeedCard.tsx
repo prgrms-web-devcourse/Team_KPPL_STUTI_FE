@@ -15,7 +15,7 @@ import {
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
-import TypographyButton from './TypographyButton/TypographyButton';
+import FeedTypographyButton from './FeedTypographyButton/FeedTypographyButton';
 
 export interface BoxProps {
   margin?: string;
@@ -60,7 +60,7 @@ function FeedCard() {
             (Discard any mussels that don&apos;t open.)
           </Typography>
         </ContentsWrapper>
-        <TypographyButton>더보기</TypographyButton>
+        <FeedTypographyButton>더보기</FeedTypographyButton>
       </CardContent>
       <FeedBoxWrapper margin='1rem 1rem'>
         <CardMedia
@@ -76,8 +76,10 @@ function FeedCard() {
         <IconButton aria-label='settings'>
           <FavoriteBorderIcon />
         </IconButton>
-        <TypographyButton>99(좋아요수)</TypographyButton>
-        <TypographyButton margin='0 1rem 0 auto'>댓글 199개</TypographyButton>
+        <FeedTypographyButton>99(좋아요수)</FeedTypographyButton>
+        <FeedTypographyButton margin='0 1rem 0 auto'>
+          댓글 199개
+        </FeedTypographyButton>
       </CardActions>
     </Card>
   );

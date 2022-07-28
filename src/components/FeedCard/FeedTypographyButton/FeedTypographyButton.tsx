@@ -1,12 +1,12 @@
 import React from 'react';
-import { CustomTypography } from '@src/components/FeedCard/TypographyButton/style';
+import { CustomTypography } from '@src/components/FeedCard/FeedTypographyButton/style';
 
 export interface Props {
   children?: string;
   margin?: string;
 }
 
-function TypographyButton(props: Props) {
+function FeedTypographyButton(props: Props) {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     console.log(event);
@@ -19,4 +19,4 @@ function TypographyButton(props: Props) {
   );
 }
 
-export default TypographyButton;
+export default FeedTypographyButton;
