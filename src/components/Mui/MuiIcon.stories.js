@@ -1,7 +1,5 @@
 import SettingsIcon from '@mui/icons-material/Settings';
 
-import { MuiProvider } from '../../styles';
-
 export default {
   title: 'Mui/Icon',
   component: SettingsIcon,
@@ -13,8 +11,4 @@ export default {
   },
 };
 
-export const Default = (args) => (
-  <MuiProvider>
-    <SettingsIcon {...args} />
-  </MuiProvider>
-);
+export const Default = (args) => <SettingsIcon {...args} />;

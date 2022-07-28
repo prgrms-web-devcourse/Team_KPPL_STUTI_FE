@@ -1,14 +1,12 @@
 import Typography from '@mui/material/Typography';
 
-import { MuiProvider } from '../../styles';
-
 export default {
   title: 'Mui/Typography',
   component: Typography,
 };
 
 export const Default = () => (
-  <MuiProvider>
+  <>
     <Typography variant='h1'>h1</Typography>
     <Typography variant='h2'>h2</Typography>
     <Typography variant='h3'>h3</Typography>
@@ -24,5 +22,5 @@ export const Default = () => (
     <Typography variant='caption'>caption</Typography>
     <br />
     <Typography variant='overline'>overline</Typography>
-  </MuiProvider>
+  </>
 );

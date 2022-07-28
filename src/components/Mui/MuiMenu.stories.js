@@ -3,8 +3,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button';
 
-import { MuiProvider } from '../../styles';
-
 export default {
   title: 'Mui/Menu',
 };
@@ -20,7 +18,7 @@ export const Default = () => {
   };
 
   return (
-    <MuiProvider>
+    <>
       <Button
         id='basic-button'
         aria-controls={open ? 'basic-menu' : undefined}
@@ -43,6 +41,6 @@ export const Default = () => {
         <MenuItem onClick={handleClose}>프로필 수정</MenuItem>
         <MenuItem onClick={handleClose}>로그아웃</MenuItem>
       </Menu>
-    </MuiProvider>
+    </>
   );
 };
