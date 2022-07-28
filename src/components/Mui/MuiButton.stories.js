@@ -1,7 +1,5 @@
 import Button from '@mui/material/Button';
 
-import { MuiProvider } from '../../styles';
-
 export default {
   title: 'Mui/Button',
   component: Button,
@@ -28,11 +26,7 @@ export default {
   },
 };
 
-const Template = (args) => (
-  <MuiProvider>
-    <Button {...args}>{args.label || '버튼'}</Button>
-  </MuiProvider>
-);
+const Template = (args) => <Button {...args}>{args.label || '버튼'}</Button>;
 
 export const Contained = Template.bind({});
 Contained.args = {
