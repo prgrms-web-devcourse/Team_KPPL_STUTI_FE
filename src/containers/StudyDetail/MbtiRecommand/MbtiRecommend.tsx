@@ -1,3 +1,7 @@
+import {
+  MbtiRecommandContainer,
+  MbtiTagWrapper,
+} from '@src/containers/StudyDetail/MbtiRecommand/style';
 import { Typography } from '@mui/material';
 import { MbtiTag } from '@components';
 
@@ -7,12 +11,14 @@ interface Props {
 
 function MbtiRecommend({ preferredMbtis }: Props) {
   return (
-    <div>
+    <MbtiRecommandContainer>
       <Typography variant='h5'>추천 MBTI</Typography>
-      {preferredMbtis.map((mbti, index) => (
-        <MbtiTag key={`${mbti}-${index}`} mbti={mbti} />
-      ))}
-    </div>
+      <MbtiTagWrapper>
+        {preferredMbtis.map((mbti, index) => (
+          <MbtiTag key={`${mbti}-${index}`} mbti={mbti} size='small' />
+        ))}
+      </MbtiTagWrapper>
+    </MbtiRecommandContainer>
   );
 }
 
