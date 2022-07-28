@@ -14,16 +14,19 @@ import {
 function NavigationHeader() {
   const user = { id: 1 };
   const [el, setEl] = useState<HTMLElement | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const isOpen = Boolean(el);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setEl(event.currentTarget);
-    setIsOpen(true);
   };
 
   const handleClose = () => {
     setEl(null);
-    setIsOpen(false);
+  };
+
+  const popupModal = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    console.log('login modal');
   };
 
   return (
@@ -47,7 +50,19 @@ function NavigationHeader() {
                 <ClickAwayListener onClickAway={handleClose}>
                   <Avatar alt='User Profile' src='' onClick={handleClick} />
                 </ClickAwayListener>
-                <Menu open={isOpen} anchorEl={el}>
+                <Menu
+                  open={isOpen}
+                  anchorEl={el}
+                  autoFocus={false}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                >
                   <MenuItem>
                     <Link to={'#'}>마이페이지</Link>
                   </MenuItem>
@@ -61,13 +76,7 @@ function NavigationHeader() {
               </>
             ) : (
               <LoginButton>
-                <Link
-                  to='#'
-                  onClick={(e) => {
-                    e.preventDefault();
-                    console.log('login modal');
-                  }}
-                >
+                <Link to='#' onClick={popupModal}>
                   로그인/회원가입
                 </Link>
               </LoginButton>
