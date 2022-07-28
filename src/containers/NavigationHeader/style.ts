@@ -53,3 +53,28 @@ export const LoginButton = styled.div`
     color: #111827;
   }
 `;
+
+export const ModalContainer = styled.div`
+  position: absolute;
+  width: 360px;
+  height: 328px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 0px 3px 5px rgba(0, 0, 0, 0.1);
+  padding: 72px 24px;
+`;
+
+export const ModalWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const LoginButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  gap: 16px;
+`;
