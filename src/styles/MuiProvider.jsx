@@ -92,91 +92,91 @@ const theme = createTheme({
     fontFamily: ['"Spoqa Han Sans Neo"', 'sans-serif'].join(','),
     fontSize: 16,
     h1: {
-      fontWeight: 700,
-      fontSize: '48px',
-      lineHeight: '56px',
-      letterSpacing: 0,
+      fontWeight: '700',
+      fontSize: '3rem', // 48px
+      lineHeight: '3.5rem', // 56px
+      letterSpacing: '0',
     },
     h2: {
-      fontWeight: 700,
-      fontSize: '36px',
-      lineHeight: '44px',
-      letterSpacing: 0,
+      fontWeight: '700',
+      fontSize: '2.25rem', // 36px
+      lineHeight: '2.75rem', // 44px
+      letterSpacing: '0',
     },
     h3: {
-      fontWeight: 700,
-      fontSize: '28px',
-      lineHeight: '36px',
-      letterSpacing: 0,
+      fontWeight: '700',
+      fontSize: '1.75rem', // 28px
+      lineHeight: '2.25rem', // 36px
+      letterSpacing: '0',
     },
     h4: {
-      fontWeight: 700,
-      fontSize: '24px',
-      lineHeight: '32px',
-      letterSpacing: 0,
+      fontWeight: '700',
+      fontSize: '1.25rem', // 20px
+      lineHeight: '1.75rem', // 28px
+      letterSpacing: '0',
     },
     h5: {
-      fontWeight: 700,
-      fontSize: '16px',
-      lineHeight: '24px',
-      letterSpacing: 0,
+      fontWeight: '700',
+      fontSize: '1rem', // 16px
+      lineHeight: '1.5rem', // 24px
+      letterSpacing: '0',
     },
     h6: {
-      fontWeight: 700,
-      fontSize: '14px',
-      lineHeight: '20px',
-      letterSpacing: 0,
+      fontWeight: '700',
+      fontSize: '0.875rem', // 14px
+      lineHeight: '1.5rem', // 20px
+      letterSpacing: '0',
     },
     subtitle1: {
-      fontWeight: 500,
-      fontSize: '16px',
-      lineHeight: '28px',
-      letterSpacing: 0,
+      fontWeight: '500',
+      fontSize: '1rem', // 16px
+      lineHeight: '1.75rem', // 28px
+      letterSpacing: '0',
     },
     subtitle2: {
-      fontWeight: 500,
-      fontSize: '14px',
-      lineHeight: '24px',
-      letterSpacing: 0,
+      fontWeight: '500',
+      fontSize: '0.875rem', // 14px
+      lineHeight: '1.5rem', // 24px
+      letterSpacing: '0',
     },
     body1: {
-      fontWeight: 400,
-      fontSize: '16px',
-      lineHeight: '24px',
-      letterSpacing: 0,
+      fontWeight: '400',
+      fontSize: '1rem', // 16px
+      lineHeight: '1.5rem', // 24px
+      letterSpacing: '0',
     },
     body2: {
-      fontWeight: 400,
-      fontSize: '14px',
-      lineHeight: '20px',
-      letterSpacing: 0,
+      fontWeight: '400',
+      fontSize: '0.875rem', // 14px
+      lineHeight: '1.25rem', // 20px
+      letterSpacing: '0',
     },
     button: {
-      fontWeight: 500,
-      fontSize: '14px',
-      lineHeight: '14px',
-      letterSpacing: 0,
+      fontWeight: '500',
+      fontSize: '0.875rem', // 14px
+      lineHeight: '0.875rem', // 14px
+      letterSpacing: '0',
     },
     caption: {
-      fontWeight: 400,
-      fontSize: '12px',
-      lineHeight: '16px',
-      letterSpacing: 0,
+      fontWeight: '400',
+      fontSize: '0.75rem', // 12px
+      lineHeight: '1rem', // 16px
+      letterSpacing: '0',
     },
     overline: {
-      fontWeight: 400,
-      fontSize: '12px',
-      lineHeight: '16px',
-      letterSpacing: 0,
+      fontWeight: '400',
+      fontSize: '0.75rem', // 12px
+      lineHeight: '1rem', // 16px
+      letterSpacing: '0',
     },
   },
   shape: {
-    borderRadius: 8,
+    borderRadius: '0.5rem',
   },
   components: {
     MuiTypography: {
       styleOverrides: {
-        root: ({ _, theme }) => ({
+        root: ({ theme }) => ({
           color: theme.palette.text.primary,
         }),
       },
@@ -234,7 +234,7 @@ const theme = createTheme({
     },
     MuiPaper: {
       styleOverrides: {
-        elevation: ({ _, theme }) => ({
+        elevation: ({ theme }) => ({
           boxShadow: theme.shadows[2],
         }),
       },
@@ -307,7 +307,7 @@ const theme = createTheme({
         multiline: {
           lineHeight: '24px',
         },
-        notchedOutline: ({ _, theme }) => ({
+        notchedOutline: ({ theme }) => ({
           border: `1px solid ${theme.palette.divider}`,
         }),
       },
@@ -322,22 +322,22 @@ const theme = createTheme({
     },
     MuiAvatar: {
       styleOverrides: {
-        root: {
+        root: ({ theme }) => ({
           fontSize: '16px',
-          backgroundColor: '#007FFF',
-        },
-        rounded: {
+          backgroundColor: theme.palette.primary,
+        }),
+        rounded: ({ theme }) => ({
           fontSize: '16px',
-          backgroundColor: '#007FFF',
-        },
-        square: {
+          backgroundColor: theme.palette.primary,
+        }),
+        square: ({ theme }) => ({
           fontSize: '16px',
-          backgroundColor: '#007FFF',
-        },
-        string: {
+          backgroundColor: theme.palette.primary,
+        }),
+        string: ({ theme }) => ({
           fontSize: '16px',
-          backgroundColor: '#007FFF',
-        },
+          backgroundColor: theme.palette.primary,
+        }),
       },
     },
     MuiAvatarGroup: {
