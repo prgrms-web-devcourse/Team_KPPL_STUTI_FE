@@ -33,7 +33,6 @@ const theme = createTheme({
     },
     background: {
       default: '#FFFFFF',
-      offwhite: '#F9FAFB',
     },
     action: {
       active: '#6B7280',
@@ -324,7 +323,7 @@ const theme = createTheme({
       styleOverrides: {
         root: ({ theme }) => ({
           fontSize: '16px',
-          backgroundColor: theme.palette.primary,
+          color: theme.palette.text.primary,
         }),
         rounded: ({ theme }) => ({
           fontSize: '16px',
