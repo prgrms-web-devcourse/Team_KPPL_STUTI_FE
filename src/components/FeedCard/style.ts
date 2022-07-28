@@ -1,6 +1,8 @@
 import Box from '@mui/material/Box';
 import styled from '@emotion/styled';
 
+import { BoxProps } from './FeedCard';
+
 export const ContentsWrapper = styled.div`               
   overflow: 'hidden',
   textOverflow: 'ellipsis';
@@ -10,7 +12,6 @@ export const ContentsWrapper = styled.div`
   -webkit-box-orient: vertical;
   `;
 
-export const FeedContent = styled(Box)`
-  margin: 20px 0 0 16.5;
-  display: flex;
+export const FeedBoxWrapper = styled(Box)<BoxProps>`
+  margin: ${({ margin }) => margin};
 `;
