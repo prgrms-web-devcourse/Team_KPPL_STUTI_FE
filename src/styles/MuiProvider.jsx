@@ -323,7 +323,7 @@ const theme = createTheme({
       styleOverrides: {
         root: ({ theme }) => ({
           fontSize: '16px',
-          backgroundColor: theme.palette.primary,
+          color: theme.palette.text.primary,
         }),
         rounded: ({ theme }) => ({
           fontSize: '16px',
