@@ -276,57 +276,8 @@ export const BasicDatePicker = () => {
       selected={date}
       onChange={(newValue) => {
         setDate(newValue);
-        console.log(newValue.format('YYYY-MM-DD hh:mm:ss'));
       }}
       renderInput={(params) => <TextField {...params} />}
     />
-  );
-};
-
-export const StartAndEndDatePicker = () => {
-  const [startDate, setStartDate] = useState(moment());
-  const [endDate, setEndDate] = useState(moment().add(7, 'days'));
-  let diffDays = moment.duration(startDate.diff(moment())).asDays() + 1;
-
-  return (
-    <>
-      <div
-        style={{
-          display: 'flex',
-          gap: 16,
-        }}
-      >
-        <DatePicker
-          label='start date picker label name'
-          value={startDate}
-          selected={startDate}
-          onChange={(newValue) => {
-            setStartDate(newValue);
-            console.log(newValue.format('YYYY-MM-DD hh:mm:ss'));
-          }}
-          renderInput={(params) => <TextField {...params} />}
-        />
-        <DatePicker
-          minDate={moment().add(diffDays, 'days')}
-          label='end date picker label name'
-          value={endDate}
-          onChange={(newValue) => {
-            setEndDate(newValue);
-          }}
-          renderInput={(params) => <TextField {...params} />}
-        />
-      </div>
-
-      {startDate && (
-        <Example title='시작일'>
-          <div>{startDate.format('YYYY-MM-DD')}</div>
-        </Example>
-      )}
-      {endDate && (
-        <Example title='종료일'>
-          <div>{endDate.format('YYYY-MM-DD')}</div>
-        </Example>
-      )}
-    </>
   );
 };
