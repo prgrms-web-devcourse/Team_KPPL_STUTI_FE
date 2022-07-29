@@ -40,12 +40,13 @@ export const LoginWrapper = styled.div`
   color: #6b7280;
 `;
 
-export const LoginButton = styled.div`
+export const LoginBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100px;
   height: 32px;
+  cursor: pointer;
 
   &:hover {
     color: #111827;
@@ -77,7 +78,7 @@ export const LoginButtonContainer = styled.div`
   gap: 1rem;
 `;
 
-export const CustomButton = styled(Button)`
+export const LoginButton = styled(Button)`
   justify-content: start;
   padding: 0.75rem 1.25rem;
 `;
