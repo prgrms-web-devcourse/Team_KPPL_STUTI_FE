@@ -81,7 +81,8 @@ const setMbtiBorderColor = (props: Props) => {
 export const CustomChip = styled(Chip, {
   shouldForwardProp: (prop) => prop !== 'cursor',
 })<Props>`
-  color: ${setMbtiColor};
+  color: ${({ variant }) => (variant === 'filled' ? '#fff' : setMbtiColor)};
   border-color: ${setMbtiBorderColor};
+  background: ${({ variant }) => (variant === 'filled' ? setMbtiColor : '')};
   cursor: ${({ cursor = false }) => (cursor ? 'pointer' : 'default')};
 `;
