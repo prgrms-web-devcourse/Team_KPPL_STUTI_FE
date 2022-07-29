@@ -49,6 +49,7 @@ function NavigationHeader() {
   };
 
   const handleLogin = () => {
+    setMenuEl(null);
     setIsModal(false);
     setIsLogin(true);
   };
