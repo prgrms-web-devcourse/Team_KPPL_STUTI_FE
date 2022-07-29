@@ -1,9 +1,9 @@
 export const HOME = '/';
 export const COMMUNITY = '/community';
-export const STUDY_DETAIL = '/study/:study-id';
-export const STUDY_MANAGE = '/study/:study-id/manage';
+export const STUDY_DETAIL = '/study/:study_id';
+export const STUDY_MANAGE = '/study/:study_id/manage';
 export const STUDY_CREATE = '/study/create';
-export const STUDY_EDIT = '/study/:study-id/edit';
-export const PROFILE = '/user/:user-id';
-export const PROFILE_EDIT = '/user/:user-id/edit';
+export const STUDY_EDIT = '/study/:study_id/edit';
+export const PROFILE = '/user/:user_id';
+export const PROFILE_EDIT = '/user/:user_id/edit';
 export const SIGN_UP = '/sign-up';
