@@ -1,5 +1,3 @@
-import { MuiProvider } from '../../styles';
-
 import MbtiTag from './MbtiTag';
 
 export default {
@@ -30,11 +28,7 @@ export default {
   },
 };
 
-const Template = (args) => (
-  <MuiProvider>
-    <MbtiTag {...args} />
-  </MuiProvider>
-);
+const Template = (args) => <MbtiTag {...args} />;
 
 export const MBTI = Template.bind({});
 MBTI.args = {
