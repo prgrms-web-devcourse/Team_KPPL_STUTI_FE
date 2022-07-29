@@ -29,7 +29,7 @@ import {
 } from './style';
 
 function NavigationHeader() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const [isModal, setIsModal] = useState(false);
   const isMenuOpen = Boolean(menuEl);
