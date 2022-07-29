@@ -284,7 +284,7 @@ function StudyCreateFormContainer() {
         />
         <MbtiWrapper>
           <MbtiHeadingWrapper>
-            <Heading title='선호 MBTI' variant='h4' />
+            <Heading title='선호 MBTI' variant='h5' />
             <FormControlLabel
               control={
                 <Checkbox
@@ -306,7 +306,7 @@ function StudyCreateFormContainer() {
             checkedList={mbtiCheckedList}
           />
         </MbtiWrapper>
-        <Heading title='대표 이미지' variant='h4' />
+        <Heading title='대표 이미지' variant='h5' />
         <FileUploadWrapper>
           <ImageWrapper>
             {imageSrc && (
@@ -315,7 +315,7 @@ function StudyCreateFormContainer() {
           </ImageWrapper>
           <FileInput message='이미지 업로드' onChange={onImageChange} />
         </FileUploadWrapper>
-        <Heading title='상세 설명' variant='h4' />
+        <Heading title='상세 설명' variant='h5' />
         <MultiLineInput
           id='study-body'
           placeholder='스터디 내용을 기재해주세요.'
