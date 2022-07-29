@@ -12,7 +12,7 @@ interface Props {
   labels: labelsType[];
   name: string;
   row?: boolean;
-  onChange?: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function StudyCreateRadioGroup({
