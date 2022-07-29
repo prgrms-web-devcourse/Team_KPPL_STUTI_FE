@@ -31,7 +31,7 @@ import {
 function NavigationHeader() {
   const [isLogin, setIsLogin] = useState(false);
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
-  const [isModal, setIsModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const isMenuOpen = Boolean(menuEl);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -43,11 +43,11 @@ function NavigationHeader() {
   };
 
   const handleModalOpen = () => {
-    setIsModal(true);
+    setIsModalOpen(true);
   };
 
   const handleModalClose = () => {
-    setIsModal(false);
+    setIsModalOpen(false);
   };
 
   const handleLogin = () => {
@@ -122,7 +122,7 @@ function NavigationHeader() {
               <>
                 <LoginBox onClick={handleModalOpen}>로그인/회원가입</LoginBox>
                 <Modal
-                  open={isModal}
+                  open={isModalOpen}
                   onClose={handleModalClose}
                   BackdropProps={{
                     sx: {
