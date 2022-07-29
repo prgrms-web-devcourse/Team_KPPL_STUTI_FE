@@ -3,7 +3,7 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 
 interface optionsType {
-  value: string;
+  value: string | number;
   label: string;
 }
 
@@ -12,7 +12,7 @@ interface Props {
   label: string;
   fullWidth?: boolean;
   options: optionsType[];
-  getValue: (value: string) => void;
+  getValue: (value: string | number) => void;
   disabled?: boolean;
 }
 
