@@ -15,6 +15,8 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
+import FeedModalImageUpload from './FeedModalImageUpload/FeedModalImageUpload';
+
 function FeedModal() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
@@ -74,7 +76,7 @@ function FeedModal() {
                 onChange={formik.handleChange}
                 value={formik.values.contents}
               />
-              <input accept='image/*' type='file' />
+              <FeedModalImageUpload onChange={formik.handleChange} />
               <Button
                 type='submit'
                 sx={{ display: 'block' }}
