@@ -4,9 +4,10 @@ export interface Props {
   size?: 'small' | 'medium';
   cursor?: boolean;
   variant?: 'outlined' | 'filled';
+  disabled?: boolean;
 }
 
-function MbtiTag({ mbti, size, cursor, variant }: Props) {
+function MbtiTag({ mbti, size, cursor, variant, disabled }: Props) {
   return (
     <CustomChip
       label={mbti}
@@ -14,6 +15,7 @@ function MbtiTag({ mbti, size, cursor, variant }: Props) {
       mbti={mbti}
       cursor={cursor}
       variant={variant}
+      disabled={disabled}
     />
   );
 }
