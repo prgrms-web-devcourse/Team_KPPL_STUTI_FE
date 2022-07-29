@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import styled from '@emotion/styled';
 
 export const HeaderContainer = styled.div`
@@ -77,4 +78,14 @@ export const LoginButtonContainer = styled.div`
   flex-direction: column;
   margin-top: 40px;
   gap: 16px;
+`;
+
+export const CustomButton = styled(Button)`
+  justify-content: start;
+  padding: 12px 20px;
+`;
+
+export const ButtonTextWrapper = styled.div`
+  flex: 1;
+  justify-content: center;
 `;

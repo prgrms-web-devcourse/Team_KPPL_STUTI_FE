@@ -25,6 +25,8 @@ import {
   ModalContainer,
   ModalWrapper,
   LoginButtonContainer,
+  CustomButton,
+  ButtonTextWrapper,
 } from './style';
 
 function NavigationHeader() {
@@ -48,7 +50,7 @@ function NavigationHeader() {
   };
 
   const handleLogin = () => {
-    handleCloseModal();
+    setIsModal(false);
     setIsLogin(true);
   };
 
@@ -148,22 +150,26 @@ function NavigationHeader() {
                         로그인/회원가입
                       </Typography>
                       <LoginButtonContainer>
-                        <Button
+                        <CustomButton
                           variant='outlined'
                           color='secondary'
                           onClick={handleLogin}
                         >
                           <img src={GoogleIcon} />
-                          구글 계정으로 계속하기
-                        </Button>
-                        <Button
+                          <ButtonTextWrapper>
+                            구글 계정으로 계속하기
+                          </ButtonTextWrapper>
+                        </CustomButton>
+                        <CustomButton
                           variant='outlined'
                           color='secondary'
                           onClick={handleLogin}
                         >
                           <img src={GitHubIcon} />
-                          깃허브 계정으로 계속하기
-                        </Button>
+                          <ButtonTextWrapper>
+                            깃허브 계정으로 계속하기
+                          </ButtonTextWrapper>
+                        </CustomButton>
                       </LoginButtonContainer>
                     </ModalWrapper>
                   </ModalContainer>
