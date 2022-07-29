@@ -64,6 +64,7 @@ export const ModalContainer = styled.div`
   border-radius: 8px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 0px 3px 5px rgba(0, 0, 0, 0.1);
   padding: 4.5rem 1.5rem;
+  outline: none;
 `;
 
 export const ModalWrapper = styled.div`
