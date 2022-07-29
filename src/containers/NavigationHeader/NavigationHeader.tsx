@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import LogoIcon from '@src/components/LogoIcon/LogoIcon';
+import GoogleIcon from '@src/components/GoogleIcon/GoogleIcon';
+import GitHubIcon from '@src/components/GitHubIcon/GitHubIcon';
 import {
   Avatar,
   ClickAwayListener,
@@ -10,9 +13,6 @@ import {
   Typography,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import Logo from '@assets/logo.svg';
-import GoogleIcon from '@assets/icons/google-icon.svg';
-import GitHubIcon from '@assets/icons/github-icon.svg';
 
 import {
   HeaderContainer,
@@ -68,7 +68,7 @@ function NavigationHeader() {
         <HeaderContainer>
           <LogoWrapper>
             <Link to='/' style={{ display: 'flex' }}>
-              <img src={Logo} />
+              <LogoIcon />
             </Link>
           </LogoWrapper>
           <NavContainer>
@@ -163,7 +163,7 @@ function NavigationHeader() {
                           color='secondary'
                           onClick={handleLogin}
                         >
-                          <img src={GoogleIcon} />
+                          <GoogleIcon />
                           <ButtonTextWrapper>
                             구글 계정으로 계속하기
                           </ButtonTextWrapper>
@@ -173,7 +173,7 @@ function NavigationHeader() {
                           color='secondary'
                           onClick={handleLogin}
                         >
-                          <img src={GitHubIcon} />
+                          <GitHubIcon />
                           <ButtonTextWrapper>
                             깃허브 계정으로 계속하기
                           </ButtonTextWrapper>
