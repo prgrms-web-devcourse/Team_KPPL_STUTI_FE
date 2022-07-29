@@ -185,11 +185,11 @@ function StudyCreateFormContainer() {
 
   const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      const maxSize = 5 * 1024 * 1024;
+      const maxSize = 1 * 1024 * 1024;
       const fileSize = e.target.files[0].size;
 
       if (fileSize > maxSize) {
-        alert('첨부 파일은 최대 5MB 입니다.');
+        alert('첨부 파일은 최대 1MB 입니다.');
         return;
       }
       setImageSrc(e.target.files[0]);
