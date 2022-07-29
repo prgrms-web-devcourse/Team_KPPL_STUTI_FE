@@ -46,7 +46,7 @@ function StudyCreateMbtiSelect({
             <MbtiTag
               key={mbti}
               mbti={mbti}
-              disabled={limit > 2 ? true : false}
+              disabled={(limit > 2 ? true : false) || disabled}
             />
           }
           checkedIcon={<MbtiTag key={mbti} mbti={mbti} variant='filled' />}
