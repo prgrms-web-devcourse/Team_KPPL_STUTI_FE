@@ -20,12 +20,12 @@ import {
   NavWrapper,
   LogoWrapper,
   LoginWrapper,
-  LoginButton,
   ModalContainer,
   ModalWrapper,
   LoginButtonContainer,
-  CustomButton,
+  LoginButton,
   ButtonTextWrapper,
+  LoginBox,
 } from './style';
 
 function NavigationHeader() {
@@ -128,11 +128,7 @@ function NavigationHeader() {
               </>
             ) : (
               <>
-                <LoginButton>
-                  <Link to='#' onClick={popupModal}>
-                    로그인/회원가입
-                  </Link>
-                </LoginButton>
+                <LoginBox onClick={popupModal}>로그인/회원가입</LoginBox>
                 <Modal
                   open={isModal}
                   onClose={handleCloseModal}
@@ -158,7 +154,7 @@ function NavigationHeader() {
                         로그인/회원가입
                       </Typography>
                       <LoginButtonContainer>
-                        <CustomButton
+                        <LoginButton
                           variant='outlined'
                           color='secondary'
                           onClick={handleLogin}
@@ -167,8 +163,8 @@ function NavigationHeader() {
                           <ButtonTextWrapper>
                             구글 계정으로 계속하기
                           </ButtonTextWrapper>
-                        </CustomButton>
-                        <CustomButton
+                        </LoginButton>
+                        <LoginButton
                           variant='outlined'
                           color='secondary'
                           onClick={handleLogin}
@@ -177,7 +173,7 @@ function NavigationHeader() {
                           <ButtonTextWrapper>
                             깃허브 계정으로 계속하기
                           </ButtonTextWrapper>
-                        </CustomButton>
+                        </LoginButton>
                       </LoginButtonContainer>
                     </ModalWrapper>
                   </ModalContainer>
