@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import {
   Avatar,
-  Button,
   ClickAwayListener,
   IconButton,
   Menu,
@@ -73,10 +72,14 @@ function NavigationHeader() {
           </LogoWrapper>
           <NavContainer>
             <NavWrapper>
-              <Link to='/'>스터디</Link>
+              <Link to='/'>
+                <Typography variant='h6'>스터디</Typography>
+              </Link>
             </NavWrapper>
             <NavWrapper>
-              <Link to='/community'>커뮤니티</Link>
+              <Link to='/community'>
+                <Typography variant='h6'>커뮤니티</Typography>
+              </Link>
             </NavWrapper>
           </NavContainer>
           <LoginWrapper>
@@ -106,14 +109,18 @@ function NavigationHeader() {
                   }}
                 >
                   <MenuItem>
-                    <Link to={'#'}>마이페이지</Link>
+                    <Link to={'#'}>
+                      <Typography variant='button'>마이페이지</Typography>
+                    </Link>
                   </MenuItem>
                   <MenuItem>
-                    <Link to={'#'}>프로필 수정</Link>
+                    <Link to={'#'}>
+                      <Typography variant='button'>프로필 수정</Typography>
+                    </Link>
                   </MenuItem>
                   <MenuItem>
                     <Link to={'#'} onClick={handleLogout}>
-                      로그아웃
+                      <Typography variant='button'>로그아웃</Typography>
                     </Link>
                   </MenuItem>
                 </Menu>
