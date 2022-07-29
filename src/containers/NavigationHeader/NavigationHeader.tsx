@@ -117,8 +117,8 @@ function NavigationHeader() {
                       <Typography variant='button'>프로필 수정</Typography>
                     </Link>
                   </MenuItem>
-                  <MenuItem>
-                    <Link to={'#'} onClick={handleLogout}>
+                  <MenuItem onClick={handleLogout}>
+                    <Link to={'#'}>
                       <Typography variant='button'>로그아웃</Typography>
                     </Link>
                   </MenuItem>
