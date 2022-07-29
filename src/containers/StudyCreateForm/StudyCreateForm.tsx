@@ -21,6 +21,7 @@ import {
   MbtiHeadingWrapper,
   MbtiWrapper,
   StudyCreateWrapper,
+  StudyDescriptionWrapper,
 } from './styles';
 
 const options = [
@@ -315,15 +316,17 @@ function StudyCreateFormContainer() {
           </ImageWrapper>
           <FileInput message='이미지 업로드' onChange={onImageChange} />
         </FileUploadWrapper>
-        <Heading title='상세 설명' variant='h5' />
-        <MultiLineInput
-          id='study-body'
-          placeholder='스터디 내용을 기재해주세요.'
-          height='600px'
-          onChange={(e) => {
-            setBody(e.target.value);
-          }}
-        />
+        <StudyDescriptionWrapper>
+          <Heading title='상세 설명' variant='h5' />
+          <MultiLineInput
+            id='study-body'
+            placeholder='스터디 내용을 기재해주세요.'
+            height='600px'
+            onChange={(e) => {
+              setBody(e.target.value);
+            }}
+          />
+        </StudyDescriptionWrapper>
         <Button type='submit'>제출</Button>
       </StudyCreateWrapper>
     </form>
