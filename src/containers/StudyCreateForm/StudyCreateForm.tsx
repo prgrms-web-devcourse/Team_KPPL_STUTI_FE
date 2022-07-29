@@ -168,7 +168,6 @@ function StudyCreateFormContainer() {
   };
 
   const encodeFile = (fileBlob: File) => {
-    console.log(typeof fileBlob, fileBlob);
     const reader = new FileReader();
     if (!fileBlob) return;
     reader.readAsDataURL(fileBlob);
