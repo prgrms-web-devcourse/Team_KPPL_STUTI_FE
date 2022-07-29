@@ -1,7 +1,5 @@
 import Button from '@mui/material/Button';
 
-import { MuiProvider } from '../../styles';
-
 export default {
   title: 'Mui/Button',
   component: Button,
