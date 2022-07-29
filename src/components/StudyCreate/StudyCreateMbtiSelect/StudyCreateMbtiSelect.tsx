@@ -102,16 +102,8 @@ function StudyCreateMbtiSelect({ onChange }: Props) {
           onChange={onChange}
           key={mbti}
           value={mbti}
-          // icon={<MbtiTag key={mbti} mbti={mbti} />}
           icon={<MbtiTag key={mbti} mbti={mbti} />}
-          checkedIcon={
-            <div
-              key={mbti}
-              style={{ color: setMbtiColor(mbti), margin: '0 2px' }}
-            >
-              {mbti}
-            </div>
-          }
+          checkedIcon={<MbtiTag key={mbti} mbti={mbti} variant='filled' />}
         />
       ))}
     </MbtisWrapper>
