@@ -1,3 +1,4 @@
+import { BrowserRouter } from 'react-router-dom';
 import { MuiProvider, GlobalStyle } from '@styles';
 
 export const parameters = {
@@ -15,7 +16,9 @@ export const decorators = [
     <>
       <GlobalStyle />
       <MuiProvider>
-        <Story />
+        <BrowserRouter>
+          <Story />
+        </BrowserRouter>
       </MuiProvider>
     </>
   ),
