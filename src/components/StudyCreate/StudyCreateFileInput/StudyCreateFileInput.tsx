@@ -2,7 +2,7 @@ import Button from '@mui/material/Button';
 
 interface Props {
   message: string;
-  onChange: () => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function StudyCreateFileInput({ message, onChange }: Props) {
