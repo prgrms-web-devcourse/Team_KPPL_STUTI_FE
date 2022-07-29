@@ -27,11 +27,10 @@ function FeedModal() {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 608,
     bgcolor: 'background.paper',
     borderRadius: '8px',
     boxShadow: 24,
-    p: 4,
   };
 
   //formik
@@ -65,25 +64,27 @@ function FeedModal() {
             }
             title='Paeng'
           />
-          <CardContent>
+          <CardContent sx={{ padding: '0 1rem 6rem 1rem' }}>
             <form onSubmit={formik.handleSubmit}>
               <TextField
                 multiline
                 rows={4}
                 defaultValue='스터디에 대한 생각을 자유롭게 이야기 해주세요!'
-                variant='filled'
                 id='contents'
                 onChange={formik.handleChange}
                 value={formik.values.contents}
+                sx={{ width: '100%' }}
               />
-              <FeedModalImageUpload onChange={formik.handleChange} />
-              <Button
-                type='submit'
-                sx={{ display: 'block' }}
-                disabled={formik.isSubmitting}
-              >
-                제출
-              </Button>
+              <Box sx={{ marginTop: '1rem' }}>
+                <FeedModalImageUpload onChange={formik.handleChange} />
+                <Button
+                  type='submit'
+                  disabled={formik.isSubmitting}
+                  sx={{ float: 'right' }}
+                >
+                  제출
+                </Button>
+              </Box>
             </form>
           </CardContent>
         </Card>
