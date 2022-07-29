@@ -36,26 +36,24 @@ function NavigationHeader() {
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMenuEl(event.currentTarget);
-    console.log('menu Opened!');
   };
 
   const handleMenuClose = () => {
     setMenuEl(null);
   };
 
-  const popupModal = (event: React.MouseEvent<HTMLElement>) => {
-    event.preventDefault();
+  const handleModalOpen = () => {
     setIsModal(true);
   };
 
-  const handleLogin = () => {
-    setMenuEl(null);
+  const handleModalClose = () => {
     setIsModal(false);
-    setIsLogin(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModal(false);
+  const handleLogin = () => {
+    handleMenuClose();
+    handleModalClose();
+    setIsLogin(true);
   };
 
   const handleLogout = () => {
@@ -128,10 +126,10 @@ function NavigationHeader() {
               </>
             ) : (
               <>
-                <LoginBox onClick={popupModal}>로그인/회원가입</LoginBox>
+                <LoginBox onClick={handleModalOpen}>로그인/회원가입</LoginBox>
                 <Modal
                   open={isModal}
-                  onClose={handleCloseModal}
+                  onClose={handleModalClose}
                   BackdropProps={{
                     sx: {
                       backgroundColor: '#1118271A',
@@ -140,7 +138,7 @@ function NavigationHeader() {
                 >
                   <ModalContainer>
                     <IconButton
-                      onClick={handleCloseModal}
+                      onClick={handleModalClose}
                       sx={{
                         position: 'absolute',
                         right: 8,
