@@ -34,6 +34,7 @@ function NavigationHeader() {
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMenuEl(event.currentTarget);
+    console.log('menu Opened!');
   };
 
   const handleMenuClose = () => {
@@ -43,6 +44,11 @@ function NavigationHeader() {
   const popupModal = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
     setIsModal(true);
+  };
+
+  const handleLogin = () => {
+    handleCloseModal();
+    setIsLogin(true);
   };
 
   const handleCloseModal = () => {
@@ -114,7 +120,15 @@ function NavigationHeader() {
                     로그인/회원가입
                   </Link>
                 </LoginButton>
-                <Modal open={isModal} onClose={handleCloseModal}>
+                <Modal
+                  open={isModal}
+                  onClose={handleCloseModal}
+                  BackdropProps={{
+                    sx: {
+                      backgroundColor: '#1118271A',
+                    },
+                  }}
+                >
                   <ModalContainer>
                     <IconButton
                       onClick={handleCloseModal}
@@ -131,11 +145,19 @@ function NavigationHeader() {
                         로그인/회원가입
                       </Typography>
                       <LoginButtonContainer>
-                        <Button variant='outlined' color='secondary'>
+                        <Button
+                          variant='outlined'
+                          color='secondary'
+                          onClick={handleLogin}
+                        >
                           <GoogleIcon sx={{ position: 'absolute', left: 20 }} />
                           구글 계정으로 계속하기
                         </Button>
-                        <Button variant='outlined' color='secondary'>
+                        <Button
+                          variant='outlined'
+                          color='secondary'
+                          onClick={handleLogin}
+                        >
                           <GitHubIcon
                             sx={{
                               position: 'absolute',
