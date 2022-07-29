@@ -10,9 +10,10 @@ import {
   Modal,
   Typography,
 } from '@mui/material';
-import GoogleIcon from '@mui/icons-material/Google';
-import GitHubIcon from '@mui/icons-material/GitHub';
 import CloseIcon from '@mui/icons-material/Close';
+import Logo from '@assets/logo.svg';
+import GoogleIcon from '@assets/icons/google-icon.svg';
+import GitHubIcon from '@assets/icons/github-icon.svg';
 
 import {
   HeaderContainer,
@@ -64,7 +65,9 @@ function NavigationHeader() {
       <nav>
         <HeaderContainer>
           <LogoWrapper>
-            <Link to='/'>STUTI</Link>
+            <Link to='/' style={{ display: 'flex' }}>
+              <img src={Logo} />
+            </Link>
           </LogoWrapper>
           <NavContainer>
             <NavWrapper>
@@ -150,7 +153,7 @@ function NavigationHeader() {
                           color='secondary'
                           onClick={handleLogin}
                         >
-                          <GoogleIcon sx={{ position: 'absolute', left: 20 }} />
+                          <img src={GoogleIcon} />
                           구글 계정으로 계속하기
                         </Button>
                         <Button
@@ -158,12 +161,7 @@ function NavigationHeader() {
                           color='secondary'
                           onClick={handleLogin}
                         >
-                          <GitHubIcon
-                            sx={{
-                              position: 'absolute',
-                              left: 20,
-                            }}
-                          />
+                          <img src={GitHubIcon} />
                           깃허브 계정으로 계속하기
                         </Button>
                       </LoginButtonContainer>
