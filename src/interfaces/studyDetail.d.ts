@@ -1,4 +1,5 @@
 export interface detailMemberType {
+  leaderId: number;
   profileImageUrl: string;
   nickName: string;
   field: string;
@@ -32,7 +33,7 @@ export interface studyDetailType {
   topic: string;
   title: string;
   imageUrl: string;
-  member: detailMemberType;
+  leader: detailMemberType;
   preferredMbtis: string[];
   isOnline: boolean;
   region: string;

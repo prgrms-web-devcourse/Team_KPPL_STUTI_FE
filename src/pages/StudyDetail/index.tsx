@@ -53,7 +53,7 @@ function StudyDetail() {
   };
 
   const getLeaderInfo = () => {
-    const { member = {} as detailMemberType } = data;
+    const { leader = {} as detailMemberType } = data;
 
     const {
       profileImageUrl = '',
@@ -61,7 +61,7 @@ function StudyDetail() {
       field = '',
       career = '',
       mbti = '',
-    } = member;
+    } = leader;
 
     return { profileImageUrl, nickName, field, career, mbti };
   };
