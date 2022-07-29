@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 
@@ -12,12 +12,22 @@ interface Props {
   label: string;
   fullWidth?: boolean;
   options: optionsType[];
+  getValue: (value: string) => void;
+  disabled?: boolean;
 }
 
-function StudyCreateSelect({ id, label, fullWidth = true, options }: Props) {
+function StudyCreateSelect({
+  id,
+  label,
+  fullWidth = true,
+  options,
+  getValue,
+  disabled,
+}: Props) {
   const [categoryValue, setCategoryValue] = useState(options[0].value);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setCategoryValue(e.target.value);
+    getValue(e.target.value);
   };
 
   return (
@@ -28,6 +38,7 @@ function StudyCreateSelect({ id, label, fullWidth = true, options }: Props) {
       value={categoryValue}
       fullWidth={fullWidth}
       onChange={handleChange}
+      disabled={disabled}
     >
       {options.map((option) => (
         <MenuItem key={option.value} value={option.value}>
