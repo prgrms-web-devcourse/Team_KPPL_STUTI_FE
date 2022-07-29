@@ -20,10 +20,7 @@ export const NavContainer = styled.div`
 export const NavWrapper = styled.div`
   display: flex;
   align-items: center;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
   padding: 0 0.75rem;
-  color: #111827;
 `;
 
 export const LogoWrapper = styled.div`
@@ -65,7 +62,7 @@ export const ModalContainer = styled.div`
   background-color: white;
   border-radius: 8px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1), 0px 3px 5px rgba(0, 0, 0, 0.1);
-  padding: 72px 24px;
+  padding: 4.5rem 1.5rem;
 `;
 
 export const ModalWrapper = styled.div`
@@ -76,13 +73,13 @@ export const ModalWrapper = styled.div`
 export const LoginButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 40px;
-  gap: 16px;
+  margin-top: 2.5rem;
+  gap: 1rem;
 `;
 
 export const CustomButton = styled(Button)`
   justify-content: start;
-  padding: 12px 20px;
+  padding: 0.75rem 1.25rem;
 `;
 
 export const ButtonTextWrapper = styled.div`
