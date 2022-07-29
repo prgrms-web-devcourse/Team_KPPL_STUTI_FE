@@ -5,7 +5,7 @@ interface Props {
   placeholder: string;
   fullWidth?: boolean;
   height: string;
-  onChange?: () => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function StudyCreateMultiLineInput({
@@ -24,6 +24,8 @@ function StudyCreateMultiLineInput({
         style: {
           height,
         },
+        maxLength: 1000,
+        minLength: 10,
       }}
       onChange={onChange}
       multiline
