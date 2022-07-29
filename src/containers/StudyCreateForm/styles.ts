@@ -35,3 +35,9 @@ export const ImageWrapper = styled.div`
   justify-content: center;
   margin: 1rem 0;
 `;
+
+export const StudyDescriptionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
