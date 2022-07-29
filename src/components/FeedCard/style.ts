@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 import { BoxProps } from './FeedCard';
 
-export const ContentsWrapper = styled.div`               
+export const ContentsWrapper = styled.div`
   overflow: 'hidden',
   textOverflow: 'ellipsis';
   overflow: hidden;

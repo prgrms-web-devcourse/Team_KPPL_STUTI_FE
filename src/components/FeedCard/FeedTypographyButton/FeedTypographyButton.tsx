@@ -4,16 +4,12 @@ import { CustomTypography } from '@src/components/FeedCard/FeedTypographyButton/
 export interface Props {
   children?: string;
   margin?: string;
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 function FeedTypographyButton(props: Props) {
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    console.log(event);
-  };
-
   return (
-    <CustomTypography margin={props.margin} onClick={handleClick}>
+    <CustomTypography margin={props.margin} onClick={props.onClick}>
       {props.children}
     </CustomTypography>
   );
