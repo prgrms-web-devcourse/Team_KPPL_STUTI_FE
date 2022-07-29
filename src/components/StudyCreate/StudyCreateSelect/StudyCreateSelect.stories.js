@@ -41,4 +41,7 @@ Select.args = {
       label: '개발자',
     },
   ],
+  getValue: (value) => {
+    console.log('선택한 옵션은 : ' + value);
+  },
 };
