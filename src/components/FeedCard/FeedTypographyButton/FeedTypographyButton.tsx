@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomTypography } from '@src/components/FeedCard/FeedTypographyButton/style';
+import { CustomTypography } from '@src/components/FeedCard/FeedTypographyButton/FeedTypographyButton.style';
 
 export interface Props {
   children?: string;
