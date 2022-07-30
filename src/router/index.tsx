@@ -11,10 +11,10 @@ import {
   STUDY_EDIT,
   STUDY_MANAGE,
 } from '@src/router/path';
+import StudyDetail from '@src/pages/StudyDetail';
 import Home from '@src/pages/Home';
 import NavigationHeader from '@src/containers/NavigationHeader/NavigationHeader';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import HandymanIcon from '@mui/icons-material/Handyman';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
@@ -31,7 +31,7 @@ function Routers() {
         <Route exact path={COMMUNITY} component={ForumIcon} />
         <Route exact path={PROFILE} component={PersonSearchIcon} />
         <Route exact path={PROFILE_EDIT} component={ManageAccountsIcon} />
-        <Route exact path={STUDY_DETAIL} component={MenuBookIcon} />
+        <Route exact path={STUDY_DETAIL} component={StudyDetail} />
         <Route exact path={STUDY_CREATE} component={BookmarkAddIcon} />
         <Route exact path={STUDY_MANAGE} component={HandymanIcon} />
         <Route exact path={STUDY_EDIT} component={BuildIcon} />
