@@ -1,18 +1,27 @@
 import { useEffect, useState } from 'react';
 import { StudyDetailContainer } from '@pages/StudyDetail/style';
 import { Button } from '@mui/material';
+import { studyDetailQusetionType } from '@interfaces/studyDetailQuestion';
 import { detailMemberType, studyDetailType } from '@interfaces/studyDetail';
-import { StudyDetailMbtiRecommand, StudyDetailStudyInfo } from '@containers';
+import {
+  StudyDetailMbtiRecommand,
+  StudyDetailStudyInfo,
+  StudyDetailStudyQuestion,
+} from '@containers';
 import {
   StudyDetailBody,
   StudyDetailHeader,
   StudyDetailLeaderInfo,
 } from '@components';
 import NoImage from '@assets/noImage.jpeg';
-import { getStudyDetailInfomation } from '@apis/studyDetail';
+import {
+  getStudyDetailInfomation,
+  getStudyQuestionInfomation,
+} from '@apis/studyDetail';
 
 function StudyDetail() {
   const [data, setData] = useState({} as studyDetailType);
+  const [questions, setQuestions] = useState({} as studyDetailQusetionType);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +29,13 @@ function StudyDetail() {
       setData(res);
     };
 
+    const fetchQuestions = async () => {
+      const res = await getStudyQuestionInfomation();
+      setQuestions(res);
+    };
+
     fetchData();
+    fetchQuestions();
   }, []);
 
   const getPreferredMbtis = () => {
@@ -131,6 +146,7 @@ function StudyDetail() {
       {isHaveDescription(getDescription()) && (
         <StudyDetailBody description={getDescription()} />
       )}
+      <StudyDetailStudyQuestion {...questions} />
       <Button>지원하기</Button>
     </StudyDetailContainer>
   );
