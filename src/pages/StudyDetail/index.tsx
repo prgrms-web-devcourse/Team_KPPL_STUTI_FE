@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { StudyDetailContainer } from '@pages/StudyDetail/style';
+import { Button } from '@mui/material';
 import { detailMemberType, studyDetailType } from '@interfaces/studyDetail';
-import { StudyDetailMbtiRecommand } from '@containers';
+import { StudyDetailMbtiRecommand, StudyDetailStudyInfo } from '@containers';
 import {
   StudyDetailBody,
   StudyDetailHeader,
@@ -66,6 +67,45 @@ function StudyDetail() {
     return { profileImageUrl, nickName, field, career, mbti };
   };
 
+  const getIsOnline = () => {
+    const { isOnline = true } = data;
+
+    return isOnline;
+  };
+
+  const getRegion = () => {
+    const { region = '' } = data;
+
+    return region;
+  };
+
+  const getStudyPeriod = () => {
+    const defaultStudyPeriod = {
+      startDate: '2022.00.00',
+      endDate: '2022.00.00',
+    };
+
+    const { studyPeriod = defaultStudyPeriod } = data;
+
+    return studyPeriod;
+  };
+
+  const getNumberOfMembers = () => {
+    const { numberOfMembers = 0 } = data;
+
+    return numberOfMembers;
+  };
+
+  const getNumberOfRecruits = () => {
+    const { numberOfRecruits = 0 } = data;
+
+    return numberOfRecruits;
+  };
+
+  const isHaveDescription = (description: string): boolean => {
+    return description.length > 0 ? true : false;
+  };
+
   return (
     <StudyDetailContainer>
       <StudyDetailHeader
@@ -81,7 +121,17 @@ function StudyDetail() {
         mbti={getLeaderInfo().mbti}
       />
       <StudyDetailMbtiRecommand preferredMbtis={getPreferredMbtis()} />
-      <StudyDetailBody description={getDescription()} />
+      <StudyDetailStudyInfo
+        isOnline={getIsOnline()}
+        region={getRegion()}
+        studyPeriod={getStudyPeriod()}
+        numberOfMembers={getNumberOfMembers()}
+        numberOfRecruits={getNumberOfRecruits()}
+      />
+      {isHaveDescription(getDescription()) && (
+        <StudyDetailBody description={getDescription()} />
+      )}
+      <Button>지원하기</Button>
     </StudyDetailContainer>
   );
 }
