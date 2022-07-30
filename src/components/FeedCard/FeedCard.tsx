@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import {
-  ContentsWrapper,
-  FeedBoxWrapper,
-} from '@src/components/FeedCard/FeedCard.style';
+import { ContentsWrapper } from '@src/components/FeedCard/FeedCard.style';
 import Avatar from '@mui/material/Avatar';
 import {
   Card,
@@ -18,10 +15,6 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FeedTypographyButton from '@components/FeedCard/FeedTypographyButton/FeedTypographyButton';
 import FeedMenuIconButton from '@components/FeedCard/FeedMenuIconButton/FeedMenuIconButton';
-
-export interface BoxProps {
-  margin?: string;
-}
 
 function FeedCard() {
   const [contentsOpen, setContentsOpen] = useState(false);
@@ -81,7 +74,7 @@ function FeedCard() {
           </>
         )}
       </CardContent>
-      <FeedBoxWrapper margin='0 1rem'>
+      <Box sx={{ margin: '0 1rem' }}>
         <CardMedia
           component='img'
           image='https://picsum.photos/id/1026/500' //post.image
@@ -90,7 +83,7 @@ function FeedCard() {
             borderRadius: '8px',
           }}
         />
-      </FeedBoxWrapper>
+      </Box>
       <CardActions disableSpacing>
         <Box onClick={handleLiked}>
           <IconButton aria-label='settings'>
