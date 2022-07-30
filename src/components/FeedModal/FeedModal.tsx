@@ -1,6 +1,5 @@
-import { isClassExpression } from 'typescript';
-import { useState } from 'react';
-import { useFormik, Field, Form, Formik } from 'formik';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useFormik } from 'formik';
 import IconButton from '@mui/material/IconButton';
 import {
   Button,
@@ -11,17 +10,16 @@ import {
   CardHeader,
   CardContent,
   TextField,
-  CardActions,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 
 import FeedModalImageUpload from './FeedModalImageUpload/FeedModalImageUpload';
-import FeedModalFormik from './FeedModalFormik/FeedModalFormik';
 
 function FeedModal() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [previewUrl, setPreviewUrl] = useState('');
 
   const style = {
     position: 'absolute' as const,
@@ -33,7 +31,6 @@ function FeedModal() {
     borderRadius: '8px',
     boxShadow: 24,
   };
-
   //formik
   const formik = useFormik({
     initialValues: {
@@ -45,6 +42,18 @@ function FeedModal() {
       setSubmitting(false);
     },
   });
+
+  const handleImageUpload = (e: React.ChangeEvent<any>) => {
+    if (!e.currentTarget.files[0]) return;
+
+    console.log(e.currentTarget.files[0]);
+    const objectUrl = URL.createObjectURL(e.currentTarget.files[0]);
+    previewUrl && URL.revokeObjectURL(previewUrl);
+    setPreviewUrl(objectUrl);
+
+    formik.setFieldValue('file', e.currentTarget.files[0]);
+  };
+
   return (
     <>
       <Button onClick={handleOpen}></Button>
@@ -66,27 +75,35 @@ function FeedModal() {
             title='Paeng'
           />
           <CardContent sx={{ padding: '0 1rem 6rem 1rem' }}>
-            {/* <FeedModalFormik formik={formik} /> */}
             <form onSubmit={formik.handleSubmit}>
               <TextField
                 multiline
                 rows={4}
-                defaultValue='스터디에 대한 생각을 자유롭게 이야기 해주세요!'
+                placeholder='스터디에 대한 생각을 자유롭게 이야기 해주세요!'
                 id='contents'
                 onChange={formik.handleChange}
                 value={formik.values.contents}
                 sx={{ width: '100%' }}
               />
-              <Box sx={{ marginTop: '1rem' }}>
-                <FeedModalImageUpload onChange={formik.handleChange} />
-                <Button
-                  type='submit'
-                  disabled={formik.isSubmitting}
-                  sx={{ float: 'right' }}
-                >
-                  제출
-                </Button>
-              </Box>
+              {previewUrl && (
+                <img
+                  src={previewUrl}
+                  style={{
+                    width: '100%',
+                    height: '342px',
+                    margin: '1rem 0 0.5rem 0',
+                    borderRadius: '8px',
+                  }}
+                />
+              )}
+              <FeedModalImageUpload onChange={handleImageUpload} />
+              <Button
+                type='submit'
+                disabled={formik.isSubmitting}
+                sx={{ float: 'right' }}
+              >
+                제출
+              </Button>
             </form>
           </CardContent>
         </Card>
