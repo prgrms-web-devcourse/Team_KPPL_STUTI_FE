@@ -33,7 +33,7 @@ function DetailLeaderInfo({
             <LeaderProfileImage src={profileImageUrl} alt='profile-image' />
           </LeaderProfileImageWrapper>
         ) : (
-          <AccountCircleIcon fontSize='large' />
+          <AccountCircleIcon fontSize='large' color='secondary' />
         )}
         <div>
           <Typography variant='h6'>{nickName}</Typography>
