@@ -2,7 +2,11 @@ import React from 'react';
 import { IconButton } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
-function FeedModalImageUpload({ onChange }: any) {
+export interface Props {
+  onChange?: (e: React.ChangeEvent<any>) => void;
+}
+
+function FeedModalImageUpload(props: Props) {
   return (
     <label htmlFor='feedImageFile'>
       <input
@@ -10,7 +14,7 @@ function FeedModalImageUpload({ onChange }: any) {
         id='feedImageFile'
         type='file'
         hidden
-        onChange={onChange}
+        onChange={props.onChange}
       />
       <IconButton component='span'>
         <AddPhotoAlternateIcon />

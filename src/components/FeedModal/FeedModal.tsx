@@ -16,6 +16,7 @@ import {
 import ClearIcon from '@mui/icons-material/Clear';
 
 import FeedModalImageUpload from './FeedModalImageUpload/FeedModalImageUpload';
+import FeedModalFormik from './FeedModalFormik/FeedModalFormik';
 
 function FeedModal() {
   const [open, setOpen] = useState(false);
@@ -65,6 +66,7 @@ function FeedModal() {
             title='Paeng'
           />
           <CardContent sx={{ padding: '0 1rem 6rem 1rem' }}>
+            {/* <FeedModalFormik formik={formik} /> */}
             <form onSubmit={formik.handleSubmit}>
               <TextField
                 multiline
