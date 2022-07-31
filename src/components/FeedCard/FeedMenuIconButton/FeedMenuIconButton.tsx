@@ -22,7 +22,7 @@ function FeedMenuIconButton() {
         aria-haspopup='true'
         onClick={handleClick}
       >
-        <MoreHorizIcon></MoreHorizIcon>
+        <MoreHorizIcon />
       </IconButton>
       <Menu
         id='feed-menu'
