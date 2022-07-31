@@ -7,9 +7,9 @@ import {
   MbtiSelect,
   MultiLineInput,
   LabelInput,
-  Heading,
   FileInput,
 } from '@src/components/StudyCreate';
+import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
@@ -236,7 +236,7 @@ function StudyCreateFormContainer() {
   return (
     <form onSubmit={onSubmit}>
       <StudyCreateWrapper>
-        <Heading title='스터디 생성' variant='h4' />
+        <Typography variant='h4'>스터디 생성</Typography>
         <LabelInput
           id='study-title'
           label='제목'
@@ -284,7 +284,7 @@ function StudyCreateFormContainer() {
         />
         <MbtiWrapper>
           <MbtiHeadingWrapper>
-            <Heading title='선호 MBTI' variant='h5' />
+            <Typography variant='h5'>선호 MBTI</Typography>
             <FormControlLabel
               control={
                 <Checkbox
@@ -306,7 +306,7 @@ function StudyCreateFormContainer() {
             checkedList={mbtiCheckedList}
           />
         </MbtiWrapper>
-        <Heading title='대표 이미지' variant='h5' />
+        <Typography variant='h5'>대표 이미지</Typography>
         <FileUploadWrapper>
           <ImageWrapper>
             {imageSrc && (
@@ -325,7 +325,7 @@ function StudyCreateFormContainer() {
           <FileInput message='이미지 업로드' onChange={onImageChange} />
         </FileUploadWrapper>
         <StudyDescriptionWrapper>
-          <Heading title='상세 설명' variant='h5' />
+          <Typography variant='h5'>상세 설명</Typography>
           <MultiLineInput
             id='study-body'
             placeholder='스터디 내용을 기재해주세요.'

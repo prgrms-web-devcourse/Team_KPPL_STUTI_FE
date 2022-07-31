@@ -5,5 +5,4 @@ export { default as RadioGroup } from './StudyCreateRadioGroup/StudyCreateRadioG
 export { default as MbtiSelect } from './StudyCreateMbtiSelect/StudyCreateMbtiSelect';
 export { default as MultiLineInput } from './StudyCreateInput/StudyCreateMultiLineInput';
 export { default as LabelInput } from './StudyCreateInput/StudyCreateLabelInput';
-export { default as Heading } from './StudyCreateHeading/StudyCreateHeading';
 export { default as FileInput } from './StudyCreateFileInput/StudyCreateFileInput';
