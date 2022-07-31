@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import {
-  QuestionContainer,
-  QuestionControlWrapper,
-  QuestionInfoWrapper,
-  QuestionProfileImage,
-  QuestionProfileImageWrapper,
-  QuestionProfileWrapper,
-} from '@src/containers/StudyDetail/StudyQuestion/style';
-import StudyQuestionInput from '@src/containers/StudyDetail/StudyQuestion/StudyQuestionInput';
+  ReplyContainer,
+  ReplyControlWrapper,
+  ReplyInfoWrapper,
+  ReplyProfileImage,
+  ReplyProfileImageWrapper,
+  ReplyProfileWrapper,
+} from '@src/containers/Reply/style';
+import ReplyInput from '@src/containers/Reply/ReplyInput';
 import { Typography } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { childrenQuestionType } from '@interfaces/studyDetailQuestion';
@@ -18,7 +18,7 @@ interface timeType {
 }
 interface Props {
   profileImageUrl: string;
-  nickName: string;
+  nickname: string;
   content: string;
   year: number;
   month: number;
@@ -28,9 +28,9 @@ interface Props {
   children?: JSX.Element | JSX.Element[];
 }
 
-function Question({
+function Reply({
   profileImageUrl,
-  nickName,
+  nickname,
   content,
   year,
   month,
@@ -75,20 +75,20 @@ function Question({
   };
 
   return (
-    <QuestionContainer>
-      <QuestionProfileWrapper>
+    <ReplyContainer>
+      <ReplyProfileWrapper>
         {typeof profileImageUrl === 'string' && profileImageUrl ? (
-          <QuestionProfileImageWrapper>
-            <QuestionProfileImage src={profileImageUrl} alt='profile-image' />
-          </QuestionProfileImageWrapper>
+          <ReplyProfileImageWrapper>
+            <ReplyProfileImage src={profileImageUrl} alt='profile-image' />
+          </ReplyProfileImageWrapper>
         ) : (
           <AccountCircleIcon fontSize='large' color='secondary' />
         )}
-      </QuestionProfileWrapper>
-      <QuestionInfoWrapper>
-        <Typography variant='h6'>{nickName}</Typography>
+      </ReplyProfileWrapper>
+      <ReplyInfoWrapper>
+        <Typography variant='h6'>{nickname}</Typography>
         <div>{content}</div>
-        <QuestionControlWrapper>
+        <ReplyControlWrapper>
           <Typography color='secondary'>
             {changeTime(year, month, day, time)}
           </Typography>
@@ -102,12 +102,12 @@ function Question({
               답글 달기
             </Typography>
           )}
-        </QuestionControlWrapper>
-        {commentFlag && <StudyQuestionInput />}
+        </ReplyControlWrapper>
+        {commentFlag && <ReplyInput />}
         {children}
-      </QuestionInfoWrapper>
-    </QuestionContainer>
+      </ReplyInfoWrapper>
+    </ReplyContainer>
   );
 }
 
-export default Question;
+export default Reply;

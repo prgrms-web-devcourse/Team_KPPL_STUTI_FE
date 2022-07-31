@@ -1,7 +1,8 @@
-import StudyQuestionInput from '@src/containers/StudyDetail/StudyQuestion/StudyQuestionInput';
+import { StudyDetailQuestionContainer } from '@src/containers/StudyDetail/StudyQuestion/style';
+import StudyQuestionInput from '@src/containers/Reply/ReplyInput';
+import Reply from '@src/containers/Reply/Reply';
 import { Typography } from '@mui/material';
 import { studyDetailQusetionType } from '@interfaces/studyDetailQuestion';
-import Question from '@containers/StudyDetail/StudyQuestion/Question';
 
 function StudyQuestion({
   contents = [],
@@ -40,7 +41,7 @@ function StudyQuestion({
   };
 
   return (
-    <div>
+    <StudyDetailQuestionContainer>
       <Typography variant='h5'>질문 & 답변</Typography>
       <StudyQuestionInput />
       {contents.map((content) => {
@@ -49,16 +50,16 @@ function StudyQuestion({
           parentId,
           profileImageUrl = '',
           memberId,
-          nickName = '프룽이',
+          nickname = '프룽이',
           content: text = '참여하고 싶어요!',
           createdAt = '2022.02.22 10:00',
           children = [],
         } = content;
         return (
-          <Question
+          <Reply
             key={content.questionId}
             profileImageUrl={profileImageUrl}
-            nickName={nickName}
+            nickname={nickname}
             content={text}
             replies={children}
             {...getTime(createdAt)}
@@ -69,24 +70,29 @@ function StudyQuestion({
                 questionId,
                 profileImageUrl = '',
                 memberId,
-                nickName = '',
+                nickname = '',
                 content = '',
                 createdAt = '2022.00.00',
               } = reply;
               return (
-                <Question
+                <Reply
                   key={questionId}
                   profileImageUrl={profileImageUrl}
-                  nickName={nickName}
+                  nickname={nickname}
                   content={content}
                   {...getTime(createdAt)}
                 />
               );
             })}
-          </Question>
+          </Reply>
         );
       })}
-    </div>
+      {!isLast && (
+        <Typography color='secondary'>
+          댓글 {totalElements - contents.length}개 더 보기
+        </Typography>
+      )}
+    </StudyDetailQuestionContainer>
   );
 }
 

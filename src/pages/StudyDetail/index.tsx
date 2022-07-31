@@ -73,13 +73,13 @@ function StudyDetail() {
 
     const {
       profileImageUrl = '',
-      nickName = '',
+      nickname = '',
       field = '',
       career = '',
       mbti = '',
     } = leader;
 
-    return { profileImageUrl, nickName, field, career, mbti };
+    return { profileImageUrl, nickname, field, career, mbti };
   };
 
   const getIsOnline = () => {
@@ -130,7 +130,7 @@ function StudyDetail() {
       />
       <StudyDetailLeaderInfo
         profileImageUrl={getLeaderInfo().profileImageUrl}
-        nickName={getLeaderInfo().nickName}
+        nickname={getLeaderInfo().nickname}
         field={getLeaderInfo().field}
         career={getLeaderInfo().career}
         mbti={getLeaderInfo().mbti}

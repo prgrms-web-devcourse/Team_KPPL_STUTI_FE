@@ -1,7 +1,7 @@
 export interface detailMemberType {
   leaderId: number;
   profileImageUrl: string;
-  nickName: string;
+  nickname: string;
   field: string;
   career: string;
   mbti: string;
@@ -15,7 +15,7 @@ export interface detailStudyPeriodType {
 export interface detailQuestionsChildrenType {
   parentId: number;
   questionId: number;
-  nickName: string;
+  nickname: string;
   content: string;
   createdAt: string;
 }
@@ -23,7 +23,7 @@ export interface detailQuestionsChildrenType {
 export interface detailQuestionsType {
   questionId: number;
   parentId: null;
-  nickName: string;
+  nickname: string;
   content: string;
   createdAt: string;
   children: detailQuestionsChildrenType[];

@@ -5,7 +5,7 @@
   "leader": {
     "leaderId": 1,
     "profileImageUrl": "",
-    "nickName": "프룽이",
+    "nickname": "프룽이",
     "field": "프론트엔드",
     "career": "N년차",
     "mbti": "INTP"
@@ -24,14 +24,14 @@
     {
       "questionId": 1,
       "parentId": null,
-      "nickName": "프룽이",
+      "nickname": "프룽이",
       "content": "참여하고 싶어요!",
       "createdAt": "2022.02.22",
       "children": [
         {
           "parentId": 1,
           "questionId": 4,
-          "nickName": "프룽이",
+          "nickname": "프룽이",
           "content": "참여하고 싶어요!",
           "createdAt": "2022.02.22"
         }

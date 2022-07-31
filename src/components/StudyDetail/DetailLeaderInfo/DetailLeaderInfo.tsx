@@ -11,7 +11,7 @@ import MbtiTag from '@components/MbtiTag/MbtiTag';
 
 export interface Props {
   profileImageUrl: string;
-  nickName: string;
+  nickname: string;
   field: string;
   career: string;
   mbti: string;
@@ -19,7 +19,7 @@ export interface Props {
 
 function DetailLeaderInfo({
   profileImageUrl,
-  nickName,
+  nickname,
   field,
   career,
   mbti,
@@ -36,7 +36,7 @@ function DetailLeaderInfo({
           <AccountCircleIcon fontSize='large' color='secondary' />
         )}
         <div>
-          <Typography variant='h6'>{nickName}</Typography>
+          <Typography variant='h6'>{nickname}</Typography>
           <LeaderSubInfoWrapper>
             <Typography variant='subtitle2' color='#6B7280'>
               {field}

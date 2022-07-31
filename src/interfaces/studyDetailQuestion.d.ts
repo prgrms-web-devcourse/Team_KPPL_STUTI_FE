@@ -3,7 +3,7 @@ export interface childrenQuestionType {
   questionId: number;
   profileImageUrl: string;
   memberId: number;
-  nickName: string;
+  nickname: string;
   content: string;
   createdAt: string;
 }
@@ -13,7 +13,7 @@ export interface questionContentType {
   parentId: null | number;
   profileImageUrl: string;
   memberId: number;
-  nickName: string;
+  nickname: string;
   content: string;
   createdAt: string;
   children: childrenQuestionType[];

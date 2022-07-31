@@ -5,7 +5,7 @@
       "parentId": null,
       "profileImageUrl": "",
       "memberId": 2,
-      "nickName": "프룽이",
+      "nickname": "프룽이",
       "content": "참여하고 싶어요!",
       "createdAt": "2022.02.22 10:00",
       "children": [
@@ -14,7 +14,7 @@
           "questionId": 4,
           "profileImageUrl": "",
           "memberId": 3,
-          "nickName": "프룽이",
+          "nickname": "프룽이",
           "content": "참여하고 싶어요!",
           "createdAt": "2022.02.22"
         }
@@ -25,7 +25,7 @@
       "parentId": null,
       "profileImageUrl": "",
       "memberId": 3,
-      "nickName": "프룽이2",
+      "nickname": "프룽이2",
       "content": "참여하고 싶어요!",
       "createdAt": "2022.02.22 10:00",
       "children": []

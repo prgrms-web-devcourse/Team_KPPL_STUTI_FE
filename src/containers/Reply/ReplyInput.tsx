@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { StudyQuestionInputWrapper } from '@src/containers/StudyDetail/StudyQuestion/style';
+import { ReplyInputWrapper } from '@src/containers/Reply/style';
 import { Button, TextField } from '@mui/material';
 
-function StudyQuestionInput() {
+function ReplyInput() {
   const [value, setValue] = useState('');
 
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -14,7 +14,7 @@ function StudyQuestionInput() {
     return value.length > 0 ? true : false;
   };
   return (
-    <StudyQuestionInputWrapper>
+    <ReplyInputWrapper>
       <TextField
         id='with-label'
         label='댓글을 입력하세요'
@@ -22,8 +22,8 @@ function StudyQuestionInput() {
         fullWidth
       />
       {isHaveLength(value) && <Button>확인</Button>}
-    </StudyQuestionInputWrapper>
+    </ReplyInputWrapper>
   );
 }
 
-export default StudyQuestionInput;
+export default ReplyInput;
