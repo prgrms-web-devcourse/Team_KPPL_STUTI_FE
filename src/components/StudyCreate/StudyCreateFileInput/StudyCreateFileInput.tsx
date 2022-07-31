@@ -15,7 +15,7 @@ function StudyCreateFileInput({ message, onChange }: Props) {
         accept='image/jpg,impge/png,image/jpeg,image/gif'
         name='study-image'
         onChange={onChange}
-      ></input>
+      />
     </Button>
   );
 }
