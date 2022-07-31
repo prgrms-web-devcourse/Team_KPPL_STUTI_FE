@@ -44,7 +44,7 @@ function FeedCard() {
         subheader='1시간전' //Post 생성 시간
         sx={{ paddingBottom: '0' }}
       />
-      <CardContent>
+      <CardContent sx={{ paddingBottom: '0' }}>
         {contentsOpen ? (
           <Typography>
             (여기 부분에다가 post.contents) Heat oil in a (14- to 16-inch)
@@ -74,7 +74,7 @@ function FeedCard() {
           </>
         )}
       </CardContent>
-      <Box sx={{ margin: '0 1rem' }}>
+      <Box sx={{ margin: '1rem 1rem 0' }}>
         <CardMedia
           component='img'
           image='https://picsum.photos/id/1026/500' //post.image
@@ -85,12 +85,10 @@ function FeedCard() {
         />
       </Box>
       <CardActions disableSpacing>
-        <Box onClick={handleLiked}>
-          <IconButton aria-label='settings'>
-            {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-          </IconButton>
-          <FeedTypographyButton>99(Linked number)</FeedTypographyButton>
-        </Box>
+        <IconButton aria-label='settings' onClick={handleLiked}>
+          {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+        </IconButton>
+        <FeedTypographyButton>99(Linked number)</FeedTypographyButton>
         <FeedTypographyButton margin='0 1rem 0 auto'>
           댓글 199개(댓글 number)
         </FeedTypographyButton>
