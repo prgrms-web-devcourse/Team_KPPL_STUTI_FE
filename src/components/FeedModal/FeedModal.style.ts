@@ -13,7 +13,4 @@ export const CardWrapper = styled(Card)`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 608px;
-  bgcolor: background.paper;
-  border-radius: 8px;
-  boxshadow: 24;
 `;

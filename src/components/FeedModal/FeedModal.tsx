@@ -48,7 +48,15 @@ function FeedModal() {
   return (
     <>
       <Button onClick={handleOpen}></Button>
-      <Modal open={open} onClose={handleClose}>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        BackdropProps={{
+          sx: {
+            backgroundColor: '#1118271A',
+          },
+        }}
+      >
         <CardWrapper>
           <CardHeader
             avatar={
