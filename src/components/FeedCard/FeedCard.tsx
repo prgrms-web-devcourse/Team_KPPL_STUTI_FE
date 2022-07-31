@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { ContentsWrapper } from '@src/components/FeedCard/FeedCard.style';
+import {
+  ContentsWrapper,
+  CustomCardMedia,
+} from '@src/components/FeedCard/FeedCard.style';
 import Avatar from '@mui/material/Avatar';
 import {
   Card,
@@ -7,7 +10,6 @@ import {
   IconButton,
   CardContent,
   Typography,
-  CardMedia,
   Box,
   CardActions,
 } from '@mui/material';
@@ -30,7 +32,7 @@ function FeedCard() {
   };
 
   return (
-    <Card sx={{ width: '608px', borderRadius: '8px' }}>
+    <Card sx={{ width: '608px' }}>
       <CardHeader
         avatar={
           <Avatar
@@ -75,13 +77,10 @@ function FeedCard() {
         )}
       </CardContent>
       <Box sx={{ margin: '1rem 1rem 0' }}>
-        <CardMedia
+        <CustomCardMedia
           component='img'
-          image='https://picsum.photos/id/1026/500' //post.image
+          image='https://picsum.photos/id/1026/500'
           alt='postImage'
-          sx={{
-            borderRadius: '8px',
-          }}
         />
       </Box>
       <CardActions disableSpacing>
