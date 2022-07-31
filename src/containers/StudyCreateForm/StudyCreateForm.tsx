@@ -310,7 +310,16 @@ function StudyCreateFormContainer() {
         <FileUploadWrapper>
           <ImageWrapper>
             {imageSrc && (
-              <img src={thumbnailImage} alt='study-image' width='320' />
+              <img
+                src={thumbnailImage}
+                alt='study-image'
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: '0.5rem',
+                  objectFit: 'cover',
+                }}
+              />
             )}
           </ImageWrapper>
           <FileInput message='이미지 업로드' onChange={onImageChange} />
