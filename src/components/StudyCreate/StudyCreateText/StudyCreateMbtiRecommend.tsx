@@ -1,8 +1,10 @@
-import { Props } from '@src/components/MbtiTag/MbtiTag';
-import { Chip } from '@mui/material';
-import styled from '@emotion/styled';
+import { TextWrapper } from './style';
 
-const setMbtiColor = ({ mbti }: Props) => {
+interface Props {
+  mbtis: string[];
+}
+
+const setMbtiColor = (mbti: string) => {
   if (mbti === 'ISTJ') {
     return '#24a347';
   }
@@ -70,19 +72,24 @@ const setMbtiColor = ({ mbti }: Props) => {
   return '#000';
 };
 
-const setMbtiBorderColor = (props: Props) => {
-  const color = setMbtiColor(props);
-  const r = parseInt(color.slice(1, 3), 16);
-  const g = parseInt(color.slice(3, 5), 16);
-  const b = parseInt(color.slice(5), 16);
-  return `rgba(${r}, ${g}, ${b}, 0.5)`;
-};
+function StudyCreateMbtiRecommend({ mbtis }: Props) {
+  return (
+    <TextWrapper>
+      추천 MBTI는
+      {mbtis &&
+        mbtis.map((mbti) => {
+          return (
+            <div
+              key={mbti}
+              style={{ color: setMbtiColor(mbti), margin: '0 2px' }}
+            >
+              {mbti}
+            </div>
+          );
+        })}
+      입니다.
+    </TextWrapper>
+  );
+}
 
-export const CustomChip = styled(Chip, {
-  shouldForwardProp: (prop) => prop !== 'cursor',
-})<Props>`
-  color: ${({ variant }) => (variant === 'filled' ? '#fff' : setMbtiColor)};
-  border-color: ${setMbtiBorderColor};
-  background: ${({ variant }) => (variant === 'filled' ? setMbtiColor : '')};
-  cursor: ${({ cursor = false }) => (cursor ? 'pointer' : 'default')};
-`;
+export default StudyCreateMbtiRecommend;
