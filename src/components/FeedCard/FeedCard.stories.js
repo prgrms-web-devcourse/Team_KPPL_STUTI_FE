@@ -1,10 +1,8 @@
 import FeedCard from './FeedCard';
 
 export default {
-  title: 'FeedCard',
+  title: 'components/FeedCard',
   component: FeedCard,
 };
 
-const Default = (args) => <FeedCard {...args} />;
-
-export const Feed = Default.bind({});
+export const Default = (args) => <FeedCard {...args} />;
