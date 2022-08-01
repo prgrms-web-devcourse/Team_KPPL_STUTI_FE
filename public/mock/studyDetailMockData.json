@@ -19,23 +19,5 @@
   },
   "numberOfMembers": 0,
   "numberOfRecruits": 5,
-  "description": "blablabla",
-  "questions": [
-    {
-      "questionId": 1,
-      "parentId": null,
-      "nickname": "프룽이",
-      "content": "참여하고 싶어요!",
-      "createdAt": "2022.02.22",
-      "children": [
-        {
-          "parentId": 1,
-          "questionId": 4,
-          "nickname": "프룽이",
-          "content": "참여하고 싶어요!",
-          "createdAt": "2022.02.22"
-        }
-      ]
-    }
-  ]
+  "description": "blablabla"
 }
