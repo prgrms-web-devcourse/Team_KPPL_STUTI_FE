@@ -8,7 +8,7 @@ export default {
 const study = {
   studyGroupId: 1,
   leaderId: 2,
-  thumnailUrl: 'https://picsum.photos/300/200',
+  thumbnailUrl: 'https://picsum.photos/300/200',
   topic: '자바스크립트',
   title: '자바스크립트 헬로우 월드',
   preferredMbtis: ['INTJ', 'INFP', 'ESTJ'],

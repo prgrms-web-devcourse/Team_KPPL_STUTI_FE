@@ -19,7 +19,7 @@ import MoreButton from './MoreButton';
 type Study = {
   studyGroupId: number;
   leaderId: number;
-  thumnailUrl: string;
+  thumbnailUrl: string;
   topic: string;
   title: string;
   preferredMbtis: string[];
@@ -64,8 +64,8 @@ function StudyCard({ study, onDeleteBtnClick }: Props) {
             </div>
           </LeftColumn>
           <RightColumn>
-            {study.thumnailUrl ? (
-              <Img src={study.thumnailUrl} alt='' />
+            {study.thumbnailUrl ? (
+              <Img src={study.thumbnailUrl} alt='' />
             ) : (
               <DefaultBackground>
                 <PhotoIcon fontSize='large' color='secondary' />
