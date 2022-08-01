@@ -4,7 +4,7 @@ import {
   LabelInput,
   FileInput,
 } from '@src/components/StudyCreate&Edit';
-import { fetchStudyDetails } from '@src/api/fetchStudyDetails';
+import { fetchStudyDetails } from '@src/apis/fetchStudyDetails';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
