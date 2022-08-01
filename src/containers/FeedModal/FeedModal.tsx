@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
+import FeedModalImageUpload from '@src/containers/FeedModal/FeedModalImageUpload/FeedModalImageUpload';
+import {
+  PreviewImage,
+  CardWrapper,
+} from '@src/containers/FeedModal/FeedModal.style';
 import IconButton from '@mui/material/IconButton';
 import {
   Button,
@@ -10,13 +15,8 @@ import {
   TextField,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import FeedModalImageUpload from '@components/FeedModal/FeedModalImageUpload/FeedModalImageUpload';
-import {
-  PreviewImage,
-  CardWrapper,
-} from '@components/FeedModal/FeedModal.style';
 
-function FeedModal() {
+function FeedModal({ modalOpen }) {
   const [open, setOpen] = useState(false);
   const [previewUrl, setPreviewUrl] = useState('');
 
