@@ -8,10 +8,19 @@
     {
       "studyMemberId": 1,
       "profileImageUrl": "",
-      "nickname": "프룽이",
+      "nickname": "멤버1",
       "field": "프론트엔드",
       "career": "N년차",
-      "mbti": "INTP",
+      "mbti": "INFP",
+      "studyMemberRole": "MEMBER"
+    },
+    {
+      "studyMemberId": 2,
+      "profileImageUrl": "",
+      "nickname": "멤버2",
+      "field": "프론트엔드",
+      "career": "N년차",
+      "mbti": "ENTP",
       "studyMemberRole": "MEMBER"
     }
   ],
@@ -20,10 +29,19 @@
     {
       "applicantId": 2,
       "profileImageUrl": "",
-      "nickname": "프룽이",
+      "nickname": "지원자1",
       "field": "프론트엔드",
       "career": "N년차",
-      "mbti": "INTP",
+      "mbti": "ISTP",
+      "studyMemberRole": "APPLICANT"
+    },
+    {
+      "applicantId": 3,
+      "profileImageUrl": "",
+      "nickname": "지원자2",
+      "field": "프론트엔드",
+      "career": "N년차",
+      "mbti": "ESFP",
       "studyMemberRole": "APPLICANT"
     }
   ]
