@@ -13,6 +13,7 @@ import {
   StudyEditWrapper,
   StudyEditImageWrapper,
   ImageWrapper,
+  Image,
   ButtonWrapper,
   StudyDescriptionWrapper,
 } from './style';
@@ -92,18 +93,7 @@ function StudyEditForm() {
         <StudyEditImageWrapper>
           <Typography variant='h5'>대표 이미지</Typography>
           <ImageWrapper>
-            {thumbnailImage && (
-              <img
-                src={thumbnailImage}
-                alt='study-image'
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  borderRadius: '0.5rem',
-                  objectFit: 'cover',
-                }}
-              />
-            )}
+            {thumbnailImage && <Image src={thumbnailImage} alt='study-image' />}
           </ImageWrapper>
           <ButtonWrapper>
             <FileInput message='이미지 업로드' onChange={onImageChange} />
