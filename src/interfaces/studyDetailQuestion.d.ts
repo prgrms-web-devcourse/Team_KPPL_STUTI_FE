@@ -19,7 +19,7 @@ export interface questionContentType {
   children: childrenQuestionType[];
 }
 
-export interface studyDetailQusetionType {
+export interface studyDetailQuestionType {
   contents: questionContentType[];
   page: number;
   size: number;

@@ -20,6 +20,7 @@ function ReplyInput() {
         label='댓글을 입력하세요'
         onChange={handleInputValue}
         fullWidth
+        multiline
       />
       {isHaveLength(value) && <Button>확인</Button>}
     </ReplyInputWrapper>

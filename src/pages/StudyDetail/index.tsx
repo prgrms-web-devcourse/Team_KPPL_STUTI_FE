@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { StudyDetailContainer } from '@pages/StudyDetail/style';
 import { Button } from '@mui/material';
-import { studyDetailQusetionType } from '@interfaces/studyDetailQuestion';
+import { studyDetailQuestionType } from '@interfaces/studyDetailQuestion';
 import { detailMemberType, studyDetailType } from '@interfaces/studyDetail';
 import {
-  StudyDetailMbtiRecommand,
+  StudyDetailMbtiRecommend,
   StudyDetailStudyInfo,
   StudyDetailStudyQuestion,
 } from '@containers';
@@ -16,12 +16,12 @@ import {
 import NoImage from '@assets/noImage.jpeg';
 import {
   getStudyDetailInfomation,
-  getStudyQuestionInfomation,
+  getStudyQuestionInformation,
 } from '@apis/studyDetail';
 
 function StudyDetail() {
   const [data, setData] = useState({} as studyDetailType);
-  const [questions, setQuestions] = useState({} as studyDetailQusetionType);
+  const [questions, setQuestions] = useState({} as studyDetailQuestionType);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,7 +30,7 @@ function StudyDetail() {
     };
 
     const fetchQuestions = async () => {
-      const res = await getStudyQuestionInfomation();
+      const res = await getStudyQuestionInformation();
       setQuestions(res);
     };
 
@@ -135,7 +135,7 @@ function StudyDetail() {
         career={getLeaderInfo().career}
         mbti={getLeaderInfo().mbti}
       />
-      <StudyDetailMbtiRecommand preferredMbtis={getPreferredMbtis()} />
+      <StudyDetailMbtiRecommend preferredMbtis={getPreferredMbtis()} />
       <StudyDetailStudyInfo
         isOnline={getIsOnline()}
         region={getRegion()}

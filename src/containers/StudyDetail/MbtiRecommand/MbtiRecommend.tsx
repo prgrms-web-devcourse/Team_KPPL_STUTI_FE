@@ -12,7 +12,7 @@ interface Props {
 function MbtiRecommend({ preferredMbtis }: Props) {
   return (
     <MbtiRecommandContainer>
-      <Typography variant='h5'>추천 MBTI</Typography>
+      <Typography variant='h5'>선호 MBTI</Typography>
       <MbtiTagWrapper>
         {preferredMbtis.map((mbti, index) => (
           <MbtiTag key={`${mbti}-${index}`} mbti={mbti} size='small' />

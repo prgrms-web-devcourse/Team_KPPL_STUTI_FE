@@ -12,7 +12,7 @@ export const getStudyDetailInfomation = async () => {
   }
 };
 
-export const getStudyQuestionInfomation = async () => {
+export const getStudyQuestionInformation = async () => {
   try {
     const { data } = await axiosInstance({
       url: '/mock/studyDetailQustionMockData.json',

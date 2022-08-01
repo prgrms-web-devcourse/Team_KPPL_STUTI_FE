@@ -2,7 +2,7 @@ import { StudyDetailQuestionContainer } from '@src/containers/StudyDetail/StudyQ
 import StudyQuestionInput from '@src/containers/Reply/ReplyInput';
 import Reply from '@src/containers/Reply/Reply';
 import { Typography } from '@mui/material';
-import { studyDetailQusetionType } from '@interfaces/studyDetailQuestion';
+import { studyDetailQuestionType } from '@interfaces/studyDetailQuestion';
 
 function StudyQuestion({
   contents = [],
@@ -13,7 +13,7 @@ function StudyQuestion({
   sorted,
   isFirst,
   isLast,
-}: studyDetailQusetionType) {
+}: studyDetailQuestionType) {
   const getTime = (createdAt: string) => {
     const [date, time] = createdAt.split(' ');
 

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {
   ReplyContainer,
+  ReplyControlTypography,
   ReplyControlWrapper,
   ReplyInfoWrapper,
   ReplyProfileImage,
@@ -92,16 +93,22 @@ function Reply({
           <Typography color='secondary'>
             {changeTime(year, month, day, time)}
           </Typography>
-          {replies && replies.length === 0 && (
-            <Typography
+          {replies && (
+            <ReplyControlTypography
               onClick={() => {
                 handleCommentFlag();
               }}
               color='secondary'
             >
               답글 달기
-            </Typography>
+            </ReplyControlTypography>
           )}
+          <ReplyControlTypography color='secondary'>
+            수정하기
+          </ReplyControlTypography>
+          <ReplyControlTypography color='secondary'>
+            삭제하기
+          </ReplyControlTypography>
         </ReplyControlWrapper>
         {commentFlag && <ReplyInput />}
         {children}

@@ -1,3 +1,4 @@
+import { Typography } from '@mui/material';
 import styled from '@emotion/styled';
 
 export const ReplyInputWrapper = styled.div`
@@ -38,4 +39,8 @@ export const ReplyControlWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+`;
+
+export const ReplyControlTypography = styled(Typography)`
+  cursor: pointer;
 `;
