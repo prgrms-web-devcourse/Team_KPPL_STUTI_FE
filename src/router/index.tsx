@@ -11,6 +11,7 @@ import {
   STUDY_EDIT,
   STUDY_MANAGE,
 } from '@src/router/path';
+import StudyEdit from '@src/pages/StudyEdit';
 import StudyDetail from '@src/pages/StudyDetail';
 import Home from '@src/pages/Home';
 import NavigationHeader from '@src/containers/NavigationHeader/NavigationHeader';
@@ -34,7 +35,7 @@ function Routers() {
         <Route exact path={STUDY_DETAIL} component={StudyDetail} />
         <Route exact path={STUDY_CREATE} component={BookmarkAddIcon} />
         <Route exact path={STUDY_MANAGE} component={HandymanIcon} />
-        <Route exact path={STUDY_EDIT} component={BuildIcon} />
+        <Route exact path={STUDY_EDIT} component={StudyEdit} />
         <Route exact path={SIGN_UP} component={GroupAddIcon} />
         <Route path='*' render={() => <Redirect to='/error' />} />
       </Switch>
