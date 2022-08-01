@@ -21,9 +21,9 @@ interface Props {
 }
 
 function MemberControl({
-  numberOfMembers,
-  numberOfRecruits,
-  numberOfApplicant,
+  numberOfMembers = 0,
+  numberOfRecruits = 0,
+  numberOfApplicant = 0,
   studyMembers = [],
   applicants = [],
 }: Props) {

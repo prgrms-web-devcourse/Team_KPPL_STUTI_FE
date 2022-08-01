@@ -26,27 +26,9 @@ const members = [
     studyMemberRole: 'MEMBER',
     studyMemberId: 1,
   },
-  {
-    profileImageUrl: '',
-    nickname: '멤버임',
-    field: '프론트엔드',
-    career: 'N년차',
-    mbti: 'ENFP',
-    studyMemberRole: 'MEMBER',
-    studyMemberId: 1,
-  },
 ];
 
 const applicants = [
-  {
-    profileImageUrl: '',
-    nickname: '지원자임',
-    field: '프론트엔드',
-    career: 'N년차',
-    mbti: 'INFP',
-    studyMemberRole: 'APPLICANT',
-    applicantId: 1,
-  },
   {
     profileImageUrl: '',
     nickname: '지원자임',
