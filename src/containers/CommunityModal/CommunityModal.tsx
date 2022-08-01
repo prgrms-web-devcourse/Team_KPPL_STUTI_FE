@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
-import FeedModalImageUpload from '@src/containers/CommunityModal/CommunityModalImageUpload/CommunityModalImageUpload';
+import CommunityModalImageUpload from '@src/containers/CommunityModal/CommunityModalImageUpload/CommunityModalImageUpload';
 import {
   PreviewImage,
   CardWrapper,
@@ -20,7 +20,7 @@ interface Props {
   onClose?: () => void;
 }
 
-function FeedModal({ isOpen, onClose }: Props) {
+function CommunityModal({ isOpen, onClose }: Props) {
   const [previewUrl, setPreviewUrl] = useState('');
 
   const handleImageUpload = (e: React.ChangeEvent<any>) => {
@@ -84,7 +84,7 @@ function FeedModal({ isOpen, onClose }: Props) {
               sx={{ width: '100%' }}
             />
             {previewUrl && <PreviewImage src={previewUrl} alt='' />}
-            <FeedModalImageUpload onChange={handleImageUpload} />
+            <CommunityModalImageUpload onChange={handleImageUpload} />
             <Button
               type='submit'
               size='small'
@@ -100,4 +100,4 @@ function FeedModal({ isOpen, onClose }: Props) {
   );
 }
 
-export default FeedModal;
+export default CommunityModal;

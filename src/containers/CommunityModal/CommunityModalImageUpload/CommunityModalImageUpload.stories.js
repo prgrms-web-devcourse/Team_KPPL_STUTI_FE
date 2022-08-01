@@ -1,8 +1,8 @@
-import FeedModalImageUpload from './CommunityModalImageUpload';
+import CommunityModalImageUpload from './CommunityModalImageUpload';
 
 export default {
-  title: 'FeedModal/FeedModalImageUpload',
-  component: FeedModalImageUpload,
+  title: 'components/FeedModalImageUpload',
+  component: CommunityModalImageUpload,
 };
 
-export const Default = (args) => <FeedModalImageUpload {...args} />;
+export const Default = (args) => <CommunityModalImageUpload {...args} />;

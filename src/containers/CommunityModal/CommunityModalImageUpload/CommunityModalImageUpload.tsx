@@ -6,7 +6,7 @@ export interface Props {
   onChange: (e: React.ChangeEvent<any>) => void;
 }
 
-function FeedModalImageUpload(props: Props) {
+function CommunityModalImageUpload(props: Props) {
   return (
     <label htmlFor='feedImageFile'>
       <input
@@ -23,4 +23,4 @@ function FeedModalImageUpload(props: Props) {
   );
 }
 
-export default FeedModalImageUpload;
+export default CommunityModalImageUpload;

@@ -1,8 +1,8 @@
-import FeedModal from '@src/containers/FeedModal/FeedModal';
-import FeedCard from '@src/components/FeedCard/FeedCard';
+import FeedModal from '@src/containers/CommunityModal/CommunityModal';
+import CommunityCard from '@src/containers/CommunityCard/CommuntyCard';
 
 function Community() {
-  return <FeedModal></FeedModal>;
+  return <CommunityCard></CommunityCard>;
 }
 
 export default Community;
