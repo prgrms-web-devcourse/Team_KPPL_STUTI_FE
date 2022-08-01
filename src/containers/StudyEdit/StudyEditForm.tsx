@@ -69,6 +69,16 @@ function StudyEditForm() {
     encodeFile(files[0]);
   };
 
+  const handleDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value = '' } = e.target;
+    setDescription(value);
+  };
+
+  const handleTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value = '' } = e.target;
+    setTitle(value);
+  };
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('제목 ' + title);
@@ -85,9 +95,7 @@ function StudyEditForm() {
             label='스터디명'
             value={title}
             fullWidth={true}
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
+            onChange={handleTitle}
           />
         </StudyEditHeading>
         <StudyEditImageWrapper>
@@ -106,9 +114,7 @@ function StudyEditForm() {
             placeholder='스터디 내용을 기재해주세요.'
             value={description}
             height='600px'
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
+            onChange={handleDescription}
           />
         </StudyDescriptionWrapper>
         <Button type='submit'>제출</Button>
