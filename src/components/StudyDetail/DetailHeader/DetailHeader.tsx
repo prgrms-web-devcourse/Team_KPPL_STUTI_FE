@@ -14,7 +14,7 @@ interface Props {
 function DetailHeader({ topic, title, imageUrl }: Props) {
   return (
     <HeaderWrapper>
-      <Typography variant='subtitle2' color='#6B7280'>
+      <Typography variant='subtitle2' color='secondary'>
         {topic}
       </Typography>
       <Typography variant='h4'>{title}</Typography>
