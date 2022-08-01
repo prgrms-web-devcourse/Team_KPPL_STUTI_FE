@@ -52,17 +52,20 @@ function StudyEditForm() {
   };
 
   const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const maxSize = 1 * 1024 * 1024;
-      const fileSize = e.target.files[0].size;
+    const { files } = e.target;
 
-      if (fileSize > maxSize) {
-        alert('첨부 파일은 최대 1MB 입니다.');
-        return;
-      }
-      setImageSrc(e.target.files[0]);
-      encodeFile(e.target.files[0]);
+    if (!files || !files[0]) return;
+
+    const maxSize = 1 * 1024 * 1024;
+    const fileSize = files[0].size;
+
+    if (fileSize > maxSize) {
+      alert('첨부 파일은 최대 1MB 입니다.');
+      return;
     }
+
+    setImageSrc(files[0]);
+    encodeFile(files[0]);
   };
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
