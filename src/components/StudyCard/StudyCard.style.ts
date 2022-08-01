@@ -6,6 +6,7 @@ export const Article = styled.article`
   max-width: 608px;
   border-radius: 0.5rem;
   box-shadow: ${({ theme }) => theme.shadows[1]};
+  background-color: ${({ theme }) => theme.palette.background.default};
 `;
 
 export const Flex = styled.div`
