@@ -7,7 +7,7 @@
   "studyMembers": [
     {
       "studyMemberId": 1,
-      "profileImageUrl": "www.aws.s3.png",
+      "profileImageUrl": "",
       "nickname": "프룽이",
       "field": "프론트엔드",
       "career": "N년차",
@@ -19,7 +19,7 @@
   "applicants": [
     {
       "applicantId": 2,
-      "profileImageUrl": "imageUrl",
+      "profileImageUrl": "",
       "nickname": "프룽이",
       "field": "프론트엔드",
       "career": "N년차",
