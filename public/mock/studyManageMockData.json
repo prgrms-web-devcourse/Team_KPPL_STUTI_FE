@@ -1,0 +1,30 @@
+{
+  "studyGroupId": 1,
+  "topic": "프론트엔드",
+  "title": "자바스크립트 헬로우 월드",
+  "numberOfMembers": 2,
+  "numberOfRecruits": 5,
+  "studyMembers": [
+    {
+      "studyMemberId": 1,
+      "profileImageUrl": "www.aws.s3.png",
+      "nickname": "프룽이",
+      "field": "프론트엔드",
+      "career": "N년차",
+      "mbti": "INTP",
+      "studyMemberRole": "MEMBER"
+    }
+  ],
+  "numberOfApplicant": 2,
+  "applicants": [
+    {
+      "applicantId": 2,
+      "profileImageUrl": "imageUrl",
+      "nickname": "프룽이",
+      "field": "프론트엔드",
+      "career": "N년차",
+      "mbti": "INTP",
+      "studyMemberRole": "APPLICANT"
+    }
+  ]
+}

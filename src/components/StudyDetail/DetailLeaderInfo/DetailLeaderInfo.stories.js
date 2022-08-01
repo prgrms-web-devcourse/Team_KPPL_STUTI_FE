@@ -39,7 +39,7 @@ const Template = (args) => (
 export const LeaderInfo = Template.bind({});
 LeaderInfo.args = {
   profileImageUrl: '',
-  nickName: '프룽이',
+  nickname: '프룽이',
   field: '프론트엔드',
   career: 'N년차',
   mbti: 'INTP',
