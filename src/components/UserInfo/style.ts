@@ -1,31 +1,31 @@
 import styled from '@emotion/styled';
 
-export const LeaderInfoContainer = styled.div`
+export const UserInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
   margin-top: 30px;
 `;
 
-export const LeaderInfoWrapper = styled.div`
+export const UserInfoWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
 `;
 
-export const LeaderSubInfoWrapper = styled.div`
+export const UserSubInfoWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
 `;
 
-export const LeaderProfileImageWrapper = styled.div`
+export const UserProfileImageWrapper = styled.div`
   width: 32px;
   height: 32px;
   border-radius: 50%;
 `;
 
-export const LeaderProfileImage = styled.img`
+export const UserProfileImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: contain;

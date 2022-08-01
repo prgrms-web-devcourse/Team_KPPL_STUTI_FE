@@ -8,11 +8,7 @@ import {
   StudyDetailStudyInfo,
   StudyDetailStudyQuestion,
 } from '@containers';
-import {
-  StudyDetailBody,
-  StudyDetailHeader,
-  StudyDetailLeaderInfo,
-} from '@components';
+import { StudyDetailBody, StudyDetailHeader, UserInfo } from '@components';
 import NoImage from '@assets/noImage.jpeg';
 import {
   getStudyDetailInfomation,
@@ -128,7 +124,8 @@ function StudyDetail() {
         title={getTitle()}
         imageUrl={getImageUrl()}
       />
-      <StudyDetailLeaderInfo
+      <UserInfo
+        title='리더 정보'
         profileImageUrl={getLeaderInfo().profileImageUrl}
         nickname={getLeaderInfo().nickname}
         field={getLeaderInfo().field}

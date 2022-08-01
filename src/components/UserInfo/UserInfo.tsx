@@ -1,10 +1,10 @@
 import {
-  LeaderInfoContainer,
-  LeaderInfoWrapper,
-  LeaderProfileImage,
-  LeaderProfileImageWrapper,
-  LeaderSubInfoWrapper,
-} from '@src/components/StudyDetail/DetailLeaderInfo/style';
+  UserInfoContainer,
+  UserInfoWrapper,
+  UserProfileImage,
+  UserProfileImageWrapper,
+  UserSubInfoWrapper,
+} from '@src/components/UserInfo/style';
 import { Typography } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MbtiTag from '@components/MbtiTag/MbtiTag';
@@ -15,29 +15,31 @@ export interface Props {
   field: string;
   career: string;
   mbti: string;
+  title?: string;
 }
 
-function DetailLeaderInfo({
+function UserInfo({
   profileImageUrl,
   nickname,
   field,
   career,
   mbti,
+  title,
 }: Props) {
   return (
-    <LeaderInfoContainer>
-      <Typography variant='h5'>리더 정보</Typography>
-      <LeaderInfoWrapper>
+    <UserInfoContainer>
+      {title && <Typography variant='h5'>{title}</Typography>}
+      <UserInfoWrapper>
         {typeof profileImageUrl === 'string' && profileImageUrl ? (
-          <LeaderProfileImageWrapper>
-            <LeaderProfileImage src={profileImageUrl} alt='profile-image' />
-          </LeaderProfileImageWrapper>
+          <UserProfileImageWrapper>
+            <UserProfileImage src={profileImageUrl} alt='profile-image' />
+          </UserProfileImageWrapper>
         ) : (
           <AccountCircleIcon fontSize='large' color='secondary' />
         )}
         <div>
           <Typography variant='h6'>{nickname}</Typography>
-          <LeaderSubInfoWrapper>
+          <UserSubInfoWrapper>
             <Typography variant='subtitle2' color='#6B7280'>
               {field}
             </Typography>
@@ -45,11 +47,11 @@ function DetailLeaderInfo({
               {career}
             </Typography>
             <MbtiTag mbti={mbti} size='small' />
-          </LeaderSubInfoWrapper>
+          </UserSubInfoWrapper>
         </div>
-      </LeaderInfoWrapper>
-    </LeaderInfoContainer>
+      </UserInfoWrapper>
+    </UserInfoContainer>
   );
 }
 
-export default DetailLeaderInfo;
+export default UserInfo;
