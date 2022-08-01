@@ -1,7 +1,7 @@
 import MemberControl from './MemberControl';
 
 export default {
-  title: 'Components/StudyManage',
+  title: 'Containers/StudyManage',
   component: MemberControl,
 };
 
@@ -24,7 +24,7 @@ const members = [
     career: 'N년차',
     mbti: 'ENFP',
     studyMemberRole: 'MEMBER',
-    studyMemberId: 1,
+    studyMemberId: 2,
   },
 ];
 
@@ -45,7 +45,7 @@ const applicants = [
     career: 'N년차',
     mbti: 'INFP',
     studyMemberRole: 'APPLICANT',
-    applicantId: 1,
+    applicantId: 2,
   },
 ];
 
