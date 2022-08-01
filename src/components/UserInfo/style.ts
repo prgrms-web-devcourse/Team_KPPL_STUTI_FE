@@ -4,7 +4,6 @@ export const UserInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  margin-top: 30px;
 `;
 
 export const UserInfoWrapper = styled.div`

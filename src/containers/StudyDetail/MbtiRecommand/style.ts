@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 export const MbtiRecommandContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 15px;
 `;
 
 export const MbtiTagWrapper = styled.div`

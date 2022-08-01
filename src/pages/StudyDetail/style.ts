@@ -5,5 +5,5 @@ export const StudyDetailContainer = styled.div`
   margin: 3rem auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 32px;
 `;
