@@ -1,8 +1,10 @@
 import { Typography } from '@mui/material';
 import styled from '@emotion/styled';
-import { Props } from '@containers/CommunityCard/CommunityTypographyButton';
+import { CommunityTypographyButtonType } from '@containers/CommunityCard/CommunityTypographyButton/CommunityTypographyButton';
 
-export const CustomTypography = styled(Typography)<Props>`
+export const CustomTypography = styled(
+  Typography,
+)<CommunityTypographyButtonType>`
   display: inline-block;
   cursor: pointer;
   margin: ${({ margin }) => margin};
