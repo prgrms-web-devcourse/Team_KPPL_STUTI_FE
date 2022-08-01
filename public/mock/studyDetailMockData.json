@@ -1,0 +1,23 @@
+{
+  "topic": "자바스크립트",
+  "title": "자바스크립트 헬로우 월드",
+  "imageUrl": "",
+  "leader": {
+    "leaderId": 1,
+    "profileImageUrl": "",
+    "nickname": "프룽이",
+    "field": "프론트엔드",
+    "career": "N년차",
+    "mbti": "INTP"
+  },
+  "preferredMbtis": ["INFP", "ESTJ", "ISTJ"],
+  "isOnline": false,
+  "region": "서울시",
+  "studyPeriod": {
+    "startDate": "2022.02.22",
+    "endDate": "2022.02.22"
+  },
+  "numberOfMembers": 0,
+  "numberOfRecruits": 5,
+  "description": "blablabla"
+}

@@ -1,0 +1,41 @@
+{
+  "contents": [
+    {
+      "questionId": 1,
+      "parentId": null,
+      "profileImageUrl": "",
+      "memberId": 2,
+      "nickname": "프룽이",
+      "content": "참여하고 싶어요!",
+      "createdAt": "2022.02.22 10:00",
+      "children": [
+        {
+          "parentId": 1,
+          "questionId": 4,
+          "profileImageUrl": "",
+          "memberId": 3,
+          "nickname": "프룽이",
+          "content": "참여하고 싶어요!",
+          "createdAt": "2022.02.22"
+        }
+      ]
+    },
+    {
+      "questionId": 2,
+      "parentId": null,
+      "profileImageUrl": "",
+      "memberId": 3,
+      "nickname": "프룽이2",
+      "content": "참여하고 싶어요!",
+      "createdAt": "2022.02.22 10:00",
+      "children": []
+    }
+  ],
+  "page": 1,
+  "size": 5,
+  "totalPages": 10,
+  "totalElements": 50,
+  "sorted": true,
+  "isFirst": true,
+  "isLast": false
+}

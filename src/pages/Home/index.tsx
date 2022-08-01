@@ -1,5 +1,4 @@
-import React from 'react';
-import { SampleCounter } from '@src/containers';
+import { SampleCounter } from '@containers';
 
 function Home() {
   return (
