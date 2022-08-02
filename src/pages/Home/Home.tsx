@@ -1,17 +1,17 @@
-import { StudyList } from '@containers';
+import {
+  HomeHeroSection,
+  HomeStudyListSection,
+  HomeStudyCreateButton,
+} from '@containers';
 
-import { Hero, ImgConatiner, Img } from './Home.style';
-
+import { Position } from './Home.style';
 export function Home() {
   return (
-    <div>
-      <Hero>
-        <ImgConatiner>
-          <Img src='' alt='' />
-        </ImgConatiner>
-      </Hero>
-      <StudyList />
-    </div>
+    <Position>
+      <HomeHeroSection />
+      <HomeStudyListSection />
+      <HomeStudyCreateButton />
+    </Position>
   );
 }
 

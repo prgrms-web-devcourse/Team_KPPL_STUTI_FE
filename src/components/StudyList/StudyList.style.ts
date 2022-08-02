@@ -1,14 +1,11 @@
 import styled from '@emotion/styled';
 
 export const Ul = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   background-color: ${({ theme }) => theme.palette.grey[50]};
   padding: 2rem 1rem;
-`;
-
-export const Li = styled.li`
-  &:not(:last-child) {
-    margin-bottom: 1rem;
-  }
 `;
 
 export const ItemCard = styled.div`

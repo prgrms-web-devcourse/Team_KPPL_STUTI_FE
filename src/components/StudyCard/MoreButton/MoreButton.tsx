@@ -8,10 +8,10 @@ import { Position, CustomIconButton } from './MoreButton.style';
 
 interface Props {
   studyId: number;
-  onDeleteBtnClick: (studyId: number) => void;
+  onStudyDelete: (studyId: number) => void;
 }
 
-function MoreButton({ studyId, onDeleteBtnClick }: Props) {
+function MoreButton({ studyId, onStudyDelete }: Props) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const openMenu = (event: MouseEvent<HTMLButtonElement>) => {
@@ -22,7 +22,7 @@ function MoreButton({ studyId, onDeleteBtnClick }: Props) {
   };
   const handleDeleteBtnClick = () => {
     closeMenu();
-    onDeleteBtnClick(studyId);
+    onStudyDelete(studyId);
   };
   return (
     <Position>

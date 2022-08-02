@@ -23,7 +23,7 @@ const study = {
 export const Default = () => (
   <StudyCard
     study={study}
-    onDeleteBtnClick={(studyId) => {
+    onStudyDelete={(studyId) => {
       console.log(studyId, 'delete');
     }}
   />
