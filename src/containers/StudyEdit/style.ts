@@ -14,6 +14,16 @@ export const StudyEditHeading = styled.div`
   gap: 2rem;
 `;
 
+export const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+export const ErrorMessage = styled.div`
+  color: #ef4444;
+`;
+
 export const StudyEditImageWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -21,7 +31,9 @@ export const StudyEditImageWrapper = styled.div`
 `;
 export const ImageContainer = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 `;
 
 export const ImageWrapper = styled.div`
