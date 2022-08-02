@@ -11,14 +11,37 @@ import {
 } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import CommunityTypographyButton from '@containers/CommunityCard/CommunityTypographyButton';
+import CommunityTypographyButton from '@containers/CommunityCard/CommunityTypographyButton/CommunityTypographyButton';
 import CommunityMenuIconButton from '@containers/CommunityCard/CommunityMenuIconButton';
 import {
   ContentsWrapper,
   CustomCardMedia,
 } from '@containers/CommunityCard/CommunityCard.style';
 
-function CommunityCard() {
+interface CommunityCardType {
+  postId?: number;
+  memberId?: number;
+  nickName: string;
+  createdAt: string;
+  profileImageUrl: string;
+  contents: string;
+  postImageUrl: string;
+  totalLikes: number;
+  totalComments: number;
+  isliked?: boolean;
+  inputRef?: any;
+}
+function CommunityCard({
+  postId,
+  nickName,
+  createdAt,
+  profileImageUrl,
+  contents,
+  postImageUrl,
+  totalLikes,
+  totalComments,
+  inputRef,
+}: CommunityCardType) {
   const [contentsOpen, setContentsOpen] = useState(false);
   const [liked, setLiked] = useState(false);
 
@@ -37,38 +60,24 @@ function CommunityCard() {
         avatar={
           <Avatar
             alt='User 1'
-            src='https://picsum.photos/id/1026/200/300' //User.image
+            src={profileImageUrl}
             sx={{ cursor: 'pointer' }}
           />
         }
         action={<CommunityMenuIconButton />}
-        title='Paeng' //User.nickname
-        subheader='1시간전' //Post 생성 시간
+        title={nickName}
+        subheader={createdAt}
         sx={{ paddingBottom: '0' }}
       />
       <CardContent sx={{ paddingBottom: '0' }}>
         {contentsOpen ? (
-          <Typography>
-            (여기 부분에다가 post.contents) Heat oil in a (14- to 16-inch)
-            paella pan or a large, deep skillet over medium-high heat. Add
-            chicken, shrimp and chorizo, and cook, stirring occasionally until
-            lightly browned, 6 to 8 minutes. Transfer shrimp to a large plate
-            and set aside, leaving chicken and chorizo in the pan. Add pimentón,
-            bay leaves, garlic, tomatoes, onion, salt and pepper, and cook,
-            stirring often until thickened and fragrant, about 10 minutes. Add
-          </Typography>
+          <ContentsWrapper>
+            <Typography ref={inputRef}>{contents}</Typography>
+          </ContentsWrapper>
         ) : (
           <>
             <ContentsWrapper>
-              <Typography>
-                Heat oil in a (14- to 16-inch) paella pan or a large, deep
-                skillet over medium-high heat. Add chicken, shrimp and chorizo,
-                and cook, stirring occasionally until lightly browned, 6 to 8
-                minutes. Transfer shrimp to a large plate and set aside, leaving
-                chicken and chorizo in the pan. Add pimentón, bay leaves,
-                garlic, tomatoes, onion, salt and pepper, and cook, stirring
-                often until thickened and fragrant, about 10 minutes. Add
-              </Typography>
+              <Typography ref={inputRef}>{contents}</Typography>
             </ContentsWrapper>
             <CommunityTypographyButton onClick={handleReadMore}>
               더보기
@@ -79,17 +88,18 @@ function CommunityCard() {
       <Box sx={{ margin: '1rem 1rem 0' }}>
         <CustomCardMedia
           component='img'
-          image='https://picsum.photos/id/1026/500'
+          image={postImageUrl}
           alt='postImage'
+          sx={{ height: '21rem' }}
         />
       </Box>
       <CardActions disableSpacing>
         <IconButton aria-label='settings' onClick={handleLiked}>
           {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
-        <CommunityTypographyButton>99(Linked number)</CommunityTypographyButton>
-        <CommunityTypographyButton margin='0 1rem 0 auto'>
-          댓글 199개(댓글 number)
+        <CommunityTypographyButton>{totalLikes}</CommunityTypographyButton>
+        <CommunityTypographyButton name='댓글' margin='0 1rem 0 auto'>
+          {totalComments}
         </CommunityTypographyButton>
       </CardActions>
     </Card>
