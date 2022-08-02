@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, MenuItem, TextField, Typography } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 
 import {
   FormContainer,
@@ -9,6 +9,7 @@ import {
   StyledForm,
 } from './style';
 import { careers, jobs, mbtis } from './options';
+import Select from './Select';
 
 function SignUpForm() {
   const [nickname, setNickname] = useState('');
@@ -37,54 +38,30 @@ function SignUpForm() {
             value={nickname}
             onChange={(e) => setNickname(e.target.value)}
           />
-          <TextField
+          <Select
             label='직무'
+            handleChange={setJob}
             required
-            select
-            onChange={(e) => {
-              setJob(e.target.value);
-            }}
+            options={jobs}
             value={job}
-          >
-            {jobs.map((job) => (
-              <MenuItem key={job.value} value={job.value}>
-                {job.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
+          />
+          <Select
             label='경력'
+            handleChange={setCareer}
             required
-            select
-            onChange={(e) => {
-              setCareer(e.target.value);
-            }}
+            options={careers}
             value={career}
-          >
-            {careers.map((career) => (
-              <MenuItem key={career.value} value={career.value}>
-                {career.label}
-              </MenuItem>
-            ))}
-          </TextField>
+          />
           <MbtiContainer>
             <MbtiWrapper>
-              <TextField
+              <Select
                 label='MBTI'
+                handleChange={setMbti}
                 required
-                select
-                onChange={(e) => {
-                  setMbti(e.target.value);
-                }}
+                options={mbtis}
                 value={mbti}
                 fullWidth
-              >
-                {mbtis.map((mbti) => (
-                  <MenuItem key={mbti} value={mbti}>
-                    {mbti}
-                  </MenuItem>
-                ))}
-              </TextField>
+              />
             </MbtiWrapper>
             <MbtiWrapper>
               <Button size='large' fullWidth>
