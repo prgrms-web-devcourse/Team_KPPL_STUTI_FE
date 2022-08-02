@@ -12,7 +12,7 @@ function StudyCreateFileInput({ message, onChange }: Props) {
       <input
         hidden
         type='file'
-        accept='image/jpg,impge/png,image/jpeg,image/gif'
+        accept='image/jpg,image/png,image/jpeg,image/gif'
         name='study-image'
         onChange={onChange}
       />
