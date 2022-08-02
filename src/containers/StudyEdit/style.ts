@@ -1,3 +1,4 @@
+import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
 import styled from '@emotion/styled';
 
 export const StudyEditWrapper = styled.div`
@@ -18,11 +19,25 @@ export const StudyEditImageWrapper = styled.div`
   flex-direction: column;
   gap: 1rem;
 `;
-
-export const ImageWrapper = styled.div`
-  width: 100%;
+export const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
+`;
+
+export const ImageWrapper = styled.div`
+  position: relative;
+  width: 296px;
+  height: 200px;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  align-items: center;
+`;
+
+export const CameraIcon = styled(CameraAltOutlinedIcon)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const Image = styled.img`

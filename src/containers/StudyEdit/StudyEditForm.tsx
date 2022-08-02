@@ -7,6 +7,7 @@ import {
 import { fetchStudyDetails } from '@src/apis/fetchStudyDetails';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
 
 import {
   StudyEditHeading,
@@ -16,6 +17,8 @@ import {
   Image,
   ButtonWrapper,
   StudyDescriptionWrapper,
+  CameraIcon,
+  ImageContainer,
 } from './style';
 
 function StudyEditForm() {
@@ -100,9 +103,14 @@ function StudyEditForm() {
         </StudyEditHeading>
         <StudyEditImageWrapper>
           <Typography variant='h5'>대표 이미지</Typography>
-          <ImageWrapper>
-            {thumbnailImage && <Image src={thumbnailImage} alt='study-image' />}
-          </ImageWrapper>
+          <ImageContainer>
+            <ImageWrapper>
+              <CameraIcon color='secondary' />
+              {thumbnailImage && (
+                <Image src={thumbnailImage} alt='study-image' />
+              )}
+            </ImageWrapper>
+          </ImageContainer>
           <ButtonWrapper>
             <FileInput message='이미지 업로드' onChange={onImageChange} />
           </ButtonWrapper>
