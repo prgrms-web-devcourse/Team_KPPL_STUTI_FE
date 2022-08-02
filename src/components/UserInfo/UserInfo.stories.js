@@ -1,10 +1,8 @@
-import { MuiProvider } from '../../../styles';
-
-import DetailLeaderInfo from './DetailLeaderInfo';
+import UserInfo from './UserInfo';
 
 export default {
-  title: 'Components/StudyDetail',
-  component: DetailLeaderInfo,
+  title: 'Components/User',
+  component: UserInfo,
   argTypes: {
     mbti: {
       options: [
@@ -30,17 +28,23 @@ export default {
   },
 };
 
-const Template = (args) => (
-  <MuiProvider>
-    <DetailLeaderInfo {...args} />
-  </MuiProvider>
-);
+const Template = (args) => <UserInfo {...args} />;
 
-export const LeaderInfo = Template.bind({});
-LeaderInfo.args = {
+export const UserInfoDefault = Template.bind({});
+UserInfoDefault.args = {
   profileImageUrl: '',
-  nickName: '프룽이',
+  nickname: '프룽이',
   field: '프론트엔드',
   career: 'N년차',
   mbti: 'INTP',
+};
+
+export const UserInfoWithTitle = Template.bind({});
+UserInfoWithTitle.args = {
+  profileImageUrl: '',
+  nickname: '프룽이',
+  field: '프론트엔드',
+  career: 'N년차',
+  mbti: 'INTP',
+  title: '제목입니다',
 };

@@ -4,12 +4,10 @@ import {
   ReplyControlTypography,
   ReplyControlWrapper,
   ReplyInfoWrapper,
-  ReplyProfileImage,
-  ReplyProfileImageWrapper,
   ReplyProfileWrapper,
 } from '@src/containers/Reply/style';
 import ReplyInput from '@src/containers/Reply/ReplyInput';
-import { Typography } from '@mui/material';
+import { Avatar, Typography } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { childrenQuestionType } from '@interfaces/studyDetailQuestion';
 
@@ -79,9 +77,7 @@ function Reply({
     <ReplyContainer>
       <ReplyProfileWrapper>
         {typeof profileImageUrl === 'string' && profileImageUrl ? (
-          <ReplyProfileImageWrapper>
-            <ReplyProfileImage src={profileImageUrl} alt='profile-image' />
-          </ReplyProfileImageWrapper>
+          <Avatar src={profileImageUrl} alt='profile-image' />
         ) : (
           <AccountCircleIcon fontSize='large' color='secondary' />
         )}

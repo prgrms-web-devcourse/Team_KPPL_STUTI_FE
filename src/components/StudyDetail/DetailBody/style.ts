@@ -6,5 +6,5 @@ export const BodyWrapper = styled.div`
 `;
 
 export const Description = styled.div`
-  padding: 10px 5px;
+  padding: 0.625rem 0.3125rem;
 `;
