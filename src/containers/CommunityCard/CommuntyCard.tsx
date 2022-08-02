@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import {
   Card,
@@ -40,13 +40,22 @@ function CommunityCard({
   postImageUrl,
   totalLikes,
   totalComments,
-  inputRef,
 }: CommunityCardType) {
-  const [contentsOpen, setContentsOpen] = useState(false);
   const [liked, setLiked] = useState(false);
+  const [isExpand, setIsExpand] = useState<string | number>('none');
+  const contentsRef = useRef<HTMLInputElement>(null);
 
-  const handleReadMore = (e: React.MouseEvent<HTMLElement>) => {
-    setContentsOpen(true);
+  useLayoutEffect(() => {
+    if (contentsRef.current) {
+      const contentsHeight = contentsRef.current.getBoundingClientRect().height;
+      if (contentsHeight > 96) {
+        setIsExpand(4);
+      }
+    }
+  }, []);
+
+  const handleReadMore = () => {
+    setIsExpand('none');
   };
 
   const handleLiked = (e: React.MouseEvent<HTMLElement>) => {
@@ -70,19 +79,13 @@ function CommunityCard({
         sx={{ paddingBottom: '0' }}
       />
       <CardContent sx={{ paddingBottom: '0' }}>
-        {contentsOpen ? (
-          <ContentsWrapper>
-            <Typography ref={inputRef}>{contents}</Typography>
-          </ContentsWrapper>
-        ) : (
-          <>
-            <ContentsWrapper>
-              <Typography ref={inputRef}>{contents}</Typography>
-            </ContentsWrapper>
-            <CommunityTypographyButton onClick={handleReadMore}>
-              더보기
-            </CommunityTypographyButton>
-          </>
+        <ContentsWrapper maxLine={isExpand}>
+          <Typography ref={contentsRef}>{contents}</Typography>
+        </ContentsWrapper>
+        {isExpand !== 'none' && (
+          <CommunityTypographyButton onClick={handleReadMore}>
+            더보기
+          </CommunityTypographyButton>
         )}
       </CardContent>
       <Box sx={{ margin: '1rem 1rem 0' }}>

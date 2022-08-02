@@ -8,7 +8,8 @@ const postsData = {
       nickName: '키아',
       createdAt: '1시간전',
       profileImageUrl: 'http://prgrms.stuti/profile/image1.jpg',
-      contents: '오늘 spring security jwt에 대해서 학습했습니다.',
+      contents:
+        '오늘 spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대해서 학습했니닼ㅋzzasgasegasegasegaseg',
       postImageUrl: 'https://picsum.photos/id/1026/200/300',
       totalLikes: 10,
       totalComments: 10,
@@ -20,7 +21,8 @@ const postsData = {
       nickName: '팽',
       createdAt: '2시간전',
       profileImageUrl: 'http://prgrms.stuti/profile/image2.jpg',
-      contents: '오늘은 공부를 하지 않았습니다..',
+      contents:
+        '오늘은 공부를 하지 않았습니다..오늘은 공부를 하지 않았습니다..오늘은 공부를 하지 않았습니다..오늘은 공부를 하지 않았습니다..오늘은 공부를 하지 않았습니다..오늘은 공부를 하지 않았습니다..오늘은 공부를 하지 않았습니다..오늘은 공부를 하지 않았습니다..오늘은 공부를 하지 않았습니다..오늘은 공부를 하지 않았습니다..오늘은 공부를 하지 않았습니다..오늘은 공부를 하지 않았습니다..오늘은 공부를 하지 않았습니다..오늘은 공부를 하지 않았습니다..오늘은 공부를 하지 않았습니다..',
       postImageUrl: 'https://picsum.photos/id/1026/200/300',
       totalLikes: 20,
       totalComments: 20,
@@ -42,22 +44,10 @@ const postsData = {
 };
 
 function Community() {
-  console.log(postsData.posts);
-  const a = useRef();
-  //observer
-  const myObserver = new ResizeObserver((entries) => {
-    entries.forEach((entry) => {
-      console.log('width', entry.contentRect.width);
-      console.log('height', entry.contentRect.height);
-    });
-  });
-  console.log(a.current);
-  // myObserver.observe(a.current);
   return (
     <div>
       {postsData.posts.map((post) => (
         <CommunityCard
-          inputRef={a}
           key={post.postId}
           nickName={post.nickName}
           createdAt={post.createdAt}
