@@ -6,4 +6,4 @@ export { default as StudyDetailStudyInfo } from './StudyDetail/StudyInfo/StudyIn
 export { default as StudyDetailStudyQuestion } from './StudyDetail/StudyQuestion/StudyQuestion';
 export { default as StudyEditForm } from './StudyEdit/StudyEditForm';
 export { default as StudyManageMemberControl } from './StudyManage/MemberControl/MemberControl';
-export { default as SignUpForm } from './SignUpForm/SignUpForm';
+export { default as SignUpForm } from './SignUp/Form/Form';

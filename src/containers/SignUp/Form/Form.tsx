@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Button, TextField, Typography } from '@mui/material';
+import { careers, jobs, mbtis } from '@containers/SignUp/options';
+import Select from '@containers/SignUp/Select/Select';
 
 import {
   FormContainer,
@@ -8,8 +10,6 @@ import {
   MbtiWrapper,
   StyledForm,
 } from './style';
-import { careers, jobs, mbtis } from './options';
-import Select from './Select';
 
 function SignUpForm() {
   const [nickname, setNickname] = useState('');
