@@ -11,7 +11,7 @@ export const ReplyDefault = Template.bind({});
 ReplyDefault.args = {
   profileImageUrl: '',
   nickname: '프룽이',
-  content: '참여하고 싶어요!',
+  contents: '참여하고 싶어요!',
   year: 2022,
   month: 2,
   day: 22,
@@ -22,7 +22,7 @@ export const ReplyComment = Template.bind({});
 ReplyComment.args = {
   profileImageUrl: '',
   nickname: '프룽이',
-  content: '참여하고 싶어요!',
+  contents: '참여하고 싶어요!',
   year: 2022,
   month: 2,
   day: 22,
@@ -34,7 +34,7 @@ export const ReplyTotal = Template.bind({});
 ReplyTotal.args = {
   profileImageUrl: '',
   nickname: '프룽이',
-  content: '참여하고 싶어요!',
+  contents: '참여하고 싶어요!',
   year: 2022,
   month: 2,
   day: 22,
@@ -45,7 +45,7 @@ ReplyTotal.args = {
       key={1}
       profileImageUrl=''
       nickname='프롱이'
-      content='참여하고 싶어요!'
+      contents='참여하고 싶어요!'
       year={2022}
       month={2}
       day={22}
@@ -55,7 +55,7 @@ ReplyTotal.args = {
       key={2}
       profileImageUrl=''
       nickname='프롱이'
-      content='참여하고 싶어요!'
+      contents='참여하고 싶어요!'
       year={2022}
       month={2}
       day={22}
@@ -65,7 +65,7 @@ ReplyTotal.args = {
       key={3}
       profileImageUrl=''
       nickname='프롱이'
-      content='참여하고 싶어요!'
+      contents='참여하고 싶어요!'
       year={2022}
       month={2}
       day={22}

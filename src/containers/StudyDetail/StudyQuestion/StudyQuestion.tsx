@@ -51,7 +51,7 @@ function StudyQuestion({
           profileImageUrl = '',
           memberId,
           nickname = '프룽이',
-          content: text = '참여하고 싶어요!',
+          contents: text = '참여하고 싶어요!',
           createdAt = '2022.02.22 10:00',
           children = [],
         } = content;
@@ -60,7 +60,7 @@ function StudyQuestion({
             key={content.questionId}
             profileImageUrl={profileImageUrl}
             nickname={nickname}
-            content={text}
+            contents={text}
             replies={children}
             {...getTime(createdAt)}
           >
@@ -71,7 +71,7 @@ function StudyQuestion({
                 profileImageUrl = '',
                 memberId,
                 nickname = '',
-                content = '',
+                contents = '',
                 createdAt = '2022.00.00',
               } = reply;
               return (
@@ -79,7 +79,7 @@ function StudyQuestion({
                   key={questionId}
                   profileImageUrl={profileImageUrl}
                   nickname={nickname}
-                  content={content}
+                  contents={contents}
                   {...getTime(createdAt)}
                 />
               );
