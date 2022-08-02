@@ -11,7 +11,7 @@ import {
   StyledForm,
 } from './style';
 
-function SignUpForm() {
+function Form() {
   const [nickname, setNickname] = useState('');
   const [job, setJob] = useState('');
   const [career, setCareer] = useState('');
@@ -78,4 +78,4 @@ function SignUpForm() {
   );
 }
 
-export default SignUpForm;
+export default Form;
