@@ -10,3 +10,5 @@ export { default as StudyList } from './StudyList/StudyList';
 export { default as HomeHeroSection } from './Home/HeroSection/HeroSection';
 export { default as HomeStudyListSection } from './Home/StudyListSection/StudyListSection';
 export { default as HomeStudyCreateButton } from './Home/StudyCreateButton/StudyCreateButton';
+export { default as ProfileDetailInfoSection } from './ProfileDetail/InfoSection/InfoSection';
+export { default as ProfileDetailContentSection } from './ProfileDetail/ContentSection/ContentSection';

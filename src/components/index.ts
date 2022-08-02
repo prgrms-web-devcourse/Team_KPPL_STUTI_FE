@@ -6,3 +6,4 @@ export { default as StudyDetailHeader } from './StudyDetail/DetailHeader/DetailH
 export { default as StudyDetailBody } from './StudyDetail/DetailBody/DetailBody';
 export { default as UserInfo } from './UserInfo/UserInfo';
 export { default as StudyDetailLeaderInfo } from './StudyDetail/DetailLeaderInfo/DetailLeaderInfo';
+export { default as UserProfile } from './ProfileDetail/UserProfile/UserProfile';
