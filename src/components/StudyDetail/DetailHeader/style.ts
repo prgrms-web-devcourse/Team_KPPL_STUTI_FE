@@ -9,7 +9,7 @@ export const HeaderWrapper = styled.div`
 export const ImageWrapper = styled.div`
   width: 100%;
   height: 400px;
-  margin-top: 20px;
+  margin-top: 1.25rem;
   background-color: #eee;
 `;
 

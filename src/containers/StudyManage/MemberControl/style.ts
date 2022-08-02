@@ -4,13 +4,13 @@ import styled from '@emotion/styled';
 export const UserInfoWrapper = styled(Paper)`
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 0.625rem;
 `;
 
 export const NoUserWrapper = styled(Paper)`
   display: flex;
   justify-content: center;
-  padding: 20px;
+  padding: 1.25rem;
 `;
 
 export const UserInfoButtonWrapper = styled.div`
@@ -20,12 +20,12 @@ export const UserInfoButtonWrapper = styled.div`
 export const UserInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0.625rem;
 `;
 
 export const MemberControlContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 600px;
-  gap: 20px;
+  gap: 1.25rem;
 `;

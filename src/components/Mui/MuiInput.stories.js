@@ -36,8 +36,8 @@ const Example = ({ title, children }) => (
     style={{
       display: 'flex',
       alignItems: 'center',
-      gap: '16px',
-      marginBottom: '16px',
+      gap: '1rem',
+      marginBottom: '1rem',
     }}
   >
     <div

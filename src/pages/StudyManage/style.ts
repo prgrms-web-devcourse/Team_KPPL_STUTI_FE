@@ -5,10 +5,10 @@ export const StudyManageContainer = styled.div`
   margin: 3rem auto;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 2rem;
 `;
 
 export const StudyManageButtonWrapper = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 0.625rem;
 `;

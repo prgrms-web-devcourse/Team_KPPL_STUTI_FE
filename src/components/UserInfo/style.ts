@@ -3,17 +3,17 @@ import styled from '@emotion/styled';
 export const UserInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.25rem;
 `;
 
 export const UserInfoWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 `;
 
 export const UserSubInfoWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 `;

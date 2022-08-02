@@ -5,17 +5,17 @@ export const ReplyInputWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  margin: 10px 0;
+  gap: 0.625rem;
+  margin: 0.625rem 0;
 `;
 
 export const ReplyContainer = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 0.625rem;
 `;
 
 export const ReplyProfileWrapper = styled.div`
-  margin-top: 10px;
+  margin-top: 0.625rem;
 `;
 
 export const ReplyInfoWrapper = styled.div`
@@ -25,7 +25,7 @@ export const ReplyInfoWrapper = styled.div`
 export const ReplyControlWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 `;
 
 export const ReplyControlTypography = styled(Typography)`
