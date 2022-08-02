@@ -33,10 +33,10 @@ function StudyManage() {
   return (
     <StudyManageContainer>
       <div>
-        <Typography variant='subtitle2' color='secondary'>
+        <Typography variant='body1' color='secondary'>
           {getTopic()}
         </Typography>
-        <Typography variant='h4'>{getTitle()}</Typography>
+        <Typography variant='h3'>{getTitle()}</Typography>
       </div>
       <StudyManageButtonWrapper>
         <Button fullWidth>스터디 수정</Button>

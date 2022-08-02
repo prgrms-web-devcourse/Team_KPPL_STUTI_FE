@@ -1,11 +1,9 @@
 import {
   UserInfoContainer,
   UserInfoWrapper,
-  UserProfileImage,
-  UserProfileImageWrapper,
   UserSubInfoWrapper,
 } from '@src/components/UserInfo/style';
-import { Typography } from '@mui/material';
+import { Avatar, Typography } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import MbtiTag from '@components/MbtiTag/MbtiTag';
 
@@ -31,19 +29,17 @@ function UserInfo({
       {title && <Typography variant='h5'>{title}</Typography>}
       <UserInfoWrapper>
         {typeof profileImageUrl === 'string' && profileImageUrl ? (
-          <UserProfileImageWrapper>
-            <UserProfileImage src={profileImageUrl} alt='profile-image' />
-          </UserProfileImageWrapper>
+          <Avatar src={profileImageUrl} alt='profile-image' />
         ) : (
           <AccountCircleIcon fontSize='large' color='secondary' />
         )}
         <div>
           <Typography variant='h6'>{nickname}</Typography>
           <UserSubInfoWrapper>
-            <Typography variant='subtitle2' color='#6B7280'>
+            <Typography variant='body1' color='#6B7280'>
               {field}
             </Typography>
-            <Typography variant='subtitle2' color='#6B7280'>
+            <Typography variant='body1' color='#6B7280'>
               {career}
             </Typography>
             <MbtiTag mbti={mbti} size='small' />
