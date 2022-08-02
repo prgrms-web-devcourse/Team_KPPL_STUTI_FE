@@ -4,3 +4,4 @@ export { default as StudyDetailMbtiRecommand } from './StudyDetail/MbtiRecommand
 export { default as StudyDetailMbtiRecommend } from './StudyDetail/MbtiRecommand/MbtiRecommend';
 export { default as StudyDetailStudyInfo } from './StudyDetail/StudyInfo/StudyInfo';
 export { default as StudyDetailStudyQuestion } from './StudyDetail/StudyQuestion/StudyQuestion';
+export { default as StudyEditForm } from './StudyEdit/StudyEditForm';
