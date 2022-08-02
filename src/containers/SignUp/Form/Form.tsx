@@ -25,6 +25,12 @@ function Form() {
     console.log(`mbti: ${mbti}`);
   };
 
+  const handleClick = () => {
+    window.open(
+      'https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC',
+    );
+  };
+
   return (
     <FormContainer>
       <StyledForm onSubmit={handleSubmit}>
@@ -64,7 +70,7 @@ function Form() {
               />
             </MbtiWrapper>
             <MbtiWrapper>
-              <Button size='large' fullWidth>
+              <Button size='large' fullWidth onClick={handleClick}>
                 MBTI 검사하기
               </Button>
             </MbtiWrapper>
