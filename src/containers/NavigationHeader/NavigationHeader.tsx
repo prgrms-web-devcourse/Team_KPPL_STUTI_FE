@@ -18,7 +18,7 @@ import { useTheme } from '@emotion/react';
 import {
   HeaderContainer,
   NavContainer,
-  NavWrapper,
+  HeaderNavLink,
   LogoWrapper,
   LoginWrapper,
   ModalContainer,
@@ -72,16 +72,12 @@ function NavigationHeader() {
             </Link>
           </LogoWrapper>
           <NavContainer>
-            <NavWrapper>
-              <Link to='/'>
-                <Typography variant='h6'>스터디</Typography>
-              </Link>
-            </NavWrapper>
-            <NavWrapper>
-              <Link to='/community'>
-                <Typography variant='h6'>커뮤니티</Typography>
-              </Link>
-            </NavWrapper>
+            <HeaderNavLink exact to='/'>
+              <Typography variant='h6'>스터디</Typography>
+            </HeaderNavLink>
+            <HeaderNavLink to='/community'>
+              <Typography variant='h6'>커뮤니티</Typography>
+            </HeaderNavLink>
           </NavContainer>
           <LoginWrapper>
             {isLogin ? (

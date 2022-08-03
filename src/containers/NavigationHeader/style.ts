@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import { Button } from '@mui/material';
 import styled from '@emotion/styled';
 
@@ -17,10 +18,25 @@ export const NavContainer = styled.div`
   gap: 0.5rem;
 `;
 
-export const NavWrapper = styled.div`
+export const HeaderNavLink = styled(NavLink)`
+  position: relative;
   display: flex;
   align-items: center;
   padding: 0 0.75rem;
+
+  &.active {
+    color: ${({ theme }) => theme.palette.primary.main};
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      height: 2px;
+      background-color: ${({ theme }) => theme.palette.primary.main};
+    }
+  }
 `;
 
 export const LogoWrapper = styled.div`
