@@ -13,6 +13,7 @@ import {
   Typography,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { useTheme } from '@emotion/react';
 
 import {
   HeaderContainer,
@@ -29,6 +30,7 @@ import {
 } from './style';
 
 function NavigationHeader() {
+  const theme = useTheme();
   const [isLogin, setIsLogin] = useState(false);
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -66,7 +68,7 @@ function NavigationHeader() {
         <HeaderContainer>
           <LogoWrapper>
             <Link to='/' style={{ display: 'flex' }}>
-              <LogoIcon color='#0055FF' />
+              <LogoIcon color={theme.palette.primary.main} />
             </Link>
           </LogoWrapper>
           <NavContainer>
