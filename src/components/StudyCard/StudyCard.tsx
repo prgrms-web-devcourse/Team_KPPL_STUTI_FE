@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import { getRegionLabel, getTopicLabel } from '@src/utils/getOptionLabel';
+import { getRegionLabel, getTopicLabel } from '@utils/getOptionLabel';
 import PhotoIcon from '@mui/icons-material/Photo';
 import { StudyItemType } from '@interfaces/studyList';
 import { MbtiTag } from '@components';

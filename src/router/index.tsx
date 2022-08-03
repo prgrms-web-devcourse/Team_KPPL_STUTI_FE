@@ -14,11 +14,11 @@ import {
 import StudyManage from '@src/pages/StudyManage';
 import StudyEdit from '@src/pages/StudyEdit';
 import StudyDetail from '@src/pages/StudyDetail';
+import StudyCreate from '@src/pages/StudyCreate';
 import SignUp from '@src/pages/SignUp';
 import NavigationHeader from '@src/containers/NavigationHeader/NavigationHeader';
 import { Home, ProfileDetail, ProfileEdit } from '@pages';
 import ForumIcon from '@mui/icons-material/Forum';
-import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 
 function Routers() {
   return (
@@ -29,8 +29,8 @@ function Routers() {
         <Route exact path={COMMUNITY} component={ForumIcon} />
         <Route exact path={PROFILE_DETAIL} component={ProfileDetail} />
         <Route exact path={PROFILE_EDIT} component={ProfileEdit} />
+        <Route exact path={STUDY_CREATE} component={StudyCreate} />
         <Route exact path={STUDY_DETAIL} component={StudyDetail} />
-        <Route exact path={STUDY_CREATE} component={BookmarkAddIcon} />
         <Route exact path={STUDY_EDIT} component={StudyEdit} />
         <Route exact path={STUDY_MANAGE} component={StudyManage} />
         <Route exact path={SIGN_UP} component={SignUp} />

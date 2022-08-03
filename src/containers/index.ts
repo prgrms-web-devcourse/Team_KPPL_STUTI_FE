@@ -6,7 +6,6 @@ export { default as StudyDetailStudyQuestion } from './StudyDetail/StudyQuestion
 export { default as StudyEditForm } from './StudyEdit/StudyEditForm';
 export { default as StudyManageMemberControl } from './StudyManage/MemberControl/MemberControl';
 export { default as SignUpForm } from './SignUp/Form/Form';
-export { default as StudyList } from './StudyList/StudyList';
 export { default as HomeHeroSection } from './Home/HeroSection/HeroSection';
 export { default as HomeStudyListSection } from './Home/StudyListSection/StudyListSection';
 export { default as HomeStudyCreateButton } from './Home/StudyCreateButton/StudyCreateButton';

@@ -8,11 +8,9 @@ import { Nav, Button } from './ContentSection.style';
 function ContentSection() {
   const [tab, setTab] = useState<'study' | 'post'>('study');
 
-  const handleClick = (e: MouseEvent) => {
-    if (e.target instanceof HTMLButtonElement) {
-      const newTab = e.target.dataset.value as 'study' | 'post';
-      setTab(newTab);
-    }
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    const newTab = e.currentTarget.dataset.value as 'study' | 'post';
+    setTab(newTab);
   };
   return (
     <>

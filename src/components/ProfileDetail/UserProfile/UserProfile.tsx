@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { getFieldLabel, getCareerLabel } from '@src/utils/getOptionLabel';
+import { getFieldLabel, getCareerLabel } from '@utils/getOptionLabel';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import LinkIcon from '@mui/icons-material/Link';

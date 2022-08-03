@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useInterSectionObserver } from '@src/hooks/useIntersectionObserver';
 import { StudyListType } from '@interfaces/studyList';
+import { useInterSectionObserver } from '@hooks/useIntersectionObserver';
 import { StudyList } from '@components';
 import { getStudyList } from '@apis/studyGroups';
 
@@ -22,11 +22,11 @@ function StudyTab() {
     (async () => {
       try {
         setLoading(true);
-        const { content: newStudylist, hasNext: newHasNext } =
+        const { content: newStudyList, hasNext: newHasNext } =
           await getStudyList({
             lastStudyId,
           });
-        setStudyList([...studyList, ...newStudylist]);
+        setStudyList([...studyList, ...newStudyList]);
         setHasNext(newHasNext);
       } catch (e) {
         console.error(e);

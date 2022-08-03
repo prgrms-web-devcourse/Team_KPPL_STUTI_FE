@@ -3,21 +3,24 @@ import {
   careerOptions,
   topicOptions,
   regionOptions,
-} from '../constants/selectOptions';
+} from '@constants/selectOptions';
 
 type Option = {
-  value: string;
+  value: string | number;
   label: string;
 };
 
-const getOptionLabel = (options: Option[], optionValue: string): string => {
+const getOptionLabel = (
+  options: Option[],
+  optionValue: string | number,
+): string => {
   if (optionValue === '') {
     return '';
   }
 
   const option = options.find((option) => option.value === optionValue);
 
-  if (option == null) {
+  if (!option) {
     console.error(`optionValue: ${optionValue} - invalid option value`);
     return '';
   }

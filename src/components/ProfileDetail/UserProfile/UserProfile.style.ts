@@ -30,7 +30,7 @@ export const Flex = styled.div`
   display: flex;
 `;
 
-export const Dt = styled.span`
+export const Dt = styled.dt`
   flex: 0 0 6rem;
   display: flex;
   align-items: center;

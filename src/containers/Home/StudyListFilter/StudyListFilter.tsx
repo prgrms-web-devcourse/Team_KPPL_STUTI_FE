@@ -3,7 +3,7 @@ import {
   mbtiOptions,
   topicOptions,
   regionOptions,
-} from '@src/constants/selectOptions';
+} from '@constants/selectOptions';
 
 import { OptionalFilter } from '../StudyListSection/StudyListSection';
 import Select from '../Select/Select';

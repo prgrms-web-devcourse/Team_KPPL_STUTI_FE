@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useInterSectionObserver } from '@src/hooks/useIntersectionObserver';
 import { StudyListType } from '@interfaces/studyList';
+import { useInterSectionObserver } from '@hooks/useIntersectionObserver';
 import { StudyList } from '@components';
 import { getStudyList } from '@apis/studyGroups';
 

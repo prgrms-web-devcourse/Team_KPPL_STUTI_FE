@@ -4,7 +4,7 @@ export const Section = styled.section`
   padding: 1rem 1rem 0 1rem;
 `;
 
-export const ImgConatiner = styled.div`
+export const Imgcontainer = styled.div`
   height: 328px;
   border-radius: 0.5rem;
   overflow: hidden;

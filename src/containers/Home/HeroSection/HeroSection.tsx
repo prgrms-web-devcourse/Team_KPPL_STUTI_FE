@@ -1,11 +1,11 @@
-import { Section, ImgConatiner, Img } from './HeroSection.style';
+import { Section, Imgcontainer, Img } from './HeroSection.style';
 
 function HeroSection() {
   return (
     <Section>
-      <ImgConatiner>
+      <Imgcontainer>
         <Img src='' alt='' />
-      </ImgConatiner>
+      </Imgcontainer>
     </Section>
   );
 }
