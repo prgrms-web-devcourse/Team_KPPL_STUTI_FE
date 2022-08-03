@@ -18,7 +18,7 @@ interface timeType {
 interface Props {
   profileImageUrl: string;
   nickname: string;
-  content: string;
+  contents: string;
   year: number;
   month: number;
   day: number;
@@ -30,7 +30,7 @@ interface Props {
 function Reply({
   profileImageUrl,
   nickname,
-  content,
+  contents,
   year,
   month,
   day,
@@ -84,7 +84,7 @@ function Reply({
       </ReplyProfileWrapper>
       <ReplyInfoWrapper>
         <Typography variant='h6'>{nickname}</Typography>
-        <div>{content}</div>
+        <div>{contents}</div>
         <ReplyControlWrapper>
           <Typography color='secondary'>
             {changeTime(year, month, day, time)}

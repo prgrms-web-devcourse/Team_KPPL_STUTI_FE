@@ -4,7 +4,7 @@ export interface childrenQuestionType {
   profileImageUrl: string;
   memberId: number;
   nickname: string;
-  content: string;
+  contents: string;
   createdAt: string;
 }
 
@@ -14,7 +14,7 @@ export interface questionContentType {
   profileImageUrl: string;
   memberId: number;
   nickname: string;
-  content: string;
+  contents: string;
   createdAt: string;
   children: childrenQuestionType[];
 }
