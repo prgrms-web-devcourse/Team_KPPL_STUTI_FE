@@ -2,14 +2,24 @@ import { NavLink } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 
+export const Nav = styled.nav`
+  width: 100%;
+  max-width: 640px;
+  height: 60px;
+`;
+
 export const HeaderContainer = styled.div`
+  position: fixed;
   display: flex;
   align-items: stretch;
-  width: 100%;
-  height: 60px;
+  width: inherit;
+  max-width: inherit;
+  height: inherit;
   padding: 0 1rem;
   font-weight: bold;
   border-bottom: 1px solid #d1d5db;
+  background-color: white;
+  z-index: 9999;
 `;
 
 export const NavContainer = styled.div`

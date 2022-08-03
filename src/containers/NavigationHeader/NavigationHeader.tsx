@@ -28,6 +28,7 @@ import {
   ButtonTextWrapper,
   LoginBox,
   NavTypography,
+  Nav,
 } from './style';
 
 function NavigationHeader() {
@@ -65,7 +66,7 @@ function NavigationHeader() {
 
   return (
     <header>
-      <nav>
+      <Nav>
         <HeaderContainer>
           <LogoWrapper>
             <Link to='/' style={{ display: 'flex' }}>
@@ -173,7 +174,7 @@ function NavigationHeader() {
             )}
           </LoginWrapper>
         </HeaderContainer>
-      </nav>
+      </Nav>
     </header>
   );
 }
