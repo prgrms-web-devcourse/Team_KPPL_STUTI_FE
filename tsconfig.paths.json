@@ -73,6 +73,12 @@
       ],
       "@utils/*": [
         "./utils/*"
+      ],
+      "@constants": [
+        "./constants"
+      ],
+      "@constants/*": [
+        "./constants/*"
       ]
     }
   }

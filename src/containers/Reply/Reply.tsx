@@ -53,8 +53,6 @@ function Reply({
   ) => {
     const now = new Date();
 
-    console.log(year, month, day, time);
-
     const isOneDay =
       year === now.getFullYear() &&
       month === now.getMonth() + 1 &&
