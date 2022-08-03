@@ -27,8 +27,6 @@ function StudyCreateMultiLineInput({
         style: {
           height,
         },
-        maxLength: 1000,
-        minLength: 10,
       }}
       onChange={onChange}
       multiline

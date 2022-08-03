@@ -22,7 +22,6 @@ function StudyCreateLabelInput({
       fullWidth={fullWidth}
       value={value}
       onChange={onChange}
-      inputProps={{ maxLength: 50, minLength: 5 }}
     />
   );
 }
