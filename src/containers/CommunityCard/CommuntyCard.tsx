@@ -48,9 +48,7 @@ function CommunityCard({
   useLayoutEffect(() => {
     if (contentsRef.current) {
       const contentsHeight = contentsRef.current.getBoundingClientRect().height;
-      if (contentsHeight > 96) {
-        setIsExpand(4);
-      }
+      setIsExpand(contentsHeight > 96 ? 4 : 'none');
     }
   }, []);
 
