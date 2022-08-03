@@ -8,12 +8,13 @@ import {
 } from '@src/containers/Reply/style';
 import ReplyInput from '@src/containers/Reply/ReplyInput';
 import { Avatar, Typography } from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PersonIcon from '@mui/icons-material/Person';
 import { childrenQuestionType } from '@interfaces/studyDetailQuestion';
 
 interface timeType {
   hour: number;
   minute: number;
+  second: number;
 }
 interface Props {
   profileImageUrl: string;
@@ -52,17 +53,22 @@ function Reply({
   ) => {
     const now = new Date();
 
+    console.log(year, month, day, time);
+
     const isOneDay =
       year === now.getFullYear() &&
-      month === now.getMonth() &&
-      Math.abs(now.getDay() - day) === 1;
+      month === now.getMonth() + 1 &&
+      Math.abs(now.getDay() - day) === 0;
 
     if (time && isOneDay) {
       const isSameHour = time.hour === now.getHours();
       const isSameMinute = time.minute === now.getMinutes();
+      const isSameSecond = now.getSeconds() - time.second <= 10;
 
-      if (isSameMinute) {
+      if (isSameHour && isSameMinute && isSameSecond) {
         return '방금 전';
+      } else if (isSameHour && isSameMinute) {
+        return `${now.getSeconds() - time.second}초 전`;
       } else if (isSameHour) {
         return `${now.getMinutes() - time.minute}분 전`;
       } else {
@@ -77,9 +83,15 @@ function Reply({
     <ReplyContainer>
       <ReplyProfileWrapper>
         {typeof profileImageUrl === 'string' && profileImageUrl ? (
-          <Avatar src={profileImageUrl} alt='profile-image' />
+          <Avatar
+            sx={{ backgroundColor: '#D1D5DB', color: '#ffffff' }}
+            src={profileImageUrl}
+            alt='profile-image'
+          />
         ) : (
-          <AccountCircleIcon fontSize='large' color='secondary' />
+          <Avatar sx={{ backgroundColor: '#D1D5DB' }}>
+            <PersonIcon sx={{ color: '#ffffff' }} />
+          </Avatar>
         )}
       </ReplyProfileWrapper>
       <ReplyInfoWrapper>

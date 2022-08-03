@@ -225,9 +225,9 @@ const theme = createTheme({
           fontSize: '16px',
         },
         fontSizeLarge: {
-          width: '32px',
-          heihgt: '32px',
-          fontSize: '32px',
+          width: '40px',
+          heihgt: '40px',
+          fontSize: '40px',
         },
       },
     },

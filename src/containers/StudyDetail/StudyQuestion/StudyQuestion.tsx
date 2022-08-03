@@ -1,3 +1,4 @@
+import { getTime } from '@utils/time';
 import { StudyDetailQuestionContainer } from '@src/containers/StudyDetail/StudyQuestion/style';
 import StudyQuestionInput from '@src/containers/Reply/ReplyInput';
 import Reply from '@src/containers/Reply/Reply';
@@ -6,40 +7,9 @@ import { studyDetailQuestionType } from '@interfaces/studyDetailQuestion';
 
 function StudyQuestion({
   contents = [],
-  page,
-  size,
-  totalPages,
   totalElements,
-  sorted,
-  isFirst,
   isLast,
 }: studyDetailQuestionType) {
-  const getTime = (createdAt: string) => {
-    const [date, time] = createdAt.split(' ');
-
-    const returnTime = () => {
-      if (time) {
-        const [hour, minute] = time.split(':');
-
-        return {
-          hour: parseInt(hour),
-          minute: parseInt(minute),
-        };
-      } else {
-        return undefined;
-      }
-    };
-
-    const [year, month, day] = date.split('.');
-
-    return {
-      year: parseInt(year),
-      month: parseInt(month),
-      day: parseInt(day),
-      time: returnTime(),
-    };
-  };
-
   return (
     <StudyDetailQuestionContainer>
       <Typography variant='h5'>질문 & 답변</Typography>
