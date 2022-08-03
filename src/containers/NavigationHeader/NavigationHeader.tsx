@@ -27,6 +27,7 @@ import {
   LoginButton,
   ButtonTextWrapper,
   LoginBox,
+  NavTypography,
 } from './style';
 
 function NavigationHeader() {
@@ -73,10 +74,10 @@ function NavigationHeader() {
           </LogoWrapper>
           <NavContainer>
             <HeaderNavLink exact to='/'>
-              <Typography variant='h6'>스터디</Typography>
+              <NavTypography variant='h6'>스터디</NavTypography>
             </HeaderNavLink>
             <HeaderNavLink to='/community'>
-              <Typography variant='h6'>커뮤니티</Typography>
+              <NavTypography variant='h6'>커뮤니티</NavTypography>
             </HeaderNavLink>
           </NavContainer>
           <LoginWrapper>

@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 
 export const HeaderContainer = styled.div`
@@ -37,6 +37,10 @@ export const HeaderNavLink = styled(NavLink)`
       background-color: ${({ theme }) => theme.palette.primary.main};
     }
   }
+`;
+
+export const NavTypography = styled(Typography)`
+  color: inherit;
 `;
 
 export const LogoWrapper = styled.div`
