@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import moment from 'moment';
+import 'moment/locale/ko';
 import {
   ReplyContainer,
   ReplyControlTypography,
@@ -11,19 +13,11 @@ import { Avatar, Typography } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import { childrenQuestionType } from '@interfaces/studyDetailQuestion';
 
-interface timeType {
-  hour: number;
-  minute: number;
-  second: number;
-}
 interface Props {
   profileImageUrl: string;
   nickname: string;
   contents: string;
-  year: number;
-  month: number;
-  day: number;
-  time?: timeType;
+  createdAt: string;
   replies?: childrenQuestionType[];
   children?: JSX.Element | JSX.Element[];
 }
@@ -32,10 +26,7 @@ function Reply({
   profileImageUrl,
   nickname,
   contents,
-  year,
-  month,
-  day,
-  time,
+  createdAt,
   replies,
   children,
 }: Props) {
@@ -43,38 +34,6 @@ function Reply({
 
   const handleCommentFlag = () => {
     setCommentFlag(!commentFlag);
-  };
-
-  const changeTime = (
-    year: number,
-    month: number,
-    day: number,
-    time?: timeType,
-  ) => {
-    const now = new Date();
-
-    const isOneDay =
-      year === now.getFullYear() &&
-      month === now.getMonth() + 1 &&
-      Math.abs(now.getDay() - day) === 0;
-
-    if (time && isOneDay) {
-      const isSameHour = time.hour === now.getHours();
-      const isSameMinute = time.minute === now.getMinutes();
-      const isSameSecond = now.getSeconds() - time.second <= 10;
-
-      if (isSameHour && isSameMinute && isSameSecond) {
-        return '방금 전';
-      } else if (isSameHour && isSameMinute) {
-        return `${now.getSeconds() - time.second}초 전`;
-      } else if (isSameHour) {
-        return `${now.getMinutes() - time.minute}분 전`;
-      } else {
-        return `${now.getHours() - time.hour}시간 전`;
-      }
-    } else {
-      return `${year}년 ${month}월 ${day}일`;
-    }
   };
 
   return (
@@ -97,7 +56,7 @@ function Reply({
         <div>{contents}</div>
         <ReplyControlWrapper>
           <Typography color='secondary'>
-            {changeTime(year, month, day, time)}
+            {moment(createdAt, 'YYYY-MM-DD hh:mm:ss').fromNow()}
           </Typography>
           {replies && (
             <ReplyControlTypography

@@ -1,4 +1,3 @@
-import { getTime } from '@utils/time';
 import { StudyDetailQuestionContainer } from '@src/containers/StudyDetail/StudyQuestion/style';
 import StudyQuestionInput from '@src/containers/Reply/ReplyInput';
 import Reply from '@src/containers/Reply/Reply';
@@ -22,7 +21,7 @@ function StudyQuestion({
           memberId,
           nickname = '프룽이',
           contents: text = '참여하고 싶어요!',
-          createdAt = '2022.02.22 10:00',
+          createdAt = '2022-02-22 10:00:00',
           children = [],
         } = content;
         return (
@@ -32,7 +31,7 @@ function StudyQuestion({
             nickname={nickname}
             contents={text}
             replies={children}
-            {...getTime(createdAt)}
+            createdAt={createdAt}
           >
             {children.map((reply) => {
               const {
@@ -42,7 +41,7 @@ function StudyQuestion({
                 memberId,
                 nickname = '',
                 contents = '',
-                createdAt = '2022.00.00',
+                createdAt = '2022-02-22 10:00:00',
               } = reply;
               return (
                 <Reply
@@ -50,7 +49,7 @@ function StudyQuestion({
                   profileImageUrl={profileImageUrl}
                   nickname={nickname}
                   contents={contents}
-                  {...getTime(createdAt)}
+                  createdAt={createdAt}
                 />
               );
             })}
