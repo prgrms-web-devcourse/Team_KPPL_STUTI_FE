@@ -21,7 +21,7 @@ export const InputWrapper = styled.div`
 `;
 
 export const ErrorMessage = styled.div`
-  color: #ef4444;
+  color: ${({ theme }) => theme.palette.error.main};
 `;
 
 export const StudyEditImageWrapper = styled.div`
