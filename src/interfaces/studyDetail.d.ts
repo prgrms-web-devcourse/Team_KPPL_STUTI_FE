@@ -7,11 +7,6 @@ export interface detailMemberType {
   mbti: string;
 }
 
-export interface detailStudyPeriodType {
-  startDate: string;
-  endDate: string;
-}
-
 export interface detailQuestionsChildrenType {
   parentId: number;
   questionId: number;
@@ -30,6 +25,7 @@ export interface detailQuestionsType {
 }
 
 export interface studyDetailType {
+  studyGroupId: number;
   topic: string;
   title: string;
   imageUrl: string;
@@ -37,7 +33,8 @@ export interface studyDetailType {
   preferredMbtis: string[];
   isOnline: boolean;
   region: string;
-  studyPeriod: detailStudyPeriodType;
+  startDateTime: string;
+  endDateTime: string;
   numberOfMembers: number;
   numberOfRecruits: number;
   description: string;

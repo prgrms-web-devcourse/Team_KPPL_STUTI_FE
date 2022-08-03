@@ -7,12 +7,12 @@ import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LaptopIcon from '@mui/icons-material/Laptop';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
-import { detailStudyPeriodType } from '@interfaces/studyDetail';
 
 interface Props {
   isOnline: boolean;
   region: string;
-  studyPeriod: detailStudyPeriodType;
+  startDateTime: string;
+  endDateTime: string;
   numberOfMembers: number;
   numberOfRecruits: number;
 }
@@ -20,7 +20,8 @@ interface Props {
 function StudyInfo({
   isOnline,
   region,
-  studyPeriod,
+  startDateTime,
+  endDateTime,
   numberOfMembers,
   numberOfRecruits,
 }: Props) {
@@ -48,7 +49,7 @@ function StudyInfo({
           <CalendarTodayIcon fontSize='small' />
           <div>예상기간</div>
         </StudyInfoIconWrapper>
-        <div>{`${studyPeriod.startDate} ~ ${studyPeriod.endDate}`}</div>
+        <div>{`${startDateTime} ~ ${endDateTime}`}</div>
       </StudyInfoWrapper>
       <StudyInfoWrapper>
         <StudyInfoIconWrapper>

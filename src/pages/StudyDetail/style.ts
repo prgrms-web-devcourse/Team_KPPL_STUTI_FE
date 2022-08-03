@@ -7,3 +7,8 @@ export const StudyDetailContainer = styled.div`
   flex-direction: column;
   gap: 2rem;
 `;
+
+export const StudyDetailButtonWrapper = styled.div`
+  display: flex;
+  gap: 0.625rem;
+`;
