@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
   StudyManageButtonWrapper,
@@ -39,8 +40,14 @@ function StudyManage() {
         <Typography variant='h3'>{getTitle()}</Typography>
       </div>
       <StudyManageButtonWrapper>
-        <Button fullWidth>스터디 수정</Button>
-        <Button fullWidth color='error'>
+        <Button
+          component={Link}
+          to={`/study/${data.studyGroupId}/edit`}
+          fullWidth
+        >
+          스터디 수정
+        </Button>
+        <Button component={Link} to={'/'} fullWidth color='error'>
           스터디 삭제
         </Button>
       </StudyManageButtonWrapper>
