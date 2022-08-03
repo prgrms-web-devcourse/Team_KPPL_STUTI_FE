@@ -19,7 +19,7 @@ export const HeaderContainer = styled.div`
   font-weight: bold;
   border-bottom: 1px solid #d1d5db;
   background-color: white;
-  z-index: 9999;
+  z-index: 1000;
 `;
 
 export const NavContainer = styled.div`
