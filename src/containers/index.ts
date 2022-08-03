@@ -1,4 +1,3 @@
-export { default as SampleCounter } from './Counter/Counter';
 export { default as StudyCreateForm } from './StudyCreateForm/StudyCreateForm';
 export { default as StudyDetailMbtiRecommand } from './StudyDetail/MbtiRecommand/MbtiRecommend';
 export { default as StudyDetailMbtiRecommend } from './StudyDetail/MbtiRecommand/MbtiRecommend';
@@ -7,3 +6,8 @@ export { default as StudyDetailStudyQuestion } from './StudyDetail/StudyQuestion
 export { default as StudyEditForm } from './StudyEdit/StudyEditForm';
 export { default as StudyManageMemberControl } from './StudyManage/MemberControl/MemberControl';
 export { default as SignUpForm } from './SignUp/Form/Form';
+export { default as HomeHeroSection } from './Home/HeroSection/HeroSection';
+export { default as HomeStudyListSection } from './Home/StudyListSection/StudyListSection';
+export { default as HomeStudyCreateButton } from './Home/StudyCreateButton/StudyCreateButton';
+export { default as ProfileDetailInfoSection } from './ProfileDetail/InfoSection/InfoSection';
+export { default as ProfileDetailContentSection } from './ProfileDetail/ContentSection/ContentSection';

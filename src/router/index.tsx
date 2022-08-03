@@ -3,7 +3,7 @@ import { Redirect, Route } from 'react-router';
 import {
   COMMUNITY,
   HOME,
-  PROFILE,
+  PROFILE_DETAIL,
   PROFILE_EDIT,
   SIGN_UP,
   STUDY_CREATE,
@@ -14,13 +14,11 @@ import {
 import StudyManage from '@src/pages/StudyManage';
 import StudyEdit from '@src/pages/StudyEdit';
 import StudyDetail from '@src/pages/StudyDetail';
+import StudyCreate from '@src/pages/StudyCreate';
 import SignUp from '@src/pages/SignUp';
-import Home from '@src/pages/Home';
 import NavigationHeader from '@src/containers/NavigationHeader/NavigationHeader';
-import PersonSearchIcon from '@mui/icons-material/PersonSearch';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import { Home, ProfileDetail, ProfileEdit } from '@pages';
 import ForumIcon from '@mui/icons-material/Forum';
-import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 
 function Routers() {
   return (
@@ -29,10 +27,10 @@ function Routers() {
       <Switch>
         <Route exact path={HOME} component={Home} />
         <Route exact path={COMMUNITY} component={ForumIcon} />
-        <Route exact path={PROFILE} component={PersonSearchIcon} />
-        <Route exact path={PROFILE_EDIT} component={ManageAccountsIcon} />
+        <Route exact path={PROFILE_DETAIL} component={ProfileDetail} />
+        <Route exact path={PROFILE_EDIT} component={ProfileEdit} />
+        <Route exact path={STUDY_CREATE} component={StudyCreate} />
         <Route exact path={STUDY_DETAIL} component={StudyDetail} />
-        <Route exact path={STUDY_CREATE} component={BookmarkAddIcon} />
         <Route exact path={STUDY_EDIT} component={StudyEdit} />
         <Route exact path={STUDY_MANAGE} component={StudyManage} />
         <Route exact path={SIGN_UP} component={SignUp} />

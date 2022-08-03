@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import { getRegionLabel, getTopicLabel } from '@utils/getOptionLabel';
 import PhotoIcon from '@mui/icons-material/Photo';
+import { StudyItemType } from '@interfaces/studyList';
 import { MbtiTag } from '@components';
 
 import {
@@ -14,29 +16,14 @@ import {
   Img,
   DefaultBackground,
 } from './StudyCard.style';
-import MoreButton from './MoreButton';
-
-type Study = {
-  studyGroupId: number;
-  leaderId: number;
-  thumbnailUrl: string;
-  topic: string;
-  title: string;
-  preferredMbtis: string[];
-  isOnline: boolean;
-  region: string;
-  startDate: string;
-  endDate: string;
-  numberOfMembers: number;
-  numberOfRecruits: number;
-};
+import MoreButton from './MoreButton/MoreButton';
 
 interface Props {
-  study: Study;
-  onDeleteBtnClick: (studyId: number) => void;
+  study: StudyItemType;
+  onStudyDelete: (studyId: number) => void;
 }
 
-function StudyCard({ study, onDeleteBtnClick }: Props) {
+function StudyCard({ study, onStudyDelete }: Props) {
   const format = (date: string) => {
     return moment(date).format('YYYY.MM.DD');
   };
@@ -47,7 +34,7 @@ function StudyCard({ study, onDeleteBtnClick }: Props) {
         <Flex>
           <LeftColumn>
             <div>
-              <P>{study.topic}</P>
+              <P>{getTopicLabel(study.topic)}</P>
               <H3>{study.title}</H3>
               <Ul>
                 {study.preferredMbtis.map((mbti) => (
@@ -58,7 +45,7 @@ function StudyCard({ study, onDeleteBtnClick }: Props) {
               </Ul>
             </div>
             <div>
-              <P>{study.isOnline ? '온라인' : `${study.region}`}</P>
+              <P>{study.isOnline ? '온라인' : getRegionLabel(study.region)}</P>
               <P>{`${format(study.startDate)} ~ ${format(study.endDate)}`}</P>
               <P>{`인원 ${study.numberOfMembers} / ${study.numberOfRecruits}`}</P>
             </div>
@@ -74,11 +61,8 @@ function StudyCard({ study, onDeleteBtnClick }: Props) {
           </RightColumn>
         </Flex>
       </Link>
-      {/* study.leaderId === userId && */}
-      <MoreButton
-        studyId={study.studyGroupId}
-        onDeleteBtnClick={onDeleteBtnClick}
-      />
+      {/* study.leaderId === loggedInUserId && */}
+      <MoreButton studyId={study.studyGroupId} onStudyDelete={onStudyDelete} />
     </Article>
   );
 }
