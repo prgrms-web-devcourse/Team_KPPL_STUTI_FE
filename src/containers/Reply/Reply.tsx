@@ -12,6 +12,7 @@ import ReplyInput from '@src/containers/Reply/ReplyInput';
 import { Avatar, Typography } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import { childrenQuestionType } from '@interfaces/studyDetailQuestion';
+import { DefaultAvatar } from '@components';
 
 interface Props {
   profileImageUrl: string;
@@ -40,15 +41,11 @@ function Reply({
     <ReplyContainer>
       <ReplyProfileWrapper>
         {typeof profileImageUrl === 'string' && profileImageUrl ? (
-          <Avatar
-            sx={{ backgroundColor: '#D1D5DB', color: '#ffffff' }}
-            src={profileImageUrl}
-            alt='profile-image'
-          />
+          <DefaultAvatar src={profileImageUrl} alt='profile-image' />
         ) : (
-          <Avatar sx={{ backgroundColor: '#D1D5DB' }}>
-            <PersonIcon sx={{ color: '#ffffff' }} />
-          </Avatar>
+          <DefaultAvatar>
+            <PersonIcon />
+          </DefaultAvatar>
         )}
       </ReplyProfileWrapper>
       <ReplyInfoWrapper>
