@@ -5,14 +5,12 @@ import { SignUpContainer } from './style';
 
 function SignUp() {
   return (
-    <>
-      <SignUpContainer>
-        <Typography variant='h3' align='center'>
-          회원가입
-        </Typography>
-        <SignUpForm />
-      </SignUpContainer>
-    </>
+    <SignUpContainer>
+      <Typography variant='h3' align='center'>
+        회원가입
+      </Typography>
+      <SignUpForm />
+    </SignUpContainer>
   );
 }
 
