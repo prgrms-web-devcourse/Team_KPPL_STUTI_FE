@@ -23,6 +23,7 @@ export const HeaderNavLink = styled(NavLink)`
   display: flex;
   align-items: center;
   padding: 0 0.75rem;
+  transition: color 0.3s;
 
   &.active {
     color: ${({ theme }) => theme.palette.primary.main};
@@ -36,6 +37,10 @@ export const HeaderNavLink = styled(NavLink)`
       height: 2px;
       background-color: ${({ theme }) => theme.palette.primary.main};
     }
+  }
+
+  &:hover {
+    color: ${({ theme }) => theme.palette.primary.main};
   }
 `;
 
