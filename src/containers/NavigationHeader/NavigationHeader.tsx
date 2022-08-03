@@ -66,7 +66,7 @@ function NavigationHeader() {
         <HeaderContainer>
           <LogoWrapper>
             <Link to='/' style={{ display: 'flex' }}>
-              <LogoIcon />
+              <LogoIcon color='#0055FF' />
             </Link>
           </LogoWrapper>
           <NavContainer>
