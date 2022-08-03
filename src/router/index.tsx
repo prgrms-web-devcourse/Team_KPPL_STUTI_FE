@@ -14,11 +14,11 @@ import {
 import StudyManage from '@src/pages/StudyManage';
 import StudyEdit from '@src/pages/StudyEdit';
 import StudyDetail from '@src/pages/StudyDetail';
+import SignUp from '@src/pages/SignUp';
 import Home from '@src/pages/Home';
 import NavigationHeader from '@src/containers/NavigationHeader/NavigationHeader';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import ForumIcon from '@mui/icons-material/Forum';
 import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
 
@@ -35,7 +35,7 @@ function Routers() {
         <Route exact path={STUDY_CREATE} component={BookmarkAddIcon} />
         <Route exact path={STUDY_EDIT} component={StudyEdit} />
         <Route exact path={STUDY_MANAGE} component={StudyManage} />
-        <Route exact path={SIGN_UP} component={GroupAddIcon} />
+        <Route exact path={SIGN_UP} component={SignUp} />
         <Route path='*' render={() => <Redirect to='/error' />} />
       </Switch>
     </BrowserRouter>
