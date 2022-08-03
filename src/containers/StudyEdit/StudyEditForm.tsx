@@ -111,8 +111,8 @@ function StudyEditForm() {
   return (
     <Formik
       initialValues={{
-        title: title,
-        description: description,
+        title,
+        description,
       }}
       enableReinitialize
       validationSchema={EditSchema}
