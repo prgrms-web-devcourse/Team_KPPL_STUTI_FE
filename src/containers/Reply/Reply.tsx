@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import moment from 'moment';
+import 'moment/locale/ko';
 import {
   ReplyContainer,
   ReplyControlTypography,
@@ -8,21 +10,15 @@ import {
 } from '@src/containers/Reply/style';
 import ReplyInput from '@src/containers/Reply/ReplyInput';
 import { Avatar, Typography } from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PersonIcon from '@mui/icons-material/Person';
 import { childrenQuestionType } from '@interfaces/studyDetailQuestion';
+import { DefaultAvatar } from '@components';
 
-interface timeType {
-  hour: number;
-  minute: number;
-}
 interface Props {
   profileImageUrl: string;
   nickname: string;
   contents: string;
-  year: number;
-  month: number;
-  day: number;
-  time?: timeType;
+  createdAt: string;
   replies?: childrenQuestionType[];
   children?: JSX.Element | JSX.Element[];
 }
@@ -31,10 +27,7 @@ function Reply({
   profileImageUrl,
   nickname,
   contents,
-  year,
-  month,
-  day,
-  time,
+  createdAt,
   replies,
   children,
 }: Props) {
@@ -44,42 +37,15 @@ function Reply({
     setCommentFlag(!commentFlag);
   };
 
-  const changeTime = (
-    year: number,
-    month: number,
-    day: number,
-    time?: timeType,
-  ) => {
-    const now = new Date();
-
-    const isOneDay =
-      year === now.getFullYear() &&
-      month === now.getMonth() &&
-      Math.abs(now.getDay() - day) === 1;
-
-    if (time && isOneDay) {
-      const isSameHour = time.hour === now.getHours();
-      const isSameMinute = time.minute === now.getMinutes();
-
-      if (isSameMinute) {
-        return '방금 전';
-      } else if (isSameHour) {
-        return `${now.getMinutes() - time.minute}분 전`;
-      } else {
-        return `${now.getHours() - time.hour}시간 전`;
-      }
-    } else {
-      return `${year}년 ${month}월 ${day}일`;
-    }
-  };
-
   return (
     <ReplyContainer>
       <ReplyProfileWrapper>
         {typeof profileImageUrl === 'string' && profileImageUrl ? (
-          <Avatar src={profileImageUrl} alt='profile-image' />
+          <DefaultAvatar src={profileImageUrl} alt='profile-image' />
         ) : (
-          <AccountCircleIcon fontSize='large' color='secondary' />
+          <DefaultAvatar>
+            <PersonIcon />
+          </DefaultAvatar>
         )}
       </ReplyProfileWrapper>
       <ReplyInfoWrapper>
@@ -87,7 +53,7 @@ function Reply({
         <div>{contents}</div>
         <ReplyControlWrapper>
           <Typography color='secondary'>
-            {changeTime(year, month, day, time)}
+            {moment(createdAt, 'YYYY-MM-DD hh:mm:ss').fromNow()}
           </Typography>
           {replies && (
             <ReplyControlTypography

@@ -2,32 +2,84 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "@src": ["./"],
-      "@src/*": ["./*"],
-      "@apis": ["./apis"],
-      "@apis/*": ["./apis/*"],
-      "@assets": ["./assets"],
-      "@assets/*": ["./assets/*"],
-      "@components": ["./components"],
-      "@components/*": ["./components/*"],
-      "@containers": ["./containers"],
-      "@containers/*": ["./containers/*"],
-      "@hooks": ["./hooks"],
-      "@hooks/*": ["./hooks/*"],
-      "@interfaces": ["./interfaces"],
-      "@interfaces/*": ["./interfaces/*"],
-      "@router": ["./router"],
-      "@router/*": ["./router/*"],
-      "@store": ["./store"],
-      "@store/*": ["./store/*"],
-      "@styles": ["./styles"],
-      "@styles/*": ["./styles/*"],
-      "@pages": ["./pages"],
-      "@pages/*": ["./pages/*"],
-      "@utils": ["./utils"],
-      "@utils/*": ["./utils/*"],
-      "@constants": ["./constants"],
-      "@constants/*": ["./constants/*"]
+      "@src": [
+        "./"
+      ],
+      "@src/*": [
+        "./*"
+      ],
+      "@apis": [
+        "./apis"
+      ],
+      "@apis/*": [
+        "./apis/*"
+      ],
+      "@assets": [
+        "./assets"
+      ],
+      "@assets/*": [
+        "./assets/*"
+      ],
+      "@components": [
+        "./components"
+      ],
+      "@components/*": [
+        "./components/*"
+      ],
+      "@containers": [
+        "./containers"
+      ],
+      "@containers/*": [
+        "./containers/*"
+      ],
+      "@hooks": [
+        "./hooks"
+      ],
+      "@hooks/*": [
+        "./hooks/*"
+      ],
+      "@interfaces": [
+        "./interfaces"
+      ],
+      "@interfaces/*": [
+        "./interfaces/*"
+      ],
+      "@router": [
+        "./router"
+      ],
+      "@router/*": [
+        "./router/*"
+      ],
+      "@store": [
+        "./store"
+      ],
+      "@store/*": [
+        "./store/*"
+      ],
+      "@styles": [
+        "./styles"
+      ],
+      "@styles/*": [
+        "./styles/*"
+      ],
+      "@pages": [
+        "./pages"
+      ],
+      "@pages/*": [
+        "./pages/*"
+      ],
+      "@utils": [
+        "./utils"
+      ],
+      "@utils/*": [
+        "./utils/*"
+      ],
+      "@constants": [
+        "./constants"
+      ],
+      "@constants/*": [
+        "./constants/*"
+      ]
     }
   }
 }

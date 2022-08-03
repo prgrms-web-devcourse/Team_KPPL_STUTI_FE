@@ -3,9 +3,10 @@ import {
   UserInfoWrapper,
   UserSubInfoWrapper,
 } from '@src/components/UserInfo/style';
-import { Avatar, Typography } from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Typography } from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
 import MbtiTag from '@components/MbtiTag/MbtiTag';
+import DefaultAvatar from '@components/DefaultAvatar/DefaultAvatar';
 
 export interface Props {
   profileImageUrl: string;
@@ -29,9 +30,11 @@ function UserInfo({
       {title && <Typography variant='h5'>{title}</Typography>}
       <UserInfoWrapper>
         {typeof profileImageUrl === 'string' && profileImageUrl ? (
-          <Avatar src={profileImageUrl} alt='profile-image' />
+          <DefaultAvatar src={profileImageUrl} alt='profile-image' />
         ) : (
-          <AccountCircleIcon fontSize='large' color='secondary' />
+          <DefaultAvatar>
+            <PersonIcon />
+          </DefaultAvatar>
         )}
         <div>
           <Typography variant='h6'>{nickname}</Typography>

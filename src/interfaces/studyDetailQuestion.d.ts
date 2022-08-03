@@ -21,11 +21,6 @@ export interface questionContentType {
 
 export interface studyDetailQuestionType {
   contents: questionContentType[];
-  page: number;
-  size: number;
-  totalPages: number;
-  totalElements: number;
-  sorted: boolean;
-  isFirst: boolean;
   isLast: boolean;
+  totalElements: number;
 }
