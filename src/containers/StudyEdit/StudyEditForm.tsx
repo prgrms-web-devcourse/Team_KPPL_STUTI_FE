@@ -140,7 +140,7 @@ function StudyEditForm() {
               <StudyEditHeading>
                 <Typography variant='h4'>스터디 수정</Typography>
                 <InputWrapper>
-                  {formik.touched.title && formik.errors.title ? (
+                  {formik.touched.title && formik.errors.title && (
                     <ErrorMessage ref={titleRef}>
                       {(() => {
                         if (titleRef.current) {
@@ -152,7 +152,7 @@ function StudyEditForm() {
                         return formik.errors.title;
                       })()}
                     </ErrorMessage>
-                  ) : null}
+                  )}
                   <Field
                     as={LabelInput}
                     label='스터디명'
@@ -181,7 +181,7 @@ function StudyEditForm() {
               </StudyEditImageWrapper>
               <StudyDescriptionWrapper>
                 <Typography variant='h5'>상세 설명</Typography>
-                {formik.touched.description && formik.errors.description ? (
+                {formik.touched.description && formik.errors.description && (
                   <ErrorMessage ref={descriptionRef}>
                     {(() => {
                       if (descriptionRef.current && !titleRef.current) {
@@ -193,7 +193,7 @@ function StudyEditForm() {
                       return formik.errors.description;
                     })()}
                   </ErrorMessage>
-                ) : null}
+                )}
                 <Field
                   as={MultiLineInput}
                   id='description'
