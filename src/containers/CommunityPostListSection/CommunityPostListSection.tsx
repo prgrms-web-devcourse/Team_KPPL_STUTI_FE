@@ -27,7 +27,7 @@ function CommunityPostListSection() {
         <CommunityPost
           key={post.postId}
           postId={post.postId}
-          memberId={post.memberId}
+          memberId={post.memberId} //post작성한 사람id
           nickname={post.nickname}
           mbti={post.mbti}
           createdAt={post.createdAt}

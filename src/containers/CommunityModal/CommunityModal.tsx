@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useFormik } from 'formik';
 import CommunityModalImageUpload from '@src/containers/CommunityModal/CommunityModalImageUpload/CommunityModalImageUpload';
 import {
@@ -21,15 +21,9 @@ import {
   TextField,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
+import { CommunityModalType } from '@interfaces/community';
+
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
-interface CommunityModalType {
-  postId?: string;
-  nickname?: string;
-  profileImageUrl?: string;
-  modalType: string;
-  isOpen?: boolean;
-  onClose?: (e: React.MouseEvent<HTMLElement>) => void;
-}
 
 function CommunityModal({
   postId,
@@ -41,6 +35,7 @@ function CommunityModal({
 }: CommunityModalType) {
   const [previewUrl, setPreviewUrl] = useState('');
   const [isImageSize, setImageSize] = useState(false);
+  const exitRef = useRef<any>(null);
 
   const handleImageUpload = (e: React.ChangeEvent<any>) => {
     if (!e.currentTarget.files[0]) return;
@@ -67,12 +62,12 @@ function CommunityModal({
 
     if (modalType === 'CREATE') {
       await postCommunityPostApi({
-        url: 'createPost',
+        url: 'posts',
         postData: postFormData,
       });
     } else if (modalType === 'EDIT') {
       await editCommunityPostApi({
-        url: `editPost${postId}`,
+        url: `posts/${postId}`,
         postData: postFormData,
       });
     }
@@ -86,11 +81,16 @@ function CommunityModal({
     },
     onSubmit: (values, { setSubmitting }) => {
       setSubmitting(true);
+      values.contents = '';
+      setPreviewUrl('');
       handlePost(values);
+      exitRef.current.click();
       setSubmitting(false);
     },
     validationSchema: Yup.object({
-      contents: Yup.string().max(500, '1,000자를 넘을 수 없습니다.').required(),
+      contents: Yup.string()
+        .max(500, '1,000자를 넘을 수 없습니다.')
+        .required('꼭 입력해주세요'),
       postImage: Yup.mixed()
         .test(
           'FILE_SIZE',
@@ -104,7 +104,7 @@ function CommunityModal({
             !value || (value && SUPPORTED_FORMATS.includes(value.type)),
         ),
     }),
-    validateOnChange: true, //값 변경시마다 check
+    validateOnChange: true,
   });
 
   return (
@@ -127,7 +127,7 @@ function CommunityModal({
             />
           }
           action={
-            <IconButton aria-label='delete' onClick={onClose}>
+            <IconButton aria-label='delete' ref={exitRef} onClick={onClose}>
               <ClearIcon />
             </IconButton>
           }

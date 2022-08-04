@@ -48,7 +48,6 @@ function CommunityPost({
       const contentsHeight = contentsRef.current.getBoundingClientRect().height;
       setIsExpand(contentsHeight > 96 ? 4 : 'none');
     }
-    console.log(lastPost);
   }, []);
 
   const handleReadMore = () => {
@@ -56,14 +55,12 @@ function CommunityPost({
   };
 
   const handleLiked = async (e: React.MouseEvent<HTMLElement>) => {
-    //좋아요 부분
-
     if (liked.check) {
       setLiked({ ...liked, count: (liked.count -= 1) });
-      await deleteCommunityPostLikeApi(`communityurl${postId}`);
+      await deleteCommunityPostLikeApi(`posts/${postId}/like`);
     } else {
       setLiked({ ...liked, count: (liked.count += 1) });
-      await postCommunityPostLikeApi(`communityurl${postId}/like`);
+      await postCommunityPostLikeApi(`posts/${postId}/like`);
     }
     setLiked({ ...liked, check: !liked.check });
   };
@@ -122,7 +119,6 @@ function CommunityPost({
       <CardActions disableSpacing>
         <IconButton aria-label='settings' onClick={handleLiked}>
           {liked.check ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-          {/* 개수가 0이면 출력 x */}
         </IconButton>
         <CommunityPostTypographyButton>
           {liked.count}
@@ -130,7 +126,6 @@ function CommunityPost({
         <CommunityPostTypographyButton name='댓글' margin='0 1rem 0 auto'>
           {totalComments}
         </CommunityPostTypographyButton>
-        {/* 개수가 0이면 출력 x */}
       </CardActions>
     </CustomCard>
   );

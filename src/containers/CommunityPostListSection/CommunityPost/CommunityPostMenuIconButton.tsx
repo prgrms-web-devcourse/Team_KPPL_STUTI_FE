@@ -4,12 +4,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import IconButton from '@mui/material/IconButton';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { CommunityPostMenuIconButtonType } from '@interfaces/community';
 import { deleteCommunityPostApi } from '@apis/community';
-interface CommunityPostMenuIconButtonType {
-  postId: string;
-  nickname: string;
-  profileImageUrl?: string;
-}
 
 function CommunityPostMenuIconButton({
   postId,
@@ -38,7 +34,7 @@ function CommunityPostMenuIconButton({
 
   const handleDeletePost = async () => {
     //post 삭제 api
-    await deleteCommunityPostApi(`DeleteUrl${postId}`);
+    await deleteCommunityPostApi(`posts/${postId}`);
     setAnchorEl(null);
   };
 

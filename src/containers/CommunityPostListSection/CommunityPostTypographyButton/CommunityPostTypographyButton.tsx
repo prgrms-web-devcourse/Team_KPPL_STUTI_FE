@@ -1,12 +1,6 @@
 import React from 'react';
 import { CustomTypography } from '@src/containers/CommunityPostListSection/CommunityPostTypographyButton/CommunityPostTypographyButton.style';
-
-export interface CommunityPostTypographyButtonType {
-  name?: string | undefined;
-  margin?: string;
-  children?: string | number;
-  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
-}
+import { CommunityPostTypographyButtonType } from '@interfaces/community';
 
 function CommunityPostTypographyButton({
   name,
