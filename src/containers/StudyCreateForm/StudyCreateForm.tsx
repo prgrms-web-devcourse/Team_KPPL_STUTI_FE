@@ -62,10 +62,10 @@ const CreateSchema = Yup.object({
 });
 
 function StudyCreateFormContainer() {
-  const [topic, setTopic] = useState('');
-  const [recruitsNumber, setRecruitsNumber] = useState('');
-  const [region, setRegion] = useState('');
-  const [isOnline, setIsOnline] = useState(true);
+  const [topic, setTopic] = useState<string>('');
+  const [recruitsNumber, setRecruitsNumber] = useState<string>('');
+  const [region, setRegion] = useState<string>('');
+  const [isOnline, setIsOnline] = useState<boolean>(true);
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
   const [mbtiPreference, setMbtiPreference] = useState(true);
@@ -125,11 +125,8 @@ function StudyCreateFormContainer() {
   };
 
   const isOnlineChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value === 'online') {
-      setIsOnline(true);
-    } else {
-      setIsOnline(false);
-    }
+    const { value } = e.target;
+    setIsOnline(value === 'online' ? true : false);
   };
 
   useEffect(() => {
