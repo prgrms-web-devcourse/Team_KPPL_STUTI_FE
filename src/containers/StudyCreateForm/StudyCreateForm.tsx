@@ -2,6 +2,11 @@ import * as Yup from 'yup';
 import React, { useRef, useState, useEffect } from 'react';
 import { Formik, Field } from 'formik';
 import {
+  topicOptions,
+  regionOptions,
+  recruitsNumberOptions,
+} from '@src/constants/selectOptions';
+import {
   MbtiRecommend,
   RangeDatePicker,
   RadioGroup,
@@ -34,36 +39,6 @@ import {
   TopicWrapper,
 } from './style';
 
-const options = [
-  {
-    value: 'FRONTEND',
-    label: '프론트엔드',
-  },
-  {
-    value: 'BACKEND',
-    label: '백엔드',
-  },
-  {
-    value: 'INFRA',
-    label: '인프라',
-  },
-  {
-    value: 'IOS',
-    label: 'IOS',
-  },
-  {
-    value: 'ANDROID',
-    label: '안드로이드',
-  },
-  {
-    value: 'DATA_ANALYST',
-    label: '데이터 분석가',
-  },
-  {
-    value: 'DEVELOPER',
-    label: '개발자',
-  },
-];
 const radioValues = [
   {
     value: 'online',
@@ -72,83 +47,6 @@ const radioValues = [
   {
     value: 'offline',
     label: '오프라인',
-  },
-];
-const locations = [
-  {
-    value: 'SEOUL',
-    label: '서울',
-  },
-  {
-    value: 'BUSAN',
-    label: '부산',
-  },
-  {
-    value: 'DAEGU',
-    label: '대구',
-  },
-  {
-    value: 'INCHEON',
-    label: '인천',
-  },
-  {
-    value: 'GWANGJU',
-    label: '광주',
-  },
-  {
-    value: 'DAEJEON',
-    label: '대전',
-  },
-  {
-    value: 'ULSAN',
-    label: '울산',
-  },
-  {
-    value: 'JEJU',
-    label: '제주',
-  },
-];
-
-const people = [
-  {
-    value: '1',
-    label: '1',
-  },
-  {
-    value: '2',
-    label: '2',
-  },
-  {
-    value: '3',
-    label: '3',
-  },
-  {
-    value: '4',
-    label: '4',
-  },
-  {
-    value: '5',
-    label: '5',
-  },
-  {
-    value: '6',
-    label: '6',
-  },
-  {
-    value: '7',
-    label: '7',
-  },
-  {
-    value: '8',
-    label: '8',
-  },
-  {
-    value: '9',
-    label: '9',
-  },
-  {
-    value: '10',
-    label: '10',
   },
 ];
 
@@ -367,7 +265,7 @@ function StudyCreateFormContainer() {
                   id='topic'
                   label='분야'
                   value={topic}
-                  options={options}
+                  options={topicOptions}
                   fullWidth={true}
                   handleChange={handleTopic}
                 />
@@ -383,7 +281,7 @@ function StudyCreateFormContainer() {
                 <Select
                   id='region'
                   label='지역'
-                  options={locations}
+                  options={regionOptions}
                   value={region}
                   fullWidth={true}
                   handleChange={handleRegion}
@@ -411,7 +309,7 @@ function StudyCreateFormContainer() {
                 <Select
                   id='study-number-of-people'
                   label='인원'
-                  options={people}
+                  options={recruitsNumberOptions}
                   value={recruitsNumber}
                   fullWidth={true}
                   handleChange={handleRecruitsNumber}
