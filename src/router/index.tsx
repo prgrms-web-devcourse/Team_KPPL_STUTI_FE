@@ -16,10 +16,10 @@ import StudyEdit from '@src/pages/StudyEdit';
 import StudyDetail from '@src/pages/StudyDetail';
 import StudyCreate from '@src/pages/StudyCreate';
 import SignUp from '@src/pages/SignUp';
+import Community from '@src/pages/Community';
 import NavigationHeader from '@src/containers/NavigationHeader/NavigationHeader';
 import history from '@router/history';
 import { Home, ProfileDetail, ProfileEdit } from '@pages';
-import ForumIcon from '@mui/icons-material/Forum';
 
 function Routers() {
   return (
@@ -27,7 +27,7 @@ function Routers() {
       <NavigationHeader />
       <Switch>
         <Route exact path={HOME} component={Home} />
-        <Route exact path={COMMUNITY} component={ForumIcon} />
+        <Route exact path={COMMUNITY} component={Community} />
         <Route exact path={PROFILE_DETAIL} component={ProfileDetail} />
         <Route exact path={PROFILE_EDIT} component={ProfileEdit} />
         <Route exact path={STUDY_CREATE} component={StudyCreate} />
