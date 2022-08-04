@@ -1,14 +1,25 @@
-import { Button } from '@mui/material';
+import { NavLink } from 'react-router-dom';
+import { Button, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 
+export const Nav = styled.nav`
+  width: 100%;
+  max-width: 640px;
+  height: 60px;
+`;
+
 export const HeaderContainer = styled.div`
+  position: fixed;
   display: flex;
   align-items: stretch;
-  width: 100%;
-  height: 60px;
+  width: inherit;
+  max-width: inherit;
+  height: inherit;
   padding: 0 1rem;
   font-weight: bold;
   border-bottom: 1px solid #d1d5db;
+  background-color: white;
+  z-index: 1000;
 `;
 
 export const NavContainer = styled.div`
@@ -17,10 +28,34 @@ export const NavContainer = styled.div`
   gap: 0.5rem;
 `;
 
-export const NavWrapper = styled.div`
+export const HeaderNavLink = styled(NavLink)`
+  position: relative;
   display: flex;
   align-items: center;
   padding: 0 0.75rem;
+
+  &.active {
+    color: ${({ theme }) => theme.palette.primary.main};
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      height: 2px;
+      background-color: ${({ theme }) => theme.palette.primary.main};
+    }
+  }
+
+  &:hover {
+    transition: color 0.3s;
+    color: ${({ theme }) => theme.palette.primary.main};
+  }
+`;
+
+export const NavTypography = styled(Typography)`
+  color: inherit;
 `;
 
 export const LogoWrapper = styled.div`

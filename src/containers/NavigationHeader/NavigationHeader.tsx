@@ -13,11 +13,12 @@ import {
   Typography,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { useTheme } from '@emotion/react';
 
 import {
   HeaderContainer,
   NavContainer,
-  NavWrapper,
+  HeaderNavLink,
   LogoWrapper,
   LoginWrapper,
   ModalContainer,
@@ -26,9 +27,12 @@ import {
   LoginButton,
   ButtonTextWrapper,
   LoginBox,
+  NavTypography,
+  Nav,
 } from './style';
 
 function NavigationHeader() {
+  const theme = useTheme();
   const [isLogin, setIsLogin] = useState(false);
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -62,24 +66,20 @@ function NavigationHeader() {
 
   return (
     <header>
-      <nav>
+      <Nav>
         <HeaderContainer>
           <LogoWrapper>
             <Link to='/' style={{ display: 'flex' }}>
-              <LogoIcon />
+              <LogoIcon color={theme.palette.primary.main} />
             </Link>
           </LogoWrapper>
           <NavContainer>
-            <NavWrapper>
-              <Link to='/'>
-                <Typography variant='h6'>스터디</Typography>
-              </Link>
-            </NavWrapper>
-            <NavWrapper>
-              <Link to='/community'>
-                <Typography variant='h6'>커뮤니티</Typography>
-              </Link>
-            </NavWrapper>
+            <HeaderNavLink exact to='/'>
+              <NavTypography variant='h6'>스터디</NavTypography>
+            </HeaderNavLink>
+            <HeaderNavLink to='/community'>
+              <NavTypography variant='h6'>커뮤니티</NavTypography>
+            </HeaderNavLink>
           </NavContainer>
           <LoginWrapper>
             {isLogin ? (
@@ -174,7 +174,7 @@ function NavigationHeader() {
             )}
           </LoginWrapper>
         </HeaderContainer>
-      </nav>
+      </Nav>
     </header>
   );
 }
