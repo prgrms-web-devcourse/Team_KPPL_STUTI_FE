@@ -4,6 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import IconButton from '@mui/material/IconButton';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { deleteCommunityPostApi } from '@apis/community';
 interface CommunityPostMenuIconButtonType {
   postId: string;
   nickname: string;
@@ -21,6 +22,7 @@ function CommunityPostMenuIconButton({
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -32,6 +34,12 @@ function CommunityPostMenuIconButton({
 
   const handleEditModalClose = () => {
     setOpen(false);
+  };
+
+  const handleDeletePost = async () => {
+    //post 삭제 api
+    await deleteCommunityPostApi(`DeleteUrl${postId}`);
+    setAnchorEl(null);
   };
 
   return (
@@ -61,7 +69,7 @@ function CommunityPostMenuIconButton({
         }}
       >
         <MenuItem onClick={handleEditModalOpen}>수정</MenuItem>
-        <MenuItem onClick={handleClose}>삭제</MenuItem>
+        <MenuItem onClick={handleDeletePost}>삭제</MenuItem>
       </Menu>
       <CommunityModal
         postId={postId}

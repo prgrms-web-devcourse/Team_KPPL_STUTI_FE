@@ -7,6 +7,7 @@ import {
   CardWrapper,
   ModalErrorMessage,
 } from '@src/containers/CommunityModal/CommunityModal.style';
+import { editCommunityPostApi } from '@src/apis/community';
 import IconButton from '@mui/material/IconButton';
 import {
   Button,
@@ -17,7 +18,6 @@ import {
   TextField,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
 //postId, user.nickname , user.image 받기
 interface CommunityModalType {
@@ -55,6 +55,21 @@ function CommunityModal({
     formik.setFieldValue('postImage', e.currentTarget.files[0]);
   };
 
+  const handleEditPost = async (values: {
+    contents: string;
+    postImage: string;
+  }) => {
+    const postFormData = new FormData();
+
+    postFormData.append('contents', values.contents);
+    postFormData.append('postImage', values.postImage);
+
+    await editCommunityPostApi({
+      url: `editPost${postId}`,
+      postData: postFormData,
+    });
+  };
+
   //formik
   const formik = useFormik({
     initialValues: {
@@ -65,7 +80,7 @@ function CommunityModal({
       setSubmitting(true);
       switch (modalType) {
         case 'EDIT':
-          console.log('Edit');
+          handleEditPost(values);
           break;
         case 'CREATE':
           console.log('CREATE');
@@ -76,7 +91,7 @@ function CommunityModal({
       setSubmitting(false);
     },
     validationSchema: Yup.object({
-      contents: Yup.string().max(500, '1,000자를 넘을 수 없습니다.'),
+      contents: Yup.string().max(500, '1,000자를 넘을 수 없습니다.').required(),
       postImage: Yup.mixed()
         .test(
           'FILE_SIZE',

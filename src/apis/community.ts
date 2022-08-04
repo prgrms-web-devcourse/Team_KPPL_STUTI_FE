@@ -1,4 +1,6 @@
+import axios from 'axios';
 import axiosInstance from '@apis/axiosInstance';
+const END_POINT = '/';
 
 export const getCommunityDataApi = async () => {
   try {
@@ -9,5 +11,34 @@ export const getCommunityDataApi = async () => {
     return data;
   } catch (error) {
     new Error('Community를 가져오는데 오류가 발생하였습니다.');
+  }
+};
+
+export const deleteCommunityPostApi = async (url: string) => {
+  try {
+    await axiosInstance({
+      url: `${END_POINT}${url}`,
+      method: 'DELETE',
+    });
+  } catch (error) {
+    new Error('Community Post를 삭제하는데 오류가 발생하였습니다.');
+  }
+};
+
+export const editCommunityPostApi = async ({
+  url,
+  postData,
+}: {
+  url: string;
+  postData: FormData;
+}) => {
+  try {
+    await axiosInstance({
+      url: `${END_POINT}${url}`,
+      method: 'PATCH',
+      data: postData,
+    });
+  } catch (error) {
+    new Error('Community Post 수정하는데 오류가 발생하였습니다.');
   }
 };
