@@ -18,7 +18,7 @@ interface Props {
   profileImageUrl: string;
   nickname: string;
   contents: string;
-  createdAt: string;
+  updatedAt: string;
   replies?: childrenQuestionType[];
   children?: JSX.Element | JSX.Element[];
 }
@@ -27,7 +27,7 @@ function Reply({
   profileImageUrl,
   nickname,
   contents,
-  createdAt,
+  updatedAt,
   replies,
   children,
 }: Props) {
@@ -53,7 +53,7 @@ function Reply({
         <div>{contents}</div>
         <ReplyControlWrapper>
           <Typography color='secondary'>
-            {moment(createdAt, 'YYYY-MM-DD hh:mm:ss').fromNow()}
+            {moment(updatedAt, 'YYYY-MM-DD hh:mm:ss').fromNow()}
           </Typography>
           {replies && (
             <ReplyControlTypography

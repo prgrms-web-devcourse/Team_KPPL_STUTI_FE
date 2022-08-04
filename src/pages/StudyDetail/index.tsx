@@ -30,7 +30,7 @@ function StudyDetail() {
 
   const { study_id = '0' }: { study_id: string } = useParams();
 
-  const [size, setSize] = useState(5);
+  const initialSize = 5;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,12 +43,16 @@ function StudyDetail() {
     };
 
     const fetchQuestion = async () => {
-      const res: studyDetailQuestionType = await getStudyQuestionInformation(
-        study_id,
-        size,
-      );
+      try {
+        const res: studyDetailQuestionType = await getStudyQuestionInformation(
+          study_id,
+          initialSize,
+        );
 
-      dispatch(setQuestions(res));
+        dispatch(setQuestions(res));
+      } catch (error) {
+        new Error('스터디 질문 정보를 가져오는데 실패했습니다.');
+      }
     };
 
     fetchData();
@@ -186,7 +190,11 @@ function StudyDetail() {
       {isHaveDescription(getDescription()) && (
         <StudyDetailBody description={getDescription()} />
       )}
-      <StudyDetailStudyQuestion {...questions} size={size} />
+      <StudyDetailStudyQuestion
+        {...questions}
+        size={initialSize}
+        study_id={study_id}
+      />
       <Button>지원하기</Button>
     </StudyDetailContainer>
   );

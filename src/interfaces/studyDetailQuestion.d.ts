@@ -5,7 +5,7 @@ export interface childrenQuestionType {
   memberId: number;
   nickname: string;
   contents: string;
-  createdAt: string;
+  updatedAt: string;
 }
 
 export interface questionContentType {
@@ -15,7 +15,7 @@ export interface questionContentType {
   memberId: number;
   nickname: string;
   contents: string;
-  createdAt: string;
+  updatedAt: string;
   children: childrenQuestionType[];
 }
 

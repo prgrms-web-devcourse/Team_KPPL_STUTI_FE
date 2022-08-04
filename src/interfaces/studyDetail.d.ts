@@ -12,7 +12,7 @@ export interface detailQuestionsChildrenType {
   studyGroupQuestionId: number;
   nickname: string;
   content: string;
-  createdAt: string;
+  updatedAt: string;
 }
 
 export interface detailQuestionsType {
@@ -20,7 +20,7 @@ export interface detailQuestionsType {
   parentId: null;
   nickname: string;
   content: string;
-  createdAt: string;
+  updatedAt: string;
   children: detailQuestionsChildrenType[];
 }
 

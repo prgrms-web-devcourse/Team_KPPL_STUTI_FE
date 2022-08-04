@@ -1,6 +1,7 @@
 import { RootState } from '@src/store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
+  childrenQuestionType,
   questionContentType,
   studyDetailQuestionType,
 } from '@interfaces/studyDetailQuestion';
@@ -42,16 +43,29 @@ export const questionSlice = createSlice({
     },
     changeQuestion: (
       state: questionState,
-      action: PayloadAction<questionContentType>,
+      action: PayloadAction<questionContentType | childrenQuestionType>,
     ) => {
+      const { parentId, studyGroupQuestionId } = action.payload;
+
       const targetIndex = state.value.contents.findIndex(
-        (question) =>
-          question.studyGroupQuestionId === action.payload.studyGroupQuestionId,
+        (question) => question.studyGroupQuestionId === studyGroupQuestionId,
       );
 
       if (targetIndex === -1) return;
 
-      state.value.contents[targetIndex] = action.payload;
+      if (parentId) {
+        state.value.contents[targetIndex] =
+          action.payload as questionContentType;
+      } else {
+        const targetParent = state.value.contents[targetIndex];
+
+        const targetChildrenIndex = targetParent.children.findIndex(
+          (question) => question.studyGroupQuestionId === studyGroupQuestionId,
+        );
+
+        state.value.contents[targetIndex].children[targetChildrenIndex] =
+          action.payload as childrenQuestionType;
+      }
     },
     deleteQuestion: (
       state: questionState,

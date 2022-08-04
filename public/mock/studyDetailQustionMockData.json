@@ -7,7 +7,7 @@
       "memberId": 1,
       "nickname": "팽",
       "contents": "글이 좋네요 어떤스터디에 참여하고 계신가요?",
-      "createdAt": "2000-02-22 10:00:00",
+      "updatedAt": "2000-02-22 10:00:00",
       "children": [
         {
           "parentId": 1,
@@ -16,7 +16,7 @@
           "memberId": 2,
           "nickname": "키아",
           "contents": "김팽박이라는 스터디에 참여하고있습니다.",
-          "createdAt": "2000-02-22 10:00:00"
+          "updatedAt": "2000-02-22 10:00:00"
         },
         {
           "parentId": 1,
@@ -25,7 +25,7 @@
           "memberId": 1,
           "nickname": "팽",
           "contents": "아직 모집중인가요? 저도 참여하고싶습니다.",
-          "createdAt": "2000-02-22 10:00:00"
+          "updatedAt": "2000-02-22 10:00:00"
         },
         {
           "parentId": 1,
@@ -34,7 +34,7 @@
           "memberId": 2,
           "nickname": "키아",
           "contents": "네~ 스터디 검색해서 신청해주세요 ~",
-          "createdAt": "2000-02-22 10:00:00"
+          "updatedAt": "2000-02-22 10:00:00"
         }
       ]
     },
@@ -45,7 +45,7 @@
       "memberId": 1,
       "nickname": "팽",
       "contents": "글이 좋네요 어떤스터디에 참여하고 계신가요?",
-      "createdAt": "2022-08-03 16:42:00",
+      "updatedAt": "2022-08-03 16:42:00",
       "children": []
     }
   ],
