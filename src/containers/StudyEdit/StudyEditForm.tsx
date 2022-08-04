@@ -192,7 +192,7 @@ function StudyEditForm() {
                   as={MultiLineInput}
                   id='description'
                   placeholder='스터디 내용을 기재해주세요.'
-                  height='600px'
+                  height='500px'
                   {...formik.getFieldProps('description')}
                 />
               </StudyDescriptionWrapper>
