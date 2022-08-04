@@ -6,6 +6,7 @@ import {
   LabelInput,
   FileInput,
 } from '@src/components/StudyCreate&Edit';
+import { SpinnerIcon } from '@src/components';
 import { fetchStudyDetails } from '@src/apis/fetchStudyDetails';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -22,6 +23,7 @@ import {
   CameraIcon,
   InputWrapper,
   ErrorMessage,
+  SpinnerWrapper,
 } from './style';
 
 const EditSchema = Yup.object({
@@ -44,6 +46,7 @@ function StudyEditForm() {
   const [imageSrc, setImageSrc] = useState<File | null>(null);
   const [thumbnailImage, setThumbnailImage] = useState<string>('');
   const [fileErrorMessage, setFileErrorMessage] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const titleRef = useRef<null | HTMLDivElement>(null);
   const descriptionRef = useRef<null | HTMLDivElement>(null);
 
@@ -63,6 +66,7 @@ function StudyEditForm() {
   const encodeFile = (fileBlob: File) => {
     const reader = new FileReader();
     if (!fileBlob) return;
+    setIsLoading(true);
     reader.readAsDataURL(fileBlob);
 
     return new Promise<void>((resolve) => {
@@ -71,6 +75,7 @@ function StudyEditForm() {
         setThumbnailImage(result);
 
         resolve();
+        setIsLoading(false);
       };
     });
   };
@@ -153,7 +158,11 @@ function StudyEditForm() {
                     <ErrorMessage>{fileErrorMessage}</ErrorMessage>
                   )}
                   <ImageWrapper>
-                    {thumbnailImage && !fileErrorMessage ? (
+                    {isLoading ? (
+                      <SpinnerWrapper>
+                        <SpinnerIcon />
+                      </SpinnerWrapper>
+                    ) : thumbnailImage ? (
                       <Image src={thumbnailImage} alt='study-image' />
                     ) : (
                       <CameraIcon color='secondary' />

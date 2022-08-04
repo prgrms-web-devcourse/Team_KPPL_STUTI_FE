@@ -18,6 +18,7 @@ import {
   MbtiSelect,
 } from '@src/components/StudyCreate';
 import Select from '@src/components/Select/Select';
+import { SpinnerIcon } from '@src/components';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -39,6 +40,7 @@ import {
   StudyCreateWrapper,
   StudyDescriptionWrapper,
   TopicWrapper,
+  SpinnerWrapper,
 } from './style';
 
 const radioValues = [
@@ -80,6 +82,7 @@ function StudyCreateFormContainer() {
   const [fileErrorMessage, setFileErrorMessage] = useState<string>('');
   const [topicErrorMessage, setTopicErrorMessage] = useState<string>('');
   const [peopleErrorMessage, setPeopleErrorMessage] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const titleRef = useRef<null | HTMLDivElement>(null);
   const descriptionRef = useRef<null | HTMLDivElement>(null);
   const topicRef = useRef<null | HTMLDivElement>(null);
@@ -99,6 +102,7 @@ function StudyCreateFormContainer() {
   const encodeFile = (fileBlob: File) => {
     const reader = new FileReader();
     if (!fileBlob) return;
+    setIsLoading(true);
     reader.readAsDataURL(fileBlob);
 
     return new Promise<void>((resolve) => {
@@ -107,6 +111,7 @@ function StudyCreateFormContainer() {
         setThumbnailImage(result);
 
         resolve();
+        setIsLoading(false);
       };
     });
   };
@@ -340,7 +345,11 @@ function StudyCreateFormContainer() {
                     <ErrorMessage>{fileErrorMessage}</ErrorMessage>
                   )}
                   <ImageWrapper>
-                    {imageSrc ? (
+                    {isLoading ? (
+                      <SpinnerWrapper>
+                        <SpinnerIcon />
+                      </SpinnerWrapper>
+                    ) : thumbnailImage ? (
                       <Image src={thumbnailImage} alt='study-image' />
                     ) : (
                       <CameraIcon color='secondary' />
