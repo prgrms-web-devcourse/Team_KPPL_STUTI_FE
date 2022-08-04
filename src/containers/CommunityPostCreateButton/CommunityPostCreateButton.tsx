@@ -3,10 +3,13 @@ import AddIcon from '@mui/icons-material/Add';
 
 import { CommunityPostCreateButtonWrapper } from './CommunityPostCreateButton.style';
 
-function CommunityPostCreateButton() {
+interface CommunityPostCreateButtonType {
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+}
+function CommunityPostCreateButton({ onClick }: CommunityPostCreateButtonType) {
   return (
     <CommunityPostCreateButtonWrapper>
-      <Fab color='primary'>
+      <Fab color='primary' onClick={onClick}>
         <AddIcon />
       </Fab>
     </CommunityPostCreateButtonWrapper>

@@ -1,11 +1,12 @@
 import { useLayoutEffect, useState } from 'react';
 import CommunityPost from '@src/containers/CommunityPost/CommunityPost';
+import CommunityModal from '@src/containers/CommunityModal/CommunityModal';
 import { CommunityType } from '@interfaces/community';
 import CommunityPostCreateButton from '@containers/CommunityPostCreateButton/CommunityPostCreateButton';
 import { getCommunityDataApi } from '@apis/community';
-
 function Community() {
   const [communityPostData, setCommunityPostData] = useState<CommunityType>({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useLayoutEffect(() => {
     // 맨처음에는 lastPostId를 안 줘야 된다.
@@ -20,6 +21,14 @@ function Community() {
   const getCommunityPosts = () => {
     const { posts = [] } = communityPostData;
     return posts;
+  };
+  const handleCreateModalOpen = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    setIsModalOpen(true);
+  };
+  const handleCreateModalClose = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    setIsModalOpen(false);
   };
   return (
     <>
@@ -40,7 +49,14 @@ function Community() {
           lastPost={getCommunityPosts().length - 1 === postIndex ? true : false}
         />
       ))}
-      <CommunityPostCreateButton />
+      <CommunityPostCreateButton onClick={handleCreateModalOpen} />
+      <CommunityModal
+        postId='1'
+        nickname='로그인 한 User nickname'
+        modalType='Create'
+        isOpen={isModalOpen}
+        onClose={handleCreateModalClose}
+      />
     </>
   );
 }

@@ -17,22 +17,23 @@ import {
 import ClearIcon from '@mui/icons-material/Clear';
 //postId, user.nickname , user.image 받기
 interface CommunityModalType {
-  postId: string;
-  nickname: string;
+  postId?: string;
+  nickname?: string;
   profileImageUrl?: string;
+  modalType: string;
   isOpen?: boolean;
-  onClose?: () => void;
+  onClose?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 function CommunityModal({
   postId,
   nickname,
   profileImageUrl,
+  modalType,
   isOpen,
   onClose,
 }: CommunityModalType) {
   const [previewUrl, setPreviewUrl] = useState('');
-
   const handleImageUpload = (e: React.ChangeEvent<any>) => {
     if (!e.currentTarget.files[0]) return;
 
