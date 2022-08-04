@@ -49,6 +49,6 @@
       "children": []
     }
   ],
-  "isLast": false,
+  "hasNext": false,
   "totalElements": 50
 }

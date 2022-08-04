@@ -1,4 +1,5 @@
 import * as Yup from 'yup';
+import { useParams } from 'react-router';
 import React, { useEffect, useRef, useState } from 'react';
 import { Formik, Field } from 'formik';
 import {
@@ -7,7 +8,7 @@ import {
   FileInput,
 } from '@src/components/StudyCreate&Edit';
 import { SpinnerIcon } from '@src/components';
-import { fetchStudyDetails } from '@src/apis/fetchStudyDetails';
+import { getStudyDetailInfomation } from '@src/apis/studyDetail';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
@@ -50,14 +51,20 @@ function StudyEditForm() {
   const titleRef = useRef<null | HTMLDivElement>(null);
   const descriptionRef = useRef<null | HTMLDivElement>(null);
 
+  const { study_id = '0' }: { study_id: string } = useParams();
+
   useEffect(() => {
     const fetchData = async () => {
-      const data = await fetchStudyDetails();
-      const { title, description, imageUrl } = data;
+      try {
+        const data = await getStudyDetailInfomation(study_id);
+        const { title, description, imageUrl } = data;
 
-      setTitle(title);
-      setDescription(description);
-      setThumbnailImage(imageUrl);
+        setTitle(title);
+        setDescription(description);
+        setThumbnailImage(imageUrl);
+      } catch (error) {
+        new Error('스터디 상세 정보를 가져오는데 실패했습니다.');
+      }
     };
 
     fetchData();

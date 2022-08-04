@@ -27,7 +27,7 @@
   "numberOfApplicant": 2,
   "applicants": [
     {
-      "applicantId": 2,
+      "studyMemberId": 2,
       "profileImageUrl": "",
       "nickname": "지원자1",
       "field": "프론트엔드",
@@ -36,7 +36,7 @@
       "studyMemberRole": "APPLICANT"
     },
     {
-      "applicantId": 3,
+      "studyMemberId": 3,
       "profileImageUrl": "",
       "nickname": "지원자2",
       "field": "프론트엔드",

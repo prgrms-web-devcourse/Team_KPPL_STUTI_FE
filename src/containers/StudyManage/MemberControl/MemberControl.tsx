@@ -64,7 +64,7 @@ function MemberControl({
         {applicants.length > 0 ? (
           applicants.map((applicant) => {
             const {
-              applicantId,
+              studyMemberId,
               profileImageUrl = '',
               nickname = '',
               field = '',
@@ -74,7 +74,7 @@ function MemberControl({
             } = applicant;
 
             return (
-              <UserInfoWrapper key={applicantId}>
+              <UserInfoWrapper key={studyMemberId}>
                 <UserInfo
                   profileImageUrl={profileImageUrl}
                   nickname={nickname}

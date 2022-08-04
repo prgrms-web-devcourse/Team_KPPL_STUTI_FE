@@ -21,6 +21,6 @@ export interface questionContentType {
 
 export interface studyDetailQuestionType {
   contents: questionContentType[];
-  isLast: boolean;
+  hasNext: boolean;
   totalElements: number;
 }

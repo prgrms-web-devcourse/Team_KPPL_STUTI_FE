@@ -7,7 +7,7 @@ import { studyDetailQuestionType } from '@interfaces/studyDetailQuestion';
 function StudyQuestion({
   contents = [],
   totalElements,
-  isLast,
+  hasNext,
 }: studyDetailQuestionType) {
   return (
     <StudyDetailQuestionContainer>
@@ -56,7 +56,7 @@ function StudyQuestion({
           </Reply>
         );
       })}
-      {!isLast && (
+      {!hasNext && (
         <Typography color='secondary'>
           댓글 {totalElements - contents.length}개 더 보기
         </Typography>

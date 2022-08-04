@@ -9,7 +9,7 @@ export interface studyManageMemberType {
 }
 
 export interface studyManageApplicantsType {
-  applicantId: number;
+  studyMemberId: number;
   profileImageUrl: string;
   nickname: string;
   field: string;

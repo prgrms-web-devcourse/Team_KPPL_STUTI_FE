@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import {
   StudyDetailButtonWrapper,
@@ -23,10 +23,16 @@ function StudyDetail() {
   const [data, setData] = useState({} as studyDetailType);
   const [questions, setQuestions] = useState({} as studyDetailQuestionType);
 
+  const { study_id = '0' }: { study_id: string } = useParams();
+
   useEffect(() => {
     const fetchData = async () => {
-      const res = await getStudyDetailInfomation();
-      setData(res);
+      try {
+        const res = await getStudyDetailInfomation(study_id);
+        setData(res);
+      } catch (error) {
+        new Error('스터디 상세 정보를 가져오는데 실패했습니다.');
+      }
     };
 
     const fetchQuestions = async () => {
