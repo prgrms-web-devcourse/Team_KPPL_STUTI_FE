@@ -11,17 +11,17 @@ import {
 } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import CommunityTypographyButton from '@containers/CommunityCard/CommunityTypographyButton/CommunityTypographyButton';
-import CommunityMenuIconButton from '@containers/CommunityCard/CommunityMenuIconButton';
+import CommunityTypographyButton from '@containers/CommunityPost/CommunityTypographyButton/CommunityTypographyButton';
 import {
   ContentsWrapper,
   CustomCardMedia,
-} from '@containers/CommunityCard/CommunityCard.style';
+} from '@containers/CommunityPost/CommunityPost.style';
+import CommunityMenuIconButton from '@containers/CommunityPost/CommunityMenuIconButton';
 
-interface CommunityCardType {
+interface CommunityPostType {
   postId?: number;
   memberId?: number;
-  nickName: string;
+  nickname: string;
   createdAt: string;
   profileImageUrl: string;
   contents: string;
@@ -29,18 +29,17 @@ interface CommunityCardType {
   totalLikes: number;
   totalComments: number;
   isliked?: boolean;
-  inputRef?: any;
 }
-function CommunityCard({
+function CommunityPost({
   postId,
-  nickName,
+  nickname,
   createdAt,
   profileImageUrl,
   contents,
   postImageUrl,
   totalLikes,
   totalComments,
-}: CommunityCardType) {
+}: CommunityPostType) {
   const [liked, setLiked] = useState(false);
   const [isExpand, setIsExpand] = useState<string | number>('none');
   const contentsRef = useRef<HTMLInputElement>(null);
@@ -72,7 +71,7 @@ function CommunityCard({
           />
         }
         action={<CommunityMenuIconButton />}
-        title={nickName}
+        title={nickname}
         subheader={createdAt}
         sx={{ paddingBottom: '0' }}
       />
@@ -97,14 +96,16 @@ function CommunityCard({
       <CardActions disableSpacing>
         <IconButton aria-label='settings' onClick={handleLiked}>
           {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          {/* 개수가 0이면 출력 x */}
         </IconButton>
         <CommunityTypographyButton>{totalLikes}</CommunityTypographyButton>
         <CommunityTypographyButton name='댓글' margin='0 1rem 0 auto'>
           {totalComments}
         </CommunityTypographyButton>
+        {/* 개수가 0이면 출력 x */}
       </CardActions>
     </Card>
   );
 }
 
-export default CommunityCard;
+export default CommunityPost;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomTypography } from '@src/containers/CommunityCard/CommunityTypographyButton/CommunityTypographyButton.style';
+import { CustomTypography } from '@src/containers/CommunityPost/CommunityTypographyButton/CommunityTypographyButton.style';
 
 export interface CommunityTypographyButtonType {
   name?: string | undefined;

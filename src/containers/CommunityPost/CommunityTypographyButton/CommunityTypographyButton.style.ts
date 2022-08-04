@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material';
 import styled from '@emotion/styled';
-import { CommunityTypographyButtonType } from '@containers/CommunityCard/CommunityTypographyButton/CommunityTypographyButton';
+import { CommunityTypographyButtonType } from '@containers/CommunityPost/CommunityTypographyButton/CommunityTypographyButton';
 
 export const CustomTypography = styled(
   Typography,
