@@ -7,13 +7,15 @@ import {
   recruitsNumberOptions,
 } from '@src/constants/selectOptions';
 import {
+  MultiLineInput,
+  LabelInput,
+  FileInput,
+} from '@src/components/StudyCreate&Edit';
+import {
   MbtiRecommend,
   RangeDatePicker,
   RadioGroup,
   MbtiSelect,
-  MultiLineInput,
-  LabelInput,
-  FileInput,
 } from '@src/components/StudyCreate';
 import Select from '@src/components/Select/Select';
 import Typography from '@mui/material/Typography';
