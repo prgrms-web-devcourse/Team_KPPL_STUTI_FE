@@ -1,5 +1,12 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useRef, useLayoutEffect } from 'react';
+import CommunityPostTypographyButton from '@src/containers/CommunityPostListSection/CommunityPost/CommunityPostTypographyButton/CommunityPostTypographyButton';
+import CommunityPostMenuIconButton from '@src/containers/CommunityPostListSection/CommunityPost/CommunityPostMenuIconButton';
+import {
+  ContentsWrapper,
+  CustomCardMedia,
+  CustomCard,
+} from '@src/containers/CommunityPostListSection/CommunityPost/CommunityPost.style';
 import Avatar from '@mui/material/Avatar';
 import {
   CardHeader,
@@ -12,13 +19,6 @@ import {
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { CommunityPostType } from '@interfaces/community';
-import CommunityPostTypographyButton from '@containers/CommunityPost/CommunityPostTypographyButton/CommunityPostTypographyButton';
-import CommunityPostMenuIconButton from '@containers/CommunityPost/CommunityPostMenuIconButton';
-import {
-  ContentsWrapper,
-  CustomCardMedia,
-  CustomCard,
-} from '@containers/CommunityPost/CommunityPost.style';
 
 function CommunityPost({
   postId,
