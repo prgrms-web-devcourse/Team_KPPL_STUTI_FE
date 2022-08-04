@@ -1,5 +1,9 @@
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { StudyDetailContainer } from '@pages/StudyDetail/style';
+import {
+  StudyDetailButtonWrapper,
+  StudyDetailContainer,
+} from '@pages/StudyDetail/style';
 import { Button } from '@mui/material';
 import { studyDetailQuestionType } from '@interfaces/studyDetailQuestion';
 import { detailMemberType, studyDetailType } from '@interfaces/studyDetail';
@@ -90,15 +94,20 @@ function StudyDetail() {
     return region;
   };
 
-  const getStudyPeriod = () => {
-    const defaultStudyPeriod = {
-      startDate: '2022.00.00',
-      endDate: '2022.00.00',
-    };
+  const getStartDateTime = () => {
+    const { startDateTime = '2022-00-00 00:00:00' } = data;
 
-    const { studyPeriod = defaultStudyPeriod } = data;
+    const [date, time] = startDateTime.split(' ');
 
-    return studyPeriod;
+    return date;
+  };
+
+  const getEndDateTime = () => {
+    const { endDateTime = '2022-00-00 00:00:00' } = data;
+
+    const [date, time] = endDateTime.split(' ');
+
+    return date;
   };
 
   const getNumberOfMembers = () => {
@@ -124,6 +133,22 @@ function StudyDetail() {
         title={getTitle()}
         imageUrl={getImageUrl()}
       />
+      <StudyDetailButtonWrapper>
+        <Button
+          component={Link}
+          to={`/study/${data.studyGroupId}/edit`}
+          fullWidth
+        >
+          스터디 수정
+        </Button>
+        <Button
+          component={Link}
+          to={`/study/${data.studyGroupId}/manage`}
+          fullWidth
+        >
+          스터디 관리
+        </Button>
+      </StudyDetailButtonWrapper>
       <UserInfo
         title='리더 정보'
         profileImageUrl={getLeaderInfo().profileImageUrl}
@@ -136,7 +161,8 @@ function StudyDetail() {
       <StudyDetailStudyInfo
         isOnline={getIsOnline()}
         region={getRegion()}
-        studyPeriod={getStudyPeriod()}
+        startDateTime={getStartDateTime()}
+        endDateTime={getEndDateTime()}
         numberOfMembers={getNumberOfMembers()}
         numberOfRecruits={getNumberOfRecruits()}
       />

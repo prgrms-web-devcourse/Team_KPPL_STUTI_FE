@@ -3,7 +3,7 @@
     {
       "questionId": 1,
       "parentId": null,
-      "profileImageUrl": "http://prgrms.stuti/image1.jpg",
+      "profileImageUrl": "",
       "memberId": 1,
       "nickname": "팽",
       "contents": "글이 좋네요 어떤스터디에 참여하고 계신가요?",
@@ -21,7 +21,7 @@
         {
           "parentId": 1,
           "questionId": 5,
-          "profileImageUrl": "http://prgrms.stuti/image33.jpg",
+          "profileImageUrl": "",
           "memberId": 1,
           "nickname": "팽",
           "contents": "아직 모집중인가요? 저도 참여하고싶습니다.",
@@ -30,7 +30,7 @@
         {
           "parentId": 1,
           "questionId": 6,
-          "profileImageUrl": "http://prgrms.stuti/image33.jpg",
+          "profileImageUrl": "",
           "memberId": 2,
           "nickname": "키아",
           "contents": "네~ 스터디 검색해서 신청해주세요 ~",
@@ -41,7 +41,7 @@
     {
       "questionId": 10,
       "parentId": null,
-      "profileImageUrl": "http://prgrms.stuti/image1.jpg",
+      "profileImageUrl": "",
       "memberId": 1,
       "nickname": "팽",
       "contents": "글이 좋네요 어떤스터디에 참여하고 계신가요?",

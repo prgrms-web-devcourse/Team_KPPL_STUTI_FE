@@ -1,5 +1,5 @@
-import { Switch, BrowserRouter } from 'react-router-dom';
-import { Redirect, Route } from 'react-router';
+import { Switch } from 'react-router-dom';
+import { Redirect, Route, Router } from 'react-router';
 import {
   COMMUNITY,
   HOME,
@@ -17,12 +17,13 @@ import StudyDetail from '@src/pages/StudyDetail';
 import StudyCreate from '@src/pages/StudyCreate';
 import SignUp from '@src/pages/SignUp';
 import NavigationHeader from '@src/containers/NavigationHeader/NavigationHeader';
+import history from '@router/history';
 import { Home, ProfileDetail, ProfileEdit } from '@pages';
 import ForumIcon from '@mui/icons-material/Forum';
 
 function Routers() {
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <NavigationHeader />
       <Switch>
         <Route exact path={HOME} component={Home} />
@@ -36,7 +37,7 @@ function Routers() {
         <Route exact path={SIGN_UP} component={SignUp} />
         <Route path='*' render={() => <Redirect to='/error' />} />
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 }
 
