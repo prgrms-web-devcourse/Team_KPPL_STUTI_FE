@@ -1,5 +1,5 @@
 export interface detailMemberType {
-  leaderId: number;
+  memberId: number;
   profileImageUrl: string;
   nickname: string;
   field: string;
