@@ -1,6 +1,7 @@
 import { useLayoutEffect, useState } from 'react';
 import CommunityPost from '@src/containers/CommunityPost/CommunityPost';
 import { CommunityType } from '@interfaces/community';
+import CommunityPostCreateButton from '@containers/CommunityPostCreateButton/CommunityPostCreateButton';
 import { getCommunityDataApi } from '@apis/community';
 
 function Community() {
@@ -38,6 +39,7 @@ function Community() {
           isliked={post.isliked}
         />
       ))}
+      <CommunityPostCreateButton />
     </>
   );
 }
