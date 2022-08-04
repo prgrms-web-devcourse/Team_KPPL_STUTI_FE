@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   MbtiRecommend,
-  Select,
   RangeDatePicker,
   RadioGroup,
   MbtiSelect,
@@ -9,6 +8,7 @@ import {
   LabelInput,
   FileInput,
 } from '@src/components/StudyCreate';
+import Select from '@src/components/Select/Select';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -101,52 +101,52 @@ const locations = [
 
 const people = [
   {
-    value: 1,
+    value: '1',
     label: '1',
   },
   {
-    value: 2,
+    value: '2',
     label: '2',
   },
   {
-    value: 3,
+    value: '3',
     label: '3',
   },
   {
-    value: 4,
+    value: '4',
     label: '4',
   },
   {
-    value: 5,
+    value: '5',
     label: '5',
   },
   {
-    value: 6,
+    value: '6',
     label: '6',
   },
   {
-    value: 7,
+    value: '7',
     label: '7',
   },
   {
-    value: 8,
+    value: '8',
     label: '8',
   },
   {
-    value: 9,
+    value: '9',
     label: '9',
   },
   {
-    value: 10,
+    value: '10',
     label: '10',
   },
 ];
 
 function StudyCreateFormContainer() {
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState<string | number>('');
-  const [location, setLocation] = useState<string | number>('');
-  const [peopleNumber, setPeopleNumber] = useState<string | number>(0);
+  const [topic, setTopic] = useState('');
+  const [recruitsNumber, setRecruitsNumber] = useState('');
+  const [regions, setRegions] = useState('');
   const [isOnline, setIsOnline] = useState(true);
   const [startDate, setStartDate] = useState<string | number>('');
   const [endDate, setEndDate] = useState<string | number>('');
@@ -199,7 +199,6 @@ function StudyCreateFormContainer() {
   const isOnlineChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === 'online') {
       setIsOnline(true);
-      setLocation('');
     } else {
       setIsOnline(false);
     }
@@ -207,25 +206,9 @@ function StudyCreateFormContainer() {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('제목 ' + title);
-    console.log('카테고리 ' + category);
-    console.log('지역 ' + isOnline + ' ' + location);
-    console.log('인원 ' + peopleNumber);
-    console.log('스터디 기간 ' + startDate + '~' + endDate);
-    console.log('선호 MBTI ' + mbtiCheckedList);
-    console.log('이미지 ' + imageSrc);
-    console.log('내용' + body);
+    console.log(topic, regions, recruitsNumber);
   };
 
-  const getCategory = (value: string | number) => {
-    setCategory(value);
-  };
-  const getLocation = (value: string | number) => {
-    setLocation(value);
-  };
-  const getPeopleNumber = (value: string | number) => {
-    setPeopleNumber(value);
-  };
   const getStartDate = (value: string | number) => {
     setStartDate(value);
   };
@@ -248,9 +231,12 @@ function StudyCreateFormContainer() {
         <Select
           id='study-category'
           label='분야'
-          fullWidth={true}
           options={options}
-          getValue={getCategory}
+          value={topic}
+          fullWidth={true}
+          handleChange={(e) => {
+            setTopic(e.target.value);
+          }}
         />
         <LocationWrapper>
           <RadioGroup
@@ -263,18 +249,24 @@ function StudyCreateFormContainer() {
           <Select
             id='study-location'
             label='지역'
-            fullWidth={false}
             options={locations}
-            getValue={getLocation}
+            value={regions}
+            fullWidth={true}
+            handleChange={(e) => {
+              setRegions(e.target.value);
+            }}
             disabled={isOnline ? true : false}
           />
         </LocationWrapper>
         <Select
-          id='study-number-of-people'
+          id='study-recruits-number'
           label='인원'
-          fullWidth={true}
+          value={recruitsNumber}
           options={people}
-          getValue={getPeopleNumber}
+          fullWidth={true}
+          handleChange={(e) => {
+            setRecruitsNumber(e.target.value);
+          }}
         />
         <RangeDatePicker
           startLabel='시작일'
