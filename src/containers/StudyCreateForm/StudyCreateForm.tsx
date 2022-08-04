@@ -50,9 +50,6 @@ const radioValues = [
   },
 ];
 
-const FILE_SIZE = 1 * 1024 * 1024;
-const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
-
 const CreateSchema = Yup.object({
   title: Yup.string()
     .max(50, '50자를 넘을 수 없습니다.')
