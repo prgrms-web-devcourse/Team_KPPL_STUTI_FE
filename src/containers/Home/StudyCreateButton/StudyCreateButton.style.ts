@@ -3,7 +3,8 @@ import styled from '@emotion/styled';
 export const Position = styled.div`
   display: flex;
   justify-content: end;
-  position: sticky;
+  position: fixed;
   bottom: 0;
-  padding: 0 1.5rem 1.5rem 0;
+  width: 640px;
+  padding: 0 1rem 1rem 0;
 `;

@@ -33,23 +33,30 @@ export const HeaderNavLink = styled(NavLink)`
   display: flex;
   align-items: center;
   padding: 0 0.75rem;
+  transition: color 300ms;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 2px;
+    background-color: ${({ theme }) => theme.palette.primary.main};
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 300ms;
+  }
 
   &.active {
     color: ${({ theme }) => theme.palette.primary.main};
 
     &::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      height: 2px;
-      background-color: ${({ theme }) => theme.palette.primary.main};
+      transform: scaleX(1);
     }
   }
 
   &:hover {
-    transition: color 0.3s;
     color: ${({ theme }) => theme.palette.primary.main};
   }
 `;
