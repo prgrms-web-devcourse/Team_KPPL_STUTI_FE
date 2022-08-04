@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import React, { useState, useRef, useLayoutEffect } from 'react';
-import CommunityPostTypographyButton from '@src/containers/CommunityPostListSection/CommunityPost/CommunityPostTypographyButton/CommunityPostTypographyButton';
+import CommunityPostTypographyButton from '@src/containers/CommunityPostListSection/CommunityPostTypographyButton/CommunityPostTypographyButton';
 import CommunityPostMenuIconButton from '@src/containers/CommunityPostListSection/CommunityPost/CommunityPostMenuIconButton';
 import {
   ContentsWrapper,
