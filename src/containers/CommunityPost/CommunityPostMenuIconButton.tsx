@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 //postId 만 넘겨주면 됩니다.
 //post 삭제
-function CommunityMenuIconButton() {
+function CommunityPostMenuIconButton() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isOpen, setOpen] = useState(false);
   const open = Boolean(anchorEl);
@@ -61,4 +61,4 @@ function CommunityMenuIconButton() {
   );
 }
 
-export default CommunityMenuIconButton;
+export default CommunityPostMenuIconButton;

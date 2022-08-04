@@ -11,12 +11,12 @@ import {
 } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import CommunityTypographyButton from '@containers/CommunityPost/CommunityTypographyButton/CommunityTypographyButton';
+import CommunityPostTypographyButton from '@containers/CommunityPost/CommunityPostTypographyButton/CommunityPostTypographyButton';
+import CommunityPostMenuIconButton from '@containers/CommunityPost/CommunityPostMenuIconButton';
 import {
   ContentsWrapper,
   CustomCardMedia,
 } from '@containers/CommunityPost/CommunityPost.style';
-import CommunityMenuIconButton from '@containers/CommunityPost/CommunityMenuIconButton';
 
 interface CommunityPostType {
   postId?: number;
@@ -70,7 +70,7 @@ function CommunityPost({
             sx={{ cursor: 'pointer' }}
           />
         }
-        action={<CommunityMenuIconButton />}
+        action={<CommunityPostMenuIconButton />}
         title={nickname}
         subheader={createdAt}
         sx={{ paddingBottom: '0' }}
@@ -80,9 +80,9 @@ function CommunityPost({
           <Typography ref={contentsRef}>{contents}</Typography>
         </ContentsWrapper>
         {isExpand !== 'none' && (
-          <CommunityTypographyButton onClick={handleReadMore}>
+          <CommunityPostTypographyButton onClick={handleReadMore}>
             더보기
-          </CommunityTypographyButton>
+          </CommunityPostTypographyButton>
         )}
       </CardContent>
       <Box sx={{ margin: '1rem 1rem 0' }}>
@@ -98,10 +98,12 @@ function CommunityPost({
           {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           {/* 개수가 0이면 출력 x */}
         </IconButton>
-        <CommunityTypographyButton>{totalLikes}</CommunityTypographyButton>
-        <CommunityTypographyButton name='댓글' margin='0 1rem 0 auto'>
+        <CommunityPostTypographyButton>
+          {totalLikes}
+        </CommunityPostTypographyButton>
+        <CommunityPostTypographyButton name='댓글' margin='0 1rem 0 auto'>
           {totalComments}
-        </CommunityTypographyButton>
+        </CommunityPostTypographyButton>
         {/* 개수가 0이면 출력 x */}
       </CardActions>
     </Card>

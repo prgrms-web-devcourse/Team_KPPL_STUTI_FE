@@ -1,19 +1,19 @@
 import React from 'react';
-import { CustomTypography } from '@src/containers/CommunityPost/CommunityTypographyButton/CommunityTypographyButton.style';
+import { CustomTypography } from '@src/containers/CommunityPost/CommunityPostTypographyButton/CommunityPostTypographyButton.style';
 
-export interface CommunityTypographyButtonType {
+export interface CommunityPostTypographyButtonType {
   name?: string | undefined;
   margin?: string;
   children?: string | number;
   onClick?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
-function CommunityTypographyButton({
+function CommunityPostTypographyButton({
   name,
   margin,
   children,
   onClick,
-}: CommunityTypographyButtonType) {
+}: CommunityPostTypographyButtonType) {
   const getChildren = () => {
     if (name) return name + children;
     else return children;
@@ -25,4 +25,4 @@ function CommunityTypographyButton({
   );
 }
 
-export default CommunityTypographyButton;
+export default CommunityPostTypographyButton;
