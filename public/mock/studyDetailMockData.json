@@ -5,7 +5,7 @@
   "imageUrl": "",
   "leader": {
     "memberId": 1,
-    "profileImageUrl": "",
+    "profileImageUrl": "https://picsum.photos/100",
     "nickname": "프룽이",
     "field": "프론트엔드",
     "career": "N년차",

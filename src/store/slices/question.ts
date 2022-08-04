@@ -41,51 +41,108 @@ export const questionSlice = createSlice({
       state.value.hasNext = hasNext;
       state.value.totalElements = totalElements;
     },
+    addNewQuestion: (
+      state: questionState,
+      action: PayloadAction<questionContentType | childrenQuestionType>,
+    ) => {
+      const { parentId } = action.payload;
+
+      if (parentId) {
+        const targetIndex = state.value.contents.findIndex(
+          (question) => question.studyGroupQuestionId === parentId,
+        );
+
+        if (targetIndex === -1) return;
+
+        state.value.contents[targetIndex].children.unshift(
+          action.payload as childrenQuestionType,
+        );
+      } else {
+        state.value.contents.unshift(action.payload as questionContentType);
+      }
+    },
     changeQuestion: (
       state: questionState,
       action: PayloadAction<questionContentType | childrenQuestionType>,
     ) => {
       const { parentId, studyGroupQuestionId } = action.payload;
 
-      const targetIndex = state.value.contents.findIndex(
-        (question) => question.studyGroupQuestionId === studyGroupQuestionId,
-      );
-
-      if (targetIndex === -1) return;
-
       if (parentId) {
-        state.value.contents[targetIndex] =
-          action.payload as questionContentType;
-      } else {
+        const targetIndex = state.value.contents.findIndex(
+          (question) => question.studyGroupQuestionId === parentId,
+        );
+
+        if (targetIndex === -1) return;
+
         const targetParent = state.value.contents[targetIndex];
 
         const targetChildrenIndex = targetParent.children.findIndex(
           (question) => question.studyGroupQuestionId === studyGroupQuestionId,
         );
 
+        if (targetChildrenIndex === -1) return;
+
         state.value.contents[targetIndex].children[targetChildrenIndex] =
           action.payload as childrenQuestionType;
+      } else {
+        const targetIndex = state.value.contents.findIndex(
+          (question) => question.studyGroupQuestionId === studyGroupQuestionId,
+        );
+
+        if (targetIndex === -1) return;
+
+        state.value.contents[targetIndex] = {
+          ...state.value.contents[targetIndex],
+          ...action.payload,
+        };
       }
     },
     deleteQuestion: (
       state: questionState,
-      action: PayloadAction<questionContentType>,
+      action: PayloadAction<questionContentType | childrenQuestionType>,
     ) => {
-      const targetIndex = state.value.contents.findIndex(
-        (question) =>
-          question.studyGroupQuestionId === action.payload.studyGroupQuestionId,
-      );
+      const { parentId, studyGroupQuestionId } = action.payload;
 
-      if (targetIndex === -1) return;
+      if (parentId) {
+        const targetIndex = state.value.contents.findIndex(
+          (question) => question.studyGroupQuestionId === parentId,
+        );
 
-      state.value.contents.splice(targetIndex, 1);
+        if (targetIndex === -1) return;
+
+        const targetParent = state.value.contents[targetIndex];
+
+        const targetChildrenIndex = targetParent.children.findIndex(
+          (question) => question.studyGroupQuestionId === studyGroupQuestionId,
+        );
+
+        if (targetChildrenIndex === -1) return;
+
+        state.value.contents[targetIndex].children.splice(
+          targetChildrenIndex,
+          1,
+        );
+      } else {
+        const targetIndex = state.value.contents.findIndex(
+          (question) => question.studyGroupQuestionId === studyGroupQuestionId,
+        );
+
+        if (targetIndex === -1) return;
+
+        state.value.contents.splice(targetIndex, 1);
+      }
     },
   },
 });
 
 export const selectQuestion = (state: RootState) => state.question.value;
 
-export const { setQuestions, addQuestions, changeQuestion, deleteQuestion } =
-  questionSlice.actions;
+export const {
+  setQuestions,
+  addQuestions,
+  addNewQuestion,
+  changeQuestion,
+  deleteQuestion,
+} = questionSlice.actions;
 
 export default questionSlice.reducer;

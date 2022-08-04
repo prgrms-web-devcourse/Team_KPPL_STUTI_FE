@@ -28,7 +28,7 @@ const members = [
   },
 ];
 
-const applicants = [
+const studyApplicants = [
   {
     profileImageUrl: '',
     nickname: '지원자임',
@@ -55,5 +55,5 @@ MemberControlDefault.args = {
   numberOfRecruits: 5,
   numberOfApplicant: 2,
   studyMembers: members,
-  applicants: applicants,
+  studyApplicants: studyApplicants,
 };

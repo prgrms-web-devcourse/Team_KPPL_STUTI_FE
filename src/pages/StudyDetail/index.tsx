@@ -1,7 +1,10 @@
+import { date } from 'yup/lib/locale';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { AxiosError, AxiosResponse } from 'axios';
 import { selectQuestion, setQuestions } from '@store/slices/question';
+import { errorType } from '@src/interfaces/error';
 import {
   StudyDetailButtonWrapper,
   StudyDetailContainer,
@@ -19,6 +22,7 @@ import NoImage from '@assets/noImage.jpeg';
 import {
   getStudyDetailInfomation,
   getStudyQuestionInformation,
+  joinStudyGroup,
 } from '@apis/studyDetail';
 
 function StudyDetail() {
@@ -38,7 +42,10 @@ function StudyDetail() {
         const res = await getStudyDetailInfomation(study_id);
         setData(res);
       } catch (error) {
-        new Error('스터디 상세 정보를 가져오는데 실패했습니다.');
+        console.error(error);
+        const { response } = error as AxiosError;
+        const { data }: { data: errorType } = response as AxiosResponse;
+        const { errorCode } = data;
       }
     };
 
@@ -51,7 +58,10 @@ function StudyDetail() {
 
         dispatch(setQuestions(res));
       } catch (error) {
-        new Error('스터디 질문 정보를 가져오는데 실패했습니다.');
+        console.error(error);
+        const { response } = error as AxiosError;
+        const { data }: { data: errorType } = response as AxiosResponse;
+        const { errorCode } = data;
       }
     };
 
@@ -147,6 +157,19 @@ function StudyDetail() {
     return description.length > 0 ? true : false;
   };
 
+  const enterStudyGroup = (study_id: string) => {
+    try {
+      joinStudyGroup(study_id);
+    } catch (error) {
+      const { response } = error as AxiosError;
+      const { data }: { data: errorType } = response as AxiosResponse;
+      const { errorCode } = data;
+      if (errorCode === 'SG003') {
+        alert('이미 신청한 스터디입니다!');
+      }
+    }
+  };
+
   return (
     <StudyDetailContainer>
       <StudyDetailHeader
@@ -195,7 +218,13 @@ function StudyDetail() {
         size={initialSize}
         study_id={study_id}
       />
-      <Button>지원하기</Button>
+      <Button
+        onClick={() => {
+          enterStudyGroup(study_id);
+        }}
+      >
+        지원하기
+      </Button>
     </StudyDetailContainer>
   );
 }

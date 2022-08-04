@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 
 export const ReplyInputWrapper = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
   gap: 0.625rem;
   margin: 0.625rem 0;

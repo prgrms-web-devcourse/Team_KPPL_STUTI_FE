@@ -56,7 +56,7 @@ function StudyManage() {
         numberOfMembers={data.numberOfMembers}
         numberOfRecruits={data.numberOfRecruits}
         studyMembers={data.studyMembers}
-        applicants={data.applicants}
+        studyApplicants={data.studyApplicants}
       />
     </StudyManageContainer>
   );

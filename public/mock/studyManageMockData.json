@@ -7,7 +7,7 @@
   "studyMembers": [
     {
       "studyGroupMemberId": 1,
-      "profileImageUrl": "",
+      "profileImageUrl": "https://picsum.photos/100",
       "nickname": "멤버1",
       "field": "프론트엔드",
       "career": "N년차",
@@ -16,7 +16,7 @@
     },
     {
       "studyGroupMemberId": 2,
-      "profileImageUrl": "",
+      "profileImageUrl": "https://picsum.photos/100",
       "nickname": "멤버2",
       "field": "프론트엔드",
       "career": "N년차",
@@ -25,10 +25,10 @@
     }
   ],
   "numberOfApplicant": 2,
-  "applicants": [
+  "studyApplicants": [
     {
       "studyGroupMemberId": 2,
-      "profileImageUrl": "",
+      "profileImageUrl": "https://picsum.photos/100",
       "nickname": "지원자1",
       "field": "프론트엔드",
       "career": "N년차",
@@ -37,7 +37,7 @@
     },
     {
       "studyGroupMemberId": 3,
-      "profileImageUrl": "",
+      "profileImageUrl": "https://picsum.photos/100",
       "nickname": "지원자2",
       "field": "프론트엔드",
       "career": "N년차",

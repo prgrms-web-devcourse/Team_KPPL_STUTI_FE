@@ -8,7 +8,7 @@ export interface studyManageMemberType {
   studyGroupMemberRole: string;
 }
 
-export interface studyManageApplicantsType {
+export interface studyManagestudyApplicantsType {
   studyGroupMemberId: number;
   profileImageUrl: string;
   nickname: string;
@@ -26,5 +26,5 @@ export interface studyManageType {
   numberOfRecruits: number;
   studyMembers: studyManageMemberType[];
   numberOfApplicant: number;
-  applicants: studyManageApplicantsType[];
+  studyApplicants: studyManagestudyApplicantsType[];
 }
