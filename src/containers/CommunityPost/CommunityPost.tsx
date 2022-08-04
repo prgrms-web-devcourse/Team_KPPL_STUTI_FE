@@ -1,5 +1,4 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
-import { MbtiTag } from '@src/components';
 import Avatar from '@mui/material/Avatar';
 import {
   Card,
@@ -55,7 +54,7 @@ function CommunityPost({
   };
 
   return (
-    <Card sx={{ width: '608px' }}>
+    <Card sx={{ width: '608px', margin: '1rem 1rem 1.5rem' }}>
       <CardHeader
         avatar={
           <Avatar

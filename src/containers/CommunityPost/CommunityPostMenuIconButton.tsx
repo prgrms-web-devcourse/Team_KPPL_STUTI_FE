@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import FeedModal from '@src/containers/CommunityModal/CommunityModal';
+import CommunityModal from '@src/containers/CommunityModal/CommunityModal';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import IconButton from '@mui/material/IconButton';
@@ -63,7 +63,7 @@ function CommunityPostMenuIconButton({
         <MenuItem onClick={handleEditModalOpen}>수정</MenuItem>
         <MenuItem onClick={handleClose}>삭제</MenuItem>
       </Menu>
-      <FeedModal
+      <CommunityModal
         postId={postId}
         nickname={nickname}
         profileImageUrl={profileImageUrl}
