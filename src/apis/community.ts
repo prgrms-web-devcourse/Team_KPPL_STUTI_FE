@@ -1,3 +1,4 @@
+import { string } from 'prop-types';
 import axios from 'axios';
 import axiosInstance from '@apis/axiosInstance';
 const END_POINT = '/';
@@ -40,5 +41,27 @@ export const editCommunityPostApi = async ({
     });
   } catch (error) {
     new Error('Community Post 수정하는데 오류가 발생하였습니다.');
+  }
+};
+
+export const postCommunityPostLikeApi = async (url: string) => {
+  try {
+    await axiosInstance({
+      url: `${END_POINT}${url}`,
+      method: 'POST',
+    });
+  } catch (error) {
+    new Error('Community Post Like를 등록하는데 오류가 발생하였습니다.');
+  }
+};
+
+export const deleteCommunityPostLikeApi = async (url: string) => {
+  try {
+    await axiosInstance({
+      url: `${END_POINT}${url}`,
+      method: 'DELETE',
+    });
+  } catch (error) {
+    new Error('Community Post Like를 삭제하는데 오류가 발생하였습니다.');
   }
 };

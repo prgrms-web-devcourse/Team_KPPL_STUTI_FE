@@ -19,6 +19,10 @@ import {
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { CommunityPostType } from '@interfaces/community';
+import {
+  postCommunityPostLikeApi,
+  deleteCommunityPostLikeApi,
+} from '@apis/community';
 
 function CommunityPost({
   postId,
@@ -34,12 +38,12 @@ function CommunityPost({
   isliked,
   lastPost,
 }: CommunityPostType) {
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState({ check: false, count: 0 });
   const [isExpand, setIsExpand] = useState<string | number>('none');
   const contentsRef = useRef<HTMLInputElement>(null);
 
   useLayoutEffect(() => {
-    setLiked(isliked);
+    setLiked({ check: isliked, count: totalLikes });
     if (contentsRef.current) {
       const contentsHeight = contentsRef.current.getBoundingClientRect().height;
       setIsExpand(contentsHeight > 96 ? 4 : 'none');
@@ -51,9 +55,17 @@ function CommunityPost({
     setIsExpand('none');
   };
 
-  const handleLiked = (e: React.MouseEvent<HTMLElement>) => {
+  const handleLiked = async (e: React.MouseEvent<HTMLElement>) => {
     //좋아요 부분
-    setLiked(!liked);
+
+    if (liked.check) {
+      setLiked({ ...liked, count: (liked.count -= 1) });
+      await deleteCommunityPostLikeApi(`communityurl${postId}`);
+    } else {
+      setLiked({ ...liked, count: (liked.count += 1) });
+      await postCommunityPostLikeApi(`communityurl${postId}/like`);
+    }
+    setLiked({ ...liked, check: !liked.check });
   };
 
   return (
@@ -109,11 +121,11 @@ function CommunityPost({
       )}
       <CardActions disableSpacing>
         <IconButton aria-label='settings' onClick={handleLiked}>
-          {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          {liked.check ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           {/* 개수가 0이면 출력 x */}
         </IconButton>
         <CommunityPostTypographyButton>
-          {totalLikes}
+          {liked.count}
         </CommunityPostTypographyButton>
         <CommunityPostTypographyButton name='댓글' margin='0 1rem 0 auto'>
           {totalComments}
