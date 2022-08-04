@@ -26,6 +26,23 @@ export const deleteCommunityPostApi = async (url: string) => {
   }
 };
 
+export const postCommunityPostApi = async ({
+  url,
+  postData,
+}: {
+  url: string;
+  postData: FormData;
+}) => {
+  try {
+    await axiosInstance({
+      url: `${END_POINT}${url}`,
+      method: 'POST',
+      data: postData,
+    });
+  } catch (error) {
+    new Error('Community Post 생성하는데 오류가 발생하였습니다.');
+  }
+};
 export const editCommunityPostApi = async ({
   url,
   postData,

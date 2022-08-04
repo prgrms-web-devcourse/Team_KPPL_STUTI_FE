@@ -7,7 +7,10 @@ import {
   CardWrapper,
   ModalErrorMessage,
 } from '@src/containers/CommunityModal/CommunityModal.style';
-import { editCommunityPostApi } from '@src/apis/community';
+import {
+  editCommunityPostApi,
+  postCommunityPostApi,
+} from '@src/apis/community';
 import IconButton from '@mui/material/IconButton';
 import {
   Button,
@@ -19,7 +22,6 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
-//postId, user.nickname , user.image 받기
 interface CommunityModalType {
   postId?: string;
   nickname?: string;
@@ -46,7 +48,6 @@ function CommunityModal({
       setImageSize(true);
       return;
     }
-    console.log(e.currentTarget.files[0]); //dataForm으로 넘겨주기
     const objectUrl = URL.createObjectURL(e.currentTarget.files[0]);
     previewUrl && URL.revokeObjectURL(previewUrl);
     setImageSize(false);
@@ -55,7 +56,7 @@ function CommunityModal({
     formik.setFieldValue('postImage', e.currentTarget.files[0]);
   };
 
-  const handleEditPost = async (values: {
+  const handlePost = async (values: {
     contents: string;
     postImage: string;
   }) => {
@@ -64,10 +65,17 @@ function CommunityModal({
     postFormData.append('contents', values.contents);
     postFormData.append('postImage', values.postImage);
 
-    await editCommunityPostApi({
-      url: `editPost${postId}`,
-      postData: postFormData,
-    });
+    if (modalType === 'CREATE') {
+      await postCommunityPostApi({
+        url: 'createPost',
+        postData: postFormData,
+      });
+    } else if (modalType === 'EDIT') {
+      await editCommunityPostApi({
+        url: `editPost${postId}`,
+        postData: postFormData,
+      });
+    }
   };
 
   //formik
@@ -78,16 +86,7 @@ function CommunityModal({
     },
     onSubmit: (values, { setSubmitting }) => {
       setSubmitting(true);
-      switch (modalType) {
-        case 'EDIT':
-          handleEditPost(values);
-          break;
-        case 'CREATE':
-          console.log('CREATE');
-          break;
-        default:
-          break;
-      }
+      handlePost(values);
       setSubmitting(false);
     },
     validationSchema: Yup.object({
