@@ -1,4 +1,4 @@
-import { Card } from '@mui/material';
+import { Card, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 export const PreviewImage = styled.img`
   width: 100%;
@@ -13,4 +13,8 @@ export const CardWrapper = styled(Card)`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 608px;
+`;
+
+export const ModalErrorMessage = styled(Typography)`
+  color: ${({ theme }) => theme.palette.error.main};
 `;

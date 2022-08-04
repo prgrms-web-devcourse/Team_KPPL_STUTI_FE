@@ -67,7 +67,7 @@ function CommunityPostMenuIconButton({
         postId={postId}
         nickname={nickname}
         profileImageUrl={profileImageUrl}
-        modalType='Edit'
+        modalType='EDIT'
         isOpen={isOpen}
         onClose={handleEditModalClose}
       />

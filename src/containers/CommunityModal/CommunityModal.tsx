@@ -1,9 +1,11 @@
+import * as Yup from 'yup';
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import CommunityModalImageUpload from '@src/containers/CommunityModal/CommunityModalImageUpload/CommunityModalImageUpload';
 import {
   PreviewImage,
   CardWrapper,
+  ModalErrorMessage,
 } from '@src/containers/CommunityModal/CommunityModal.style';
 import IconButton from '@mui/material/IconButton';
 import {
@@ -15,6 +17,8 @@ import {
   TextField,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
+
+const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
 //postId, user.nickname , user.image 받기
 interface CommunityModalType {
   postId?: string;
@@ -34,28 +38,59 @@ function CommunityModal({
   onClose,
 }: CommunityModalType) {
   const [previewUrl, setPreviewUrl] = useState('');
+  const [isImageSize, setImageSize] = useState(false);
+
   const handleImageUpload = (e: React.ChangeEvent<any>) => {
     if (!e.currentTarget.files[0]) return;
-
-    console.log(e.currentTarget.files[0]);
+    if (e.currentTarget.files[0].size > 1024 * 1024) {
+      setImageSize(true);
+      return;
+    }
+    console.log(e.currentTarget.files[0]); //dataForm으로 넘겨주기
     const objectUrl = URL.createObjectURL(e.currentTarget.files[0]);
     previewUrl && URL.revokeObjectURL(previewUrl);
+    setImageSize(false);
     setPreviewUrl(objectUrl);
 
-    formik.setFieldValue('file', e.currentTarget.files[0]);
+    formik.setFieldValue('postImage', e.currentTarget.files[0]);
   };
 
   //formik
   const formik = useFormik({
     initialValues: {
       contents: '',
+      postImage: '',
     },
     onSubmit: (values, { setSubmitting }) => {
       setSubmitting(true);
-      //postId 수정
-      console.log(values);
+      switch (modalType) {
+        case 'EDIT':
+          console.log('Edit');
+          break;
+        case 'CREATE':
+          console.log('CREATE');
+          break;
+        default:
+          break;
+      }
       setSubmitting(false);
     },
+    validationSchema: Yup.object({
+      contents: Yup.string().max(500, '1,000자를 넘을 수 없습니다.'),
+      postImage: Yup.mixed()
+        .test(
+          'FILE_SIZE',
+          '파일 크기는 최대 1MB 입니다.',
+          (value) => !value || (value && value.size <= 1024 * 1024),
+        )
+        .test(
+          'FILE_FORMAT',
+          '파일 형식이 올바르지 않습니다.',
+          (value) =>
+            !value || (value && SUPPORTED_FORMATS.includes(value.type)),
+        ),
+    }),
+    validateOnChange: true, //값 변경시마다 check
   });
 
   return (
@@ -95,7 +130,13 @@ function CommunityModal({
               value={formik.values.contents}
               sx={{ width: '100%' }}
             />
+            <ModalErrorMessage>{formik.errors.contents}</ModalErrorMessage>
             {previewUrl && <PreviewImage src={previewUrl} alt='' />}
+            {isImageSize && (
+              <ModalErrorMessage>
+                {'파일 크기는 최대 1MB 입니다.'}
+              </ModalErrorMessage>
+            )}
             <CommunityModalImageUpload onChange={handleImageUpload} />
             <Button
               type='submit'

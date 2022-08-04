@@ -20,7 +20,7 @@ function CommunityPostCreateButtonSection() {
       <CommunityModal
         postId='1'
         nickname='로그인 한 User nickname'
-        modalType='Create'
+        modalType='CREATE'
         isOpen={isModalOpen}
         onClose={handleCreateModalClose}
       />
