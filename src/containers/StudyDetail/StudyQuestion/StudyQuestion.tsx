@@ -1,14 +1,17 @@
+import { useDispatch } from 'react-redux';
 import { StudyDetailQuestionContainer } from '@src/containers/StudyDetail/StudyQuestion/style';
 import StudyQuestionInput from '@src/containers/Reply/ReplyInput';
 import Reply from '@src/containers/Reply/Reply';
 import { Typography } from '@mui/material';
 import { studyDetailQuestionType } from '@interfaces/studyDetailQuestion';
 
-function StudyQuestion({
-  contents = [],
-  totalElements,
-  hasNext,
-}: studyDetailQuestionType) {
+interface Props extends studyDetailQuestionType {
+  size: number;
+}
+
+function StudyQuestion({ contents = [], totalElements, hasNext, size }: Props) {
+  const dispatch = useDispatch();
+
   return (
     <StudyDetailQuestionContainer>
       <Typography variant='h5'>질문 & 답변</Typography>
@@ -57,7 +60,12 @@ function StudyQuestion({
         );
       })}
       {!hasNext && (
-        <Typography color='secondary'>
+        <Typography
+          color='secondary'
+          onClick={() => {
+            dispatch();
+          }}
+        >
           댓글 {totalElements - contents.length}개 더 보기
         </Typography>
       )}

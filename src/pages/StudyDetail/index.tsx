@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { setQuestions } from '@store/slices/question';
+import { selectQuestion, setQuestions } from '@store/slices/question';
 import {
   StudyDetailButtonWrapper,
   StudyDetailContainer,
@@ -23,11 +23,14 @@ import {
 
 function StudyDetail() {
   const [data, setData] = useState({} as studyDetailType);
-  const [question, setQuestion] = useState({} as studyDetailQuestionType);
+
+  const questions = useSelector(selectQuestion);
 
   const dispatch = useDispatch();
 
   const { study_id = '0' }: { study_id: string } = useParams();
+
+  const [size, setSize] = useState(5);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,9 +45,10 @@ function StudyDetail() {
     const fetchQuestion = async () => {
       const res: studyDetailQuestionType = await getStudyQuestionInformation(
         study_id,
+        size,
       );
-      setQuestion(res);
-      dispatch(setQuestions(res.contents));
+
+      dispatch(setQuestions(res));
     };
 
     fetchData();
@@ -182,7 +186,7 @@ function StudyDetail() {
       {isHaveDescription(getDescription()) && (
         <StudyDetailBody description={getDescription()} />
       )}
-      <StudyDetailStudyQuestion {...question} />
+      <StudyDetailStudyQuestion {...questions} size={size} />
       <Button>지원하기</Button>
     </StudyDetailContainer>
   );

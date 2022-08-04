@@ -13,13 +13,16 @@ export const getStudyDetailInfomation = async (studyGroupId: string) => {
 
 export const getStudyQuestionInformation = async (
   studyGroupId: string,
-  laststudyGroupQuestionId: number,
   size: number,
+  laststudyGroupQuestionId?: number,
 ) => {
   const { data } = await axiosInstance({
     url: isDev
       ? '/mock/studyDetailQustionMockData.json'
-      : `/api/v1/study-groups/${studyGroupId}/questions?lastCommentId=${laststudyGroupQuestionId}&size=${size}`,
+      : `/api/v1/study-groups/${studyGroupId}/questions?size=${size}${
+          laststudyGroupQuestionId &&
+          `&lastStudyGroupQuestionId=${laststudyGroupQuestionId}`
+        }`,
     method: 'GET',
   });
   return data;

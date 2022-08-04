@@ -1,13 +1,20 @@
 import { RootState } from '@src/store';
-import { detailQuestionsType } from '@src/interfaces/studyDetail';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+  questionContentType,
+  studyDetailQuestionType,
+} from '@interfaces/studyDetailQuestion';
 
 export interface questionState {
-  value: detailQuestionsType[];
+  value: studyDetailQuestionType;
 }
 
 const initialState: questionState = {
-  value: [],
+  value: {
+    contents: [],
+    hasNext: true,
+    totalElements: 0,
+  },
 };
 
 export const questionSlice = createSlice({
@@ -16,41 +23,48 @@ export const questionSlice = createSlice({
   reducers: {
     setQuestions: (
       state: questionState,
-      action: PayloadAction<detailQuestionsType[]>,
+      action: PayloadAction<studyDetailQuestionType>,
     ) => {
       state.value = action.payload;
     },
     addQuestions: (
       state: questionState,
-      action: PayloadAction<detailQuestionsType[]>,
+      action: PayloadAction<studyDetailQuestionType>,
     ) => {
-      state.value = [...state.value, ...action.payload];
+      const {
+        contents = [],
+        hasNext = true,
+        totalElements = 0,
+      } = action.payload;
+      state.value.contents = [...state.value.contents, ...contents];
+      state.value.hasNext = hasNext;
+      state.value.totalElements = totalElements;
     },
     changeQuestion: (
       state: questionState,
-      action: PayloadAction<detailQuestionsType>,
+      action: PayloadAction<questionContentType>,
     ) => {
-      const targetIndex = state.value.findIndex(
+      const targetIndex = state.value.contents.findIndex(
         (question) =>
           question.studyGroupQuestionId === action.payload.studyGroupQuestionId,
       );
 
       if (targetIndex === -1) return;
 
-      state.value[targetIndex] = action.payload;
+      state.value.contents[targetIndex] = action.payload;
     },
     deleteQuestion: (
       state: questionState,
-      action: PayloadAction<detailQuestionsType>,
+      action: PayloadAction<questionContentType>,
     ) => {
-      const targetIndex = state.value.findIndex(
+      const targetIndex = state.value.contents.findIndex(
         (question) =>
           question.studyGroupQuestionId === action.payload.studyGroupQuestionId,
       );
 
       if (targetIndex === -1) return;
 
-      state.value.splice(targetIndex, 1);
+      state.value.contents.splice(targetIndex, 1);
     },
   },
 });
