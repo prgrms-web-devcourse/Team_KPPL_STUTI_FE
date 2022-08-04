@@ -4,9 +4,17 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import IconButton from '@mui/material/IconButton';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-//postId 만 넘겨주면 됩니다.
-//post 삭제
-function CommunityPostMenuIconButton() {
+interface CommunityPostMenuIconButtonType {
+  postId: string;
+  nickname: string;
+  profileImageUrl?: string;
+}
+
+function CommunityPostMenuIconButton({
+  postId,
+  nickname,
+  profileImageUrl,
+}: CommunityPostMenuIconButtonType) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isOpen, setOpen] = useState(false);
   const open = Boolean(anchorEl);
@@ -55,8 +63,13 @@ function CommunityPostMenuIconButton() {
         <MenuItem onClick={handleEditModalOpen}>수정</MenuItem>
         <MenuItem onClick={handleClose}>삭제</MenuItem>
       </Menu>
-      <FeedModal isOpen={isOpen} onClose={handleEditModalClose} />
-      {/* FeedModal로 postId 전달 */}
+      <FeedModal
+        postId={postId}
+        nickname={nickname}
+        profileImageUrl={profileImageUrl}
+        isOpen={isOpen}
+        onClose={handleEditModalClose}
+      />
     </>
   );
 }

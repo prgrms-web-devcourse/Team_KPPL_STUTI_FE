@@ -1,4 +1,5 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
+import { MbtiTag } from '@src/components';
 import Avatar from '@mui/material/Avatar';
 import {
   Card,
@@ -11,6 +12,7 @@ import {
 } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { CommunityPostType } from '@interfaces/community';
 import CommunityPostTypographyButton from '@containers/CommunityPost/CommunityPostTypographyButton/CommunityPostTypographyButton';
 import CommunityPostMenuIconButton from '@containers/CommunityPost/CommunityPostMenuIconButton';
 import {
@@ -18,33 +20,25 @@ import {
   CustomCardMedia,
 } from '@containers/CommunityPost/CommunityPost.style';
 
-interface CommunityPostType {
-  postId?: number;
-  memberId?: number;
-  nickname: string;
-  createdAt: string;
-  profileImageUrl: string;
-  contents: string;
-  postImageUrl: string;
-  totalLikes: number;
-  totalComments: number;
-  isliked?: boolean;
-}
 function CommunityPost({
   postId,
+  memberId,
   nickname,
+  mbti,
   createdAt,
   profileImageUrl,
   contents,
   postImageUrl,
   totalLikes,
   totalComments,
+  isliked,
 }: CommunityPostType) {
   const [liked, setLiked] = useState(false);
   const [isExpand, setIsExpand] = useState<string | number>('none');
   const contentsRef = useRef<HTMLInputElement>(null);
 
   useLayoutEffect(() => {
+    setLiked(isliked);
     if (contentsRef.current) {
       const contentsHeight = contentsRef.current.getBoundingClientRect().height;
       setIsExpand(contentsHeight > 96 ? 4 : 'none');
@@ -70,8 +64,14 @@ function CommunityPost({
             sx={{ cursor: 'pointer' }}
           />
         }
-        action={<CommunityPostMenuIconButton />}
-        title={nickname}
+        action={
+          <CommunityPostMenuIconButton
+            postId={postId}
+            nickname={nickname}
+            profileImageUrl={profileImageUrl}
+          />
+        }
+        title={<Typography sx={{ cursor: 'pointer' }}>{nickname}</Typography>}
         subheader={createdAt}
         sx={{ paddingBottom: '0' }}
       />
@@ -85,14 +85,16 @@ function CommunityPost({
           </CommunityPostTypographyButton>
         )}
       </CardContent>
-      <Box sx={{ margin: '1rem 1rem 0' }}>
-        <CustomCardMedia
-          component='img'
-          image={postImageUrl}
-          alt='postImage'
-          sx={{ height: '21rem' }}
-        />
-      </Box>
+      {profileImageUrl && (
+        <Box sx={{ margin: '1rem 1rem 0' }}>
+          <CustomCardMedia
+            component='img'
+            image={postImageUrl}
+            alt='postImage'
+            sx={{ height: '21rem' }}
+          />
+        </Box>
+      )}
       <CardActions disableSpacing>
         <IconButton aria-label='settings' onClick={handleLiked}>
           {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}

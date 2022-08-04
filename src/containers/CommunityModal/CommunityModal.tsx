@@ -15,12 +15,22 @@ import {
   TextField,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-interface Props {
+//postId, user.nickname , user.image 받기
+interface CommunityModalType {
+  postId: string;
+  nickname: string;
+  profileImageUrl?: string;
   isOpen?: boolean;
   onClose?: () => void;
 }
 
-function CommunityModal({ isOpen, onClose }: Props) {
+function CommunityModal({
+  postId,
+  nickname,
+  profileImageUrl,
+  isOpen,
+  onClose,
+}: CommunityModalType) {
   const [previewUrl, setPreviewUrl] = useState('');
 
   const handleImageUpload = (e: React.ChangeEvent<any>) => {
@@ -41,6 +51,7 @@ function CommunityModal({ isOpen, onClose }: Props) {
     },
     onSubmit: (values, { setSubmitting }) => {
       setSubmitting(true);
+      //postId 수정
       console.log(values);
       setSubmitting(false);
     },
@@ -61,7 +72,7 @@ function CommunityModal({ isOpen, onClose }: Props) {
           avatar={
             <Avatar
               alt='User 1'
-              src='https://picsum.photos/id/1026/200/300' //User.photo
+              src={profileImageUrl}
               sx={{ cursor: 'pointer' }}
             />
           }
@@ -70,7 +81,7 @@ function CommunityModal({ isOpen, onClose }: Props) {
               <ClearIcon />
             </IconButton>
           }
-          title='Paeng' //User.nichname
+          title={nickname}
         />
         <CardContent sx={{ padding: '0 1rem 6rem 1rem' }}>
           <form onSubmit={formik.handleSubmit}>
