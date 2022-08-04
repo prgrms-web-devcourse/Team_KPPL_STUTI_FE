@@ -14,7 +14,7 @@ const members = [
     field: '프론트엔드',
     career: 'N년차',
     mbti: 'ENFP',
-    studyMemberRole: 'MEMBER',
+    studyGroupMemberRole: 'MEMBER',
     studyMemberId: 1,
   },
   {
@@ -23,7 +23,7 @@ const members = [
     field: '프론트엔드',
     career: 'N년차',
     mbti: 'ENFP',
-    studyMemberRole: 'MEMBER',
+    studyGroupMemberRole: 'MEMBER',
     studyMemberId: 2,
   },
 ];
@@ -35,7 +35,7 @@ const applicants = [
     field: '프론트엔드',
     career: 'N년차',
     mbti: 'INFP',
-    studyMemberRole: 'APPLICANT',
+    studyGroupMemberRole: 'APPLICANT',
     applicantId: 1,
   },
   {
@@ -44,7 +44,7 @@ const applicants = [
     field: '프론트엔드',
     career: 'N년차',
     mbti: 'INFP',
-    studyMemberRole: 'APPLICANT',
+    studyGroupMemberRole: 'APPLICANT',
     applicantId: 2,
   },
 ];

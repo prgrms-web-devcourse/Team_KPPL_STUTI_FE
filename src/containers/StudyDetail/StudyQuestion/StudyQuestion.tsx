@@ -15,7 +15,7 @@ function StudyQuestion({
       <StudyQuestionInput />
       {contents.map((content) => {
         const {
-          questionId,
+          studyGroupQuestionId,
           parentId,
           profileImageUrl = '',
           memberId,
@@ -26,7 +26,7 @@ function StudyQuestion({
         } = content;
         return (
           <Reply
-            key={content.questionId}
+            key={content.studyGroupQuestionId}
             profileImageUrl={profileImageUrl}
             nickname={nickname}
             contents={text}
@@ -36,7 +36,7 @@ function StudyQuestion({
             {children.map((reply) => {
               const {
                 parentId,
-                questionId,
+                studyGroupQuestionId,
                 profileImageUrl = '',
                 memberId,
                 nickname = '',
@@ -45,7 +45,7 @@ function StudyQuestion({
               } = reply;
               return (
                 <Reply
-                  key={questionId}
+                  key={studyGroupQuestionId}
                   profileImageUrl={profileImageUrl}
                   nickname={nickname}
                   contents={contents}

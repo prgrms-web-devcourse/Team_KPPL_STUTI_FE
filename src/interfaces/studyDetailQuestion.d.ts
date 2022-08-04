@@ -1,6 +1,6 @@
 export interface childrenQuestionType {
   parentId: number;
-  questionId: number;
+  studyGroupQuestionId: number;
   profileImageUrl: string;
   memberId: number;
   nickname: string;
@@ -9,7 +9,7 @@ export interface childrenQuestionType {
 }
 
 export interface questionContentType {
-  questionId: number;
+  studyGroupQuestionId: number;
   parentId: null | number;
   profileImageUrl: string;
   memberId: number;

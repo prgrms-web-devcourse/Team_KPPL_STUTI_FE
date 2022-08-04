@@ -10,7 +10,7 @@
     "field": "프론트엔드",
     "career": "N년차",
     "mbti": "INTP",
-    "studyMemberRole": "리더"
+    "studyGroupMemberRole": "리더"
   },
   "preferredMbtis": ["INFP", "ENFP", "ISFJ"],
   "isOnline": false,

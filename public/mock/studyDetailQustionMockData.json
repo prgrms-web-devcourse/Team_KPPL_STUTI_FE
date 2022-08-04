@@ -1,7 +1,7 @@
 {
   "contents": [
     {
-      "questionId": 1,
+      "studyGroupQuestionId": 1,
       "parentId": null,
       "profileImageUrl": "",
       "memberId": 1,
@@ -11,7 +11,7 @@
       "children": [
         {
           "parentId": 1,
-          "questionId": 4,
+          "studyGroupQuestionId": 4,
           "profileImageUrl": "",
           "memberId": 2,
           "nickname": "키아",
@@ -20,7 +20,7 @@
         },
         {
           "parentId": 1,
-          "questionId": 5,
+          "studyGroupQuestionId": 5,
           "profileImageUrl": "",
           "memberId": 1,
           "nickname": "팽",
@@ -29,7 +29,7 @@
         },
         {
           "parentId": 1,
-          "questionId": 6,
+          "studyGroupQuestionId": 6,
           "profileImageUrl": "",
           "memberId": 2,
           "nickname": "키아",
@@ -39,7 +39,7 @@
       ]
     },
     {
-      "questionId": 10,
+      "studyGroupQuestionId": 10,
       "parentId": null,
       "profileImageUrl": "",
       "memberId": 1,

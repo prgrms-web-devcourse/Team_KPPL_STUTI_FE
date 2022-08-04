@@ -33,17 +33,17 @@ function MemberControl({
         <Typography variant='h5'>{`멤버: ${numberOfMembers}명 / ${numberOfRecruits}명`}</Typography>
         {studyMembers.map((member) => {
           const {
-            studyMemberId,
+            studyGroupMemberId,
             profileImageUrl = '',
             nickname = '',
             field = '',
             career = '',
             mbti = '',
-            studyMemberRole = '',
+            studyGroupMemberRole = '',
           } = member;
 
           return (
-            <UserInfoWrapper key={studyMemberId}>
+            <UserInfoWrapper key={studyGroupMemberId}>
               <UserInfo
                 profileImageUrl={profileImageUrl}
                 nickname={nickname}
@@ -64,17 +64,17 @@ function MemberControl({
         {applicants.length > 0 ? (
           applicants.map((applicant) => {
             const {
-              studyMemberId,
+              studyGroupMemberId,
               profileImageUrl = '',
               nickname = '',
               field = '',
               career = '',
               mbti = '',
-              studyMemberRole = '',
+              studyGroupMemberRole = '',
             } = applicant;
 
             return (
-              <UserInfoWrapper key={studyMemberId}>
+              <UserInfoWrapper key={studyGroupMemberId}>
                 <UserInfo
                   profileImageUrl={profileImageUrl}
                   nickname={nickname}

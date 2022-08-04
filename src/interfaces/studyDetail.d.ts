@@ -9,14 +9,14 @@ export interface detailMemberType {
 
 export interface detailQuestionsChildrenType {
   parentId: number;
-  questionId: number;
+  studyGroupQuestionId: number;
   nickname: string;
   content: string;
   createdAt: string;
 }
 
 export interface detailQuestionsType {
-  questionId: number;
+  studyGroupQuestionId: number;
   parentId: null;
   nickname: string;
   content: string;
