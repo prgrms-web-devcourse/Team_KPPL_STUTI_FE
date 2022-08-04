@@ -54,10 +54,13 @@ const radioValues = [
 
 const CreateSchema = Yup.object({
   title: Yup.string()
+    .trim('앞, 뒤 공백을 제거해주세요.')
+    .strict()
     .max(50, '50자를 넘을 수 없습니다.')
     .min(5, '최소 5자 이상입니다.')
     .required('제목을 입력해주세요.'),
   description: Yup.string()
+    .trim()
     .max(1000, '1,000자를 넘을 수 없습니다.')
     .min(10, '최소 10자 이상입니다.')
     .required('스터디 내용을 입력해주세요.'),
@@ -192,7 +195,10 @@ function StudyCreateFormContainer() {
       validationSchema={CreateSchema}
       onSubmit={(values, actions) => {
         actions.setSubmitting(true);
-        const formData = createFormData(values.title, values.description);
+        const formData = createFormData(
+          values.title,
+          values.description.trim(),
+        );
 
         setTimeout(() => {
           for (const key of formData.keys()) {

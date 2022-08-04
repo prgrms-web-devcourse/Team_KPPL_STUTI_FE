@@ -24,30 +24,15 @@ import {
   ErrorMessage,
 } from './style';
 
-const FILE_SIZE = 1 * 1024 * 1024;
-const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
-
 const EditSchema = Yup.object({
   title: Yup.string()
+    .trim('앞, 뒤 공백을 제거해주세요.')
+    .strict()
     .max(50, '50자를 넘을 수 없습니다.')
     .min(5, '최소 5자 이상입니다.')
     .required('제목을 입력해주세요.'),
-  image: Yup.mixed()
-    .test('fileSize', '파일 크기는 최대 1MB 입니다.', (value) => {
-      if (value) {
-        return value.size <= FILE_SIZE;
-      } else {
-        return true;
-      }
-    })
-    .test('fileFormat', '파일 형식이 올바르지 않습니다.', (value) => {
-      if (value) {
-        return SUPPORTED_FORMATS.includes(value.type);
-      } else {
-        return true;
-      }
-    }),
   description: Yup.string()
+    .trim()
     .max(1000, '1,000자를 넘을 수 없습니다.')
     .min(10, '최소 10자 이상입니다.')
     .required('스터디 내용을 입력해주세요.'),
@@ -123,7 +108,7 @@ function StudyEditForm() {
 
         formData.append('title', values.title);
         if (imageSrc) formData.append('imageFile', imageSrc);
-        formData.append('description', values.description);
+        formData.append('description', values.description.trim());
 
         setTimeout(() => {
           for (const key of formData.keys()) {
