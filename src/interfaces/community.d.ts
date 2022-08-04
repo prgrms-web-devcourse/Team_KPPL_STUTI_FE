@@ -10,6 +10,7 @@ export interface CommunityPostType {
   totalLikes: number;
   totalComments: number;
   isliked: boolean;
+  lastPost?: boolean;
 }
 
 export interface CommunityType {

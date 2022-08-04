@@ -23,7 +23,7 @@ function Community() {
   };
   return (
     <>
-      {getCommunityPosts().map((post) => (
+      {getCommunityPosts().map((post, postIndex) => (
         <CommunityPost
           key={post.postId}
           postId={post.postId}
@@ -37,6 +37,7 @@ function Community() {
           totalLikes={post.totalLikes}
           totalComments={post.totalComments}
           isliked={post.isliked}
+          lastPost={getCommunityPosts().length - 1 === postIndex ? true : false}
         />
       ))}
       <CommunityPostCreateButton />

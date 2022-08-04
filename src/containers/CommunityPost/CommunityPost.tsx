@@ -17,6 +17,7 @@ import CommunityPostMenuIconButton from '@containers/CommunityPost/CommunityPost
 import {
   ContentsWrapper,
   CustomCardMedia,
+  CustomCard,
 } from '@containers/CommunityPost/CommunityPost.style';
 
 function CommunityPost({
@@ -31,6 +32,7 @@ function CommunityPost({
   totalLikes,
   totalComments,
   isliked,
+  lastPost,
 }: CommunityPostType) {
   const [liked, setLiked] = useState(false);
   const [isExpand, setIsExpand] = useState<string | number>('none');
@@ -42,6 +44,7 @@ function CommunityPost({
       const contentsHeight = contentsRef.current.getBoundingClientRect().height;
       setIsExpand(contentsHeight > 96 ? 4 : 'none');
     }
+    console.log(lastPost);
   }, []);
 
   const handleReadMore = () => {
@@ -54,7 +57,7 @@ function CommunityPost({
   };
 
   return (
-    <Card sx={{ width: '608px', margin: '1rem 1rem 1.5rem' }}>
+    <CustomCard margin={lastPost === true ? '1rem 1rem 0' : '1rem 1rem 1.5rem'}>
       <CardHeader
         avatar={
           <Avatar
@@ -107,7 +110,7 @@ function CommunityPost({
         </CommunityPostTypographyButton>
         {/* 개수가 0이면 출력 x */}
       </CardActions>
-    </Card>
+    </CustomCard>
   );
 }
 
