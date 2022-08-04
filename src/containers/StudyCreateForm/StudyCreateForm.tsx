@@ -58,21 +58,6 @@ const CreateSchema = Yup.object({
     .max(50, '50자를 넘을 수 없습니다.')
     .min(5, '최소 5자 이상입니다.')
     .required('제목을 입력해주세요.'),
-  image: Yup.mixed()
-    .test('fileSize', '파일 크기는 최대 1MB 입니다.', (value) => {
-      if (value) {
-        return value.size <= FILE_SIZE;
-      } else {
-        return true;
-      }
-    })
-    .test('fileFormat', '파일 형식이 올바르지 않습니다.', (value) => {
-      if (value) {
-        return SUPPORTED_FORMATS.includes(value.type);
-      } else {
-        return true;
-      }
-    }),
   description: Yup.string()
     .max(1000, '1,000자를 넘을 수 없습니다.')
     .min(10, '최소 10자 이상입니다.')
@@ -194,8 +179,8 @@ function StudyCreateFormContainer() {
     formData.append('isOnline', isOnline.toString());
     formData.append('region', isOnline ? '' : region);
     formData.append('numberOfRecruits', recruitsNumber);
-    formData.append('startDateTime', startDate.toString());
-    formData.append('endDateTime', endDate.toString());
+    formData.append('startDateTime', startDate);
+    formData.append('endDateTime', endDate);
     formData.append('preferredMBTIs', JSON.stringify(mbtiCheckedList));
     formData.append('imageFile', imageSrc ? imageSrc : '');
     formData.append('description', description);
