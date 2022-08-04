@@ -1,7 +1,7 @@
+import { Link } from 'react-router-dom';
 import React, { useState, useRef, useLayoutEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import {
-  Card,
   CardHeader,
   IconButton,
   CardContent,
@@ -64,6 +64,8 @@ function CommunityPost({
             alt='User 1'
             src={profileImageUrl}
             sx={{ cursor: 'pointer' }}
+            component={Link}
+            to={`/user/${memberId}`}
           />
         }
         action={
@@ -73,7 +75,15 @@ function CommunityPost({
             profileImageUrl={profileImageUrl}
           />
         }
-        title={<Typography sx={{ cursor: 'pointer' }}>{nickname}</Typography>}
+        title={
+          <Typography
+            component={Link}
+            to={`/user/${memberId}`}
+            sx={{ cursor: 'pointer' }}
+          >
+            {nickname}
+          </Typography>
+        }
         subheader={createdAt}
         sx={{ paddingBottom: '0' }}
       />
