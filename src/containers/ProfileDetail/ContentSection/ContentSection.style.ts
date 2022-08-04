@@ -19,6 +19,14 @@ export const Button = styled.button<ButtonProps>`
   font-family: ${({ theme }) => theme.typography.fontFamily};
   font-size: ${({ theme }) => theme.typography.button.fontSize};
   font-weight: ${({ theme }) => theme.typography.button.fontWeight};
+  transition: color 300ms;
+  cursor: pointer;
+
+  ${({ selected, theme }) =>
+    selected &&
+    css`
+      color: ${theme.palette.primary.main};
+    `}
 
   &::after {
     content: '';
@@ -27,15 +35,19 @@ export const Button = styled.button<ButtonProps>`
     bottom: 0;
     width: 100%;
     height: 2px;
-    background-color: ${({ theme }) => theme.palette.common.black};
+    background-color: ${({ theme }) => theme.palette.primary.main};
     transform: scaleX(0);
     transform-origin: left;
-    transition: 150ms transform;
+    transition: transform 300ms;
 
     ${({ selected }) =>
       selected &&
       css`
         transform: scaleX(1);
       `}
+  }
+
+  &:hover {
+    color: ${({ theme }) => theme.palette.primary.main};
   }
 `;
