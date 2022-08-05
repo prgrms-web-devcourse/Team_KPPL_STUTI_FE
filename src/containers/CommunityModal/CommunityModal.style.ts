@@ -16,5 +16,7 @@ export const CardWrapper = styled(Card)`
 `;
 
 export const ModalErrorMessage = styled(Typography)`
+  display: inline;
+  margin-top: 2rem;
   color: ${({ theme }) => theme.palette.error.main};
 `;

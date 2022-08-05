@@ -1,12 +1,6 @@
 import * as Yup from 'yup';
 import React, { useState, useRef } from 'react';
 import { useFormik } from 'formik';
-import CommunityModalImageUpload from '@src/containers/CommunityModal/CommunityModalImageUpload/CommunityModalImageUpload';
-import {
-  PreviewImage,
-  CardWrapper,
-  ModalErrorMessage,
-} from '@src/containers/CommunityModal/CommunityModal.style';
 import {
   editCommunityPostApi,
   postCommunityPostApi,
@@ -22,6 +16,13 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import { CommunityModalType } from '@interfaces/community';
+import CommunityModalImageUpload from '@containers/CommunityModal/CommunityModalImageUpload/CommunityModalImageUpload';
+
+import {
+  PreviewImage,
+  CardWrapper,
+  ModalErrorMessage,
+} from './CommunityModal.style';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
 
@@ -36,18 +37,18 @@ function CommunityModal({
   onClose,
 }: CommunityModalType) {
   const [previewUrl, setPreviewUrl] = useState('');
-  const [isImageSize, setImageSize] = useState(false);
+  const [isImageSizeValid, setImageSizeValid] = useState(false);
   const exitRef = useRef<any>(null);
 
   const handleImageUpload = (e: React.ChangeEvent<any>) => {
     if (!e.currentTarget.files[0]) return;
     if (e.currentTarget.files[0].size > 1024 * 1024) {
-      setImageSize(true);
+      setImageSizeValid(true);
       return;
     }
     const objectUrl = URL.createObjectURL(e.currentTarget.files[0]);
     previewUrl && URL.revokeObjectURL(previewUrl);
-    setImageSize(false);
+    setImageSizeValid(false);
     setPreviewUrl(objectUrl);
 
     formik.setFieldValue('postImage', e.currentTarget.files[0]);
@@ -121,13 +122,7 @@ function CommunityModal({
     >
       <CardWrapper>
         <CardHeader
-          avatar={
-            <Avatar
-              alt='User 1'
-              src={profileImageUrl}
-              sx={{ cursor: 'pointer' }}
-            />
-          }
+          avatar={<Avatar alt='User 1' src={profileImageUrl} />}
           action={
             <IconButton aria-label='delete' ref={exitRef} onClick={onClose}>
               <ClearIcon />
@@ -145,22 +140,23 @@ function CommunityModal({
               onChange={formik.handleChange}
               value={formik.values.contents}
               fullWidth={true}
+              helperText={formik.errors.contents}
             />
-            <ModalErrorMessage>{formik.errors.contents}</ModalErrorMessage>
+            {/* <ModalErrorMessage>{formik.errors.contents}</ModalErrorMessage> */}
             {previewUrl && <PreviewImage src={previewUrl} alt='' />}
-            {isImageSize && (
+            <CommunityModalImageUpload onChange={handleImageUpload} />
+            {isImageSizeValid && (
               <ModalErrorMessage>
                 {'파일 크기는 최대 1MB 입니다.'}
               </ModalErrorMessage>
             )}
-            <CommunityModalImageUpload onChange={handleImageUpload} />
             <Button
               type='submit'
-              size='small'
+              size='medium'
               disabled={formik.isSubmitting}
               sx={{ float: 'right', marginTop: '0.5rem' }}
             >
-              제출
+              공유
             </Button>
           </form>
         </CardContent>

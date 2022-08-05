@@ -8,6 +8,7 @@ export const CustomTypography = styled(
   display: inline-block;
   cursor: pointer;
   margin: ${({ margin }) => margin};
+  color: ${({ theme }) => theme.palette.text.secondary};
 
   &:hover {
     text-decoration: underline;

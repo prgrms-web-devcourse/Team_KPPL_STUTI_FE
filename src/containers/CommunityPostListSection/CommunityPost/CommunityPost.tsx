@@ -5,7 +5,6 @@ import CommunityPostMenuIconButton from '@src/containers/CommunityPostListSectio
 import {
   ContentsWrapper,
   CustomCardMedia,
-  CustomCard,
 } from '@src/containers/CommunityPostListSection/CommunityPost/CommunityPost.style';
 import Avatar from '@mui/material/Avatar';
 import {
@@ -15,6 +14,7 @@ import {
   Typography,
   Box,
   CardActions,
+  Card,
 } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -28,7 +28,6 @@ function CommunityPost({
   postId,
   memberId,
   nickname,
-  mbti,
   createdAt,
   profileImageUrl,
   contents,
@@ -36,7 +35,6 @@ function CommunityPost({
   totalLikes,
   totalComments,
   isliked,
-  lastPost,
 }: CommunityPostType) {
   const [liked, setLiked] = useState({ check: false, count: 0 });
   const [isExpand, setIsExpand] = useState<string | number>('none');
@@ -56,17 +54,16 @@ function CommunityPost({
 
   const handleLiked = async (e: React.MouseEvent<HTMLElement>) => {
     if (liked.check) {
-      setLiked({ ...liked, count: (liked.count -= 1) });
+      setLiked({ check: !liked.check, count: (liked.count -= 1) });
       await deleteCommunityPostLikeApi(`posts/${postId}/like`);
     } else {
-      setLiked({ ...liked, count: (liked.count += 1) });
+      setLiked({ check: !liked.check, count: (liked.count += 1) });
       await postCommunityPostLikeApi(`posts/${postId}/like`);
     }
-    setLiked({ ...liked, check: !liked.check });
   };
 
   return (
-    <CustomCard margin={lastPost === true ? '1rem 1rem 0' : '1rem 1rem 1.5rem'}>
+    <Card>
       <CardHeader
         avatar={
           <Avatar
@@ -88,6 +85,7 @@ function CommunityPost({
         }
         title={
           <Typography
+            variant='h5'
             component={Link}
             to={`/user/${memberId}`}
             sx={{ cursor: 'pointer' }}
@@ -129,7 +127,7 @@ function CommunityPost({
           {totalComments}
         </CommunityPostTypographyButton>
       </CardActions>
-    </CustomCard>
+    </Card>
   );
 }
 

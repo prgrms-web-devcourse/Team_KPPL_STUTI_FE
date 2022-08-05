@@ -3,6 +3,8 @@ import CommunityPost from '@src/containers/CommunityPostListSection/CommunityPos
 import { CommunityType } from '@interfaces/community';
 import { getCommunityDataApi } from '@apis/community';
 
+import { CommunityPostWrapper } from './CommunityPostListSection.style';
+
 function CommunityPostListSection() {
   const [communityPostData, setCommunityPostData] = useState<CommunityType>({});
 
@@ -22,8 +24,8 @@ function CommunityPostListSection() {
   };
 
   return (
-    <>
-      {getCommunityPosts().map((post, postIndex) => (
+    <CommunityPostWrapper>
+      {getCommunityPosts().map((post) => (
         <CommunityPost
           key={post.postId}
           postId={post.postId}
@@ -37,10 +39,9 @@ function CommunityPostListSection() {
           totalLikes={post.totalLikes}
           totalComments={post.totalComments}
           isliked={post.isliked}
-          lastPost={getCommunityPosts().length - 1 === postIndex ? true : false}
         />
       ))}
-    </>
+    </CommunityPostWrapper>
   );
 }
 

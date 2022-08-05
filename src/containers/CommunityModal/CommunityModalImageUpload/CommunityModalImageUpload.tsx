@@ -16,7 +16,7 @@ function CommunityModalImageUpload(props: Props) {
         hidden
         onChange={props.onChange}
       />
-      <IconButton component='span'>
+      <IconButton component='span' sx={{ marginTop: '0.5rem' }}>
         <AddPhotoAlternateIcon />
       </IconButton>
     </label>

@@ -1,4 +1,4 @@
-import { CardMedia, Card } from '@mui/material';
+import { CardMedia } from '@mui/material';
 import styled from '@emotion/styled';
 
 interface ContentsWrapperType {
@@ -8,10 +8,6 @@ interface CardMediaType {
   component: string;
   image: string;
   alt?: string;
-}
-
-interface CardType {
-  margin?: string;
 }
 
 export const ContentsWrapper = styled.div<ContentsWrapperType>`
@@ -25,9 +21,4 @@ export const ContentsWrapper = styled.div<ContentsWrapperType>`
 
 export const CustomCardMedia = styled(CardMedia)<CardMediaType>`
   border-radius: ${({ theme }) => theme.shape.borderRadius};
-`;
-
-export const CustomCard = styled(Card)<CardType>`
-  margin: ${({ margin }) => margin};
-  width: '608px';
 `;

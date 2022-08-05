@@ -9,7 +9,7 @@ function CommunityPostTypographyButton({
   onClick,
 }: CommunityPostTypographyButtonType) {
   const getChildren = () => {
-    if (name) return name + children;
+    if (name) return `${name} ` + children;
     else return children;
   };
   return (
