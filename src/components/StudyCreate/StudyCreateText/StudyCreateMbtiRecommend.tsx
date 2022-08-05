@@ -73,26 +73,23 @@ const setMbtiColor = (mbti: string) => {
 };
 
 function StudyCreateMbtiRecommend({ mbtis }: Props) {
-  if (mbtis?.length) {
-    return (
-      <TextWrapper>
-        추천 MBTI는
-        {mbtis?.length &&
-          mbtis.map((mbti) => {
-            return (
-              <div
-                key={mbti}
-                style={{ color: setMbtiColor(mbti), margin: '0 2px' }}
-              >
-                {mbti}
-              </div>
-            );
-          })}
-        입니다.
-      </TextWrapper>
-    );
-  }
-  return <TextWrapper>MBTI를 설정하고 MBTI 추천을 받아 보세요.</TextWrapper>;
+  return (
+    <TextWrapper>
+      추천 MBTI는
+      {mbtis &&
+        mbtis.map((mbti) => {
+          return (
+            <div
+              key={mbti}
+              style={{ color: setMbtiColor(mbti), margin: '0 2px' }}
+            >
+              {mbti}
+            </div>
+          );
+        })}
+      입니다.
+    </TextWrapper>
+  );
 }
 
 export default StudyCreateMbtiRecommend;
