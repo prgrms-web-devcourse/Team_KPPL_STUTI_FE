@@ -54,6 +54,25 @@ const radioValues = [
   },
 ];
 
+const recommendMbtis = {
+  ENFJ: ['INFP', 'ISFP'],
+  ENFP: ['INFJ', 'INTJ'],
+  ENTJ: ['INFP', 'INTP'],
+  ENTP: ['INFJ', 'INTJ'],
+  ESFJ: ['ISFP', 'ISTP'],
+  ESFP: ['ISFJ', 'ISTJ'],
+  ESTJ: ['INTP', 'ISFP', 'ISTP'],
+  ESTP: ['ISFJ'],
+  INFJ: ['ENFP', 'ENTP'],
+  INFP: ['ENFJ', 'ENTJ'],
+  INTJ: ['ENFP', 'ENTP'],
+  INTP: ['ENTJ', 'ESTJ'],
+  ISFJ: ['ESFP', 'ESTP'],
+  ISFP: ['ENFJ', 'ESFJ', 'ESTJ'],
+  ISTJ: ['ESFP'],
+  ISTP: ['ESFJ', 'ESTJ'],
+};
+
 const CreateSchema = Yup.object({
   title: Yup.string()
     .trim('앞, 뒤 공백을 제거해주세요.')
@@ -98,45 +117,6 @@ function StudyCreateFormContainer() {
       setMbtiCheckedList([...mbtiCheckedList, checkedMbti]);
     }
   };
-
-  const recommendMbtis = useCallback((mbti: string) => {
-    switch (mbti) {
-      case 'ENFJ':
-        return ['INFP', 'ISFP'];
-      case 'ENFP':
-        return ['INFJ', 'INTJ'];
-      case 'ENTJ':
-        return ['INFP', 'INTP'];
-      case 'ENTP':
-        return ['INFJ', 'INTJ'];
-      case 'ESFJ':
-        return ['ISFP', 'ISTP'];
-      case 'ESFP':
-        return ['ISFJ', 'ISTJ'];
-      case 'ESTJ':
-        return ['INTP', 'ISFP', 'ISTP'];
-      case 'ESTP':
-        return ['ISFJ'];
-      case 'INFJ':
-        return ['ENFP', 'ENTP'];
-      case 'INFP':
-        return ['ENFJ', 'ENTJ'];
-      case 'INTJ':
-        return ['ENFP', 'ENTP'];
-      case 'INTP':
-        return ['ENTJ', 'ESTJ'];
-      case 'ISFJ':
-        return ['ESFP', 'ESTP'];
-      case 'ISFP':
-        return ['ENFJ', 'ESFJ', 'ESTJ'];
-      case 'ISTJ':
-        return ['ESFP'];
-      case 'ISTP':
-        return ['ESFJ', 'ESTJ'];
-      default:
-        return [];
-    }
-  }, []);
 
   const encodeFile = (fileBlob: File) => {
     const reader = new FileReader();
@@ -377,7 +357,7 @@ function StudyCreateFormContainer() {
                   />
                 </MbtiHeadingWrapper>
                 {/*TODO : 해당 User의 추천 MBTI 로직 */}
-                <MbtiRecommend mbtis={recommendMbtis('INFJ')} />
+                <MbtiRecommend mbtis={recommendMbtis['INFJ']} />
                 <MbtiSelect
                   onChange={onMbtiSelectChange}
                   disabled={mbtiPreference ? false : true}
