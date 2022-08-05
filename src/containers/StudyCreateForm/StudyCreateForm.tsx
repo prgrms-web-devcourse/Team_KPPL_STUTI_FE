@@ -200,11 +200,11 @@ function StudyCreateFormContainer() {
   };
 
   const checkError = () => {
-    return (
+    const isError =
       topicErrorMessage ||
       peopleErrorMessage ||
-      (!isOnline && regionErrorMessage)
-    );
+      (!isOnline && regionErrorMessage);
+    return isError;
   };
 
   const createFormData = (title: string, description: string) => {
