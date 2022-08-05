@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router';
-import NavigationHeader from '@src/containers/NavigationHeader/NavigationHeader';
+import { NavigationHeader } from '@src/containers';
 
 import { LayoutContainer } from './style';
 
