@@ -16,23 +16,24 @@ import StudyDetail from '@src/pages/StudyDetail';
 import StudyCreate from '@src/pages/StudyCreate';
 import SignUp from '@src/pages/SignUp';
 import Community from '@src/pages/Community';
-import NavigationHeader from '@src/containers/NavigationHeader/NavigationHeader';
+import Layout from '@src/layout/Layout';
 import { Home, ProfileDetail, ProfileEdit } from '@pages';
 
 function Routers() {
   return (
     <BrowserRouter>
-      <NavigationHeader />
       <Routes>
-        <Route path={HOME} element={<Home />} />
-        <Route path={COMMUNITY} element={<Community />} />
-        <Route path={PROFILE_DETAIL} element={<ProfileDetail />} />
-        <Route path={PROFILE_EDIT} element={<ProfileEdit />} />
-        <Route path={STUDY_CREATE} element={<StudyCreate />} />
-        <Route path={STUDY_DETAIL} element={<StudyDetail />} />
-        <Route path={STUDY_EDIT} element={<StudyEdit />} />
-        <Route path={STUDY_MANAGE} element={<StudyManage />} />
-        <Route path={SIGN_UP} element={<SignUp />} />
+        <Route path={HOME} element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path={COMMUNITY} element={<Community />} />
+          <Route path={PROFILE_DETAIL} element={<ProfileDetail />} />
+          <Route path={PROFILE_EDIT} element={<ProfileEdit />} />
+          <Route path={STUDY_CREATE} element={<StudyCreate />} />
+          <Route path={STUDY_DETAIL} element={<StudyDetail />} />
+          <Route path={STUDY_EDIT} element={<StudyEdit />} />
+          <Route path={STUDY_MANAGE} element={<StudyManage />} />
+          <Route path={SIGN_UP} element={<SignUp />} />
+        </Route>
         <Route path='/*' />
       </Routes>
     </BrowserRouter>
