@@ -51,7 +51,7 @@ function CommunityModal({
     formik.setFieldValue('postImage', e.currentTarget.files[0]);
   };
 
-  const handlePost = async (values: {
+  const handleSubmitPost = async (values: {
     contents: string;
     postImage: string;
   }) => {
@@ -83,7 +83,7 @@ function CommunityModal({
       setSubmitting(true);
       values.contents = '';
       setPreviewUrl('');
-      handlePost(values);
+      handleSubmitPost(values);
       exitRef.current.click();
       setSubmitting(false);
     },
