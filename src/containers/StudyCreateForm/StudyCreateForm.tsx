@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Formik, Field } from 'formik';
 import {
   topicOptions,
@@ -103,10 +103,6 @@ function StudyCreateFormContainer() {
   const [peopleErrorMessage, setPeopleErrorMessage] = useState<string>('');
   const [regionErrorMessage, setRegionErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const titleRef = useRef<null | HTMLDivElement>(null);
-  const descriptionRef = useRef<null | HTMLDivElement>(null);
-  const topicRef = useRef<null | HTMLDivElement>(null);
-  const peopleRef = useRef<null | HTMLDivElement>(null);
 
   const onMbtiSelectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checkedMbti = e.target.value;
