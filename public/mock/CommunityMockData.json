@@ -8,7 +8,7 @@
       "createdAt": "2022-02-11 10:11:12",
       "profileImageUrl": null,
       "contents": "오늘 spring security jwt에 대해서 학습했습니다.",
-      "postImageUrl": "http://prgrms.stuti/post/studyImage1.jpg",
+      "postImageUrl": null,
       "totalLikes": 32,
       "totalComments": 10,
       "isliked": true
@@ -21,7 +21,7 @@
       "createdAt": "2022-02-11 10:11:12",
       "profileImageUrl": "http://prgrms.stuti/profile/image1.jpg",
       "contents": "오늘 spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대spring security jwt에 대spring security jwt에 대spring security jwt에 대spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대해서 학습했습니다.",
-      "postImageUrl": "http://prgrms.stuti/post/studyImage1.jpg",
+      "postImageUrl": "https://picsum.photos/300/200",
       "totalLikes": 100,
       "totalComments": 100,
       "isliked": false
@@ -34,7 +34,7 @@
       "createdAt": "2022-02-11 10:11:12",
       "profileImageUrl": "http://prgrms.stuti/profile/image1.jpg",
       "contents": "오늘 spring security jwt에 대해서 학습했습니다.",
-      "postImageUrl": "http://prgrms.stuti/post/studyImage1.jpg",
+      "postImageUrl": "https://picsum.photos/300/200",
       "totalLikes": 1,
       "totalComments": 2,
       "isliked": true

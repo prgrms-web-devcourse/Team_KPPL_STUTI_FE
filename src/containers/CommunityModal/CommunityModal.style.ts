@@ -1,4 +1,4 @@
-import { Card, Typography } from '@mui/material';
+import { Card, Typography, Button } from '@mui/material';
 import styled from '@emotion/styled';
 export const PreviewImage = styled.img`
   width: 100%;
@@ -17,6 +17,12 @@ export const CardWrapper = styled(Card)`
 
 export const ModalErrorMessage = styled(Typography)`
   display: inline;
-  margin-top: 2rem;
+  font-size: 0.8rem;
   color: ${({ theme }) => theme.palette.error.main};
+`;
+
+export const SubmitModalButton = styled(Button)`
+  float: right;
+  margin-top: 0.5rem;
+  margin-left: auto;
 `;

@@ -8,15 +8,15 @@ export interface Props {
 
 function CommunityModalImageUpload(props: Props) {
   return (
-    <label htmlFor='feedImageFile'>
+    <label htmlFor='postImage'>
       <input
         accept='image/*'
-        id='feedImageFile'
+        id='postImage'
         type='file'
         hidden
         onChange={props.onChange}
       />
-      <IconButton component='span' sx={{ marginTop: '0.5rem' }}>
+      <IconButton component='div' sx={{ marginTop: '0.5rem' }}>
         <AddPhotoAlternateIcon />
       </IconButton>
     </label>

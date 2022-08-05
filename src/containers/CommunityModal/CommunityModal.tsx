@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { useFormik } from 'formik';
 import {
   editCommunityPostApi,
@@ -7,11 +7,11 @@ import {
 } from '@src/apis/community';
 import IconButton from '@mui/material/IconButton';
 import {
-  Button,
   Modal,
   Avatar,
   CardHeader,
   CardContent,
+  Box,
   TextField,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -22,9 +22,8 @@ import {
   PreviewImage,
   CardWrapper,
   ModalErrorMessage,
+  SubmitModalButton,
 } from './CommunityModal.style';
-
-const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
 
 function CommunityModal({
   postId,
@@ -39,6 +38,10 @@ function CommunityModal({
   const [previewUrl, setPreviewUrl] = useState('');
   const [isImageSizeValid, setImageSizeValid] = useState(false);
   const exitRef = useRef<any>(null);
+
+  useLayoutEffect(() => {
+    postImageUrl && setPreviewUrl(postImageUrl);
+  }, []);
 
   const handleImageUpload = (e: React.ChangeEvent<any>) => {
     if (!e.currentTarget.files[0]) return;
@@ -56,12 +59,12 @@ function CommunityModal({
 
   const handleSubmitPost = async (values: {
     contents: string;
-    postImage: string;
+    postImage?: string;
   }) => {
     const postFormData = new FormData();
 
     postFormData.append('contents', values.contents);
-    postFormData.append('postImage', values.postImage);
+    values.postImage && postFormData.append('postImage', values.postImage);
 
     if (modalType === 'CREATE') {
       await postCommunityPostApi({
@@ -80,12 +83,9 @@ function CommunityModal({
   const formik = useFormik({
     initialValues: {
       contents: contents || '',
-      postImage: postImageUrl || '',
     },
     onSubmit: (values, { setSubmitting }) => {
       setSubmitting(true);
-      values.contents = '';
-      setPreviewUrl('');
       handleSubmitPost(values);
       exitRef.current.click();
       setSubmitting(false);
@@ -94,18 +94,6 @@ function CommunityModal({
       contents: Yup.string()
         .max(500, '500자를 넘을 수 없습니다.')
         .required('꼭 입력해주세요'),
-      postImage: Yup.mixed()
-        .test(
-          'FILE_SIZE',
-          '파일 크기는 최대 1MB 입니다.',
-          (value) => !value || (value && value.size <= 1024 * 1024),
-        )
-        .test(
-          'FILE_FORMAT',
-          '파일 형식이 올바르지 않습니다.',
-          (value) =>
-            !value || (value && SUPPORTED_FORMATS.includes(value.type)),
-        ),
     }),
     validateOnChange: true,
   });
@@ -130,7 +118,7 @@ function CommunityModal({
           }
           title={nickname}
         />
-        <CardContent sx={{ padding: '0 1rem 6rem 1rem' }}>
+        <CardContent sx={{ padding: '0 1rem 6rem' }}>
           <form onSubmit={formik.handleSubmit}>
             <TextField
               multiline
@@ -140,24 +128,27 @@ function CommunityModal({
               onChange={formik.handleChange}
               value={formik.values.contents}
               fullWidth={true}
-              helperText={formik.errors.contents}
+              {...(formik.errors.contents && {
+                error: true,
+                helperText: formik.errors.contents,
+              })}
             />
-            {/* <ModalErrorMessage>{formik.errors.contents}</ModalErrorMessage> */}
             {previewUrl && <PreviewImage src={previewUrl} alt='' />}
-            <CommunityModalImageUpload onChange={handleImageUpload} />
-            {isImageSizeValid && (
-              <ModalErrorMessage>
-                {'파일 크기는 최대 1MB 입니다.'}
-              </ModalErrorMessage>
-            )}
-            <Button
-              type='submit'
-              size='medium'
-              disabled={formik.isSubmitting}
-              sx={{ float: 'right', marginTop: '0.5rem' }}
-            >
-              공유
-            </Button>
+            <Box sx={{ display: 'flex' }}>
+              <CommunityModalImageUpload onChange={handleImageUpload} />
+              {isImageSizeValid && (
+                <ModalErrorMessage sx={{ marginTop: '1rem' }}>
+                  {'파일 크기는 최대 1MB 입니다.'}
+                </ModalErrorMessage>
+              )}
+              <SubmitModalButton
+                type='submit'
+                size='medium'
+                disabled={formik.isSubmitting}
+              >
+                공유
+              </SubmitModalButton>
+            </Box>
           </form>
         </CardContent>
       </CardWrapper>

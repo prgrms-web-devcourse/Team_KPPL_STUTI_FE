@@ -22,7 +22,6 @@ function CommunityPostListSection() {
     const { posts = [] } = communityPostData;
     return posts;
   };
-
   return (
     <CommunityPostWrapper>
       {getCommunityPosts().map((post) => (

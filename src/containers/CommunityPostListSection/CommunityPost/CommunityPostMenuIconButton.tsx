@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import CommunityModal from '@src/containers/CommunityModal/CommunityModal';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
@@ -17,6 +17,7 @@ function CommunityPostMenuIconButton({
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isOpen, setOpen] = useState(false);
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -70,6 +71,7 @@ function CommunityPostMenuIconButton({
         <MenuItem onClick={handleDeletePost}>삭제</MenuItem>
       </Menu>
       <CommunityModal
+        key={postId}
         postId={postId}
         nickname={nickname}
         profileImageUrl={profileImageUrl}

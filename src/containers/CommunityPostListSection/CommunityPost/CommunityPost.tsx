@@ -106,7 +106,7 @@ function CommunityPost({
           </CommunityPostTypographyButton>
         )}
       </CardContent>
-      {profileImageUrl && (
+      {postImageUrl && (
         <Box sx={{ margin: '1rem 1rem 0' }}>
           <CustomCardMedia
             component='img'
