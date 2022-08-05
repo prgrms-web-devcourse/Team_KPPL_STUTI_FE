@@ -6,21 +6,21 @@ export interface Props {
   onChange: (e: React.ChangeEvent<any>) => void;
 }
 
-function FeedModalImageUpload(props: Props) {
+function CommunityModalImageUpload(props: Props) {
   return (
-    <label htmlFor='feedImageFile'>
+    <label htmlFor='postImage'>
       <input
         accept='image/*'
-        id='feedImageFile'
+        id='postImage'
         type='file'
         hidden
         onChange={props.onChange}
       />
-      <IconButton component='span'>
+      <IconButton component='div' sx={{ marginTop: '0.5rem' }}>
         <AddPhotoAlternateIcon />
       </IconButton>
     </label>
   );
 }
 
-export default FeedModalImageUpload;
+export default CommunityModalImageUpload;
