@@ -322,20 +322,9 @@ const theme = createTheme({
     MuiAvatar: {
       styleOverrides: {
         root: ({ theme }) => ({
+          backgroundColor: theme.palette.grey[300],
+          color: theme.palette.common.white,
           fontSize: '16px',
-          color: theme.palette.text.primary,
-        }),
-        rounded: ({ theme }) => ({
-          fontSize: '16px',
-          backgroundColor: theme.palette.primary,
-        }),
-        square: ({ theme }) => ({
-          fontSize: '16px',
-          backgroundColor: theme.palette.primary,
-        }),
-        string: ({ theme }) => ({
-          fontSize: '16px',
-          backgroundColor: theme.palette.primary,
         }),
       },
     },
@@ -348,17 +337,25 @@ const theme = createTheme({
           padding: '0 8px',
           alignItems: 'center',
         },
-        rounded: {
-          padding: '0 8px',
-          alignItems: 'center',
+      },
+    },
+    MuiCardHeader: {
+      styleOverrides: {
+        avatar: {
+          marginRight: '0.5rem',
         },
-        square: {
-          padding: '0 8px',
-          alignItems: 'center',
+        subheader: {
+          fontSize: '1rem',
+          lineHeight: '1.5rem',
         },
-        string: {
-          padding: '0 8px',
-          alignItems: 'center',
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          '&:last-child': {
+            paddingBottom: '1rem',
+          },
         },
       },
     },
