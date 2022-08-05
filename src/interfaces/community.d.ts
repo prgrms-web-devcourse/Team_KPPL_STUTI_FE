@@ -22,6 +22,8 @@ export interface CommunityModalType {
   postId?: string;
   nickname?: string;
   profileImageUrl?: string;
+  contents?: string;
+  postImageUrl?: string;
   modalType: string;
   isOpen?: boolean;
   onClose?: (e: React.MouseEvent<HTMLElement>) => void;
@@ -31,6 +33,8 @@ interface CommunityPostMenuIconButtonType {
   postId: string;
   nickname: string;
   profileImageUrl?: string;
+  contents: string;
+  postImageUrl?: string;
 }
 
 export interface CommunityPostTypographyButtonType {

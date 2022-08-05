@@ -82,6 +82,8 @@ function CommunityPost({
             postId={postId}
             nickname={nickname}
             profileImageUrl={profileImageUrl}
+            contents={contents}
+            postImageUrl={postImageUrl}
           />
         }
         title={

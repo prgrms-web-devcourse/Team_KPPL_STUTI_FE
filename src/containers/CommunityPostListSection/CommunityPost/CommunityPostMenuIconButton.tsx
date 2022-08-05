@@ -11,6 +11,8 @@ function CommunityPostMenuIconButton({
   postId,
   nickname,
   profileImageUrl,
+  contents,
+  postImageUrl,
 }: CommunityPostMenuIconButtonType) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isOpen, setOpen] = useState(false);
@@ -71,6 +73,8 @@ function CommunityPostMenuIconButton({
         postId={postId}
         nickname={nickname}
         profileImageUrl={profileImageUrl}
+        contents={contents}
+        postImageUrl={postImageUrl}
         modalType='EDIT'
         isOpen={isOpen}
         onClose={handleEditModalClose}

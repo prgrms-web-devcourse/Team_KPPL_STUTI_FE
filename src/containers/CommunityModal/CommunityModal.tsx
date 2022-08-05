@@ -29,6 +29,8 @@ function CommunityModal({
   postId,
   nickname,
   profileImageUrl,
+  contents,
+  postImageUrl,
   modalType,
   isOpen,
   onClose,
@@ -76,8 +78,8 @@ function CommunityModal({
   //formik
   const formik = useFormik({
     initialValues: {
-      contents: '',
-      postImage: '',
+      contents: contents || '',
+      postImage: postImageUrl || '',
     },
     onSubmit: (values, { setSubmitting }) => {
       setSubmitting(true);
@@ -89,7 +91,7 @@ function CommunityModal({
     },
     validationSchema: Yup.object({
       contents: Yup.string()
-        .max(500, '1,000자를 넘을 수 없습니다.')
+        .max(500, '500자를 넘을 수 없습니다.')
         .required('꼭 입력해주세요'),
       postImage: Yup.mixed()
         .test(
@@ -142,7 +144,7 @@ function CommunityModal({
               id='contents'
               onChange={formik.handleChange}
               value={formik.values.contents}
-              sx={{ width: '100%' }}
+              fullWidth={true}
             />
             <ModalErrorMessage>{formik.errors.contents}</ModalErrorMessage>
             {previewUrl && <PreviewImage src={previewUrl} alt='' />}
