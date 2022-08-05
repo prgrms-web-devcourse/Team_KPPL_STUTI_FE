@@ -5,6 +5,8 @@ interface Props {
   label: string;
   fullWidth?: boolean;
   value?: string;
+  error?: boolean;
+  helperText?: string | false | undefined;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -13,6 +15,8 @@ function StudyCreateLabelInput({
   label,
   fullWidth = true,
   value,
+  error,
+  helperText,
   onChange,
 }: Props) {
   return (
@@ -21,6 +25,8 @@ function StudyCreateLabelInput({
       label={label}
       fullWidth={fullWidth}
       value={value}
+      error={error}
+      helperText={helperText}
       onChange={onChange}
     />
   );

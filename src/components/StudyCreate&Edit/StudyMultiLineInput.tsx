@@ -6,6 +6,8 @@ interface Props {
   fullWidth?: boolean;
   value?: string;
   height: string;
+  error?: boolean;
+  helperText?: string | false | undefined;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -15,6 +17,8 @@ function StudyCreateMultiLineInput({
   fullWidth = true,
   value,
   height = '600px',
+  error,
+  helperText,
   onChange,
 }: Props) {
   return (
@@ -28,6 +32,8 @@ function StudyCreateMultiLineInput({
           height,
         },
       }}
+      error={error}
+      helperText={helperText}
       onChange={onChange}
       multiline
     />

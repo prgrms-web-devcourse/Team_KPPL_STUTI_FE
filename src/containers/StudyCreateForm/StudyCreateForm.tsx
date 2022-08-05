@@ -204,7 +204,11 @@ function StudyCreateFormContainer() {
   };
 
   const checkError = () => {
-    return topicErrorMessage || peopleErrorMessage;
+    return (
+      topicErrorMessage ||
+      peopleErrorMessage ||
+      (!isOnline && regionErrorMessage)
+    );
   };
 
   const createFormData = (title: string, description: string) => {
@@ -254,23 +258,12 @@ function StudyCreateFormContainer() {
             <StudyCreateWrapper>
               <Typography variant='h4'>스터디 생성</Typography>
               <InputWrapper>
-                {touched.title && errors.title && (
-                  <ErrorMessage ref={titleRef}>
-                    {(() => {
-                      if (titleRef.current) {
-                        titleRef.current.scrollIntoView({
-                          behavior: 'smooth',
-                          block: 'center',
-                        });
-                      }
-                      return errors.title;
-                    })()}
-                  </ErrorMessage>
-                )}
                 <Field
                   as={LabelInput}
                   label='스터디명'
                   id='title'
+                  error={touched.title && errors.title ? true : false}
+                  helperText={errors.title}
                   {...getFieldProps('title')}
                 />
               </InputWrapper>
@@ -374,30 +367,16 @@ function StudyCreateFormContainer() {
               </FileUploadWrapper>
               <StudyDescriptionWrapper>
                 <Typography variant='h5'>상세 설명</Typography>
-                {touched.description && errors.description && (
-                  <ErrorMessage ref={descriptionRef}>
-                    {(() => {
-                      if (
-                        !titleRef.current &&
-                        !topicRef.current &&
-                        !peopleRef.current &&
-                        descriptionRef.current
-                      ) {
-                        descriptionRef.current.scrollIntoView({
-                          behavior: 'smooth',
-                          block: 'start',
-                        });
-                      }
-                      return errors.description;
-                    })()}
-                  </ErrorMessage>
-                )}
                 <Field
                   as={MultiLineInput}
                   label='상세 설명'
                   id='description'
                   placeholder='스터디 내용을 기재해주세요.'
                   height='500px'
+                  error={
+                    touched.description && errors.description ? true : false
+                  }
+                  helperText={errors.description}
                   {...getFieldProps('description')}
                 />
               </StudyDescriptionWrapper>
