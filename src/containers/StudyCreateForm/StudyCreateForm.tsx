@@ -215,6 +215,10 @@ function StudyCreateFormContainer() {
     setEndDate(value);
   };
 
+  const checkError = () => {
+    return topicErrorMessage || peopleErrorMessage;
+  };
+
   const createFormData = (title: string, description: string) => {
     const formData = new FormData();
     formData.append('title', title);
@@ -239,6 +243,10 @@ function StudyCreateFormContainer() {
       validationSchema={CreateSchema}
       onSubmit={(values, actions) => {
         actions.setSubmitting(true);
+        if (checkError()) {
+          actions.setSubmitting(false);
+          return;
+        }
         const formData = createFormData(
           values.title,
           values.description.trim(),
