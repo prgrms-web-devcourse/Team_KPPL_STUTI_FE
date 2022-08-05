@@ -240,13 +240,13 @@ function StudyCreateFormContainer() {
         }, 3000);
       }}
     >
-      {(formik) => {
+      {({ handleSubmit, getFieldProps, isSubmitting, touched, errors }) => {
         return (
-          <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <StudyCreateWrapper>
               <Typography variant='h4'>스터디 생성</Typography>
               <InputWrapper>
-                {formik.touched.title && formik.errors.title && (
+                {touched.title && errors.title && (
                   <ErrorMessage ref={titleRef}>
                     {(() => {
                       if (titleRef.current) {
@@ -255,7 +255,7 @@ function StudyCreateFormContainer() {
                           block: 'center',
                         });
                       }
-                      return formik.errors.title;
+                      return errors.title;
                     })()}
                   </ErrorMessage>
                 )}
@@ -263,7 +263,7 @@ function StudyCreateFormContainer() {
                   as={LabelInput}
                   label='스터디명'
                   id='title'
-                  {...formik.getFieldProps('title')}
+                  {...getFieldProps('title')}
                 />
               </InputWrapper>
               <TopicWrapper>
@@ -389,7 +389,7 @@ function StudyCreateFormContainer() {
               </FileUploadWrapper>
               <StudyDescriptionWrapper>
                 <Typography variant='h5'>상세 설명</Typography>
-                {formik.touched.description && formik.errors.description && (
+                {touched.description && errors.description && (
                   <ErrorMessage ref={descriptionRef}>
                     {(() => {
                       if (
@@ -403,7 +403,7 @@ function StudyCreateFormContainer() {
                           block: 'start',
                         });
                       }
-                      return formik.errors.description;
+                      return errors.description;
                     })()}
                   </ErrorMessage>
                 )}
@@ -413,13 +413,13 @@ function StudyCreateFormContainer() {
                   id='description'
                   placeholder='스터디 내용을 기재해주세요.'
                   height='500px'
-                  {...formik.getFieldProps('description')}
+                  {...getFieldProps('description')}
                 />
               </StudyDescriptionWrapper>
               <Button
                 type='submit'
                 onClick={checkSelectOptions}
-                disabled={formik.isSubmitting}
+                disabled={isSubmitting}
               >
                 제출
               </Button>
