@@ -6,35 +6,45 @@ interface OptionType {
 }
 
 interface Props {
-  id: string;
+  id?: string;
+  name?: string;
   label: string;
   value: string;
   options: OptionType[];
+  fullWidth?: boolean;
   required?: boolean;
   disabled?: boolean;
-  fullWidth?: boolean;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: boolean;
+  helperText?: string | false | undefined;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onChange: (e: React.ChangeEvent<any>) => void;
 }
 
 function Select({
   id,
+  name,
   label,
   options,
   value,
   required,
   disabled,
   fullWidth,
-  handleChange,
+  error,
+  helperText,
+  onChange,
 }: Props) {
   return (
     <TextField
       id={id}
+      name={name}
       label={label}
-      onChange={handleChange}
+      onChange={onChange}
       value={value}
+      fullWidth={fullWidth}
       required={required}
       disabled={disabled}
-      fullWidth={fullWidth}
+      error={error}
+      helperText={helperText}
       select
     >
       {options.map((option) => (
