@@ -101,6 +101,7 @@ function StudyCreateFormContainer() {
   const [fileErrorMessage, setFileErrorMessage] = useState<string>('');
   const [topicErrorMessage, setTopicErrorMessage] = useState<string>('');
   const [peopleErrorMessage, setPeopleErrorMessage] = useState<string>('');
+  const [regionErrorMessage, setRegionErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const titleRef = useRef<null | HTMLDivElement>(null);
   const descriptionRef = useRef<null | HTMLDivElement>(null);
@@ -166,12 +167,19 @@ function StudyCreateFormContainer() {
     if (recruitsNumber) setPeopleErrorMessage('');
   }, [recruitsNumber]);
 
+  useEffect(() => {
+    if (!isOnline && region) setRegionErrorMessage('');
+  }, [region]);
+
   const checkSelectOptions = () => {
     if (!topic) {
       setTopicErrorMessage('분야를 선택해주세요');
     }
     if (!recruitsNumber) {
       setPeopleErrorMessage('인원수를 선택해주세요');
+    }
+    if (!isOnline && !region) {
+      setRegionErrorMessage('지역을 선택해주세요.');
     }
   };
 
@@ -267,26 +275,15 @@ function StudyCreateFormContainer() {
                 />
               </InputWrapper>
               <TopicWrapper>
-                {topicErrorMessage && (
-                  <ErrorMessage ref={topicRef}>
-                    {(() => {
-                      if (!titleRef.current && topicRef.current) {
-                        topicRef.current.scrollIntoView({
-                          behavior: 'smooth',
-                          block: 'center',
-                        });
-                      }
-                      return topicErrorMessage;
-                    })()}
-                  </ErrorMessage>
-                )}
                 <Select
                   id='topic'
                   label='분야'
                   value={topic}
                   options={topicOptions}
                   fullWidth={true}
-                  handleChange={handleTopic}
+                  onChange={handleTopic}
+                  error={topicErrorMessage ? true : false}
+                  helperText={topicErrorMessage}
                 />
               </TopicWrapper>
               <LocationWrapper>
@@ -303,35 +300,24 @@ function StudyCreateFormContainer() {
                   options={regionOptions}
                   value={region}
                   fullWidth={true}
-                  handleChange={handleRegion}
+                  onChange={handleRegion}
+                  error={!isOnline && regionErrorMessage ? true : false}
+                  helperText={
+                    (!isOnline && regionErrorMessage) ?? regionErrorMessage
+                  }
                   disabled={isOnline ? true : false}
                 />
               </LocationWrapper>
               <PeopleWrapper>
-                {peopleErrorMessage && (
-                  <ErrorMessage ref={peopleRef}>
-                    {(() => {
-                      if (
-                        !titleRef.current &&
-                        !topicRef.current &&
-                        peopleRef.current
-                      ) {
-                        peopleRef.current.scrollIntoView({
-                          behavior: 'smooth',
-                          block: 'center',
-                        });
-                      }
-                      return peopleErrorMessage;
-                    })()}
-                  </ErrorMessage>
-                )}
                 <Select
                   id='study-number-of-people'
                   label='인원'
                   options={recruitsNumberOptions}
                   value={recruitsNumber}
                   fullWidth={true}
-                  handleChange={handleRecruitsNumber}
+                  onChange={handleRecruitsNumber}
+                  error={peopleErrorMessage ? true : false}
+                  helperText={peopleErrorMessage}
                 />
               </PeopleWrapper>
               <RangeDatePicker
@@ -356,7 +342,6 @@ function StudyCreateFormContainer() {
                     label='선택 안함'
                   />
                 </MbtiHeadingWrapper>
-                {/*TODO : 해당 User의 추천 MBTI 로직 */}
                 <MbtiRecommend mbtis={recommendMbtis['INFJ']} />
                 <MbtiSelect
                   onChange={onMbtiSelectChange}
