@@ -74,7 +74,7 @@ function NavigationHeader() {
             </Link>
           </LogoWrapper>
           <NavContainer>
-            <HeaderNavLink exact to='/'>
+            <HeaderNavLink to='/'>
               <NavTypography variant='h6'>스터디</NavTypography>
             </HeaderNavLink>
             <HeaderNavLink to='/community'>
