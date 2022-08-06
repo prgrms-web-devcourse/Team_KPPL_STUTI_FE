@@ -11,4 +11,5 @@ export { default as HomeStudyListSection } from './Home/StudyListSection/StudyLi
 export { default as HomeStudyCreateButton } from './Home/StudyCreateButton/StudyCreateButton';
 export { default as ProfileDetailInfoSection } from './ProfileDetail/InfoSection/InfoSection';
 export { default as ProfileDetailContentSection } from './ProfileDetail/ContentSection/ContentSection';
+export { default as ProfileEditFormSection } from './ProfileEdit/EditFormSection/EditFormSection';
 export { default as NavigationHeader } from './NavigationHeader/NavigationHeader';
