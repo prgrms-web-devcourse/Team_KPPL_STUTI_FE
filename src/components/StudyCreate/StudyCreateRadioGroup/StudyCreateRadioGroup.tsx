@@ -11,6 +11,7 @@ interface Props {
   defaultValue: string;
   labels: labelsType[];
   name: string;
+  value: string;
   row?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -20,6 +21,7 @@ function StudyCreateRadioGroup({
   labels,
   name,
   row,
+  value,
   onChange,
 }: Props) {
   return (
@@ -27,6 +29,7 @@ function StudyCreateRadioGroup({
       aria-labelledby='demo-radio-buttons-group-label'
       defaultValue={defaultValue}
       name={name}
+      value={value}
       row={row}
       onChange={onChange}
     >
