@@ -2,6 +2,7 @@ import TextField from '@mui/material/TextField';
 
 interface Props {
   id: string;
+  name: string;
   placeholder: string;
   fullWidth?: boolean;
   value?: string;
@@ -13,6 +14,7 @@ interface Props {
 
 function StudyCreateMultiLineInput({
   id,
+  name,
   placeholder,
   fullWidth = true,
   value,
@@ -24,6 +26,7 @@ function StudyCreateMultiLineInput({
   return (
     <TextField
       id={id}
+      name={name}
       placeholder={placeholder}
       fullWidth={fullWidth}
       value={value}
