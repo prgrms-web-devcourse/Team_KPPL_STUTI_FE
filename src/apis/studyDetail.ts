@@ -1,4 +1,4 @@
-import { isDev } from '@src/constants/nodeEnv';
+import { isDev } from '@constants/nodeEnv';
 import axiosInstance from '@apis/axiosInstance';
 
 export const getStudyDetailInfomation = async (studyGroupId: string) => {

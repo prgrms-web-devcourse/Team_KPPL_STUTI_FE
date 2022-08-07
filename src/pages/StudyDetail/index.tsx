@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import { selectQuestion, setQuestions } from '@store/slices/question';
-import { errorType } from '@src/interfaces/error';
+import { openAlert } from '@store/slices/flashAlert';
 import {
   LoadingWrapper,
   StudyDetailButtonWrapper,
@@ -12,13 +12,13 @@ import {
 import { Button } from '@mui/material';
 import { studyDetailQuestionType } from '@interfaces/studyDetailQuestion';
 import { detailMemberType, studyDetailType } from '@interfaces/studyDetail';
+import { errorType } from '@interfaces/error';
 import {
   StudyDetailMbtiRecommend,
   StudyDetailStudyInfo,
   StudyDetailStudyQuestion,
 } from '@containers';
 import {
-  DefaultAlert,
   SpinnerIcon,
   StudyDetailBody,
   StudyDetailHeader,
@@ -34,12 +34,8 @@ import {
 function StudyDetail() {
   const [data, setData] = useState({} as studyDetailType);
   const [loading, setLoading] = useState(false);
-  const [detailError, setDetailError] = useState(false);
-  const [questionError, setQuestionError] = useState(false);
-  const [enterError, setEnterError] = useState(false);
 
   const questions = useSelector(selectQuestion);
-
   const dispatch = useDispatch();
 
   const { study_id = '0' } = useParams();
@@ -48,12 +44,17 @@ function StudyDetail() {
 
   useEffect(() => {
     const fetchData = async () => {
-      setDetailError(false);
       try {
         const res = await getStudyDetailInfomation(study_id);
         setData(res);
       } catch (error) {
-        setDetailError(true);
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '죄송합니다',
+            content: '스터디 상세 정보를 가져오는데 실패했습니다.',
+          }),
+        );
         console.error(error);
         const { response } = error as AxiosError;
         const { data }: { data: errorType } = response as AxiosResponse;
@@ -62,7 +63,6 @@ function StudyDetail() {
     };
 
     const fetchQuestion = async () => {
-      setQuestionError(false);
       try {
         const res: studyDetailQuestionType = await getStudyQuestionInformation(
           study_id,
@@ -70,7 +70,13 @@ function StudyDetail() {
         );
         dispatch(setQuestions(res));
       } catch (error) {
-        setQuestionError(true);
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '죄송합니다',
+            content: '스터디 질문 정보를 가져오는데 실패했습니다.',
+          }),
+        );
         console.error(error);
         const { response } = error as AxiosError;
         const { data }: { data: errorType } = response as AxiosResponse;
@@ -79,47 +85,10 @@ function StudyDetail() {
     };
 
     setLoading(true);
-    (async () => {
-      await Promise.all([fetchData(), fetchQuestion()]);
-    })();
-    setLoading(false);
+    Promise.all([fetchData(), fetchQuestion()]).then(() => {
+      setLoading(false);
+    });
   }, []);
-
-  useEffect(() => {
-    if (!detailError) return;
-
-    const timeOutId = setTimeout(() => {
-      setDetailError(false);
-    }, 2000);
-
-    return () => {
-      clearTimeout(timeOutId);
-    };
-  }, [detailError]);
-
-  useEffect(() => {
-    if (!questionError) return;
-
-    const timeOutId = setTimeout(() => {
-      setQuestionError(false);
-    }, 2000);
-
-    return () => {
-      clearTimeout(timeOutId);
-    };
-  }, [questionError]);
-
-  useEffect(() => {
-    if (!enterError) return;
-
-    const timeOutId = setTimeout(() => {
-      setEnterError(false);
-    }, 2000);
-
-    return () => {
-      clearTimeout(timeOutId);
-    };
-  }, [enterError]);
 
   const getPreferredMbtis = () => {
     const { preferredMbtis = [] } = data;
@@ -210,11 +179,23 @@ function StudyDetail() {
   };
 
   const enterStudyGroup = async (study_id: string) => {
-    setEnterError(false);
     try {
       await joinStudyGroup(study_id);
+      dispatch(
+        openAlert({
+          severity: 'success',
+          title: '신청되었습니다!',
+          content: '스터디 그룹에 성공적으로 지원했습니다!',
+        }),
+      );
     } catch (error) {
-      setEnterError(true);
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다',
+          content: '스터디 그룹에 지원하는데 실패했습니다.',
+        }),
+      );
       console.error(error);
       const { response } = error as AxiosError;
       const { data }: { data: errorType } = response as AxiosResponse;
@@ -227,27 +208,6 @@ function StudyDetail() {
 
   return (
     <StudyDetailContainer>
-      {detailError && (
-        <DefaultAlert
-          severity='error'
-          title='죄송합니다'
-          content='스터디 상세 정보를 가져오는데 실패했습니다.'
-        />
-      )}
-      {questionError && (
-        <DefaultAlert
-          severity='error'
-          title='죄송합니다'
-          content='스터디 질문 정보를 가져오는데 실패했습니다.'
-        />
-      )}
-      {enterError && (
-        <DefaultAlert
-          severity='error'
-          title='죄송합니다'
-          content='스터디 그룹에 지원하는데 실패했습니다.'
-        />
-      )}
       {loading ? (
         <LoadingWrapper>
           <SpinnerIcon />
