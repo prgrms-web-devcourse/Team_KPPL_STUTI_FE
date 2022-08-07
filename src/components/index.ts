@@ -7,3 +7,4 @@ export { default as StudyDetailBody } from './StudyDetail/DetailBody/DetailBody'
 export { default as UserInfo } from './UserInfo/UserInfo';
 export { default as UserProfile } from './ProfileDetail/UserProfile/UserProfile';
 export { default as DefaultAvatar } from './DefaultAvatar/DefaultAvatar';
+export { default as DefaultAlert } from './DefaultAlert/DefaultAlert';

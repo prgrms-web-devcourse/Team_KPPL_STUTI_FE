@@ -1,26 +1,26 @@
 export interface childrenQuestionType {
   parentId: number;
-  questionId: number;
+  studyGroupQuestionId: number;
   profileImageUrl: string;
   memberId: number;
   nickname: string;
   contents: string;
-  createdAt: string;
+  updatedAt: string;
 }
 
 export interface questionContentType {
-  questionId: number;
+  studyGroupQuestionId: number;
   parentId: null | number;
   profileImageUrl: string;
   memberId: number;
   nickname: string;
   contents: string;
-  createdAt: string;
+  updatedAt: string;
   children: childrenQuestionType[];
 }
 
 export interface studyDetailQuestionType {
   contents: questionContentType[];
-  isLast: boolean;
+  hasNext: boolean;
   totalElements: number;
 }

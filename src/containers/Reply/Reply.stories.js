@@ -12,10 +12,7 @@ ReplyDefault.args = {
   profileImageUrl: '',
   nickname: '프룽이',
   contents: '참여하고 싶어요!',
-  year: 2022,
-  month: 2,
-  day: 22,
-  time: '10:00',
+  updatedAt: '2000-02-22 10:00:00',
 };
 
 export const ReplyComment = Template.bind({});
@@ -23,10 +20,7 @@ ReplyComment.args = {
   profileImageUrl: '',
   nickname: '프룽이',
   contents: '참여하고 싶어요!',
-  year: 2022,
-  month: 2,
-  day: 22,
-  time: '10:00',
+  updatedAt: '2000-02-22 10:00:00',
   replies: [],
 };
 
@@ -35,10 +29,7 @@ ReplyTotal.args = {
   profileImageUrl: '',
   nickname: '프룽이',
   contents: '참여하고 싶어요!',
-  year: 2022,
-  month: 2,
-  day: 22,
-  time: '10:00',
+  updatedAt: '2000-02-22 10:00:00',
   replies: [],
   children: [
     <Reply
@@ -46,30 +37,21 @@ ReplyTotal.args = {
       profileImageUrl=''
       nickname='프롱이'
       contents='참여하고 싶어요!'
-      year={2022}
-      month={2}
-      day={22}
-      time='10:00'
+      updatedAt='2000-02-22 10:00:00'
     />,
     <Reply
       key={2}
       profileImageUrl=''
       nickname='프롱이'
       contents='참여하고 싶어요!'
-      year={2022}
-      month={2}
-      day={22}
-      time='10:00'
+      updatedAt='2000-02-22 10:00:00'
     />,
     <Reply
       key={3}
       profileImageUrl=''
       nickname='프롱이'
       contents='참여하고 싶어요!'
-      year={2022}
-      month={2}
-      day={22}
-      time='10:00'
+      updatedAt='2000-02-22 10:00:00'
     />,
   ],
 };

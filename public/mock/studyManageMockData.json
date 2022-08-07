@@ -6,43 +6,43 @@
   "numberOfRecruits": 5,
   "studyMembers": [
     {
-      "studyMemberId": 1,
-      "profileImageUrl": "",
+      "studyGroupMemberId": 1,
+      "profileImageUrl": "https://picsum.photos/100",
       "nickname": "멤버1",
       "field": "프론트엔드",
       "career": "N년차",
       "mbti": "INFP",
-      "studyMemberRole": "MEMBER"
+      "studyGroupMemberRole": "MEMBER"
     },
     {
-      "studyMemberId": 2,
-      "profileImageUrl": "",
+      "studyGroupMemberId": 2,
+      "profileImageUrl": "https://picsum.photos/100",
       "nickname": "멤버2",
       "field": "프론트엔드",
       "career": "N년차",
       "mbti": "ENTP",
-      "studyMemberRole": "MEMBER"
+      "studyGroupMemberRole": "MEMBER"
     }
   ],
   "numberOfApplicant": 2,
-  "applicants": [
+  "studyApplicants": [
     {
-      "applicantId": 2,
-      "profileImageUrl": "",
+      "studyGroupMemberId": 2,
+      "profileImageUrl": "https://picsum.photos/100",
       "nickname": "지원자1",
       "field": "프론트엔드",
       "career": "N년차",
       "mbti": "ISTP",
-      "studyMemberRole": "APPLICANT"
+      "studyGroupMemberRole": "APPLICANT"
     },
     {
-      "applicantId": 3,
-      "profileImageUrl": "",
+      "studyGroupMemberId": 3,
+      "profileImageUrl": "https://picsum.photos/100",
       "nickname": "지원자2",
       "field": "프론트엔드",
       "career": "N년차",
       "mbti": "ESFP",
-      "studyMemberRole": "APPLICANT"
+      "studyGroupMemberRole": "APPLICANT"
     }
   ]
 }

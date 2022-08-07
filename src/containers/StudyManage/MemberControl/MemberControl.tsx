@@ -1,5 +1,5 @@
 import {
-  studyManageApplicantsType,
+  studyManagestudyApplicantsType,
   studyManageMemberType,
 } from '@src/interfaces/studyManage';
 import {
@@ -17,7 +17,7 @@ interface Props {
   numberOfRecruits: number;
   numberOfApplicant: number;
   studyMembers: studyManageMemberType[];
-  applicants: studyManageApplicantsType[];
+  studyApplicants: studyManagestudyApplicantsType[];
 }
 
 function MemberControl({
@@ -25,7 +25,7 @@ function MemberControl({
   numberOfRecruits = 0,
   numberOfApplicant = 0,
   studyMembers = [],
-  applicants = [],
+  studyApplicants = [],
 }: Props) {
   return (
     <MemberControlContainer>
@@ -33,17 +33,17 @@ function MemberControl({
         <Typography variant='h5'>{`멤버: ${numberOfMembers}명 / ${numberOfRecruits}명`}</Typography>
         {studyMembers.map((member) => {
           const {
-            studyMemberId,
+            studyGroupMemberId,
             profileImageUrl = '',
             nickname = '',
             field = '',
             career = '',
             mbti = '',
-            studyMemberRole = '',
+            studyGroupMemberRole = '',
           } = member;
 
           return (
-            <UserInfoWrapper key={studyMemberId}>
+            <UserInfoWrapper key={studyGroupMemberId}>
               <UserInfo
                 profileImageUrl={profileImageUrl}
                 nickname={nickname}
@@ -61,20 +61,20 @@ function MemberControl({
       <UserInfoContainer>
         <Typography variant='h5'>{`지원자: ${numberOfApplicant}명`}</Typography>
 
-        {applicants.length > 0 ? (
-          applicants.map((applicant) => {
+        {studyApplicants.length > 0 ? (
+          studyApplicants.map((applicant) => {
             const {
-              applicantId,
+              studyGroupMemberId,
               profileImageUrl = '',
               nickname = '',
               field = '',
               career = '',
               mbti = '',
-              studyMemberRole = '',
+              studyGroupMemberRole = '',
             } = applicant;
 
             return (
-              <UserInfoWrapper key={applicantId}>
+              <UserInfoWrapper key={studyGroupMemberId}>
                 <UserInfo
                   profileImageUrl={profileImageUrl}
                   nickname={nickname}

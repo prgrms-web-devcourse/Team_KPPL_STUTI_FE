@@ -1,21 +1,21 @@
 export interface studyManageMemberType {
-  studyMemberId: number;
+  studyGroupMemberId: number;
   profileImageUrl: string;
   nickname: string;
   field: string;
   career: string;
   mbti: string;
-  studyMemberRole: string;
+  studyGroupMemberRole: string;
 }
 
-export interface studyManageApplicantsType {
-  applicantId: number;
+export interface studyManagestudyApplicantsType {
+  studyGroupMemberId: number;
   profileImageUrl: string;
   nickname: string;
   field: string;
   career: string;
   mbti: string;
-  studyMemberRole: string;
+  studyGroupMemberRole: string;
 }
 
 export interface studyManageType {
@@ -26,5 +26,5 @@ export interface studyManageType {
   numberOfRecruits: number;
   studyMembers: studyManageMemberType[];
   numberOfApplicant: number;
-  applicants: studyManageApplicantsType[];
+  studyApplicants: studyManagestudyApplicantsType[];
 }
