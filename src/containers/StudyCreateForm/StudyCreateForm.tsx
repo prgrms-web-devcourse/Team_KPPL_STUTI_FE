@@ -41,6 +41,7 @@ import {
   StudyDescriptionWrapper,
   TopicWrapper,
   SpinnerWrapper,
+  MbtiSelectWrapper,
 } from './style';
 
 const radioValues = [
@@ -332,12 +333,14 @@ function StudyCreateFormContainer() {
                   />
                 </MbtiHeadingWrapper>
                 <MbtiRecommend mbtis={recommendMbtis['INFJ']} />
-                <MbtiSelect
-                  onChange={onMbtiSelectChange}
-                  disabled={mbtiPreference ? false : true}
-                  limit={mbtiCheckedList.length}
-                  checkedList={mbtiCheckedList}
-                />
+                <MbtiSelectWrapper>
+                  <MbtiSelect
+                    onChange={onMbtiSelectChange}
+                    disabled={mbtiPreference ? false : true}
+                    limit={mbtiCheckedList.length}
+                    checkedList={mbtiCheckedList}
+                  />
+                </MbtiSelectWrapper>
               </MbtiWrapper>
               <FileUploadWrapper>
                 <Typography variant='h5'>대표 이미지</Typography>

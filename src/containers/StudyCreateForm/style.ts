@@ -42,6 +42,11 @@ export const MbtiHeadingWrapper = styled.div`
   align-items: center;
 `;
 
+export const MbtiSelectWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 export const FileUploadWrapper = styled.div`
   display: flex;
   flex-direction: column;
