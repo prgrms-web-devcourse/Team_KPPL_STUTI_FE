@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, { useState, useRef, useLayoutEffect, forwardRef } from 'react';
 import CommunityPostTypographyButton from '@src/containers/CommunityPostListSection/CommunityPostTypographyButton/CommunityPostTypographyButton';
 import CommunityPostMenuIconButton from '@src/containers/CommunityPostListSection/CommunityPost/CommunityPostMenuIconButton';
 import {
@@ -23,19 +23,21 @@ import {
   postCommunityPostLikeApi,
   deleteCommunityPostLikeApi,
 } from '@apis/community';
-
-function CommunityPost({
-  postId,
-  memberId,
-  nickname,
-  createdAt,
-  profileImageUrl,
-  contents,
-  postImageUrl,
-  totalLikes,
-  totalComments,
-  isliked,
-}: CommunityPostType) {
+const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
+  {
+    postId,
+    memberId,
+    nickname,
+    createdAt,
+    profileImageUrl,
+    contents,
+    postImageUrl,
+    totalLikes,
+    totalComments,
+    isliked,
+  },
+  ref,
+) {
   const [liked, setLiked] = useState({ check: false, count: 0 });
   const [isExpand, setIsExpand] = useState<string | number>('none');
   const contentsRef = useRef<HTMLInputElement>(null);
@@ -61,9 +63,8 @@ function CommunityPost({
       await postCommunityPostLikeApi(`posts/${postId}/like`);
     }
   };
-
   return (
-    <Card>
+    <Card ref={ref}>
       <CardHeader
         avatar={
           <Avatar
@@ -129,6 +130,6 @@ function CommunityPost({
       </CardActions>
     </Card>
   );
-}
+});
 
 export default CommunityPost;

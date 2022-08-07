@@ -38,6 +38,71 @@
       "totalLikes": 1,
       "totalComments": 2,
       "isliked": true
+    },
+    {
+      "postId": 4,
+      "memberId": 4,
+      "nickname": "김4",
+      "mbti": "ENTJ",
+      "createdAt": "2022-03-11 10:11:12",
+      "profileImageUrl": "http://prgrms.stuti/profile/image1.jpg",
+      "contents": "오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다",
+      "postImageUrl": "https://picsum.photos/300/200",
+      "totalLikes": 20,
+      "totalComments": 30,
+      "isliked": true
+    },
+    {
+      "postId": 5,
+      "memberId": 5,
+      "nickname": "팽5",
+      "mbti": "INTP",
+      "createdAt": "2022-02-11 10:11:12",
+      "profileImageUrl": "http://prgrms.stuti/profile/image1.jpg",
+      "contents": "오늘 놀았닼ㅋㅋㅋ",
+      "postImageUrl": "https://picsum.photos/300/200",
+      "totalLikes": 21,
+      "totalComments": 31,
+      "isliked": false
+    },
+    {
+      "postId": 6,
+      "memberId": 6,
+      "nickname": "팽6",
+      "mbti": "INTP",
+      "createdAt": "2022-02-11 10:11:12",
+      "profileImageUrl": "http://prgrms.stuti/profile/image1.jpg",
+      "contents": "오",
+      "postImageUrl": "https://picsum.photos/300/200",
+      "totalLikes": 3,
+      "totalComments": 32,
+      "isliked": false
+    },
+    {
+      "postId": 7,
+      "memberId": 7,
+      "nickname": "팽7",
+      "mbti": "INTP",
+      "createdAt": "2022-02-11 10:11:12",
+      "profileImageUrl": "http://prgrms.stuti/profile/image1.jpg",
+      "contents": "오늘 놀았닼ㅋㅋㅋ",
+      "postImageUrl": "https://picsum.photos/300/200",
+      "totalLikes": 21,
+      "totalComments": 31,
+      "isliked": false
+    },
+    {
+      "postId": 8,
+      "memberId": 8,
+      "nickname": "팽8",
+      "mbti": "INTP",
+      "createdAt": "2022-02-11 10:11:12",
+      "profileImageUrl": "http://prgrms.stuti/profile/image1.jpg",
+      "contents": "오늘 놀았닼ㅋㅋㅋ",
+      "postImageUrl": "https://picsum.photos/300/200",
+      "totalLikes": 21,
+      "totalComments": 31,
+      "isliked": false
     }
   ],
   "hasNext": true
