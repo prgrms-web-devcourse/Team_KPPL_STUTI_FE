@@ -51,7 +51,7 @@ function StudyEditForm() {
   const titleRef = useRef<null | HTMLDivElement>(null);
   const descriptionRef = useRef<null | HTMLDivElement>(null);
 
-  const { study_id = '0' }: { study_id: string } = useParams();
+  const { study_id = '0' } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {

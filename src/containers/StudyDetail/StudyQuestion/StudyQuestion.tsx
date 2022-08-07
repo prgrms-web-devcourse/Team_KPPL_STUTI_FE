@@ -27,6 +27,7 @@ import {
 interface Props extends studyDetailQuestionType {
   size: number;
   study_id: string;
+  title?: string;
 }
 
 function StudyQuestion({
@@ -35,6 +36,7 @@ function StudyQuestion({
   hasNext,
   size,
   study_id,
+  title,
 }: Props) {
   const dispatch = useDispatch();
   const [newSize, setNewSize] = useState(size);
@@ -153,7 +155,7 @@ function StudyQuestion({
 
   return (
     <StudyDetailQuestionContainer>
-      <Typography variant='h5'>질문 & 답변</Typography>
+      <Typography variant='h5'>{title}</Typography>
       <StudyQuestionInput
         ref={handleInputError}
         isUpdate={false}

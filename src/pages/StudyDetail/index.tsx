@@ -42,7 +42,7 @@ function StudyDetail() {
 
   const dispatch = useDispatch();
 
-  const { study_id = '0' }: { study_id: string } = useParams();
+  const { study_id = '0' } = useParams();
 
   const initialSize = 5;
 
@@ -86,34 +86,40 @@ function StudyDetail() {
   }, []);
 
   useEffect(() => {
-    if (detailError) {
-      const timeOutId = setTimeout(() => {
-        setDetailError(false);
-      }, 2000);
+    if (!detailError) return;
 
-      return () => {
-        clearTimeout(timeOutId);
-      };
-    }
-    if (questionError) {
-      const timeOutId = setTimeout(() => {
-        setQuestionError(false);
-      }, 2000);
+    const timeOutId = setTimeout(() => {
+      setDetailError(false);
+    }, 2000);
 
-      return () => {
-        clearTimeout(timeOutId);
-      };
-    }
-    if (enterError) {
-      const timeOutId = setTimeout(() => {
-        setEnterError(false);
-      }, 2000);
+    return () => {
+      clearTimeout(timeOutId);
+    };
+  }, [detailError]);
 
-      return () => {
-        clearTimeout(timeOutId);
-      };
-    }
-  }, [detailError, questionError, enterError]);
+  useEffect(() => {
+    if (!questionError) return;
+
+    const timeOutId = setTimeout(() => {
+      setQuestionError(false);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timeOutId);
+    };
+  }, [questionError]);
+
+  useEffect(() => {
+    if (!enterError) return;
+
+    const timeOutId = setTimeout(() => {
+      setEnterError(false);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timeOutId);
+    };
+  }, [enterError]);
 
   const getPreferredMbtis = () => {
     const { preferredMbtis = [] } = data;
@@ -293,6 +299,7 @@ function StudyDetail() {
             {...questions}
             size={initialSize}
             study_id={study_id}
+            title='질문 & 답변'
           />
           <Button
             onClick={() => {

@@ -53,11 +53,23 @@ const ReplyInput = forwardRef<errorHandle, Props>(function ReplyInput(
   const isHaveLength = (value: string): boolean => {
     return value.length > 0 ? true : false;
   };
+
+  const requestUpdateReply = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    onUpdate && onUpdate(value);
+  };
+
+  const requestCreateReply = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    onCreate && onCreate(value);
+  };
   return (
     <ReplyInputWrapper>
       <TextField
         id='with-label'
-        label='댓글을 입력하세요'
+        placeholder={
+          isUpdate ? '수정할 내용을 입력하세요.' : '댓글을 입력하세요'
+        }
         onChange={handleInputValue}
         fullWidth
         multiline
@@ -69,10 +81,7 @@ const ReplyInput = forwardRef<errorHandle, Props>(function ReplyInput(
             <Button
               color={error ? 'error' : 'warning'}
               sx={{ height: '48px' }}
-              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                e.stopPropagation();
-                onUpdate && onUpdate(value);
-              }}
+              onClick={requestUpdateReply}
             >
               수정
             </Button>
@@ -80,10 +89,7 @@ const ReplyInput = forwardRef<errorHandle, Props>(function ReplyInput(
             <Button
               color={error ? 'error' : 'primary'}
               sx={{ height: '48px' }}
-              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                e.stopPropagation();
-                onCreate && onCreate(value);
-              }}
+              onClick={requestCreateReply}
             >
               확인
             </Button>

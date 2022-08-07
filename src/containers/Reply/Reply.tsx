@@ -71,6 +71,21 @@ const Reply = forwardRef<inputHandle, Props>(function Reply(
     handleUpdateFlag,
   }));
 
+  const handleCommentReply = () => {
+    handleCommentFlag();
+    updateFlag && handleUpdateFlag();
+  };
+
+  const handleUpdateReply = () => {
+    handleUpdateFlag();
+    commentFlag && handleCommentFlag();
+  };
+
+  const requestDeleteReply = (e: React.MouseEvent<HTMLSpanElement>) => {
+    e.stopPropagation();
+    onDelete && onDelete();
+  };
+
   return (
     <ReplyContainer>
       <ReplyProfileWrapper>
@@ -91,30 +106,28 @@ const Reply = forwardRef<inputHandle, Props>(function Reply(
           </Typography>
           {replies && (
             <ReplyControlTypography
-              onClick={() => {
-                handleCommentFlag();
-                updateFlag && handleUpdateFlag();
-              }}
               color='secondary'
+              component='button'
+              onClick={() => {
+                handleCommentReply();
+              }}
             >
               답글 달기
             </ReplyControlTypography>
           )}
           <ReplyControlTypography
             color='secondary'
+            component='button'
             onClick={() => {
-              handleUpdateFlag();
-              commentFlag && handleCommentFlag();
+              handleUpdateReply();
             }}
           >
             수정하기
           </ReplyControlTypography>
           <ReplyControlTypography
             color='secondary'
-            onClick={(e: React.MouseEvent<HTMLSpanElement>) => {
-              e.stopPropagation();
-              onDelete && onDelete();
-            }}
+            component='button'
+            onClick={requestDeleteReply}
           >
             삭제하기
           </ReplyControlTypography>
