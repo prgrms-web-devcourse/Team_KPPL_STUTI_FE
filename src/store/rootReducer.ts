@@ -1,5 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
+import user from './slices/user';
 import question from './slices/question';
 import flashAlert from './slices/flashAlert';
 import counter from './slices/counter';
@@ -9,6 +10,7 @@ const reducer = combineReducers({
   counter,
   question,
   flashAlert,
+  user,
 });
 
 export default reducer;
