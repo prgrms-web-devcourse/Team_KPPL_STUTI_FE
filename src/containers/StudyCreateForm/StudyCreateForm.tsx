@@ -5,6 +5,9 @@ import {
   topicOptions,
   regionOptions,
   recruitsNumberOptions,
+  topicValues,
+  regionValues,
+  recruitsNumberValues,
 } from '@src/constants/selectOptions';
 import {
   MultiLineInput,
@@ -82,10 +85,6 @@ const recommendMbtis = {
   ISTJ: ['ESFP'],
   ISTP: ['ESFJ', 'ESTJ'],
 };
-
-const topicValues = topicOptions.map(({ value }) => value);
-const regionValues = regionOptions.map(({ value }) => value);
-const recruitsNumberValues = recruitsNumberOptions.map(({ value }) => value);
 
 const CreateSchema = Yup.object({
   isOnline: Yup.string(),

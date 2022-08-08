@@ -34,6 +34,8 @@ export const topicOptions = [
   { value: 'NETWORK', label: '네트워크' },
 ];
 
+export const topicValues = topicOptions.map(({ value }) => value);
+
 export const regionOptions = [
   { value: 'SEOUL', label: '서울' },
   { value: 'BUSAN', label: '부산' },
@@ -44,6 +46,8 @@ export const regionOptions = [
   { value: 'ULSAN', label: '울산' },
   { value: 'JEJU', label: '제주' },
 ];
+
+export const regionValues = regionOptions.map(({ value }) => value);
 
 export const regionWithOnlineOptions = [
   ...regionOptions,
@@ -92,6 +96,10 @@ export const recruitsNumberOptions = [
     label: '10명',
   },
 ];
+
+export const recruitsNumberValues = recruitsNumberOptions.map(
+  ({ value }) => value,
+);
 
 export const mbtiOptions = [
   { value: 'ENFJ', label: 'ENFJ' },
