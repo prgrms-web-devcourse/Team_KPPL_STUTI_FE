@@ -17,7 +17,7 @@ import StudyCreate from '@src/pages/StudyCreate';
 import SignUp from '@src/pages/SignUp';
 import Community from '@src/pages/Community';
 import Layout from '@src/layout/Layout';
-import { Home, ProfileDetail, ProfileEdit } from '@pages';
+import { Home, NotFound, ProfileDetail, ProfileEdit } from '@pages';
 
 function Routers() {
   return (
@@ -34,7 +34,7 @@ function Routers() {
           <Route path={STUDY_MANAGE} element={<StudyManage />} />
           <Route path={SIGN_UP} element={<SignUp />} />
         </Route>
-        <Route path='/*' />
+        <Route path='/*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
