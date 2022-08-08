@@ -1,8 +1,17 @@
 import { RootState } from '@src/store';
+import {
+  UserProfileEditFormType,
+  UserProfileType,
+} from '@src/interfaces/userProfile';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
-  user: {},
+interface UserState {
+  user: UserProfileType | UserProfileEditFormType | null;
+  isLogin: boolean;
+}
+
+const initialState: UserState = {
+  user: null,
   isLogin: false,
 };
 
@@ -10,15 +19,18 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    loginUser: (state, action) => {
+    loginUser: (state: UserState, action: PayloadAction<UserProfileType>) => {
       state.user = action.payload;
       state.isLogin = true;
     },
-    logoutUser: (state) => {
-      state.user = {};
+    logoutUser: (state: UserState) => {
+      state.user = null;
       state.isLogin = false;
     },
-    updateUser: (state, action) => {
+    updateUser: (
+      state: UserState,
+      action: PayloadAction<UserProfileEditFormType>,
+    ) => {
       state.user = { ...state.user, ...action.payload };
     },
   },
