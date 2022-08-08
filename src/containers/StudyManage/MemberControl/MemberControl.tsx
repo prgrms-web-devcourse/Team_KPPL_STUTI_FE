@@ -116,6 +116,34 @@ function MemberControl({
     }
   };
 
+  const removeStudyApplicant = async (
+    studyGroupId: string,
+    studyGroupMemberId: number,
+  ) => {
+    try {
+      await deleteStudyMember(studyGroupId, studyGroupMemberId);
+      dispatch(
+        openAlert({
+          severity: 'success',
+          title: '멤버가 제외되었습니다!',
+          content: '스터디 멤버가 성공적으로 제외되었습니다!',
+        }),
+      );
+    } catch (error) {
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다',
+          content: '스터디 멤버 제외에 실패했습니다.',
+        }),
+      );
+      console.error(error);
+      const { response } = error as AxiosError;
+      const { data }: { data: errorType } = response as AxiosResponse;
+      const { errorCode } = data;
+    }
+  };
+
   const deleteMembers = (
     array: Array<studyManageMemberType>,
     targetId: number,
@@ -164,6 +192,15 @@ function MemberControl({
     ];
     setMembers(newMembersList);
     setMemberNumber((prevState) => (prevState += 1));
+    deleteApplicants(studyApplicants, applicantID);
+  };
+
+  const rejectApplicant = (
+    studyGroupId: string,
+    applicantID: number,
+    studyApplicants: studyManageStudyApplicantsType[],
+  ) => {
+    removeStudyApplicant(studyGroupId, applicantID);
     deleteApplicants(studyApplicants, applicantID);
   };
 
@@ -258,7 +295,7 @@ function MemberControl({
                     color='secondary'
                     size='small'
                     onClick={() => {
-                      deleteApplicants(applicants, applicantID);
+                      rejectApplicant(studyGroupId, applicantID, applicants);
                     }}
                   >
                     거절
