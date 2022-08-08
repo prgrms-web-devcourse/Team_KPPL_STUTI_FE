@@ -1,5 +1,7 @@
+import { ProfileEditFormSection } from '@containers';
+
 function ProfileEdit() {
-  return <div>ProfileEdit</div>;
+  return <ProfileEditFormSection />;
 }
 
 export default ProfileEdit;

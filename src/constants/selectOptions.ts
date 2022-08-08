@@ -8,12 +8,16 @@ export const fieldOptions = [
   { value: 'DEVELOPER', label: '개발자' },
 ];
 
+export const fieldValidValues = fieldOptions.map(({ value }) => value);
+
 export const careerOptions = [
   { value: 'JUNIOR', label: '0년차~3년차' },
   { value: 'INTERMEDIATE', label: '3년차~5년차' },
   { value: 'SENIOR', label: '5년차~10년차' },
-  { value: 'MASTER', label: '10년차~' },
+  { value: 'MASTER', label: '10년차 이상' },
 ];
+
+export const careerValidValues = careerOptions.map(({ value }) => value);
 
 export const topicOptions = [
   { value: 'FRONTEND', label: '프론트엔드' },
@@ -39,6 +43,11 @@ export const regionOptions = [
   { value: 'DAEJEON', label: '대전' },
   { value: 'ULSAN', label: '울산' },
   { value: 'JEJU', label: '제주' },
+];
+
+export const regionWithOnlineOptions = [
+  ...regionOptions,
+  { value: 'ONLINE', label: '온라인' },
 ];
 
 export const recruitsNumberOptions = [
@@ -84,11 +93,6 @@ export const recruitsNumberOptions = [
   },
 ];
 
-export const regionWithOnlineOptions = [
-  ...regionOptions,
-  { value: 'ONLINE', label: '온라인' },
-];
-
 export const mbtiOptions = [
   { value: 'ENFJ', label: 'ENFJ' },
   { value: 'ENTJ', label: 'ENTJ' },
@@ -107,3 +111,5 @@ export const mbtiOptions = [
   { value: 'ISTJ', label: 'ISTJ' },
   { value: 'INTJ', label: 'INTJ' },
 ];
+
+export const mbtiValidValues = mbtiOptions.map(({ value }) => value);

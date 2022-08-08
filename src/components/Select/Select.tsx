@@ -17,6 +17,8 @@ interface Props {
   error?: boolean;
   helperText?: string | false | undefined;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onBlur?: (e: React.FocusEvent<any>) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onChange: (e: React.ChangeEvent<any>) => void;
 }
 
@@ -32,14 +34,16 @@ function Select({
   error,
   helperText,
   onChange,
+  onBlur,
 }: Props) {
   return (
     <TextField
       id={id}
       name={name}
       label={label}
-      onChange={onChange}
       value={value}
+      onChange={onChange}
+      onBlur={onBlur}
       fullWidth={fullWidth}
       required={required}
       disabled={disabled}
