@@ -9,12 +9,14 @@ import React, {
 } from 'react';
 import moment from 'moment';
 import { AxiosError, AxiosResponse } from 'axios';
-import { selectQuestion, setQuestions } from '@store/slices/question';
+import { setComment } from '@store/slices/comment';
+import { selectComment } from '@src/store/slices/comment';
 import { errorType } from '@src/interfaces/error';
 import CommunityPostTypographyButton from '@src/containers/CommunityPostListSection/CommunityPostTypographyButton/CommunityPostTypographyButton';
 import CommunityPostMenuIconButton from '@src/containers/CommunityPostListSection/CommunityPost/CommunityPostMenuIconButton';
 import {
   ContentsWrapper,
+  CommunityPostCommentWrapper,
   CustomCardMedia,
 } from '@src/containers/CommunityPostListSection/CommunityPost/CommunityPost.style';
 import Avatar from '@mui/material/Avatar';
@@ -29,14 +31,17 @@ import {
 } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { studyDetailQuestionType } from '@interfaces/studyDetailQuestion';
-import { CommunityPostType } from '@interfaces/community';
-import { StudyDetailStudyQuestion } from '@containers';
-import { getStudyQuestionInformation } from '@apis/studyDetail';
+import {
+  CommunityPostType,
+  CommunityPostCommentType,
+} from '@interfaces/community';
 import {
   postCommunityPostLikeApi,
   deleteCommunityPostLikeApi,
+  getCommunityPostCommentApi,
 } from '@apis/community';
+
+import CommunityPostComment from '../CommunityPostComment/CommunityPostComment';
 
 const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   {
@@ -47,9 +52,8 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
     profileImageUrl,
     contents,
     postImageUrl,
-    totalLikes,
-    totalComments,
-    isliked,
+    likedMembers,
+    totalPostComments,
   },
   ref,
 ) {
@@ -59,35 +63,16 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   const [commentsError, setCommentsError] = useState(false);
 
   const contentsRef = useRef<HTMLInputElement>(null);
-  const postComments = useSelector(selectQuestion);
+  const postComments = useSelector(selectComment);
   const dispatch = useDispatch();
 
   useLayoutEffect(() => {
-    setLiked({ check: isliked, count: totalLikes });
+    //로그인 한 값이 likedMembers.includes(로그인한 ID)면
+    setLiked({ check: true, count: likedMembers.length });
     if (contentsRef.current) {
       const contentsHeight = contentsRef.current.getBoundingClientRect().height;
       setIsExpand(contentsHeight > 96 ? 4 : 'none');
     }
-
-    const fetchComments = async () => {
-      setCommentsError(false);
-      try {
-        const res: studyDetailQuestionType = await getStudyQuestionInformation(
-          postId,
-          5,
-        );
-        dispatch(setQuestions(res));
-      } catch (error) {
-        setCommentsError(true);
-        console.error(error);
-        const { response } = error as AxiosError;
-        const { data }: { data: errorType } = response as AxiosResponse;
-        const { errorCode } = data;
-      }
-    };
-    (async () => {
-      await Promise.all([fetchComments()]);
-    })();
   }, []);
 
   useEffect(() => {
@@ -105,10 +90,28 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   const handleLiked = async (e: React.MouseEvent<HTMLElement>) => {
     if (liked.check) {
       setLiked({ check: !liked.check, count: (liked.count -= 1) });
-      await deleteCommunityPostLikeApi(`posts/${postId}/like`);
+      await deleteCommunityPostLikeApi(postId);
     } else {
       setLiked({ check: !liked.check, count: (liked.count += 1) });
-      await postCommunityPostLikeApi(`posts/${postId}/like`);
+      await postCommunityPostLikeApi(postId);
+    }
+  };
+
+  const handleOpenComment = async () => {
+    setIsComment(!isComment);
+    setCommentsError(false);
+    try {
+      const res: CommunityPostCommentType = await getCommunityPostCommentApi(
+        postId,
+        5,
+      );
+      dispatch(setComment(res));
+    } catch (error) {
+      setCommentsError(true);
+      console.error(error);
+      const { response } = error as AxiosError;
+      const { data }: { data: errorType } = response as AxiosResponse;
+      const { errorCode } = data;
     }
   };
 
@@ -174,21 +177,17 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
           {liked.count}
         </CommunityPostTypographyButton>
         <CommunityPostTypographyButton
-          onClick={() => setIsComment(!isComment)}
+          onClick={handleOpenComment}
           name='댓글'
           margin='0 1rem 0 auto'
         >
-          {totalComments}
+          {totalPostComments}
         </CommunityPostTypographyButton>
       </CardActions>
       {isComment && (
-        <Box sx={{ margin: '-1.5rem 1rem 1rem' }}>
-          <StudyDetailStudyQuestion
-            {...postComments}
-            size={5}
-            study_id={postId}
-          />
-        </Box>
+        <CommunityPostCommentWrapper>
+          <CommunityPostComment {...postComments} size={5} postId={postId} />
+        </CommunityPostCommentWrapper>
       )}
     </Card>
   );

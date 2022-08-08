@@ -51,9 +51,8 @@ function CommunityPostListSection() {
           profileImageUrl={post.profileImageUrl}
           contents={post.contents}
           postImageUrl={post.postImageUrl}
-          totalLikes={post.totalLikes}
-          totalComments={post.totalComments}
-          isliked={post.isliked}
+          likedMembers={post.likedMembers}
+          totalPostComments={post.totalPostComments}
           ref={setPostTarget}
         />
       ))}

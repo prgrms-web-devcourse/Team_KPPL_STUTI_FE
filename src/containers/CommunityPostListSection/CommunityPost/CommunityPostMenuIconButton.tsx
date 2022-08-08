@@ -37,7 +37,7 @@ function CommunityPostMenuIconButton({
 
   const handleDeletePost = async () => {
     //post 삭제 api
-    await deleteCommunityPostApi(`posts/${postId}`);
+    await deleteCommunityPostApi(postId);
     setAnchorEl(null);
   };
 

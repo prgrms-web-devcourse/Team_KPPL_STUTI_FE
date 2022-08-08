@@ -7,9 +7,8 @@ export interface CommunityPostType {
   profileImageUrl?: string;
   contents: string;
   postImageUrl: string;
-  totalLikes: number;
-  totalComments: number;
-  isliked: boolean;
+  likedMembers: number[];
+  totalPostComments: number;
 }
 
 export interface CommunityType {
@@ -18,7 +17,7 @@ export interface CommunityType {
 }
 
 export interface CommunityModalType {
-  postId?: string;
+  postId: string;
   nickname?: string;
   profileImageUrl?: string;
   contents?: string;
@@ -41,4 +40,32 @@ export interface CommunityPostTypographyButtonType {
   margin?: string;
   children?: string | number;
   onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+}
+
+//Comment 부분
+export interface childrenCommentType {
+  parentId: number;
+  postCommentId: number;
+  profileImageUrl: string;
+  memberId: number;
+  nickname: string;
+  contents: string;
+  updatedAt: string;
+}
+
+export interface CommentContentsType {
+  postCommentId: number;
+  parentId: null | number;
+  profileImageUrl: string;
+  memberId: number;
+  nickname: string;
+  contents: string;
+  updatedAt: string;
+  children: childrenCommentType[];
+}
+
+export interface CommunityPostCommentType {
+  contents: CommentContentType[];
+  hasNext: boolean;
+  totalElements: number;
 }

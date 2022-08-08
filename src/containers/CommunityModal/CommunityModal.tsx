@@ -67,15 +67,9 @@ function CommunityModal({
     values.postImage && postFormData.append('postImage', values.postImage);
 
     if (modalType === 'CREATE') {
-      await postCommunityPostApi({
-        url: 'posts',
-        postData: postFormData,
-      });
+      await postCommunityPostApi(postFormData);
     } else if (modalType === 'EDIT') {
-      await editCommunityPostApi({
-        url: `posts/${postId}`,
-        postData: postFormData,
-      });
+      await editCommunityPostApi(postId, postFormData);
     }
   };
 
