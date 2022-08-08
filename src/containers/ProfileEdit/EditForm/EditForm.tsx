@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { useNavigate, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import TextField from '@mui/material/TextField';
@@ -43,7 +43,12 @@ function EditForm() {
       blogUrl: '',
     },
     validationSchema: yup.object({
-      nickname: yup.string().required('닉네임을 입력해주세요.'),
+      nickname: yup
+        .string()
+        .trim('앞, 뒤 공백을 제거해 주세요.')
+        .strict()
+        .max(16)
+        .required('닉네임을 입력해 주세요.'),
       field: yup
         .string()
         .oneOf(
@@ -62,8 +67,16 @@ function EditForm() {
         .string()
         .oneOf(mbtiValidValues, '잘못된 입력입니다. MBTI를 다시 선택해 주세요.')
         .required('MBTI를 입력해주세요.'),
-      githubUrl: yup.string().url('잘못된 형식의 주소입니다.'),
-      blogUrl: yup.string().url('잘못된 형식의 주소입니다.'),
+      githubUrl: yup
+        .string()
+        .trim('앞, 뒤 공백을 제거해 주세요.')
+        .strict()
+        .url('잘못된 형식의 주소입니다.'),
+      blogUrl: yup
+        .string()
+        .trim('앞, 뒤 공백을 제거해 주세요.')
+        .strict()
+        .url('잘못된 형식의 주소입니다.'),
     }),
     onSubmit: (values, { setFieldError }) => {
       (async () => {
@@ -102,10 +115,6 @@ function EditForm() {
     })();
   }, []);
 
-  useEffect(() => {
-    console.log(errors);
-  });
-
   return (
     <Form onSubmit={handleSubmit}>
       <Avatar
@@ -116,58 +125,54 @@ function EditForm() {
       <TextField
         id='nickname'
         name='nickname'
-        label='닉네임'
+        label='닉네임*'
         value={values.nickname}
         onChange={handleChange}
         onBlur={handleBlur}
         error={touched.nickname && Boolean(errors.nickname)}
         helperText={touched.nickname && errors.nickname}
-        required
         fullWidth
       />
       <Select
         id='field'
         name='field'
-        label='직무'
+        label='직무*'
         value={values.field}
         options={fieldOptions}
         onChange={handleChange}
         onBlur={handleBlur}
         error={touched.field && Boolean(errors.field)}
         helperText={touched.field && errors.field}
-        required
         fullWidth
       />
       <Select
         id='career'
         name='career'
-        label='경력'
+        label='경력*'
         value={values.career}
         options={careerOptions}
         onChange={handleChange}
         onBlur={handleBlur}
         error={touched.career && Boolean(errors.career)}
         helperText={touched.career && errors.career}
-        required
         fullWidth
       />
       <Flex>
         <Select
           id='MBTI'
           name='MBTI'
-          label='MBTI'
+          label='MBTI*'
           value={values.MBTI}
           options={mbtiOptions}
           onChange={handleChange}
           onBlur={handleBlur}
           error={touched.MBTI && Boolean(errors.MBTI)}
           helperText={touched.MBTI && errors.MBTI}
-          required
           fullWidth
         />
         <Button
           component='a'
-          href='https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC'
+          href={process.env.REACT_APP_MBTI_TEST_URL}
           target='_blank'
           rel='noopener noreferrer'
           fullWidth
