@@ -36,11 +36,22 @@ function StudyCreateRangeDatePicker({
         value={startDate}
         onChange={(newValue) => {
           if (newValue) {
+            const flag =
+              moment(newValue).isAfter(endDate) ||
+              newValue.format('YYYY-MM-DD') === endDate.format('YYYY-MM-DD');
+            if (flag) setEndDate(moment(newValue).add(7, 'days'));
             setStartDate(newValue);
-            console.log(newValue.format('YYYY-MM-DD hh:mm:ss'));
           }
         }}
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params) => (
+          <TextField
+            onKeyDown={(e) => {
+              e.preventDefault();
+              return false;
+            }}
+            {...params}
+          />
+        )}
       />
       <DatePicker
         minDate={moment().add(diffDays, 'days')}
@@ -49,10 +60,18 @@ function StudyCreateRangeDatePicker({
         onChange={(newValue) => {
           if (newValue) {
             setEndDate(newValue);
-            console.log(newValue.format('YYYY-MM-DD hh:mm:ss'));
           }
         }}
-        renderInput={(params) => <TextField {...params} />}
+        disablePast
+        renderInput={(params) => (
+          <TextField
+            onKeyDown={(e) => {
+              e.preventDefault();
+              return false;
+            }}
+            {...params}
+          />
+        )}
       />
     </RangeDatePickerWRapper>
   );

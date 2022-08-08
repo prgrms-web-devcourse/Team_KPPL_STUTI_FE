@@ -1,10 +1,13 @@
 import * as Yup from 'yup';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
 import {
   topicOptions,
   regionOptions,
   recruitsNumberOptions,
+  topicValues,
+  regionValues,
+  recruitsNumberValues,
 } from '@src/constants/selectOptions';
 import {
   MultiLineInput,
@@ -41,7 +44,17 @@ import {
   StudyDescriptionWrapper,
   TopicWrapper,
   SpinnerWrapper,
+  MbtiSelectWrapper,
 } from './style';
+
+interface formikData {
+  isOnline: string;
+  title: string;
+  topic: string;
+  region: string;
+  numberOfRecruits: string;
+  description: string;
+}
 
 const radioValues = [
   {
@@ -74,12 +87,22 @@ const recommendMbtis = {
 };
 
 const CreateSchema = Yup.object({
+  isOnline: Yup.string(),
   title: Yup.string()
     .trim('앞, 뒤 공백을 제거해주세요.')
     .strict()
     .max(50, '50자를 넘을 수 없습니다.')
     .min(5, '최소 5자 이상입니다.')
     .required('제목을 입력해주세요.'),
+  topic: Yup.string().oneOf(topicValues).required('분야를 선택해주세요.'),
+  region: Yup.string().when(['isOnline'], {
+    is: 'offline',
+    then: Yup.string().oneOf(regionValues).required('분야를 선택해주세요.'),
+    otherwise: Yup.string(),
+  }),
+  numberOfRecruits: Yup.string()
+    .oneOf(recruitsNumberValues)
+    .required('인원을 선택해주세요.'),
   description: Yup.string()
     .trim()
     .max(1000, '1,000자를 넘을 수 없습니다.')
@@ -88,10 +111,6 @@ const CreateSchema = Yup.object({
 });
 
 function StudyCreateFormContainer() {
-  const [topic, setTopic] = useState<string>('');
-  const [recruitsNumber, setRecruitsNumber] = useState<string>('');
-  const [region, setRegion] = useState<string>('');
-  const [isOnline, setIsOnline] = useState<boolean>(true);
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
   const [mbtiPreference, setMbtiPreference] = useState(true);
@@ -99,9 +118,6 @@ function StudyCreateFormContainer() {
   const [imageSrc, setImageSrc] = useState<File | null>(null);
   const [thumbnailImage, setThumbnailImage] = useState<string>('');
   const [fileErrorMessage, setFileErrorMessage] = useState<string>('');
-  const [topicErrorMessage, setTopicErrorMessage] = useState<string>('');
-  const [peopleErrorMessage, setPeopleErrorMessage] = useState<string>('');
-  const [regionErrorMessage, setRegionErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const onMbtiSelectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -150,48 +166,6 @@ function StudyCreateFormContainer() {
     setFileErrorMessage('');
   };
 
-  const isOnlineChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setIsOnline(value === 'online' ? true : false);
-  };
-
-  useEffect(() => {
-    if (topic) setTopicErrorMessage('');
-  }, [topic]);
-
-  useEffect(() => {
-    if (recruitsNumber) setPeopleErrorMessage('');
-  }, [recruitsNumber]);
-
-  useEffect(() => {
-    if (!isOnline && region) setRegionErrorMessage('');
-  }, [region]);
-
-  const checkSelectOptions = () => {
-    if (!topic) {
-      setTopicErrorMessage('분야를 선택해주세요');
-    }
-    if (!recruitsNumber) {
-      setPeopleErrorMessage('인원수를 선택해주세요');
-    }
-    if (!isOnline && !region) {
-      setRegionErrorMessage('지역을 선택해주세요.');
-    }
-  };
-
-  const handleTopic = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setTopic(value);
-  };
-  const handleRegion = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setRegion(value);
-  };
-  const handleRecruitsNumber = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setRecruitsNumber(value);
-  };
-
   const getStartDate = (value: string) => {
     setStartDate(value);
   };
@@ -199,21 +173,15 @@ function StudyCreateFormContainer() {
     setEndDate(value);
   };
 
-  const checkError = () => {
-    const isError =
-      topicErrorMessage ||
-      peopleErrorMessage ||
-      (!isOnline && regionErrorMessage);
-    return isError;
-  };
-
-  const createFormData = (title: string, description: string) => {
+  const createFormData = (values: formikData) => {
     const formData = new FormData();
+    const { title, topic, isOnline, region, numberOfRecruits, description } =
+      values;
     formData.append('title', title);
     formData.append('topic', topic);
-    formData.append('isOnline', isOnline.toString());
-    formData.append('region', isOnline ? '' : region);
-    formData.append('numberOfRecruits', recruitsNumber);
+    formData.append('isOnline', isOnline === 'online' ? 'true' : 'false');
+    formData.append('region', isOnline === 'online' ? '' : region);
+    formData.append('numberOfRecruits', numberOfRecruits);
     formData.append('startDateTime', startDate);
     formData.append('endDateTime', endDate);
     formData.append('preferredMBTIs', JSON.stringify(mbtiCheckedList));
@@ -225,20 +193,18 @@ function StudyCreateFormContainer() {
   return (
     <Formik
       initialValues={{
+        isOnline: radioValues[0].value,
         title: '',
+        topic: '',
+        region: '',
+        numberOfRecruits: '',
         description: '',
       }}
       validationSchema={CreateSchema}
       onSubmit={(values, actions) => {
         actions.setSubmitting(true);
-        if (checkError()) {
-          actions.setSubmitting(false);
-          return;
-        }
-        const formData = createFormData(
-          values.title,
-          values.description.trim(),
-        );
+
+        const formData = createFormData(values);
 
         setTimeout(() => {
           for (const key of formData.keys()) {
@@ -248,7 +214,14 @@ function StudyCreateFormContainer() {
         }, 3000);
       }}
     >
-      {({ handleSubmit, getFieldProps, isSubmitting, touched, errors }) => {
+      {({
+        handleSubmit,
+        handleChange,
+        values,
+        isSubmitting,
+        touched,
+        errors,
+      }) => {
         return (
           <form onSubmit={handleSubmit}>
             <StudyCreateWrapper>
@@ -256,23 +229,25 @@ function StudyCreateFormContainer() {
               <InputWrapper>
                 <Field
                   as={LabelInput}
-                  label='스터디명'
                   id='title'
+                  name='title'
+                  label='스터디명'
                   error={touched.title && errors.title ? true : false}
-                  helperText={errors.title}
-                  {...getFieldProps('title')}
+                  helperText={touched.title && errors.title}
+                  onChange={handleChange}
                 />
               </InputWrapper>
               <TopicWrapper>
                 <Select
                   id='topic'
+                  name='topic'
                   label='분야'
-                  value={topic}
+                  value={values.topic}
                   options={topicOptions}
                   fullWidth={true}
-                  onChange={handleTopic}
-                  error={topicErrorMessage ? true : false}
-                  helperText={topicErrorMessage}
+                  onChange={handleChange}
+                  error={touched.topic && errors.topic ? true : false}
+                  helperText={touched.topic && errors.topic}
                 />
               </TopicWrapper>
               <LocationWrapper>
@@ -280,33 +255,38 @@ function StudyCreateFormContainer() {
                   defaultValue={radioValues[0].value}
                   labels={radioValues}
                   name='isOnline'
+                  value={values.isOnline}
                   row={true}
-                  onChange={isOnlineChange}
+                  onChange={handleChange}
                 />
                 <Select
                   id='region'
+                  name='region'
                   label='지역'
                   options={regionOptions}
-                  value={region}
+                  value={values.region}
                   fullWidth={true}
-                  onChange={handleRegion}
-                  error={!isOnline && regionErrorMessage ? true : false}
-                  helperText={
-                    (!isOnline && regionErrorMessage) ?? regionErrorMessage
-                  }
-                  disabled={isOnline ? true : false}
+                  onChange={handleChange}
+                  error={touched.region && errors.region ? true : false}
+                  helperText={touched.region && errors.region}
+                  disabled={values.isOnline === 'online' ? true : false}
                 />
               </LocationWrapper>
               <PeopleWrapper>
                 <Select
-                  id='study-number-of-people'
+                  id='numberOfRecruits'
+                  name='numberOfRecruits'
                   label='인원'
                   options={recruitsNumberOptions}
-                  value={recruitsNumber}
+                  value={values.numberOfRecruits}
                   fullWidth={true}
-                  onChange={handleRecruitsNumber}
-                  error={peopleErrorMessage ? true : false}
-                  helperText={peopleErrorMessage}
+                  onChange={handleChange}
+                  error={
+                    touched.numberOfRecruits && Boolean(errors.numberOfRecruits)
+                  }
+                  helperText={
+                    touched.numberOfRecruits && errors.numberOfRecruits
+                  }
                 />
               </PeopleWrapper>
               <RangeDatePicker
@@ -332,12 +312,14 @@ function StudyCreateFormContainer() {
                   />
                 </MbtiHeadingWrapper>
                 <MbtiRecommend mbtis={recommendMbtis['INFJ']} />
-                <MbtiSelect
-                  onChange={onMbtiSelectChange}
-                  disabled={mbtiPreference ? false : true}
-                  limit={mbtiCheckedList.length}
-                  checkedList={mbtiCheckedList}
-                />
+                <MbtiSelectWrapper>
+                  <MbtiSelect
+                    onChange={onMbtiSelectChange}
+                    disabled={mbtiPreference ? false : true}
+                    limit={mbtiCheckedList.length}
+                    checkedList={mbtiCheckedList}
+                  />
+                </MbtiSelectWrapper>
               </MbtiWrapper>
               <FileUploadWrapper>
                 <Typography variant='h5'>대표 이미지</Typography>
@@ -365,23 +347,20 @@ function StudyCreateFormContainer() {
                 <Typography variant='h5'>상세 설명</Typography>
                 <Field
                   as={MultiLineInput}
-                  label='상세 설명'
                   id='description'
+                  name='description'
+                  label='상세 설명'
                   placeholder='스터디 내용을 기재해주세요.'
                   height='500px'
                   error={
                     touched.description && errors.description ? true : false
                   }
-                  helperText={errors.description}
-                  {...getFieldProps('description')}
+                  helperText={touched.description && errors.description}
+                  onChange={handleChange}
                 />
               </StudyDescriptionWrapper>
-              <Button
-                type='submit'
-                onClick={checkSelectOptions}
-                disabled={isSubmitting}
-              >
-                제출
+              <Button type='submit' disabled={isSubmitting}>
+                {isSubmitting ? <SpinnerIcon /> : '제출'}
               </Button>
             </StudyCreateWrapper>
           </form>

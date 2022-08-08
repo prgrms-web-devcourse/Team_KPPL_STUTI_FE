@@ -2,6 +2,7 @@ import TextField from '@mui/material/TextField';
 
 interface Props {
   id: string;
+  name: string;
   label: string;
   fullWidth?: boolean;
   value?: string;
@@ -12,6 +13,7 @@ interface Props {
 
 function StudyCreateLabelInput({
   id,
+  name,
   label,
   fullWidth = true,
   value,
@@ -22,6 +24,7 @@ function StudyCreateLabelInput({
   return (
     <TextField
       id={id}
+      name={name}
       label={label}
       fullWidth={fullWidth}
       value={value}
