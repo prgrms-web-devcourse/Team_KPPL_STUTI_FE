@@ -13,3 +13,4 @@ export { default as ProfileDetailInfoSection } from './ProfileDetail/InfoSection
 export { default as ProfileDetailContentSection } from './ProfileDetail/ContentSection/ContentSection';
 export { default as ProfileEditFormSection } from './ProfileEdit/EditFormSection/EditFormSection';
 export { default as NavigationHeader } from './NavigationHeader/NavigationHeader';
+export { default as FlashAlert } from './FlashAlert/FlashAlert';

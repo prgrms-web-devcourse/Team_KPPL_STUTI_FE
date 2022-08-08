@@ -27,7 +27,7 @@
   "numberOfApplicant": 2,
   "studyApplicants": [
     {
-      "studyGroupMemberId": 2,
+      "studyGroupMemberId": 3,
       "profileImageUrl": "https://picsum.photos/100",
       "nickname": "지원자1",
       "field": "프론트엔드",
@@ -36,7 +36,7 @@
       "studyGroupMemberRole": "APPLICANT"
     },
     {
-      "studyGroupMemberId": 3,
+      "studyGroupMemberId": 4,
       "profileImageUrl": "https://picsum.photos/100",
       "nickname": "지원자2",
       "field": "프론트엔드",

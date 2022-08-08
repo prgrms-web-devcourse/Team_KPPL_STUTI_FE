@@ -14,9 +14,8 @@ export const StudyDetailButtonWrapper = styled.div`
 `;
 
 export const LoadingWrapper = styled.div`
-  display: flex;
-  width: 100vw;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
