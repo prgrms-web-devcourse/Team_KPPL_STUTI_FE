@@ -3,7 +3,7 @@ export interface CommunityPostType {
   memberId: number;
   nickname: string;
   mbti: string;
-  createdAt: string;
+  updatedAt: string;
   profileImageUrl?: string;
   contents: string;
   postImageUrl: string;

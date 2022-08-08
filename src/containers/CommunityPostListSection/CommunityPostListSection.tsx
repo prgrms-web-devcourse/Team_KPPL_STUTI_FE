@@ -32,8 +32,10 @@ function CommunityPostListSection() {
   }, [postTarget]);
 
   const observerCallback = (entries: any, observer: any) => {
-    console.log(entries[0].target.prop);
-    entries.forEach((entry: any) => console.log(entry));
+    if (entries[0].isIntersecting) {
+      //맨 마지막
+      console.log(entries[0]);
+    }
   };
 
   return (
@@ -45,7 +47,7 @@ function CommunityPostListSection() {
           memberId={post.memberId} //post작성한 사람id
           nickname={post.nickname}
           mbti={post.mbti}
-          createdAt={post.createdAt}
+          updatedAt={post.updatedAt}
           profileImageUrl={post.profileImageUrl}
           contents={post.contents}
           postImageUrl={post.postImageUrl}

@@ -7,6 +7,7 @@ import React, {
   forwardRef,
   useEffect,
 } from 'react';
+import moment from 'moment';
 import { AxiosError, AxiosResponse } from 'axios';
 import { selectQuestion, setQuestions } from '@store/slices/question';
 import { errorType } from '@src/interfaces/error';
@@ -42,7 +43,7 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
     postId,
     memberId,
     nickname,
-    createdAt,
+    updatedAt,
     profileImageUrl,
     contents,
     postImageUrl,
@@ -142,7 +143,7 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
             {nickname}
           </Typography>
         }
-        subheader={createdAt}
+        subheader={moment(updatedAt, 'YYYY-MM-DD hh:mm:ss').fromNow()}
         sx={{ paddingBottom: '0' }}
       />
       <CardContent sx={{ paddingBottom: '0' }}>
