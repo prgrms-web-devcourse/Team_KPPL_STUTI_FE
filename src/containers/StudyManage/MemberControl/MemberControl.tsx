@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import { openAlert } from '@store/slices/flashAlert';
 import {
-  studyManagestudyApplicantsType,
+  studyManageStudyApplicantsType,
   studyManageMemberType,
 } from '@src/interfaces/studyManage';
 import { errorType } from '@src/interfaces/error';
@@ -23,7 +23,7 @@ interface Props {
   numberOfRecruits: number;
   numberOfApplicant: number;
   studyMembers: studyManageMemberType[];
-  studyApplicants: studyManagestudyApplicantsType[];
+  studyApplicants: studyManageStudyApplicantsType[];
   studyGroupId: string;
 }
 
@@ -37,7 +37,7 @@ function MemberControl({
 }: Props) {
   const [members, setMembers] = useState<studyManageMemberType[]>([]);
   const [applicants, setApplicants] = useState<
-    studyManagestudyApplicantsType[]
+    studyManageStudyApplicantsType[]
   >([]);
   const [memberNumber, setMemberNumber] = useState(0);
   const [applicantNumber, setApplicantNumber] = useState(0);
@@ -128,7 +128,7 @@ function MemberControl({
   };
 
   const deleteApplicants = (
-    array: Array<studyManagestudyApplicantsType>,
+    array: Array<studyManageStudyApplicantsType>,
     targetId: number,
   ) => {
     const filterArray = array.filter(
@@ -149,20 +149,20 @@ function MemberControl({
 
   const acceptApplicantToMember = (
     studyGroupId: string,
-    applicant: studyManagestudyApplicantsType,
+    applicant: studyManageStudyApplicantsType,
     studyMembers: studyManageMemberType[],
     applicantID: number,
-    studyApplicants: studyManagestudyApplicantsType[],
+    studyApplicants: studyManageStudyApplicantsType[],
   ) => {
     acceptStudyMember(studyGroupId, applicantID);
-    const newArray = [
+    const newMembersList = [
       ...studyMembers,
       {
         ...applicant,
         studyGroupMemberRole: 'MEMBER',
       },
     ];
-    setMembers(newArray);
+    setMembers(newMembersList);
     setMemberNumber((prevState) => (prevState += 1));
     deleteApplicants(studyApplicants, applicantID);
   };
@@ -170,7 +170,11 @@ function MemberControl({
   return (
     <MemberControlContainer>
       <UserInfoContainer>
-        <Typography variant='h5'>{`멤버: ${memberNumber}명 / ${numberOfRecruits}명`}</Typography>
+        <Typography variant='h5'>
+          {memberNumber === 0
+            ? '멤버가 아직 없습니다.'
+            : `멤버: ${memberNumber}명 / ${numberOfRecruits}명`}
+        </Typography>
         {members.map((member) => {
           const {
             studyGroupMemberId: memberID,
@@ -206,8 +210,11 @@ function MemberControl({
         })}
       </UserInfoContainer>
       <UserInfoContainer>
-        <Typography variant='h5'>{`지원자: ${applicantNumber}명`}</Typography>
-
+        <Typography variant='h5'>
+          {applicantNumber === 0
+            ? '지원자가 없습니다.'
+            : `지원자: ${applicantNumber}명`}
+        </Typography>
         {applicants.length > 0 ? (
           applicants.map((applicant) => {
             const {

@@ -19,6 +19,7 @@ import { deleteStudy, getStudyManageInfomation } from '@apis/studyManage';
 function StudyManage() {
   const [data, setData] = useState({} as studyManageType);
   const [loading, setLoading] = useState(false);
+  const [deleteStudyLoading, setDeleteStudyLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -65,8 +66,10 @@ function StudyManage() {
     studyId: string,
     e: React.MouseEvent<HTMLAnchorElement>,
   ) => {
+    setDeleteStudyLoading(true);
     try {
       await deleteStudy(studyId);
+      setDeleteStudyLoading(false);
       dispatch(
         openAlert({
           severity: 'success',
@@ -76,6 +79,7 @@ function StudyManage() {
       );
       handleClickLink(e);
     } catch (error) {
+      setDeleteStudyLoading(false);
       dispatch(
         openAlert({
           severity: 'error',
@@ -117,15 +121,21 @@ function StudyManage() {
             >
               스터디 수정
             </Button>
-            <Button
-              component={Link}
-              to={'/'}
-              fullWidth
-              color='error'
-              onClick={onClickStudyDelete}
-            >
-              스터디 삭제
-            </Button>
+            {deleteStudyLoading ? (
+              <Button sx={{ height: '3rem' }} fullWidth color='error'>
+                <SpinnerIcon />
+              </Button>
+            ) : (
+              <Button
+                component={Link}
+                to={'/'}
+                fullWidth
+                color='error'
+                onClick={onClickStudyDelete}
+              >
+                스터디 삭제
+              </Button>
+            )}
           </StudyManageButtonWrapper>
           <StudyManageMemberControl
             numberOfApplicant={data.numberOfApplicant}
