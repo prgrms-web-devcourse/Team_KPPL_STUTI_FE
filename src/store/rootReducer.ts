@@ -10,8 +10,8 @@ import comment from './slices/comment';
 const reducer = combineReducers({
   counter,
   question,
-<<<<<<< HEAD
   flashAlert,
+<<<<<<< HEAD
 <<<<<<< HEAD
   user,
 =======
@@ -19,6 +19,9 @@ const reducer = combineReducers({
   comment,
 >>>>>>> 5dccd94 (refactor: CommunityPostComments으로 변경 & props 변경)
 >>>>>>> 9112700 (refactor: CommunityPostComments으로 변경 & props 변경)
+=======
+  comment,
+>>>>>>> 53fcea9 (chore: check incoming, current)
 });
 
 export default reducer;
