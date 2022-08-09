@@ -14,7 +14,7 @@ export const login = async (id: number) => {
 };
 
 export const getAuthUser = async () => {
-  const { data } = await axiosInstance({
+  const { data } = await axiosAuthInstance({
     baseURL: process.env.REACT_APP_API_ENDPOINT,
     url: '/api/v1/auth',
     method: 'GET',
