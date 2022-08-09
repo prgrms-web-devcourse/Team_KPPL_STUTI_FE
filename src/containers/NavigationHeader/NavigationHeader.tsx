@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { selectUser, loginUser, logoutUser } from '@src/store/slices/user';
+import { selectUser, logoutUser } from '@src/store/slices/user';
 import LogoIcon from '@src/components/LogoIcon/LogoIcon';
 import GoogleIcon from '@src/components/GoogleIcon/GoogleIcon';
 import GitHubIcon from '@src/components/GitHubIcon/GitHubIcon';
-import { login } from '@src/apis/user';
 import {
   Avatar,
   ClickAwayListener,
@@ -58,11 +57,9 @@ function NavigationHeader() {
     setIsModalOpen(false);
   };
 
-  const handleLogin = async () => {
+  const handleLogin = () => {
     handleMenuClose();
     handleModalClose();
-    const res = await login(1);
-    dispatch(loginUser(res.member));
   };
 
   const handleLogout = () => {
@@ -151,26 +148,34 @@ function NavigationHeader() {
                         로그인/회원가입
                       </Typography>
                       <LoginButtonContainer>
-                        <LoginButton
-                          variant='outlined'
-                          color='secondary'
-                          onClick={handleLogin}
+                        <a
+                          href={`${process.env.REACT_APP_API_HOST}/oauth2/authorization/google`}
                         >
-                          <GoogleIcon />
-                          <ButtonTextWrapper>
-                            구글 계정으로 계속하기
-                          </ButtonTextWrapper>
-                        </LoginButton>
-                        <LoginButton
-                          variant='outlined'
-                          color='secondary'
-                          onClick={handleLogin}
+                          <LoginButton
+                            variant='outlined'
+                            color='secondary'
+                            onClick={handleLogin}
+                          >
+                            <GoogleIcon />
+                            <ButtonTextWrapper>
+                              구글 계정으로 계속하기
+                            </ButtonTextWrapper>
+                          </LoginButton>
+                        </a>
+                        <a
+                          href={`${process.env.REACT_APP_API_HOST}/oauth2/authorization/google`}
                         >
-                          <GitHubIcon />
-                          <ButtonTextWrapper>
-                            깃허브 계정으로 계속하기
-                          </ButtonTextWrapper>
-                        </LoginButton>
+                          <LoginButton
+                            variant='outlined'
+                            color='secondary'
+                            onClick={handleLogin}
+                          >
+                            <GitHubIcon />
+                            <ButtonTextWrapper>
+                              깃허브 계정으로 계속하기
+                            </ButtonTextWrapper>
+                          </LoginButton>
+                        </a>
                       </LoginButtonContainer>
                     </ModalWrapper>
                   </ModalContainer>
