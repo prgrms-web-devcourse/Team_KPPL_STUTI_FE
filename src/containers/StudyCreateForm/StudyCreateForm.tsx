@@ -186,7 +186,6 @@ function StudyCreateFormContainer() {
     formData.append('topic', topic);
     formData.append('isOnline', isOnline === 'online' ? 'true' : 'false');
     if (isOnline === 'offline') formData.append('region', region);
-    //formData.append('region', isOnline === 'online' ? '' : region);
     formData.append('numberOfRecruits', numberOfRecruits);
     formData.append('startDateTime', startDate);
     formData.append('endDateTime', endDate);

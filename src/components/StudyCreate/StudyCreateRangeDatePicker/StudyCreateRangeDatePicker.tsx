@@ -23,10 +23,10 @@ function StudyCreateRangeDatePicker({
   const diffDays = moment.duration(startDate.diff(moment())).asDays() + 1;
 
   useEffect(() => {
-    getStartValue(startDate.format('YYYY-MM-DD hh:mm:ss'));
+    getStartValue(startDate.format('YYYY-MM-DD HH:mm:ss'));
   }, [startDate]);
   useEffect(() => {
-    getEndValue(endDate.format('YYYY-MM-DD hh:mm:ss'));
+    getEndValue(endDate.format('YYYY-MM-DD HH:mm:ss'));
   }, [endDate]);
 
   return (
