@@ -155,7 +155,7 @@ function NavigationHeader() {
                       <LoginButtonContainer>
                         <a
                           href={`${
-                            process.env.REACT_APP_API_END_POINT + googleUrl
+                            process.env.REACT_APP_API_ENDPOINT + googleUrl
                           }`}
                         >
                           <LoginButton
@@ -171,7 +171,7 @@ function NavigationHeader() {
                         </a>
                         <a
                           href={`${
-                            process.env.REACT_APP_API_END_POINT + googleUrl
+                            process.env.REACT_APP_API_ENDPOINT + googleUrl
                           }`}
                         >
                           <LoginButton
