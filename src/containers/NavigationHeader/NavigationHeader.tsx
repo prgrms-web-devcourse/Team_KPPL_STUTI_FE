@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { selectUser, logoutUser } from '@src/store/slices/user';
+import { googleUrl } from '@src/constants/oauth';
 import LogoIcon from '@src/components/LogoIcon/LogoIcon';
 import GoogleIcon from '@src/components/GoogleIcon/GoogleIcon';
 import GitHubIcon from '@src/components/GitHubIcon/GitHubIcon';
@@ -149,7 +150,9 @@ function NavigationHeader() {
                       </Typography>
                       <LoginButtonContainer>
                         <a
-                          href={`${process.env.REACT_APP_API_HOST}/oauth2/authorization/google`}
+                          href={`${
+                            process.env.REACT_APP_OAUTH_URL + googleUrl
+                          }`}
                         >
                           <LoginButton
                             variant='outlined'
@@ -163,7 +166,9 @@ function NavigationHeader() {
                           </LoginButton>
                         </a>
                         <a
-                          href={`${process.env.REACT_APP_API_HOST}/oauth2/authorization/google`}
+                          href={`${
+                            process.env.REACT_APP_OAUTH_URL + googleUrl
+                          }`}
                         >
                           <LoginButton
                             variant='outlined'
