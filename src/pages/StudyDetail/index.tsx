@@ -1,15 +1,18 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
+import { selectUser } from '@store/slices/user';
 import { selectQuestion, setQuestions } from '@store/slices/question';
 import { openAlert } from '@store/slices/flashAlert';
+import { HOME } from '@router/path';
 import {
   LoadingWrapper,
   StudyDetailButtonWrapper,
   StudyDetailContainer,
 } from '@pages/StudyDetail/style';
 import { Button } from '@mui/material';
+import { UserProfileType } from '@interfaces/userProfile';
 import { studyDetailQuestionType } from '@interfaces/studyDetailQuestion';
 import { detailMemberType, studyDetailType } from '@interfaces/studyDetail';
 import { errorType } from '@interfaces/error';
@@ -38,6 +41,25 @@ function StudyDetail() {
   const questions = useSelector(selectQuestion);
   const dispatch = useDispatch();
 
+  type userType = {
+    user: UserProfileType;
+    isLogin: boolean;
+  };
+
+  const { user, isLogin } = useSelector(selectUser) as userType;
+
+  const isLoginUserStudy = (user: UserProfileType) => {
+    if (!isLogin) return false;
+
+    if (!user) return false;
+
+    if (user.id !== getLeaderInfo().memberId) return false;
+
+    return true;
+  };
+
+  const navigate = useNavigate();
+
   const { study_id = '0' } = useParams();
 
   const initialSize = 5;
@@ -48,6 +70,22 @@ function StudyDetail() {
         const res = await getStudyDetailInfomation(study_id);
         setData(res);
       } catch (error) {
+        console.error(error);
+        const { response } = error as AxiosError;
+        const { data }: { data: errorType } = response as AxiosResponse;
+        const { errorCode } = data;
+
+        if (errorCode === 'SG002') {
+          dispatch(
+            openAlert({
+              severity: 'error',
+              title: '스터디 그룹을 찾지 못했습니다!',
+              content: '홈으로 갔다가 다시 시도해주세요!',
+            }),
+          );
+          return;
+        }
+
         dispatch(
           openAlert({
             severity: 'error',
@@ -55,10 +93,6 @@ function StudyDetail() {
             content: '스터디 상세 정보를 가져오는데 실패했습니다.',
           }),
         );
-        console.error(error);
-        const { response } = error as AxiosError;
-        const { data }: { data: errorType } = response as AxiosResponse;
-        const { errorCode } = data;
       }
     };
 
@@ -70,6 +104,22 @@ function StudyDetail() {
         );
         dispatch(setQuestions(res));
       } catch (error) {
+        console.error(error);
+        const { response } = error as AxiosError;
+        const { data }: { data: errorType } = response as AxiosResponse;
+        const { errorCode } = data;
+
+        if (errorCode === 'SG002') {
+          dispatch(
+            openAlert({
+              severity: 'error',
+              title: '스터디 그룹을 찾지 못했습니다!',
+              content: '홈으로 갔다가 다시 시도해주세요!',
+            }),
+          );
+          return;
+        }
+
         dispatch(
           openAlert({
             severity: 'error',
@@ -77,10 +127,6 @@ function StudyDetail() {
             content: '스터디 질문 정보를 가져오는데 실패했습니다.',
           }),
         );
-        console.error(error);
-        const { response } = error as AxiosError;
-        const { data }: { data: errorType } = response as AxiosResponse;
-        const { errorCode } = data;
       }
     };
 
@@ -90,10 +136,10 @@ function StudyDetail() {
     });
   }, []);
 
-  const getPreferredMbtis = () => {
-    const { preferredMbtis = [] } = data;
+  const getpreferredMBTIs = () => {
+    const { preferredMBTIs = [] } = data;
 
-    return preferredMbtis;
+    return preferredMBTIs;
   };
 
   const getTopic = () => {
@@ -124,6 +170,7 @@ function StudyDetail() {
     const { leader = {} as detailMemberType } = data;
 
     const {
+      memberId,
       profileImageUrl = '',
       nickname = '',
       field = '',
@@ -131,7 +178,7 @@ function StudyDetail() {
       mbti = '',
     } = leader;
 
-    return { profileImageUrl, nickname, field, career, mbti };
+    return { memberId, profileImageUrl, nickname, field, career, mbti };
   };
 
   const getIsOnline = () => {
@@ -179,6 +226,17 @@ function StudyDetail() {
   };
 
   const enterStudyGroup = async (study_id: string) => {
+    if (!user) {
+      dispatch(
+        openAlert({
+          severity: 'warning',
+          title: '로그인이 필요한 서비스입니다!',
+          content: '로그인을 먼저하고 지원부탁드려요~!',
+        }),
+      );
+      return;
+    }
+
     try {
       await joinStudyGroup(study_id);
       dispatch(
@@ -189,6 +247,33 @@ function StudyDetail() {
         }),
       );
     } catch (error) {
+      console.error(error);
+      const { response } = error as AxiosError;
+      const { data }: { data: errorType } = response as AxiosResponse;
+      const { errorCode } = data;
+      if (errorCode === 'SG003') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '이미 가입하신 스터디입니다!',
+            content: '가입하신 스터디로 확인됩니다~',
+          }),
+        );
+        return;
+      }
+
+      if (errorCode === 'SG005') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '유저정보를 찾는데 실패했습니다!',
+            content: '다시 로그인하여 시도해주세요!',
+          }),
+        );
+        navigate(HOME, { replace: true });
+        return;
+      }
+
       dispatch(
         openAlert({
           severity: 'error',
@@ -196,13 +281,6 @@ function StudyDetail() {
           content: '스터디 그룹에 지원하는데 실패했습니다.',
         }),
       );
-      console.error(error);
-      const { response } = error as AxiosError;
-      const { data }: { data: errorType } = response as AxiosResponse;
-      const { errorCode } = data;
-      if (errorCode === 'SG003') {
-        alert('이미 신청한 스터디입니다!');
-      }
     }
   };
 
@@ -219,22 +297,24 @@ function StudyDetail() {
             title={getTitle()}
             imageUrl={getImageUrl()}
           />
-          <StudyDetailButtonWrapper>
-            <Button
-              component={Link}
-              to={`/study/${data.studyGroupId}/edit`}
-              fullWidth
-            >
-              스터디 수정
-            </Button>
-            <Button
-              component={Link}
-              to={`/study/${data.studyGroupId}/manage`}
-              fullWidth
-            >
-              스터디 관리
-            </Button>
-          </StudyDetailButtonWrapper>
+          {isLoginUserStudy(user) && (
+            <StudyDetailButtonWrapper>
+              <Button
+                component={Link}
+                to={`/study/${data.studyGroupId}/edit`}
+                fullWidth
+              >
+                스터디 수정
+              </Button>
+              <Button
+                component={Link}
+                to={`/study/${data.studyGroupId}/manage`}
+                fullWidth
+              >
+                스터디 관리
+              </Button>
+            </StudyDetailButtonWrapper>
+          )}
           <UserInfo
             title='리더 정보'
             profileImageUrl={getLeaderInfo().profileImageUrl}
@@ -243,7 +323,7 @@ function StudyDetail() {
             career={getLeaderInfo().career}
             mbti={getLeaderInfo().mbti}
           />
-          <StudyDetailMbtiRecommend preferredMbtis={getPreferredMbtis()} />
+          <StudyDetailMbtiRecommend preferredMBTIs={getpreferredMBTIs()} />
           <StudyDetailStudyInfo
             isOnline={getIsOnline()}
             region={getRegion()}
@@ -262,11 +342,14 @@ function StudyDetail() {
             title='질문 & 답변'
           />
           <Button
+            disabled={isLoginUserStudy(user)}
             onClick={() => {
               enterStudyGroup(study_id);
             }}
           >
-            지원하기
+            {isLoginUserStudy(user)
+              ? '자신이 만든 스터디에는 지원할 수 없습니다'
+              : '지원하기'}
           </Button>
         </>
       )}
