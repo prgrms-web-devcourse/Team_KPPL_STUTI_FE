@@ -2,6 +2,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import {
   COMMUNITY,
   HOME,
+  LOGIN,
   PROFILE_DETAIL,
   PROFILE_EDIT,
   SIGN_UP,
@@ -15,6 +16,7 @@ import StudyEdit from '@src/pages/StudyEdit';
 import StudyDetail from '@src/pages/StudyDetail';
 import StudyCreate from '@src/pages/StudyCreate';
 import SignUp from '@src/pages/SignUp';
+import Login from '@src/pages/Login';
 import Community from '@src/pages/Community';
 import Layout from '@src/layout/Layout';
 import { Home, NotFound, ProfileDetail, ProfileEdit } from '@pages';
@@ -34,6 +36,7 @@ function Routers() {
           <Route path={STUDY_MANAGE} element={<StudyManage />} />
           <Route path={SIGN_UP} element={<SignUp />} />
         </Route>
+        <Route path={LOGIN} element={<Login />} />
         <Route path='/*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
