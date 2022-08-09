@@ -1,6 +1,9 @@
 import * as Yup from 'yup';
+import { useNavigate } from 'react-router';
 import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
+import { AxiosError, AxiosResponse } from 'axios';
+import { errorType } from '@src/interfaces/error';
 import {
   topicOptions,
   regionOptions,
@@ -22,6 +25,7 @@ import {
 } from '@src/components/StudyCreate';
 import Select from '@src/components/Select/Select';
 import { SpinnerIcon } from '@src/components';
+import { createNewStudy } from '@src/apis/studyCreate';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -119,6 +123,7 @@ function StudyCreateFormContainer() {
   const [thumbnailImage, setThumbnailImage] = useState<string>('');
   const [fileErrorMessage, setFileErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const onMbtiSelectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checkedMbti = e.target.value;
@@ -180,14 +185,30 @@ function StudyCreateFormContainer() {
     formData.append('title', title);
     formData.append('topic', topic);
     formData.append('isOnline', isOnline === 'online' ? 'true' : 'false');
-    formData.append('region', isOnline === 'online' ? '' : region);
+    if (isOnline === 'offline') formData.append('region', region);
+    //formData.append('region', isOnline === 'online' ? '' : region);
     formData.append('numberOfRecruits', numberOfRecruits);
     formData.append('startDateTime', startDate);
     formData.append('endDateTime', endDate);
-    formData.append('preferredMBTIs', JSON.stringify(mbtiCheckedList));
-    formData.append('imageFile', imageSrc ? imageSrc : '');
+    formData.append('preferredMBTIs', mbtiCheckedList.join(', '));
+    if (imageSrc) formData.append('imageFile', imageSrc);
     formData.append('description', description);
     return formData;
+  };
+
+  const createStudy = async (formData: FormData) => {
+    try {
+      const res = await createNewStudy(formData);
+      const { studyGroupId } = res;
+      console.log(studyGroupId);
+      navigate(`/study/${studyGroupId}`, { replace: true });
+      return res;
+    } catch (error) {
+      console.error(error);
+      const { response } = error as AxiosError;
+      const { data }: { data: errorType } = response as AxiosResponse;
+      const { errorCode } = data;
+    }
   };
 
   return (
@@ -205,6 +226,7 @@ function StudyCreateFormContainer() {
         actions.setSubmitting(true);
 
         const formData = createFormData(values);
+        createStudy(formData);
 
         setTimeout(() => {
           for (const key of formData.keys()) {
