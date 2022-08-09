@@ -66,6 +66,7 @@ function NavigationHeader() {
 
   const handleLogout = async () => {
     await logout();
+    localStorage.removeItem('token');
     dispatch(logoutUser());
   };
 
