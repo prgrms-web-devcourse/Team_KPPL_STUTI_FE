@@ -1,4 +1,4 @@
-import axiosInstance from '@apis/axiosInstance';
+import axiosInstance, { axiosAuthInstance } from '@apis/axiosInstance';
 
 export const login = async (id: number) => {
   const { data } = await axiosInstance({
@@ -24,7 +24,7 @@ export const getAuthUser = async () => {
 };
 
 export const logout = async () => {
-  const { data } = await axiosInstance({
+  const { data } = await axiosAuthInstance({
     baseURL: process.env.REACT_APP_API_ENDPOINT,
     url: '/api/v1/logout',
     method: 'POST',
