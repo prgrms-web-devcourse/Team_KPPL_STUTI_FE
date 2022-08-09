@@ -28,7 +28,7 @@ export const commentSlice = createSlice({
     ) => {
       state.value = action.payload;
     },
-    addQuestions: (
+    addComment: (
       state: commentState,
       action: PayloadAction<CommunityPostCommentType>,
     ) => {
@@ -139,7 +139,7 @@ export const selectComment = (state: RootState) => state.comment.value;
 
 export const {
   setComment,
-  addQuestions,
+  addComment,
   addNewComment,
   changeComment,
   deleteComment,

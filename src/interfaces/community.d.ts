@@ -29,6 +29,7 @@ export interface CommunityModalType {
 
 interface CommunityPostMenuIconButtonType {
   postId: string;
+  memberId: number;
   nickname: string;
   profileImageUrl?: string;
   contents: string;
