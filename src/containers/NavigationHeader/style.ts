@@ -124,6 +124,7 @@ export const LoginButtonContainer = styled.div`
 export const LoginButton = styled(Button)`
   justify-content: start;
   padding: 0.75rem 1.25rem;
+  width: 100%;
 `;
 
 export const ButtonTextWrapper = styled.div`
