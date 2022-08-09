@@ -1,4 +1,6 @@
+import { useSelector } from 'react-redux';
 import React, { useLayoutEffect, useState } from 'react';
+import { selectUser } from '@store/slices/user';
 import CommunityModal from '@src/containers/CommunityModal/CommunityModal';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
@@ -9,6 +11,7 @@ import { deleteCommunityPostApi } from '@apis/community';
 
 function CommunityPostMenuIconButton({
   postId,
+  memberId,
   nickname,
   profileImageUrl,
   contents,
@@ -17,8 +20,12 @@ function CommunityPostMenuIconButton({
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isOpen, setOpen] = useState(false);
   const open = Boolean(anchorEl);
+  const state = useSelector(selectUser);
+
+  const checkMyPost = () => state.user?.id === memberId;
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    if (!checkMyPost()) return;
     setAnchorEl(event.currentTarget);
   };
 

@@ -9,6 +9,7 @@ import React, {
 } from 'react';
 import moment from 'moment';
 import { AxiosError, AxiosResponse } from 'axios';
+import { selectUser } from '@store/slices/user';
 import { setComment } from '@store/slices/comment';
 import { selectComment } from '@src/store/slices/comment';
 import { errorType } from '@src/interfaces/error';
@@ -63,12 +64,16 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   const [commentsError, setCommentsError] = useState(false);
 
   const contentsRef = useRef<HTMLInputElement>(null);
+
   const postComments = useSelector(selectComment);
+  const state = useSelector(selectUser);
   const dispatch = useDispatch();
 
+  const checkLoginAndUser = () => state.isLogin && state.user;
+  const checkLikedMembers = () => likedMembers.includes(state.user?.id as any);
+
   useLayoutEffect(() => {
-    //로그인 한 값이 likedMembers.includes(로그인한 ID)면
-    setLiked({ check: true, count: likedMembers.length });
+    checkLiked();
     if (contentsRef.current) {
       const contentsHeight = contentsRef.current.getBoundingClientRect().height;
       setIsExpand(contentsHeight > 96 ? 4 : 'none');
@@ -87,13 +92,31 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
     };
   }, [commentsError]);
 
+  const checkLiked = () => {
+    switch (true) {
+      case checkLoginAndUser() && checkLikedMembers():
+        setLiked({ check: true, count: likedMembers.length });
+        break;
+      case checkLoginAndUser() && !checkLikedMembers():
+        setLiked({ check: false, count: likedMembers.length });
+        break;
+      default:
+        setLiked({ check: false, count: likedMembers.length });
+        break;
+    }
+  };
+
   const handleLiked = async (e: React.MouseEvent<HTMLElement>) => {
-    if (liked.check) {
-      setLiked({ check: !liked.check, count: (liked.count -= 1) });
-      await deleteCommunityPostLikeApi(postId);
-    } else {
-      setLiked({ check: !liked.check, count: (liked.count += 1) });
-      await postCommunityPostLikeApi(postId);
+    if (!state.isLogin) return;
+    switch (liked.check) {
+      case true:
+        setLiked({ check: false, count: (liked.count -= 1) });
+        await deleteCommunityPostLikeApi(postId);
+        break;
+      case false:
+        setLiked({ check: true, count: (liked.count += 1) });
+        await postCommunityPostLikeApi(postId);
+        break;
     }
   };
 
@@ -105,6 +128,7 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
         postId,
         5,
       );
+      console.log(res);
       dispatch(setComment(res));
     } catch (error) {
       setCommentsError(true);
@@ -130,6 +154,7 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
         action={
           <CommunityPostMenuIconButton
             postId={postId}
+            memberId={memberId}
             nickname={nickname}
             profileImageUrl={profileImageUrl}
             contents={contents}
