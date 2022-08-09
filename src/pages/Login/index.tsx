@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { setStorageItem } from '@src/utils/storage';
 import { loginUser } from '@src/store/slices/user';
 import LogoIcon from '@src/components/LogoIcon/LogoIcon';
 import { login } from '@src/apis/user';
@@ -20,7 +21,7 @@ function Login() {
     try {
       const data = await login(id);
       dispatch(loginUser(data.member));
-      localStorage.setItem('token', data.accesstoken);
+      setStorageItem('token', data.accesstoken);
     } catch (e) {
       console.error(e);
     } finally {

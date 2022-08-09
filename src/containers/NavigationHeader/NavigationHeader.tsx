@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import { removeStorageItem } from '@src/utils/storage';
 import { selectUser, logoutUser } from '@src/store/slices/user';
 import { googleUrl } from '@src/constants/oauth';
 import LogoIcon from '@src/components/LogoIcon/LogoIcon';
@@ -66,7 +67,7 @@ function NavigationHeader() {
 
   const handleLogout = async () => {
     await logout();
-    localStorage.removeItem('token');
+    removeStorageItem('token');
     dispatch(logoutUser());
   };
 
