@@ -1,8 +1,11 @@
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import { selectUser, loginUser, logoutUser } from '@src/store/slices/user';
 import LogoIcon from '@src/components/LogoIcon/LogoIcon';
 import GoogleIcon from '@src/components/GoogleIcon/GoogleIcon';
 import GitHubIcon from '@src/components/GitHubIcon/GitHubIcon';
+import { login } from '@src/apis/user';
 import {
   Avatar,
   ClickAwayListener,
@@ -33,7 +36,8 @@ import {
 
 function NavigationHeader() {
   const theme = useTheme();
-  const [isLogin, setIsLogin] = useState(false);
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
   const [menuEl, setMenuEl] = useState<HTMLElement | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const isMenuOpen = Boolean(menuEl);
@@ -54,14 +58,15 @@ function NavigationHeader() {
     setIsModalOpen(false);
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     handleMenuClose();
     handleModalClose();
-    setIsLogin(true);
+    const res = await login(1);
+    dispatch(loginUser(res.member));
   };
 
   const handleLogout = () => {
-    setIsLogin(false);
+    dispatch(logoutUser());
   };
 
   return (
@@ -82,7 +87,7 @@ function NavigationHeader() {
             </HeaderNavLink>
           </NavContainer>
           <LoginWrapper>
-            {isLogin ? (
+            {user.isLogin ? (
               <>
                 <ClickAwayListener onClickAway={handleMenuClose}>
                   <Avatar

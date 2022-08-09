@@ -1,0 +1,14 @@
+{
+  "member": {
+    "id": 1,
+    "email": "test@test.com",
+    "profileImageUrl": "twetwet",
+    "nickname": "test",
+    "field": "FRONTEND",
+    "career": "JUNIOR",
+    "MBTI": "ABCD",
+    "githubUrl": null,
+    "blogUrl": null
+  },
+  "accesstoken": "qwdqwdqwdqwdqwdqwdqwdqwdqwdqwdqwdqwdqwqdwdq"
+}
