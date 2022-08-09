@@ -1,6 +1,9 @@
 import { useLocation, useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { loginUser } from '@src/store/slices/user';
 import LogoIcon from '@src/components/LogoIcon/LogoIcon';
+import { login } from '@src/apis/user';
 import { CircularProgress, Typography, useTheme } from '@mui/material';
 
 import { LoginContainer } from './style';
@@ -10,10 +13,19 @@ function Login() {
   const theme = useTheme();
   const navigate = useNavigate();
   const qs = new URLSearchParams(search);
-  const id = qs.get('id');
+  const id = Number(qs.get('id'));
+  const dispatch = useDispatch();
 
   const loginRequest = async () => {
-    console.log(id);
+    try {
+      const data = await login(id);
+      dispatch(loginUser(data.member));
+      localStorage.setItem('token', data.accesstoken);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      navigate('/', { replace: true });
+    }
   };
 
   useEffect(() => {
