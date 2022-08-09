@@ -12,13 +12,6 @@ import { AxiosError, AxiosResponse } from 'axios';
 import { setComment } from '@store/slices/comment';
 import { selectComment } from '@src/store/slices/comment';
 import { errorType } from '@src/interfaces/error';
-import CommunityPostTypographyButton from '@src/containers/CommunityPostListSection/CommunityPostTypographyButton/CommunityPostTypographyButton';
-import CommunityPostMenuIconButton from '@src/containers/CommunityPostListSection/CommunityPost/CommunityPostMenuIconButton';
-import {
-  ContentsWrapper,
-  CommunityPostCommentWrapper,
-  CustomCardMedia,
-} from '@src/containers/CommunityPostListSection/CommunityPost/CommunityPost.style';
 import Avatar from '@mui/material/Avatar';
 import {
   CardHeader,
@@ -35,6 +28,13 @@ import {
   CommunityPostType,
   CommunityPostCommentType,
 } from '@interfaces/community';
+import CommunityPostTypographyButton from '@containers/CommunityPostListSection/CommunityPostTypographyButton/CommunityPostTypographyButton';
+import CommunityPostMenuIconButton from '@containers/CommunityPostListSection/CommunityPost/CommunityPostMenuIconButton';
+import {
+  ContentsWrapper,
+  CommunityPostCommentWrapper,
+  CustomCardMedia,
+} from '@containers/CommunityPostListSection/CommunityPost/CommunityPost.style';
 import {
   postCommunityPostLikeApi,
   deleteCommunityPostLikeApi,

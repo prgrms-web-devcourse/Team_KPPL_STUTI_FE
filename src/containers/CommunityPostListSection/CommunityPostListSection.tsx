@@ -4,7 +4,6 @@ import { CommunityType, CommunityPostType } from '@interfaces/community';
 import { getCommunityDataApi } from '@apis/community';
 
 import { CommunityPostWrapper } from './CommunityPostListSection.style';
-
 function CommunityPostListSection() {
   const [communityPostData, setCommunityPostData] = useState<CommunityType>({});
   const [communityPostLists, setCommunityPostLists] = useState<
@@ -15,7 +14,8 @@ function CommunityPostListSection() {
   useLayoutEffect(() => {
     // 맨처음에는 lastPostId를 안 줘야 된다.
     const fetchCommunityData = async () => {
-      const res = await getCommunityDataApi();
+      const res = await getCommunityDataApi(5);
+      //posts가 없을 때 처리
       setCommunityPostData(res);
       setCommunityPostLists(res.posts);
     };

@@ -11,17 +11,8 @@ const reducer = combineReducers({
   counter,
   question,
   flashAlert,
-<<<<<<< HEAD
-<<<<<<< HEAD
   user,
-=======
-=======
   comment,
->>>>>>> 5dccd94 (refactor: CommunityPostComments으로 변경 & props 변경)
->>>>>>> 9112700 (refactor: CommunityPostComments으로 변경 & props 변경)
-=======
-  comment,
->>>>>>> 53fcea9 (chore: check incoming, current)
 });
 
 export default reducer;

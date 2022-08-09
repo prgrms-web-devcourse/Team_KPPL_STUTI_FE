@@ -22,7 +22,12 @@ export const axiosAuthInstance: AxiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.response.use(
-  (response) => Promise.resolve(response),
+  // (response) => Promise.resolve(response),
+  (config) => {
+    config.headers.Authorization =
+      'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3Iiwicm9sZXMiOiJST0xFX01FTUJFUiIsImlhdCI6MTY2MDAyMzIyOCwiZXhwIjoxNjYzMDIzMjI4fQ.r1-tjiAUYPbfJtA7wbKSgI6C7t7ajnDkMSPMytnxJ9s';
+    return config;
+  },
   (error) => Promise.reject(error),
 );
 

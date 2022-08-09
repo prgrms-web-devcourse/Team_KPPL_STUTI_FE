@@ -1,14 +1,16 @@
 import axios from 'axios';
 import axiosInstance from '@apis/axiosInstance';
-const END_POINT =
-  'https://c69dc827-4460-41db-8879-0e6d753aff12.mock.pstmn.io/api/v1';
 
-export const getCommunityDataApi = async () => {
+export const getCommunityDataApi = async (size: number) => {
   try {
     const { data } = await axiosInstance({
-      url: '/mock/communityMockData.json',
+      url: '/posts',
       method: 'GET',
+      params: {
+        size: size,
+      },
     });
+    console.log(data);
     return data;
   } catch (error) {
     new Error('Community를 가져오는데 오류가 발생하였습니다.');
@@ -18,7 +20,7 @@ export const getCommunityDataApi = async () => {
 export const deleteCommunityPostApi = async (postId: string) => {
   try {
     const res = await axios({
-      url: `${END_POINT}/posts/${postId}`,
+      url: `/posts/${postId}`,
       method: 'DELETE',
     });
     console.log(res);
@@ -30,7 +32,7 @@ export const deleteCommunityPostApi = async (postId: string) => {
 export const postCommunityPostApi = async (postFormData: FormData) => {
   try {
     const res = await axios({
-      url: `${END_POINT}/posts`,
+      url: '/posts',
       method: 'POST',
       data: postFormData,
     });
@@ -46,7 +48,7 @@ export const editCommunityPostApi = async (
 ) => {
   try {
     const res = await axios({
-      url: `${END_POINT}/posts/${postId}`,
+      url: `/posts/${postId}`,
       method: 'PATCH',
       data: postFormData,
     });
@@ -59,7 +61,7 @@ export const editCommunityPostApi = async (
 export const postCommunityPostLikeApi = async (postId: string) => {
   try {
     const res = await axios({
-      url: `${END_POINT}/posts/${postId}/like`,
+      url: `/posts/${postId}/like`,
       method: 'POST',
     });
     console.log(res);
@@ -71,7 +73,7 @@ export const postCommunityPostLikeApi = async (postId: string) => {
 export const deleteCommunityPostLikeApi = async (postId: string) => {
   try {
     const res = await axios({
-      url: `${END_POINT}/posts/${postId}/like`,
+      url: `/posts/${postId}/like`,
       method: 'DELETE',
     });
     console.log(res);
@@ -103,7 +105,7 @@ export const createCommunityPostCommentApi = async (
 ) => {
   try {
     const { data } = await axiosInstance({
-      url: `${END_POINT}/posts/${postId}/comments`,
+      url: `/posts/${postId}/comments`,
       method: 'POST',
       data: {
         parentId,
@@ -123,7 +125,7 @@ export const changeCommunityPostCommentApi = async (
 ) => {
   try {
     const { data } = await axiosInstance({
-      url: `${END_POINT}/posts/${postId}/comments/${communityPostCommentId}`,
+      url: `/posts/${postId}/comments/${communityPostCommentId}`,
       method: 'PUT',
       data: {
         contents,
@@ -141,7 +143,7 @@ export const deleteCommunityPostCommentApi = async (
 ) => {
   try {
     const { data } = await axiosInstance({
-      url: `${END_POINT}/posts/${postId}/comments/${communityPostCommentId}`,
+      url: `/posts/${postId}/comments/${communityPostCommentId}`,
       method: 'DELETE',
     });
     return data;
