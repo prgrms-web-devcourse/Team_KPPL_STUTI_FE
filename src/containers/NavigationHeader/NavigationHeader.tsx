@@ -6,6 +6,7 @@ import { googleUrl } from '@src/constants/oauth';
 import LogoIcon from '@src/components/LogoIcon/LogoIcon';
 import GoogleIcon from '@src/components/GoogleIcon/GoogleIcon';
 import GitHubIcon from '@src/components/GitHubIcon/GitHubIcon';
+import { logout } from '@src/apis/user';
 import {
   Avatar,
   ClickAwayListener,
@@ -63,7 +64,8 @@ function NavigationHeader() {
     handleModalClose();
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await logout();
     dispatch(logoutUser());
   };
 
