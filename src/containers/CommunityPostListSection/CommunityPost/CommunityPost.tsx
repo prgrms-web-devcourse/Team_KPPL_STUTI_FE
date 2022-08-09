@@ -1,18 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import React, {
-  useState,
-  useRef,
-  useLayoutEffect,
-  forwardRef,
-  useEffect,
-} from 'react';
+import React, { useState, useRef, useLayoutEffect, forwardRef } from 'react';
 import moment from 'moment';
 import { AxiosError, AxiosResponse } from 'axios';
 import { selectUser } from '@store/slices/user';
 import { setComment } from '@store/slices/comment';
 import { selectComment } from '@src/store/slices/comment';
 import { errorType } from '@src/interfaces/error';
+import CircularProgress from '@mui/material/CircularProgress';
 import Avatar from '@mui/material/Avatar';
 import {
   CardHeader,
@@ -36,6 +31,7 @@ import {
   CommunityPostCommentWrapper,
   CustomCardMedia,
 } from '@containers/CommunityPostListSection/CommunityPost/CommunityPost.style';
+import { ItemCard } from '@components/StudyList/StudyList.style';
 import {
   postCommunityPostLikeApi,
   deleteCommunityPostLikeApi,
@@ -43,7 +39,6 @@ import {
 } from '@apis/community';
 
 import CommunityPostComment from '../CommunityPostComment/CommunityPostComment';
-
 const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   {
     postId,
@@ -58,10 +53,11 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   },
   ref,
 ) {
+  const [commentLoading, setCommentLoading] = useState(false);
+  const [commentCount, setCommentCount] = useState(0);
   const [liked, setLiked] = useState({ check: false, count: 0 });
   const [isExpand, setIsExpand] = useState<string | number>('none');
   const [isComment, setIsComment] = useState(false);
-  const [commentsError, setCommentsError] = useState(false);
 
   const contentsRef = useRef<HTMLInputElement>(null);
 
@@ -74,23 +70,12 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
 
   useLayoutEffect(() => {
     checkLiked();
+    setCommentCount(totalPostComments);
     if (contentsRef.current) {
       const contentsHeight = contentsRef.current.getBoundingClientRect().height;
       setIsExpand(contentsHeight > 96 ? 4 : 'none');
     }
   }, []);
-
-  useEffect(() => {
-    if (!commentsError) return;
-
-    const timeOutId = setTimeout(() => {
-      setCommentsError(false);
-    }, 2000);
-
-    return () => {
-      clearTimeout(timeOutId);
-    };
-  }, [commentsError]);
 
   const checkLiked = () => {
     switch (true) {
@@ -120,22 +105,34 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
     }
   };
 
+  const handleCommentCount = (commentCountType: string) => {
+    switch (commentCountType) {
+      case 'UP':
+        setCommentCount(commentCount + 1);
+        break;
+      case 'DOWN':
+        setCommentCount(commentCount - 1);
+        break;
+    }
+  };
+
   const handleOpenComment = async () => {
     setIsComment(!isComment);
-    setCommentsError(false);
+    if (isComment) return;
+    setCommentLoading(true);
     try {
       const res: CommunityPostCommentType = await getCommunityPostCommentApi(
         postId,
-        5,
+        3,
       );
-      console.log(res);
       dispatch(setComment(res));
     } catch (error) {
-      setCommentsError(true);
       console.error(error);
       const { response } = error as AxiosError;
       const { data }: { data: errorType } = response as AxiosResponse;
       const { errorCode } = data;
+    } finally {
+      setCommentLoading(false);
     }
   };
 
@@ -206,12 +203,22 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
           name='댓글'
           margin='0 1rem 0 auto'
         >
-          {totalPostComments}
+          {commentCount}
         </CommunityPostTypographyButton>
       </CardActions>
-      {isComment && (
+      {commentLoading && (
+        <ItemCard>
+          <CircularProgress />
+        </ItemCard>
+      )}
+      {!commentLoading && isComment && (
         <CommunityPostCommentWrapper>
-          <CommunityPostComment {...postComments} size={5} postId={postId} />
+          <CommunityPostComment
+            {...postComments}
+            size={3}
+            postId={postId}
+            onCount={handleCommentCount}
+          />
         </CommunityPostCommentWrapper>
       )}
     </Card>
