@@ -1,8 +1,10 @@
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
 import { AxiosError, AxiosResponse } from 'axios';
+import { openAlert } from '@store/slices/flashAlert';
 import { errorType } from '@src/interfaces/error';
 import {
   topicOptions,
@@ -124,6 +126,7 @@ function StudyCreateFormContainer() {
   const [fileErrorMessage, setFileErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onMbtiSelectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checkedMbti = e.target.value;
@@ -204,9 +207,36 @@ function StudyCreateFormContainer() {
       return res;
     } catch (error) {
       console.error(error);
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다',
+          content: '스터디 생성에 실패했습니다.',
+        }),
+      );
       const { response } = error as AxiosError;
       const { data }: { data: errorType } = response as AxiosResponse;
       const { errorCode } = data;
+    }
+  };
+
+  const handleClick = (values: formikData) => {
+    const { title, topic, isOnline, region, numberOfRecruits, description } =
+      values;
+    if (
+      !title ||
+      !topic ||
+      (isOnline === 'offline' && !region) ||
+      !numberOfRecruits ||
+      !description
+    ) {
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '누락된 값이 있습니다.',
+          content: '다시 확인해 주세요.',
+        }),
+      );
     }
   };
 
@@ -256,6 +286,7 @@ function StudyCreateFormContainer() {
                   error={touched.title && errors.title ? true : false}
                   helperText={touched.title && errors.title}
                   onChange={handleChange}
+                  autoFocus={true}
                 />
               </InputWrapper>
               <TopicWrapper>
@@ -380,7 +411,13 @@ function StudyCreateFormContainer() {
                   onChange={handleChange}
                 />
               </StudyDescriptionWrapper>
-              <Button type='submit' disabled={isSubmitting}>
+              <Button
+                type='submit'
+                disabled={isSubmitting}
+                onClick={() => {
+                  handleClick(values);
+                }}
+              >
                 {isSubmitting ? <SpinnerIcon /> : '제출'}
               </Button>
             </StudyCreateWrapper>
