@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import { useFormik } from 'formik';
 import {
   editCommunityPostApi,
@@ -66,10 +66,13 @@ function CommunityModal({
     postFormData.append('contents', values.contents);
     values.postImage && postFormData.append('postImage', values.postImage);
 
-    if (modalType === 'CREATE') {
-      await postCommunityPostApi(postFormData);
-    } else if (modalType === 'EDIT') {
-      await editCommunityPostApi(postId, postFormData);
+    switch (modalType) {
+      case 'CREATE':
+        await postCommunityPostApi(postFormData);
+        break;
+      case 'EDIT':
+        await editCommunityPostApi(postId, postFormData);
+        break;
     }
   };
 
@@ -86,7 +89,7 @@ function CommunityModal({
     },
     validationSchema: Yup.object({
       contents: Yup.string()
-        .max(500, '500자를 넘을 수 없습니다.')
+        .max(1000, '1000자를 넘을 수 없습니다.')
         .required('꼭 입력해주세요'),
     }),
     validateOnChange: true,

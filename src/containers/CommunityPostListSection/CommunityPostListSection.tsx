@@ -1,25 +1,34 @@
-import { useLayoutEffect, useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import CommunityPost from '@src/containers/CommunityPostListSection/CommunityPost/CommunityPost';
+import CircularProgress from '@mui/material/CircularProgress';
 import { CommunityType, CommunityPostType } from '@interfaces/community';
+import { ItemCard } from '@components/StudyList/StudyList.style';
 import { getCommunityDataApi } from '@apis/community';
 
 import { CommunityPostWrapper } from './CommunityPostListSection.style';
 function CommunityPostListSection() {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [communityPostData, setCommunityPostData] = useState<CommunityType>({});
   const [communityPostLists, setCommunityPostLists] = useState<
     CommunityPostType[]
   >([]);
   const [postTarget, setPostTarget] = useState();
 
-  useLayoutEffect(() => {
-    // 맨처음에는 lastPostId를 안 줘야 된다.
-    const fetchCommunityData = async () => {
-      const res = await getCommunityDataApi(5);
-      //posts가 없을 때 처리
-      setCommunityPostData(res);
-      setCommunityPostLists(res.posts);
-    };
-    fetchCommunityData();
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+        const res = await getCommunityDataApi(5);
+        setCommunityPostData(res);
+        setCommunityPostLists(res.posts);
+      } catch (e) {
+        console.error(e);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    })();
   }, []);
 
   useEffect(() => {
@@ -40,22 +49,37 @@ function CommunityPostListSection() {
 
   return (
     <CommunityPostWrapper>
-      {communityPostLists.map((post) => (
-        <CommunityPost
-          key={post.postId}
-          postId={post.postId}
-          memberId={post.memberId} //post작성한 사람id
-          nickname={post.nickname}
-          mbti={post.mbti}
-          updatedAt={post.updatedAt}
-          profileImageUrl={post.profileImageUrl}
-          contents={post.contents}
-          postImageUrl={post.postImageUrl}
-          likedMembers={post.likedMembers}
-          totalPostComments={post.totalPostComments}
-          ref={setPostTarget}
-        />
-      ))}
+      {communityPostLists.length !== 0 &&
+        communityPostLists.map((post) => (
+          <CommunityPost
+            key={post.postId}
+            postId={post.postId}
+            memberId={post.memberId}
+            nickname={post.nickname}
+            mbti={post.mbti}
+            updatedAt={post.updatedAt}
+            profileImageUrl={post.profileImageUrl}
+            contents={post.contents}
+            postImageUrl={post.postImageUrl}
+            likedMembers={post.likedMembers}
+            totalPostComments={post.totalPostComments}
+            ref={setPostTarget}
+          />
+        ))}
+      {!loading && !error && communityPostLists.length === 0 && (
+        <ItemCard>커뮤니티가 없습니다.</ItemCard>
+      )}
+      {error && (
+        <ItemCard>
+          서버로부터 커뮤니티 정보를 불러오지 못했습니다. 잠시 후
+          다시시도해주세요.
+        </ItemCard>
+      )}
+      {loading && (
+        <ItemCard>
+          <CircularProgress />
+        </ItemCard>
+      )}
     </CommunityPostWrapper>
   );
 }

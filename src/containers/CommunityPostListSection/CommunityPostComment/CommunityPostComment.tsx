@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import {
   addNewComment,
-  addQuestions,
+  addComment,
   changeComment,
   deleteComment,
 } from '@store/slices/comment';
@@ -28,6 +28,7 @@ import { PostCommentContainer } from './style';
 interface Props extends CommunityPostCommentType {
   size: number;
   postId: string;
+  onCount: (commentCountType: string) => void;
 }
 
 function CommunityPostComment({
@@ -36,6 +37,7 @@ function CommunityPostComment({
   hasNext,
   size,
   postId,
+  onCount,
 }: Props) {
   const dispatch = useDispatch();
   const [newSize, setNewSize] = useState(size);
@@ -56,7 +58,7 @@ function CommunityPostComment({
         lastCommunityPostCommentId,
       );
 
-      dispatch(addQuestions(res));
+      dispatch(addComment(res));
     } catch (error) {
       console.error(error);
       const { response } = error as AxiosError;
@@ -75,8 +77,9 @@ function CommunityPostComment({
     try {
       const res: CommentContentsType | childrenCommentType =
         await createCommunityPostCommentApi(postId, parentId, contents);
-
       dispatch(addNewComment(res));
+
+      onCount('UP');
       if (isDefaultInput) {
         handleInputError.current?.resetValue();
         handleInputError.current?.handleErrorFalse();
@@ -138,8 +141,9 @@ function CommunityPostComment({
     try {
       const res: CommentContentsType | childrenCommentType =
         await deleteCommunityPostCommentApi(postId, postCommentId);
-
       dispatch(deleteComment(res));
+
+      onCount('DOWN');
     } catch (error) {
       console.error(error);
       const { response } = error as AxiosError;
@@ -213,7 +217,7 @@ function CommunityPostComment({
           </Reply>
         );
       })}
-      {!hasNext && (
+      {hasNext && (
         <Typography
           color='secondary'
           sx={{ cursor: 'pointer' }}
