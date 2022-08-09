@@ -12,7 +12,7 @@
     "mbti": "INTP",
     "studyGroupMemberRole": "리더"
   },
-  "preferredMbtis": ["INFP", "ENFP", "ISFJ"],
+  "preferredMBTIs": ["INFP", "ENFP", "ISFJ"],
   "isOnline": false,
   "region": "서울시",
   "startDateTime": "2000-02-22 10:00:00",

@@ -30,7 +30,7 @@ export interface studyDetailType {
   title: string;
   imageUrl: string;
   leader: detailMemberType;
-  preferredMbtis: string[];
+  preferredMBTIs: string[];
   isOnline: boolean;
   region: string;
   startDateTime: string;

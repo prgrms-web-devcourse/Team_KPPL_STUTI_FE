@@ -42,7 +42,7 @@ function StudyListSection() {
     (async () => {
       try {
         setLoading(true);
-        const { content: newStudylist, hasNext: newHasNext } =
+        const { contents: newStudylist, hasNext: newHasNext } =
           await getStudyList({
             lastStudyId,
           });

@@ -18,7 +18,7 @@ const getOptionLabel = (
     return '';
   }
 
-  const option = options.find((option) => option.value === optionValue);
+  const option = options.find((option) => option.label === optionValue);
 
   if (!option) {
     console.error(`optionValue: ${optionValue} - invalid option value`);

@@ -37,7 +37,7 @@ function StudyCard({ study, onStudyDelete }: Props) {
               <P>{getTopicLabel(study.topic)}</P>
               <H3>{study.title}</H3>
               <Ul>
-                {study.preferredMbtis.map((mbti) => (
+                {study.preferredMBTIs.map((mbti) => (
                   <li key={mbti}>
                     <MbtiTag mbti={mbti} size='small' />
                   </li>

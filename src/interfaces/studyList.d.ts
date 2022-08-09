@@ -4,7 +4,7 @@ export type StudyItemType = {
   thumbnailUrl: string;
   topic: string;
   title: string;
-  preferredMbtis: string[];
+  preferredMBTIs: string[];
   isOnline: boolean;
   region: string;
   startDate: string;
