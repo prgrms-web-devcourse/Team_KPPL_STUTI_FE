@@ -7,6 +7,7 @@ import {
   changeComment,
   deleteComment,
 } from '@store/slices/comment';
+import { openAlert } from '@src/store/slices/flashAlert';
 import { errorType } from '@src/interfaces/error';
 import { Typography } from '@mui/material';
 import {
@@ -64,6 +65,14 @@ function CommunityPostComment({
       const { response } = error as AxiosError;
       const { data }: { data: errorType } = response as AxiosResponse;
       const { errorCode } = data;
+
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다.',
+          content: '질문을 생성하는데에 실패했습니다.',
+        }),
+      );
     }
   };
 
@@ -98,6 +107,15 @@ function CommunityPostComment({
       } else {
         handleInput.current[index]?.handleErrorTrue();
       }
+
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다',
+          content: '질문을 생성하는데에 실패했습니다.',
+        }),
+      );
+      return;
     }
   };
 
@@ -134,6 +152,14 @@ function CommunityPostComment({
       } else {
         handleInput.current[index]?.handleErrorTrue();
       }
+
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다',
+          content: '질문을 수정하는데에 실패했습니다.',
+        }),
+      );
     }
   };
 
@@ -149,6 +175,14 @@ function CommunityPostComment({
       const { response } = error as AxiosError;
       const { data }: { data: errorType } = response as AxiosResponse;
       const { errorCode } = data;
+
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다',
+          content: '질문을 삭제하는데에 실패했습니다.',
+        }),
+      );
     }
   };
 
