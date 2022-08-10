@@ -33,7 +33,7 @@ const StudyList = forwardRef<Ref, Props>(function StudyList(
         )}
       {!loading && !error && studyList.length === 0 && (
         <li>
-          <ItemCard>모집 중인 스터디가 없습니다.</ItemCard>
+          <ItemCard>스터디 목록이 없습니다.</ItemCard>
         </li>
       )}
       {error && (

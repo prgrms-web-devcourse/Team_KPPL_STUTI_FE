@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useFormik } from 'formik';
 import TextField from '@mui/material/TextField';
+import CircularProgress from '@mui/material/CircularProgress';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import { UserProfileEditFormType } from '@interfaces/userProfile';
@@ -14,8 +15,8 @@ import {
   mbtiOptions,
   mbtiValidValues,
 } from '@constants/selectOptions';
-import { Select, SpinnerIcon } from '@components';
-import { getUserProfile } from '@apis/members';
+import { Select } from '@components';
+import { getUserProfile, updateUserProfile } from '@apis/members';
 
 import { Form, Flex } from './EditForm.style';
 
@@ -81,22 +82,23 @@ function EditForm() {
     onSubmit: (values, { setFieldError }) => {
       (async () => {
         try {
-          console.log(values);
-          // await putUserProfile(values)
+          await updateUserProfile(Number(userId), values);
+          // dispatch(updateUser)
           // navigate(`/user/${userId}`);
-          throw new Error('error');
         } catch (e) {
-          setFieldError('nickname', '이미 등록된 닉네임입니다.');
+          console.log(e);
+          // setFieldError('nickname', '이미 등록된 닉네임입니다.');
         }
       })();
     },
   });
 
   useEffect(() => {
-    (async () => {
+    (async function requestUserProfile() {
       try {
         // setLoading(true);
-        const userProfile = await getUserProfile({ userId: Number(userId) });
+        const userProfile = await getUserProfile(Number(userId));
+        // console.log(userProfile);
         setValues({
           nickname: userProfile.nickname,
           field: userProfile.field,
@@ -203,7 +205,15 @@ function EditForm() {
         fullWidth
       />
       <Button type='submit' disabled={isSubmitting} fullWidth>
-        {!isSubmitting ? '확인' : <SpinnerIcon />}
+        {!isSubmitting ? (
+          '확인'
+        ) : (
+          <CircularProgress
+            color='secondary'
+            size='1.5rem'
+            sx={{ margin: '-0.25rem' }}
+          />
+        )}
       </Button>
     </Form>
   );

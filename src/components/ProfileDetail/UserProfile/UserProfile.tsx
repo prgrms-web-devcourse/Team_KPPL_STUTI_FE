@@ -1,12 +1,43 @@
 import { Link } from 'react-router-dom';
-import { getFieldLabel, getCareerLabel } from '@utils/getOptionLabel';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import LinkIcon from '@mui/icons-material/Link';
 import { UserProfileType } from '@interfaces/userProfile';
+import { fieldOptions, careerOptions } from '@constants/selectOptions';
 import { MbtiTag } from '@components';
 
 import { Content, H3, P, Dl, Flex, Dt, A } from './UserProfile.style';
+
+type Option = {
+  value: string;
+  label: string;
+};
+
+const getOptionLabel = (
+  options: Option[],
+  optionValue: string | number,
+): string => {
+  if (optionValue === '') {
+    return '';
+  }
+
+  const option = options.find((option) => option.value === optionValue);
+
+  if (!option) {
+    console.error(`optionValue: ${optionValue} - invalid option value`);
+    return '';
+  }
+
+  return option.label;
+};
+
+const getFieldLabel = (fieldValue: string): string => {
+  return getOptionLabel(fieldOptions, fieldValue);
+};
+
+export const getCareerLabel = (careerValue: string): string => {
+  return getOptionLabel(careerOptions, careerValue);
+};
 
 interface Props {
   userProfile: UserProfileType;
@@ -21,7 +52,7 @@ function UserProfile({ userProfile }: Props) {
         sx={{ width: '7.5rem', height: '7.5rem' }}
       />
       <H3>{userProfile.nickname}</H3>
-      <MbtiTag mbti={userProfile.MBTI} size='small' />
+      <MbtiTag mbti={userProfile.MBTI} variant='filled' size='small' />
       <P>
         {`${getFieldLabel(userProfile.field)} · ${getCareerLabel(
           userProfile.career,
