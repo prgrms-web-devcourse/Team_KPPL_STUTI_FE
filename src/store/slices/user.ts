@@ -1,12 +1,9 @@
 import { RootState } from '@src/store';
-import {
-  UserProfileEditFormType,
-  UserProfileType,
-} from '@src/interfaces/userProfile';
+import { UserProfileType } from '@src/interfaces/userProfile';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface UserState {
-  user: UserProfileType | UserProfileEditFormType | null;
+  user: UserProfileType | null;
   isLogin: boolean;
 }
 
@@ -27,11 +24,8 @@ export const userSlice = createSlice({
       state.user = null;
       state.isLogin = false;
     },
-    updateUser: (
-      state: UserState,
-      action: PayloadAction<UserProfileEditFormType>,
-    ) => {
-      state.user = { ...state.user, ...action.payload };
+    updateUser: (state: UserState, action: PayloadAction<UserProfileType>) => {
+      state.user = action.payload;
     },
   },
 });
