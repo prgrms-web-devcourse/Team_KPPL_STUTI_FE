@@ -202,7 +202,7 @@ function StudyCreateFormContainer() {
     try {
       const res = await createNewStudy(formData);
       const { studyGroupId } = res;
-      console.log(studyGroupId);
+
       navigate(`/study/${studyGroupId}`, { replace: true });
       return res;
     } catch (error) {
@@ -256,13 +256,6 @@ function StudyCreateFormContainer() {
 
         const formData = createFormData(values);
         createStudy(formData);
-
-        setTimeout(() => {
-          for (const key of formData.keys()) {
-            console.log(key, ':', formData.get(key));
-          }
-          actions.setSubmitting(false);
-        }, 3000);
       }}
     >
       {({
