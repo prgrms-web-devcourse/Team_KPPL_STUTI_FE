@@ -4,7 +4,7 @@ import { addPost, selectPost, setPost } from '@store/slices/post';
 import CircularProgress from '@mui/material/CircularProgress';
 import { CommunityPostWrapper } from '@containers/CommunityPostListSection/CommunityPostListSection.style';
 import CommunityPost from '@containers/CommunityPostListSection/CommunityPost/CommunityPost';
-import { ItemCard } from '@components/StudyList/StudyList.style';
+import { ItemCard } from '@components';
 import { getCommunityDataApi } from '@apis/community';
 
 function CommunityPostListSection() {
