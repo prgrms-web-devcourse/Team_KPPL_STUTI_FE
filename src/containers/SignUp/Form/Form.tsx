@@ -52,8 +52,19 @@ function Form() {
       career: yup.string().required('경력을 입력해주세요'),
       MBTI: yup.string().required('MBTI를 입력해주세요.'),
     }),
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      const formData = {
+        email,
+        nickname: values.nickname,
+        field: values.field,
+        career: values.career,
+        MBTI: values.MBTI,
+      };
+
+      const data = await signUp(formData);
+      dispatch(loginUser(data.member));
+      setStorageItem('token', data.accesstoken);
+      navigate('/', { replace: true });
     },
   });
 
