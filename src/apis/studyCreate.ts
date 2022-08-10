@@ -1,17 +1,15 @@
-import axiosInstance from './axiosInstance';
+import { axiosAuthInstance } from './axiosInstance';
 
 const API_END_POINT = process.env.REACT_APP_API_ENDPOINT;
-const token = process.env.REACT_APP_TEST_TOKEN;
 
 export const createNewStudy = async (formData: FormData) => {
-  const { data } = await axiosInstance({
+  const { data } = await axiosAuthInstance({
     baseURL: API_END_POINT,
-    url: '/study-groups',
+    url: '/api/v1/study-groups',
     method: 'POST',
     data: formData,
     headers: {
       'Content-Type': 'multipart/form-data',
-      Authorization: `Bearer ${token}`,
     },
   });
 
