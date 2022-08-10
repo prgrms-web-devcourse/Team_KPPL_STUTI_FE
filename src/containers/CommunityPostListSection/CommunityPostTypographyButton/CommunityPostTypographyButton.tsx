@@ -1,6 +1,5 @@
-import React from 'react';
-import { CustomTypography } from '@src/containers/CommunityPostListSection/CommunityPostTypographyButton/CommunityPostTypographyButton.style';
 import { CommunityPostTypographyButtonType } from '@interfaces/community';
+import { CustomTypography } from '@containers/CommunityPostListSection/CommunityPostTypographyButton/CommunityPostTypographyButton.style';
 
 function CommunityPostTypographyButton({
   name,

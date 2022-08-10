@@ -13,7 +13,7 @@ export interface CommunityPostType {
 
 export interface CommunityType {
   posts?: CommunityPostType[];
-  hasNext?: boolean;
+  hasNext: boolean;
 }
 
 export interface CommunityModalType {

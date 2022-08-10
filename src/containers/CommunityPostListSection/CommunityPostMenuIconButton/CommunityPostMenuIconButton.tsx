@@ -1,12 +1,11 @@
-import { useSelector } from 'react-redux';
-import React, { useLayoutEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
 import { selectUser } from '@store/slices/user';
-import CommunityModal from '@src/containers/CommunityModal/CommunityModal';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import IconButton from '@mui/material/IconButton';
+import { deletePost } from '@store/slices/post';
+import { MenuItem, Menu, IconButton } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { CommunityPostMenuIconButtonType } from '@interfaces/community';
+import CommunityModal from '@containers/CommunityModal/CommunityModal';
 import { deleteCommunityPostApi } from '@apis/community';
 
 function CommunityPostMenuIconButton({
@@ -20,7 +19,10 @@ function CommunityPostMenuIconButton({
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isOpen, setOpen] = useState(false);
   const open = Boolean(anchorEl);
+
   const state = useSelector(selectUser);
+
+  const dispatch = useDispatch();
 
   const checkMyPost = () => state.user?.id === memberId;
 
@@ -44,6 +46,7 @@ function CommunityPostMenuIconButton({
 
   const handleDeletePost = async () => {
     await deleteCommunityPostApi(postId);
+    dispatch(deletePost(postId));
     setAnchorEl(null);
   };
 

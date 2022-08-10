@@ -57,7 +57,6 @@ export const commentSlice = createSlice({
           action.payload as childrenCommentType,
         );
       } else {
-        console.log(action.payload);
         state.value.contents.unshift(action.payload as CommentContentsType);
       }
     },
@@ -90,7 +89,7 @@ export const commentSlice = createSlice({
         );
 
         if (targetIndex === -1) return;
-        console.log(action.payload);
+
         state.value.contents[targetIndex] = {
           ...state.value.contents[targetIndex],
           ...action.payload,
