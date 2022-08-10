@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useFormik } from 'formik';
+import { AxiosError, AxiosResponse } from 'axios';
 import { setStorageItem } from '@src/utils/storage';
 import { getQueryString } from '@src/utils/queryString';
 import { loginUser } from '@src/store/slices/user';
+import { openAlert } from '@src/store/slices/flashAlert';
+import { errorType } from '@src/interfaces/error';
 import { MBTI_TEST_URL } from '@src/constants/externalUrl';
 import { Select } from '@src/components';
 import { signUp } from '@src/apis/user';
@@ -34,6 +37,7 @@ function Form() {
     handleChange,
     handleBlur,
     setFieldValue,
+    setFieldError,
   } = useFormik({
     initialValues: {
       nickname: '',
@@ -61,10 +65,43 @@ function Form() {
         MBTI: values.MBTI,
       };
 
-      const data = await signUp(formData);
-      dispatch(loginUser(data.member));
-      setStorageItem('token', data.accesstoken);
-      navigate('/', { replace: true });
+      try {
+        const data = await signUp(formData);
+        dispatch(loginUser(data.member));
+        setStorageItem('token', data.accesstoken);
+        navigate('/', { replace: true });
+      } catch (error) {
+        const { response } = error as AxiosError;
+        const { data }: { data: errorType } = response as AxiosResponse;
+        const { errorCode } = data;
+
+        switch (errorCode) {
+          case 'M003':
+            dispatch(
+              openAlert({
+                severity: 'error',
+                title: '회원가입 실패',
+                content: '닉네임이 중복되었습니다.',
+              }),
+            );
+            setFieldError('nickname', '닉네임이 중복되었습니다.');
+            break;
+
+          case 'M005':
+            dispatch(
+              openAlert({
+                severity: 'error',
+                title: '회원가입 실패',
+                content: '회원가입 시간이 초과하였습니다.',
+              }),
+            );
+            navigate('/', { replace: true });
+            break;
+
+          default:
+            console.error(error);
+        }
+      }
     },
   });
 
