@@ -3,17 +3,19 @@ import { useNavigate, useParams } from 'react-router';
 import { useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { Formik, Field } from 'formik';
+import { AxiosError, AxiosResponse } from 'axios';
 import { openAlert } from '@store/slices/flashAlert';
+import { errorType } from '@src/interfaces/error';
 import {
   MultiLineInput,
   LabelInput,
   FileInput,
 } from '@src/components/StudyCreate&Edit';
-import { SpinnerIcon } from '@src/components';
 import { editStudy } from '@src/apis/studyEdit';
 import { getStudyDetailInfomation } from '@src/apis/studyDetail';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { CircularProgress } from '@mui/material';
 
 import {
   StudyEditHeading,
@@ -28,6 +30,7 @@ import {
   InputWrapper,
   ErrorMessage,
   SpinnerWrapper,
+  LoadingWrapper,
 } from './style';
 
 interface formikData {
@@ -55,6 +58,7 @@ function StudyEditForm() {
   const [imageSrc, setImageSrc] = useState<File | null>(null);
   const [thumbnailImage, setThumbnailImage] = useState<string>('');
   const [fileErrorMessage, setFileErrorMessage] = useState<string>('');
+  const [isImageLoading, setIsImageLoading] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -63,6 +67,7 @@ function StudyEditForm() {
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const data = await getStudyDetailInfomation(study_id);
         const { title, description, imageUrl } = data;
@@ -70,8 +75,31 @@ function StudyEditForm() {
         setTitle(title);
         setDescription(description);
         setThumbnailImage(imageUrl);
+        setIsLoading(false);
       } catch (error) {
-        new Error('스터디 상세 정보를 가져오는데 실패했습니다.');
+        console.error(error);
+        const { response } = error as AxiosError;
+        const { data }: { data: errorType } = response as AxiosResponse;
+        const { errorCode } = data;
+
+        if (errorCode === 'SG002') {
+          dispatch(
+            openAlert({
+              severity: 'error',
+              title: '스터디 그룹을 찾지 못했습니다!',
+              content: '홈으로 갔다가 다시 시도해주세요!',
+            }),
+          );
+          return;
+        }
+
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '죄송합니다',
+            content: '스터디 관리 정보를 가져오는데 실패했습니다.',
+          }),
+        );
       }
     };
 
@@ -81,7 +109,7 @@ function StudyEditForm() {
   const encodeFile = (fileBlob: File) => {
     const reader = new FileReader();
     if (!fileBlob) return;
-    setIsLoading(true);
+    setIsImageLoading(true);
     reader.readAsDataURL(fileBlob);
 
     return new Promise<void>((resolve) => {
@@ -90,7 +118,7 @@ function StudyEditForm() {
         setThumbnailImage(result);
 
         resolve();
-        setIsLoading(false);
+        setIsImageLoading(false);
       };
     });
   };
@@ -146,6 +174,56 @@ function StudyEditForm() {
       return res;
     } catch (error) {
       console.error(error);
+
+      const { response } = error as AxiosError;
+      const { data }: { data: errorType } = response as AxiosResponse;
+      const { errorCode } = data;
+
+      if (errorCode === 'C001') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '잘못 입력된 값이 있습니다.',
+            content: '다시 한 번 확인해주세요.',
+          }),
+        );
+      }
+      if (errorCode === 'SG001') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '스터디 기간이 잘 못 설정되었습니다.',
+            content: '시작일은 종료일보다 과거여야 합니다.',
+          }),
+        );
+      }
+      if (errorCode === 'F001') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '지원하지 않는 형식의 파일입니다.',
+            content: 'PNG, JPEG, JPG만 가능합니다.',
+          }),
+        );
+      }
+      if (errorCode === 'F002') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '파일 크기가 1MB를 초과합니다.',
+            content: '최대 1MB까지 가능합니다.',
+          }),
+        );
+      }
+      if (errorCode === 'F003') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '파일 업로드 실패.',
+            content: '파일 업로드에 실패했습니다.',
+          }),
+        );
+      }
       dispatch(
         openAlert({
           severity: 'error',
@@ -183,68 +261,83 @@ function StudyEditForm() {
         return (
           <form onSubmit={handleSubmit}>
             <StudyEditWrapper>
-              <StudyEditHeading>
-                <Typography variant='h4'>스터디 수정</Typography>
-                <InputWrapper>
-                  <Field
-                    as={LabelInput}
-                    id='title'
-                    name='title'
-                    label='스터디명'
-                    error={touched.title && errors.title ? true : false}
-                    helperText={touched.title && errors.title}
-                    onChange={handleChange}
-                    autoFocus={true}
-                  />
-                </InputWrapper>
-              </StudyEditHeading>
-              <StudyEditImageWrapper>
-                <Typography variant='h5'>대표 이미지</Typography>
-                <ImageContainer>
-                  {fileErrorMessage && (
-                    <ErrorMessage>{fileErrorMessage}</ErrorMessage>
-                  )}
-                  <ImageWrapper>
-                    {isLoading ? (
-                      <SpinnerWrapper>
-                        <SpinnerIcon />
-                      </SpinnerWrapper>
-                    ) : thumbnailImage ? (
-                      <Image src={thumbnailImage} alt='study-image' />
+              {isLoading ? (
+                <LoadingWrapper>
+                  <CircularProgress />
+                </LoadingWrapper>
+              ) : (
+                <>
+                  <StudyEditHeading>
+                    <Typography variant='h4'>스터디 수정</Typography>
+                    <InputWrapper>
+                      <Field
+                        as={LabelInput}
+                        id='title'
+                        name='title'
+                        label='스터디명'
+                        error={touched.title && errors.title ? true : false}
+                        helperText={touched.title && errors.title}
+                        onChange={handleChange}
+                        autoFocus={true}
+                      />
+                    </InputWrapper>
+                  </StudyEditHeading>
+                  <StudyEditImageWrapper>
+                    <Typography variant='h5'>대표 이미지</Typography>
+                    <ImageContainer>
+                      {fileErrorMessage && (
+                        <ErrorMessage>{fileErrorMessage}</ErrorMessage>
+                      )}
+                      <ImageWrapper>
+                        {isImageLoading ? (
+                          <SpinnerWrapper>
+                            <CircularProgress />
+                          </SpinnerWrapper>
+                        ) : thumbnailImage ? (
+                          <Image src={thumbnailImage} alt='study-image' />
+                        ) : (
+                          <CameraIcon color='secondary' />
+                        )}
+                      </ImageWrapper>
+                    </ImageContainer>
+                    <ButtonWrapper>
+                      <FileInput
+                        message='이미지 업로드'
+                        onChange={onImageChange}
+                      />
+                    </ButtonWrapper>
+                  </StudyEditImageWrapper>
+                  <StudyDescriptionWrapper>
+                    <Typography variant='h5'>상세 설명</Typography>
+                    <Field
+                      as={MultiLineInput}
+                      id='description'
+                      name='description'
+                      label='상세 설명'
+                      placeholder='스터디 내용을 기재해주세요.'
+                      height='500px'
+                      error={
+                        touched.description && errors.description ? true : false
+                      }
+                      helperText={touched.description && errors.description}
+                      onChange={handleChange}
+                    />
+                  </StudyDescriptionWrapper>
+                  <Button
+                    type='submit'
+                    disabled={isSubmitting}
+                    onClick={() => {
+                      handleClick(values);
+                    }}
+                  >
+                    {isSubmitting ? (
+                      <CircularProgress color='inherit' size='1rem' />
                     ) : (
-                      <CameraIcon color='secondary' />
+                      '제출'
                     )}
-                  </ImageWrapper>
-                </ImageContainer>
-                <ButtonWrapper>
-                  <FileInput message='이미지 업로드' onChange={onImageChange} />
-                </ButtonWrapper>
-              </StudyEditImageWrapper>
-              <StudyDescriptionWrapper>
-                <Typography variant='h5'>상세 설명</Typography>
-                <Field
-                  as={MultiLineInput}
-                  id='description'
-                  name='description'
-                  label='상세 설명'
-                  placeholder='스터디 내용을 기재해주세요.'
-                  height='500px'
-                  error={
-                    touched.description && errors.description ? true : false
-                  }
-                  helperText={touched.description && errors.description}
-                  onChange={handleChange}
-                />
-              </StudyDescriptionWrapper>
-              <Button
-                type='submit'
-                disabled={isSubmitting}
-                onClick={() => {
-                  handleClick(values);
-                }}
-              >
-                {isSubmitting ? <SpinnerIcon /> : '제출'}
-              </Button>
+                  </Button>
+                </>
+              )}
             </StudyEditWrapper>
           </form>
         );
