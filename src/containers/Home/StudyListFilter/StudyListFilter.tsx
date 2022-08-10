@@ -1,86 +1,79 @@
-import { FormEvent } from 'react';
+import { ChangeEvent, FormEvent, MouseEvent, useState } from 'react';
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import {
   mbtiOptions,
   topicOptions,
-  regionOptions,
+  regionWithOnlineOptions,
 } from '@constants/selectOptions';
+import { Select } from '@components';
 
-import { OptionalFilter } from '../StudyListSection/StudyListSection';
-import Select from '../Select/Select';
+import { Filter, OptionalFilter } from '../StudyListSection/StudyListSection';
 
-import { Form } from './StudyListFilter.style';
-
-const mbtiFilter = {
-  id: 'mbti-filter',
-  name: 'mbti',
-  label: 'mbti',
-  initialValue: '',
-  options: mbtiOptions,
-};
-
-const topicFilter = {
-  id: 'topic-filter',
-  name: 'topic',
-  label: '분야',
-  initialValue: '',
-  options: topicOptions,
-};
-
-const regionFilter = {
-  id: 'region-filter',
-  name: 'region',
-  label: '지역',
-  initialValue: '',
-  options: regionOptions,
-};
+import { Form, StyledButton } from './StudyListFilter.style';
 
 interface Props {
+  filter: Filter;
   onFilterChange: (select: OptionalFilter) => void;
+  onFilterReset: () => void;
 }
 
-function StudyListFilter({ onFilterChange }: Props) {
+function StudyListFilter({ filter, onFilterChange, onFilterReset }: Props) {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
   };
 
-  const onSelectChange = (name: string, value: string) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
     if (name !== 'mbti' && name !== 'topic' && name !== 'region') {
       throw new Error(
         `label: ${name} - label은 'mbti', 'topic', 'region'만 가능합니다.`,
       );
     }
-    onFilterChange({ [name]: value });
+    onFilterChange({ [name]: value === 'ALL' ? '' : value });
+  };
+
+  const handleClick = () => {
+    onFilterReset();
   };
 
   return (
     <Form onSubmit={handleSubmit}>
       <Select
-        id={mbtiFilter.id}
-        name={mbtiFilter.name}
-        label={mbtiFilter.label}
-        initialValue={mbtiFilter.initialValue}
-        options={mbtiFilter.options}
-        onChange={onSelectChange}
+        id={'filter-mbti'}
+        name={'mbti'}
+        label={'MBTI'}
+        value={filter.mbti}
+        options={[{ value: 'ALL', label: '전체' }, ...mbtiOptions]}
+        onChange={handleChange}
         fullWidth
       />
       <Select
-        id={topicFilter.id}
-        name={topicFilter.name}
-        label={topicFilter.label}
-        initialValue={topicFilter.initialValue}
-        options={topicFilter.options}
-        onChange={onSelectChange}
+        id={'filter-topic'}
+        name={'topic'}
+        label={'주제'}
+        value={filter.topic}
+        options={[{ value: 'ALL', label: '전체' }, ...topicOptions]}
+        onChange={handleChange}
         fullWidth
       />
       <Select
-        id={regionFilter.id}
-        name={regionFilter.name}
-        label={regionFilter.label}
-        initialValue={regionFilter.initialValue}
-        options={regionFilter.options}
-        onChange={onSelectChange}
+        id={'filter-region'}
+        name={'region'}
+        label={'지역'}
+        value={filter.region}
+        options={[{ value: 'ALL', label: '전체' }, ...regionWithOnlineOptions]}
+        onChange={handleChange}
         fullWidth
       />
+      <StyledButton
+        variant='text'
+        color='secondary'
+        size='medium'
+        onClick={handleClick}
+      >
+        <RestartAltIcon />
+        초기화
+      </StyledButton>
     </Form>
   );
 }

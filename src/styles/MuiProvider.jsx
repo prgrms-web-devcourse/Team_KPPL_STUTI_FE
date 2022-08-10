@@ -62,7 +62,7 @@ const theme = createTheme({
   },
   shadows: [
     'none',
-    '0 3px 5px rgb(0 0 0 / 0.05)',
+    '0 3px 5px rgb(0 0 0 / 0.05), 0 0 10px rgba(0 0 0 / 0.05)',
     '0 3px 5px rgb(0 0 0 / 0.1), 0 0 10px rgba(0 0 0 / 0.1)',
     '0 3px 5px rgb(0 0 0 / 0.05)',
     '0 3px 5px rgb(0 0 0 / 0.05)',
@@ -170,7 +170,7 @@ const theme = createTheme({
     },
   },
   shape: {
-    borderRadius: '0.5rem',
+    borderRadius: 8,
   },
   components: {
     MuiTypography: {
@@ -337,6 +337,13 @@ const theme = createTheme({
           padding: '0 8px',
           alignItems: 'center',
         },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          boxShadow: theme.shadows[1],
+        }),
       },
     },
     MuiCardHeader: {

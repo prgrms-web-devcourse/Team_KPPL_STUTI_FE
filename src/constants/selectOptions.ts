@@ -50,8 +50,8 @@ export const regionOptions = [
 export const regionValues = regionOptions.map(({ value }) => value);
 
 export const regionWithOnlineOptions = [
-  ...regionOptions,
   { value: 'ONLINE', label: '온라인' },
+  ...regionOptions,
 ];
 
 export const recruitsNumberOptions = [
