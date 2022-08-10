@@ -1,6 +1,11 @@
 import * as Yup from 'yup';
+import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
+import { AxiosError, AxiosResponse } from 'axios';
+import { openAlert } from '@store/slices/flashAlert';
+import { errorType } from '@src/interfaces/error';
 import {
   topicOptions,
   regionOptions,
@@ -22,6 +27,7 @@ import {
 } from '@src/components/StudyCreate';
 import Select from '@src/components/Select/Select';
 import { SpinnerIcon } from '@src/components';
+import { createNewStudy } from '@src/apis/studyCreate';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -119,6 +125,8 @@ function StudyCreateFormContainer() {
   const [thumbnailImage, setThumbnailImage] = useState<string>('');
   const [fileErrorMessage, setFileErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onMbtiSelectChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const checkedMbti = e.target.value;
@@ -180,14 +188,56 @@ function StudyCreateFormContainer() {
     formData.append('title', title);
     formData.append('topic', topic);
     formData.append('isOnline', isOnline === 'online' ? 'true' : 'false');
-    formData.append('region', isOnline === 'online' ? '' : region);
+    if (isOnline === 'offline') formData.append('region', region);
     formData.append('numberOfRecruits', numberOfRecruits);
     formData.append('startDateTime', startDate);
     formData.append('endDateTime', endDate);
-    formData.append('preferredMBTIs', JSON.stringify(mbtiCheckedList));
-    formData.append('imageFile', imageSrc ? imageSrc : '');
+    formData.append('preferredMBTIs', mbtiCheckedList.join(', '));
+    if (imageSrc) formData.append('imageFile', imageSrc);
     formData.append('description', description);
     return formData;
+  };
+
+  const createStudy = async (formData: FormData) => {
+    try {
+      const res = await createNewStudy(formData);
+      const { studyGroupId } = res;
+
+      navigate(`/study/${studyGroupId}`, { replace: true });
+      return res;
+    } catch (error) {
+      console.error(error);
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다',
+          content: '스터디 생성에 실패했습니다.',
+        }),
+      );
+      const { response } = error as AxiosError;
+      const { data }: { data: errorType } = response as AxiosResponse;
+      const { errorCode } = data;
+    }
+  };
+
+  const handleClick = (values: formikData) => {
+    const { title, topic, isOnline, region, numberOfRecruits, description } =
+      values;
+    if (
+      !title ||
+      !topic ||
+      (isOnline === 'offline' && !region) ||
+      !numberOfRecruits ||
+      !description
+    ) {
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '누락된 값이 있습니다.',
+          content: '다시 확인해 주세요.',
+        }),
+      );
+    }
   };
 
   return (
@@ -205,13 +255,7 @@ function StudyCreateFormContainer() {
         actions.setSubmitting(true);
 
         const formData = createFormData(values);
-
-        setTimeout(() => {
-          for (const key of formData.keys()) {
-            console.log(key, ':', formData.get(key));
-          }
-          actions.setSubmitting(false);
-        }, 3000);
+        createStudy(formData);
       }}
     >
       {({
@@ -235,6 +279,7 @@ function StudyCreateFormContainer() {
                   error={touched.title && errors.title ? true : false}
                   helperText={touched.title && errors.title}
                   onChange={handleChange}
+                  autoFocus={true}
                 />
               </InputWrapper>
               <TopicWrapper>
@@ -359,7 +404,13 @@ function StudyCreateFormContainer() {
                   onChange={handleChange}
                 />
               </StudyDescriptionWrapper>
-              <Button type='submit' disabled={isSubmitting}>
+              <Button
+                type='submit'
+                disabled={isSubmitting}
+                onClick={() => {
+                  handleClick(values);
+                }}
+              >
                 {isSubmitting ? <SpinnerIcon /> : '제출'}
               </Button>
             </StudyCreateWrapper>

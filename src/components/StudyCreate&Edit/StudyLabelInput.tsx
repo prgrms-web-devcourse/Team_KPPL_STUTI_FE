@@ -9,6 +9,7 @@ interface Props {
   error?: boolean;
   helperText?: string | false | undefined;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  autoFocus?: boolean;
 }
 
 function StudyCreateLabelInput({
@@ -20,6 +21,7 @@ function StudyCreateLabelInput({
   error,
   helperText,
   onChange,
+  autoFocus,
 }: Props) {
   return (
     <TextField
@@ -31,6 +33,7 @@ function StudyCreateLabelInput({
       error={error}
       helperText={helperText}
       onChange={onChange}
+      autoFocus={autoFocus}
     />
   );
 }
