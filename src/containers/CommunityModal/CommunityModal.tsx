@@ -1,10 +1,8 @@
 import * as Yup from 'yup';
-import React, { useState, useRef, useLayoutEffect, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import { useFormik } from 'formik';
-import {
-  editCommunityPostApi,
-  postCommunityPostApi,
-} from '@src/apis/community';
+import { createPost, editPost } from '@src/store/slices/post';
 import IconButton from '@mui/material/IconButton';
 import {
   Modal,
@@ -17,6 +15,7 @@ import {
 import ClearIcon from '@mui/icons-material/Clear';
 import { CommunityModalType } from '@interfaces/community';
 import CommunityModalImageUpload from '@containers/CommunityModal/CommunityModalImageUpload/CommunityModalImageUpload';
+import { editCommunityPostApi, postCommunityPostApi } from '@apis/community';
 
 import {
   PreviewImage,
@@ -38,6 +37,8 @@ function CommunityModal({
   const [previewUrl, setPreviewUrl] = useState('');
   const [isImageSizeValid, setImageSizeValid] = useState(false);
   const exitRef = useRef<any>(null);
+
+  const dispatch = useDispatch();
 
   useLayoutEffect(() => {
     postImageUrl && setPreviewUrl(postImageUrl);
@@ -62,20 +63,20 @@ function CommunityModal({
     postImage?: string;
   }) => {
     const postFormData = new FormData();
+    let returnApiData;
 
     postFormData.append('contents', values.contents);
     values.postImage && postFormData.append('postImage', values.postImage);
 
-    if (modalType === 'CREATE') {
-      await postCommunityPostApi({
-        url: 'posts',
-        postData: postFormData,
-      });
-    } else if (modalType === 'EDIT') {
-      await editCommunityPostApi({
-        url: `posts/${postId}`,
-        postData: postFormData,
-      });
+    switch (modalType) {
+      case 'CREATE':
+        returnApiData = await postCommunityPostApi(postFormData);
+        dispatch(createPost(returnApiData));
+        break;
+      case 'EDIT':
+        returnApiData = await editCommunityPostApi(postId, postFormData);
+        dispatch(editPost(returnApiData));
+        break;
     }
   };
 
@@ -92,7 +93,7 @@ function CommunityModal({
     },
     validationSchema: Yup.object({
       contents: Yup.string()
-        .max(500, '500자를 넘을 수 없습니다.')
+        .max(1000, '1000자를 넘을 수 없습니다.')
         .required('꼭 입력해주세요'),
     }),
     validateOnChange: true,

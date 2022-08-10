@@ -1,13 +1,18 @@
 import { Link } from 'react-router-dom';
-import React, { useState, useRef, useLayoutEffect } from 'react';
-import CommunityPostTypographyButton from '@src/containers/CommunityPostListSection/CommunityPostTypographyButton/CommunityPostTypographyButton';
-import CommunityPostMenuIconButton from '@src/containers/CommunityPostListSection/CommunityPost/CommunityPostMenuIconButton';
+import { useDispatch, useSelector } from 'react-redux';
+import React, {
+  useState,
+  useRef,
+  useLayoutEffect,
+  forwardRef,
+  useEffect,
+} from 'react';
+import moment from 'moment';
+import { selectUser } from '@store/slices/user';
+import { setComment, selectComment } from '@store/slices/comment';
 import {
-  ContentsWrapper,
-  CustomCardMedia,
-} from '@src/containers/CommunityPostListSection/CommunityPost/CommunityPost.style';
-import Avatar from '@mui/material/Avatar';
-import {
+  Avatar,
+  CircularProgress,
   CardHeader,
   IconButton,
   CardContent,
@@ -18,52 +23,119 @@ import {
 } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { CommunityPostType } from '@interfaces/community';
+import {
+  CommunityPostType,
+  CommunityPostCommentType,
+  CommentContentsType,
+} from '@interfaces/community';
+import CommunityPostTypographyButton from '@containers/CommunityPostListSection/CommunityPostTypographyButton/CommunityPostTypographyButton';
+import CommunityPostMenuIconButton from '@containers/CommunityPostListSection/CommunityPostMenuIconButton/CommunityPostMenuIconButton';
+import CommunityPostComment from '@containers/CommunityPostListSection/CommunityPostComment/CommunityPostComment';
+import {
+  ContentsWrapper,
+  CommunityPostCommentWrapper,
+  CustomCardMedia,
+} from '@containers/CommunityPostListSection/CommunityPost/CommunityPost.style';
+import { ItemCard } from '@components/StudyList/StudyList.style';
 import {
   postCommunityPostLikeApi,
   deleteCommunityPostLikeApi,
+  getCommunityPostCommentApi,
 } from '@apis/community';
 
-function CommunityPost({
-  postId,
-  memberId,
-  nickname,
-  createdAt,
-  profileImageUrl,
-  contents,
-  postImageUrl,
-  totalLikes,
-  totalComments,
-  isliked,
-}: CommunityPostType) {
+const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
+  {
+    postId,
+    memberId,
+    nickname,
+    updatedAt,
+    profileImageUrl,
+    contents,
+    postImageUrl,
+    likedMembers,
+    totalPostComments,
+  },
+  ref,
+) {
+  const [commentLoading, setCommentLoading] = useState(false);
+  const [commentCount, setCommentCount] = useState(0);
   const [liked, setLiked] = useState({ check: false, count: 0 });
   const [isExpand, setIsExpand] = useState<string | number>('none');
+  const [onCommentOpen, setOnCommentOpen] = useState(false);
+  const [postComments, setPostComments] = useState<CommunityPostCommentType>();
   const contentsRef = useRef<HTMLInputElement>(null);
 
+  const dispatch = useDispatch();
+  // const postComments = useSelector(selectComment);
+  const state = useSelector(selectUser);
+
+  const checkLoginAndUser = () => state.isLogin && state.user;
+  const checkLikedMembers = () => likedMembers.includes(state.user?.id as any);
+
   useLayoutEffect(() => {
-    setLiked({ check: isliked, count: totalLikes });
+    checkLiked();
+    setCommentCount(totalPostComments);
     if (contentsRef.current) {
       const contentsHeight = contentsRef.current.getBoundingClientRect().height;
       setIsExpand(contentsHeight > 96 ? 4 : 'none');
     }
   }, []);
 
-  const handleReadMore = () => {
-    setIsExpand('none');
-  };
-
-  const handleLiked = async (e: React.MouseEvent<HTMLElement>) => {
-    if (liked.check) {
-      setLiked({ check: !liked.check, count: (liked.count -= 1) });
-      await deleteCommunityPostLikeApi(`posts/${postId}/like`);
-    } else {
-      setLiked({ check: !liked.check, count: (liked.count += 1) });
-      await postCommunityPostLikeApi(`posts/${postId}/like`);
+  const checkLiked = () => {
+    switch (true) {
+      case checkLoginAndUser() && checkLikedMembers():
+        setLiked({ check: true, count: likedMembers.length });
+        break;
+      case checkLoginAndUser() && !checkLikedMembers():
+        setLiked({ check: false, count: likedMembers.length });
+        break;
+      default:
+        setLiked({ check: false, count: likedMembers.length });
+        break;
     }
   };
 
+  const handleLiked = async (e: React.MouseEvent<HTMLElement>) => {
+    if (!state.isLogin) return;
+    switch (liked.check) {
+      case true:
+        setLiked({ check: false, count: liked.count - 1 });
+        await deleteCommunityPostLikeApi(postId);
+        break;
+      case false:
+        setLiked({ check: true, count: liked.count + 1 });
+        await postCommunityPostLikeApi(postId);
+        break;
+    }
+  };
+
+  const handleCommentCount = (commentCountType: string) => {
+    switch (commentCountType) {
+      case 'UP':
+        setCommentCount(commentCount + 1);
+        break;
+      case 'DOWN':
+        setCommentCount(commentCount - 1);
+        break;
+    }
+  };
+
+  const handleSetComment = async () => {
+    setOnCommentOpen(!onCommentOpen);
+    if (!onCommentOpen) return;
+    setCommentLoading(true);
+    const res: CommunityPostCommentType = await getCommunityPostCommentApi(
+      postId,
+      3,
+    );
+    console.log(res);
+    setPostComments(res);
+    dispatch(setComment(res));
+    setCommentLoading(false);
+  };
+
   return (
-    <Card>
+    <Card ref={ref}>
       <CardHeader
         avatar={
           <Avatar
@@ -77,6 +149,7 @@ function CommunityPost({
         action={
           <CommunityPostMenuIconButton
             postId={postId}
+            memberId={memberId}
             nickname={nickname}
             profileImageUrl={profileImageUrl}
             contents={contents}
@@ -93,7 +166,7 @@ function CommunityPost({
             {nickname}
           </Typography>
         }
-        subheader={createdAt}
+        subheader={moment(updatedAt, 'YYYY-MM-DD hh:mm:ss').fromNow()}
         sx={{ paddingBottom: '0' }}
       />
       <CardContent sx={{ paddingBottom: '0' }}>
@@ -101,7 +174,7 @@ function CommunityPost({
           <Typography ref={contentsRef}>{contents}</Typography>
         </ContentsWrapper>
         {isExpand !== 'none' && (
-          <CommunityPostTypographyButton onClick={handleReadMore}>
+          <CommunityPostTypographyButton onClick={() => setIsExpand('none')}>
             더보기
           </CommunityPostTypographyButton>
         )}
@@ -123,12 +196,31 @@ function CommunityPost({
         <CommunityPostTypographyButton>
           {liked.count}
         </CommunityPostTypographyButton>
-        <CommunityPostTypographyButton name='댓글' margin='0 1rem 0 auto'>
-          {totalComments}
+        <CommunityPostTypographyButton
+          onClick={handleSetComment}
+          name='댓글'
+          margin='0 1rem 0 auto'
+        >
+          {commentCount}
         </CommunityPostTypographyButton>
       </CardActions>
+      {commentLoading && (
+        <ItemCard>
+          <CircularProgress />
+        </ItemCard>
+      )}
+      {!commentLoading && onCommentOpen && (
+        <CommunityPostCommentWrapper>
+          {/* <CommunityPostComment
+            {...postComments}
+            size={3}
+            postId={postId}
+            onCount={handleCommentCount}
+          /> */}
+        </CommunityPostCommentWrapper>
+      )}
     </Card>
   );
-}
+});
 
 export default CommunityPost;

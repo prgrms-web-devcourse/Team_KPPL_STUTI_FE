@@ -1,4 +1,4 @@
-import { CardMedia } from '@mui/material';
+import { CardMedia, Box } from '@mui/material';
 import styled from '@emotion/styled';
 
 interface ContentsWrapperType {
@@ -21,4 +21,8 @@ export const ContentsWrapper = styled.div<ContentsWrapperType>`
 
 export const CustomCardMedia = styled(CardMedia)<CardMediaType>`
   border-radius: ${({ theme }) => theme.shape.borderRadius};
+`;
+
+export const CommunityPostCommentWrapper = styled(Box)`
+  margin: -0.5rem 1rem 1rem;
 `;

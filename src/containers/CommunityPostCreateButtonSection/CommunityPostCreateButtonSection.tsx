@@ -1,10 +1,13 @@
+import { useSelector } from 'react-redux';
 import { useState } from 'react';
-import CommunityModal from '@src/containers/CommunityModal/CommunityModal';
+import { selectUser } from '@store/slices/user';
+import CommunityModal from '@containers/CommunityModal/CommunityModal';
 
 import CommunityPostCreateButton from './CommunityPostCreateButton/CommunityPostCreateButton';
 
 function CommunityPostCreateButtonSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const state = useSelector(selectUser);
 
   const handleCreateModalOpen = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -14,12 +17,13 @@ function CommunityPostCreateButtonSection() {
     e.stopPropagation();
     setIsModalOpen(false);
   };
+
   return (
     <>
       <CommunityPostCreateButton onClick={handleCreateModalOpen} />
       <CommunityModal
-        postId='1'
-        nickname='로그인 한 User nickname'
+        postId={state.user?.id as any}
+        nickname={state.user?.nickname}
         modalType='CREATE'
         isOpen={isModalOpen}
         onClose={handleCreateModalClose}
