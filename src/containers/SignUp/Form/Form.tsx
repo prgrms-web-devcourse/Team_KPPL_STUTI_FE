@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { MBTI_TEST_URL } from '@src/constants/externalUrl';
 import { Button, TextField, Typography } from '@mui/material';
 import { careers, jobs, mbtis } from '@containers/SignUp/options';
 import Select from '@containers/SignUp/Select/Select';
@@ -26,9 +27,7 @@ function Form() {
   };
 
   const handleClick = () => {
-    window.open(
-      'https://www.16personalities.com/ko/%EB%AC%B4%EB%A3%8C-%EC%84%B1%EA%B2%A9-%EC%9C%A0%ED%98%95-%EA%B2%80%EC%82%AC',
-    );
+    window.open(MBTI_TEST_URL);
   };
 
   return (
