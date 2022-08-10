@@ -2,7 +2,6 @@ import axiosInstance, { axiosAuthInstance } from '@apis/axiosInstance';
 
 export const login = async (id: number) => {
   const { data } = await axiosInstance({
-    baseURL: process.env.REACT_APP_API_ENDPOINT,
     url: '/api/v1/login',
     method: 'POST',
     data: {
@@ -15,7 +14,6 @@ export const login = async (id: number) => {
 
 export const getAuthUser = async () => {
   const { data } = await axiosAuthInstance({
-    baseURL: process.env.REACT_APP_API_ENDPOINT,
     url: '/api/v1/auth',
     method: 'GET',
   });
@@ -25,7 +23,6 @@ export const getAuthUser = async () => {
 
 export const logout = async () => {
   const { data } = await axiosAuthInstance({
-    baseURL: process.env.REACT_APP_API_ENDPOINT,
     url: '/api/v1/logout',
     method: 'POST',
   });
