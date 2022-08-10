@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { Formik, Field } from 'formik';
@@ -10,6 +10,7 @@ import {
   FileInput,
 } from '@src/components/StudyCreate&Edit';
 import { SpinnerIcon } from '@src/components';
+import { editStudy } from '@src/apis/studyEdit';
 import { getStudyDetailInfomation } from '@src/apis/studyDetail';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -55,6 +56,7 @@ function StudyEditForm() {
   const [thumbnailImage, setThumbnailImage] = useState<string>('');
   const [fileErrorMessage, setFileErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { study_id = '0' } = useParams();
@@ -135,6 +137,25 @@ function StudyEditForm() {
     return formData;
   };
 
+  const updateStudy = async (formData: FormData, study_id: string) => {
+    try {
+      const res = await editStudy(formData, study_id);
+      const { studyGroupId } = res;
+
+      navigate(`/study/${studyGroupId}`, { replace: true });
+      return res;
+    } catch (error) {
+      console.error(error);
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다.',
+          content: '스터디 생성에 실패했습니다.',
+        }),
+      );
+    }
+  };
+
   return (
     <Formik
       initialValues={{
@@ -148,12 +169,7 @@ function StudyEditForm() {
 
         const formData = createFormData(values);
 
-        setTimeout(() => {
-          for (const key of formData.keys()) {
-            console.log(key, ':', formData.get(key));
-          }
-          actions.setSubmitting(false);
-        }, 3000);
+        updateStudy(formData, study_id);
       }}
     >
       {({
