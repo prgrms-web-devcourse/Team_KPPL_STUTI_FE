@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { selectPost, setPost } from '@store/slices/post';
+import { addPost, selectPost, setPost } from '@store/slices/post';
 import CircularProgress from '@mui/material/CircularProgress';
 import { CommunityPostWrapper } from '@containers/CommunityPostListSection/CommunityPostListSection.style';
 import CommunityPost from '@containers/CommunityPostListSection/CommunityPost/CommunityPost';
@@ -15,8 +15,6 @@ function CommunityPostListSection() {
   //redux
   const dispatch = useDispatch();
   const post = useSelector(selectPost);
-
-  console.log(post);
 
   useEffect(() => {
     (async () => {
@@ -36,16 +34,17 @@ function CommunityPostListSection() {
   useEffect(() => {
     let io: any;
     if (postTarget) {
-      io = new IntersectionObserver(observerCallback);
+      io = new IntersectionObserver(handleInfiniteScroll);
       io.observe(postTarget);
     }
     return () => io && io.disconnect();
   }, [postTarget]);
 
-  const observerCallback = (entries: any, observer: any) => {
-    if (entries[0].isIntersecting) {
-      //맨 마지막
-      console.log(entries[0]);
+  const handleInfiniteScroll = async (entries: any) => {
+    if (entries[0].isIntersecting && post.value.posts && post.value.hasNext) {
+      const lastPostId = post.value.posts.at(-1)?.postId;
+      const res = await getCommunityDataApi(5, lastPostId);
+      dispatch(addPost(res));
     }
   };
 

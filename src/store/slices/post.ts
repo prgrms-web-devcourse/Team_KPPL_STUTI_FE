@@ -20,6 +20,12 @@ export const postSlice = createSlice({
     setPost: (state: postState, action: PayloadAction<CommunityType>) => {
       state.value = action.payload;
     },
+    addPost: (state: postState, action: PayloadAction<CommunityType>) => {
+      if (!action.payload.posts || !state.value.posts) return;
+
+      state.value.posts = [...state.value.posts, ...action.payload.posts];
+      state.value.hasNext = action.payload.hasNext;
+    },
     createPost: (
       state: postState,
       action: PayloadAction<CommunityPostType>,
@@ -51,5 +57,6 @@ export const postSlice = createSlice({
 
 export const selectPost = (state: RootState) => state.post;
 
-export const { setPost, createPost, editPost, deletePost } = postSlice.actions;
+export const { setPost, addPost, createPost, editPost, deletePost } =
+  postSlice.actions;
 export default postSlice.reducer;
