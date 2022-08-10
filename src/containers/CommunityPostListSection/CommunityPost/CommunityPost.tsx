@@ -2,14 +2,11 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useRef, useLayoutEffect, forwardRef } from 'react';
 import moment from 'moment';
-import { AxiosError, AxiosResponse } from 'axios';
 import { selectUser } from '@store/slices/user';
-import { setComment } from '@store/slices/comment';
-import { selectComment } from '@src/store/slices/comment';
-import { errorType } from '@src/interfaces/error';
-import CircularProgress from '@mui/material/CircularProgress';
-import Avatar from '@mui/material/Avatar';
+import { setComment, selectComment } from '@store/slices/comment';
 import {
+  Avatar,
+  CircularProgress,
   CardHeader,
   IconButton,
   CardContent,
@@ -25,7 +22,8 @@ import {
   CommunityPostCommentType,
 } from '@interfaces/community';
 import CommunityPostTypographyButton from '@containers/CommunityPostListSection/CommunityPostTypographyButton/CommunityPostTypographyButton';
-import CommunityPostMenuIconButton from '@containers/CommunityPostListSection/CommunityPost/CommunityPostMenuIconButton';
+import CommunityPostMenuIconButton from '@containers/CommunityPostListSection/CommunityPostMenuIconButton/CommunityPostMenuIconButton';
+import CommunityPostComment from '@containers/CommunityPostListSection/CommunityPostComment/CommunityPostComment';
 import {
   ContentsWrapper,
   CommunityPostCommentWrapper,
@@ -38,7 +36,6 @@ import {
   getCommunityPostCommentApi,
 } from '@apis/community';
 
-import CommunityPostComment from '../CommunityPostComment/CommunityPostComment';
 const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   {
     postId,
@@ -53,6 +50,10 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   },
   ref,
 ) {
+  const dispatch = useDispatch();
+  const postComments = useSelector(selectComment);
+  const state = useSelector(selectUser);
+
   const [commentLoading, setCommentLoading] = useState(false);
   const [commentCount, setCommentCount] = useState(0);
   const [liked, setLiked] = useState({ check: false, count: 0 });
@@ -60,10 +61,6 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   const [isComment, setIsComment] = useState(false);
 
   const contentsRef = useRef<HTMLInputElement>(null);
-
-  const postComments = useSelector(selectComment);
-  const state = useSelector(selectUser);
-  const dispatch = useDispatch();
 
   const checkLoginAndUser = () => state.isLogin && state.user;
   const checkLikedMembers = () => likedMembers.includes(state.user?.id as any);
@@ -120,20 +117,12 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
     setIsComment(!isComment);
     if (isComment) return;
     setCommentLoading(true);
-    try {
-      const res: CommunityPostCommentType = await getCommunityPostCommentApi(
-        postId,
-        3,
-      );
-      dispatch(setComment(res));
-    } catch (error) {
-      console.error(error);
-      const { response } = error as AxiosError;
-      const { data }: { data: errorType } = response as AxiosResponse;
-      const { errorCode } = data;
-    } finally {
-      setCommentLoading(false);
-    }
+    const res: CommunityPostCommentType = await getCommunityPostCommentApi(
+      postId,
+      3,
+    );
+    dispatch(setComment(res));
+    setCommentLoading(false);
   };
 
   return (

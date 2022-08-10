@@ -1,6 +1,7 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRef, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
+import { selectUser } from '@store/slices/user';
 import {
   addNewComment,
   addComment,
@@ -17,14 +18,13 @@ import {
 } from '@interfaces/community';
 import ReplyInput, { errorHandle } from '@containers/Reply/ReplyInput';
 import Reply, { inputHandle } from '@containers/Reply/Reply';
+import { PostCommentContainer } from '@containers/CommunityPostListSection/CommunityPostComment/style';
 import {
   createCommunityPostCommentApi,
   changeCommunityPostCommentApi,
   getCommunityPostCommentApi,
   deleteCommunityPostCommentApi,
 } from '@apis/community';
-
-import { PostCommentContainer } from './style';
 
 interface Props extends CommunityPostCommentType {
   size: number;
@@ -47,12 +47,15 @@ function CommunityPostComment({
   const handleInput = useRef<inputHandle[]>([]);
   const handleInputSub = useRef<inputHandle[]>([]);
 
+  const state = useSelector(selectUser);
+
   const requestComment = async (
     postId: number,
     size: number,
     lastCommunityPostCommentId: number,
   ) => {
     try {
+      if (!state.isLogin) return;
       const res: CommunityPostCommentType = await getCommunityPostCommentApi(
         postId,
         size,
@@ -84,6 +87,7 @@ function CommunityPostComment({
     isDefaultInput?: boolean,
   ) => {
     try {
+      if (!state.isLogin) return;
       const res: CommentContentsType | childrenCommentType =
         await createCommunityPostCommentApi(postId, parentId, contents);
       dispatch(addNewComment(res));
@@ -127,6 +131,7 @@ function CommunityPostComment({
     isSub?: boolean,
   ) => {
     try {
+      if (!state.isLogin) return;
       const res: CommentContentsType | childrenCommentType =
         await changeCommunityPostCommentApi(postId, postCommentId, contents);
 
@@ -165,6 +170,7 @@ function CommunityPostComment({
 
   const removeComment = async (postId: number, postCommentId: number) => {
     try {
+      if (!state.isLogin) return;
       const res: CommentContentsType | childrenCommentType =
         await deleteCommunityPostCommentApi(postId, postCommentId);
       dispatch(deleteComment(res));

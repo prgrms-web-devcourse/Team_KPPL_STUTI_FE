@@ -1,27 +1,29 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import CommunityPost from '@src/containers/CommunityPostListSection/CommunityPost/CommunityPost';
+import { selectPost, setPost } from '@store/slices/post';
 import CircularProgress from '@mui/material/CircularProgress';
-import { CommunityType, CommunityPostType } from '@interfaces/community';
+import { CommunityPostWrapper } from '@containers/CommunityPostListSection/CommunityPostListSection.style';
+import CommunityPost from '@containers/CommunityPostListSection/CommunityPost/CommunityPost';
 import { ItemCard } from '@components/StudyList/StudyList.style';
 import { getCommunityDataApi } from '@apis/community';
 
-import { CommunityPostWrapper } from './CommunityPostListSection.style';
 function CommunityPostListSection() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [communityPostData, setCommunityPostData] = useState<CommunityType>({});
-  const [communityPostLists, setCommunityPostLists] = useState<
-    CommunityPostType[]
-  >([]);
   const [postTarget, setPostTarget] = useState();
+
+  //redux
+  const dispatch = useDispatch();
+  const post = useSelector(selectPost);
+
+  console.log(post);
 
   useEffect(() => {
     (async () => {
       try {
         setLoading(true);
         const res = await getCommunityDataApi(5);
-        setCommunityPostData(res);
-        setCommunityPostLists(res.posts);
+        dispatch(setPost(res));
       } catch (e) {
         console.error(e);
         setError(true);
@@ -49,8 +51,8 @@ function CommunityPostListSection() {
 
   return (
     <CommunityPostWrapper>
-      {communityPostLists.length !== 0 &&
-        communityPostLists.map((post) => (
+      {post.value.posts &&
+        post.value.posts.map((post) => (
           <CommunityPost
             key={post.postId}
             postId={post.postId}
@@ -66,7 +68,7 @@ function CommunityPostListSection() {
             ref={setPostTarget}
           />
         ))}
-      {!loading && !error && communityPostLists.length === 0 && (
+      {!loading && !error && !post.value.posts && (
         <ItemCard>커뮤니티가 없습니다.</ItemCard>
       )}
       {error && (
