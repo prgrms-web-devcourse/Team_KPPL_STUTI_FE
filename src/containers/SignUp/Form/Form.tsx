@@ -5,10 +5,10 @@ import { setStorageItem } from '@src/utils/storage';
 import { getQueryString } from '@src/utils/queryString';
 import { loginUser } from '@src/store/slices/user';
 import { MBTI_TEST_URL } from '@src/constants/externalUrl';
+import { Select } from '@src/components';
 import { signUp } from '@src/apis/user';
 import { Button, TextField, Typography } from '@mui/material';
 import { careers, jobs, mbtis } from '@containers/SignUp/options';
-import Select from '@containers/SignUp/Select/Select';
 
 import {
   FormContainer,
@@ -39,10 +39,11 @@ function Form() {
       MBTI: mbti,
     };
 
-    const data = await signUp(formData);
-    dispatch(loginUser(data.member));
-    setStorageItem('token', data.accesstoken);
-    navigate('/', { replace: true });
+    console.log(formData);
+    // const data = await signUp(formData);
+    // dispatch(loginUser(data.member));
+    // setStorageItem('token', data.accesstoken);
+    // navigate('/', { replace: true });
   };
 
   const handleClick = () => {
@@ -64,14 +65,14 @@ function Form() {
           />
           <Select
             label='직무'
-            handleChange={setField}
+            onChange={(e) => setField(e.target.value)}
             required
             options={jobs}
             value={field}
           />
           <Select
             label='경력'
-            handleChange={setCareer}
+            onChange={(e) => setCareer(e.target.value)}
             required
             options={careers}
             value={career}
@@ -80,7 +81,7 @@ function Form() {
             <MbtiWrapper>
               <Select
                 label='MBTI'
-                handleChange={setMbti}
+                onChange={(e) => setMbti(e.target.value)}
                 required
                 options={mbtis}
                 value={mbti}
