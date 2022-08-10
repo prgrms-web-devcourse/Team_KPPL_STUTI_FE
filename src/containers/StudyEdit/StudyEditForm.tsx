@@ -27,6 +27,11 @@ import {
   SpinnerWrapper,
 } from './style';
 
+interface formikData {
+  title: string;
+  description: string;
+}
+
 const EditSchema = Yup.object({
   title: Yup.string()
     .trim('앞, 뒤 공백을 제거해주세요.')
@@ -105,6 +110,17 @@ function StudyEditForm() {
     setFileErrorMessage('');
   };
 
+  const createFormData = (values: formikData) => {
+    const formData = new FormData();
+    const { title, description } = values;
+
+    formData.append('title', title);
+    if (imageSrc) formData.append('imageFile', imageSrc);
+    formData.append('description', description);
+
+    return formData;
+  };
+
   return (
     <Formik
       initialValues={{
@@ -116,11 +132,7 @@ function StudyEditForm() {
       onSubmit={(values, actions) => {
         actions.setSubmitting(true);
 
-        const formData = new FormData();
-
-        formData.append('title', values.title);
-        if (imageSrc) formData.append('imageFile', imageSrc);
-        formData.append('description', values.description.trim());
+        const formData = createFormData(values);
 
         setTimeout(() => {
           for (const key of formData.keys()) {
