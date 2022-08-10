@@ -20,12 +20,14 @@ export const getStudyList = async (queries: {
     .join('')
     .slice(0, -1);
 
-  const url = `${API_ENDPOINT}/api/v1/study-groups?${queryStrings}&studyGroupMemberRole=STUDY_LEADER`;
+  const url = `${API_ENDPOINT}/api/v1/study-groups?${queryStrings}`;
 
   const { data } = await axiosInstance({
     url,
     method: 'GET',
   });
+
+  console.log(data);
 
   return data;
 };
