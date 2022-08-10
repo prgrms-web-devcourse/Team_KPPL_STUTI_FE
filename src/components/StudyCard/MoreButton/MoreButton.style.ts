@@ -7,10 +7,11 @@ export const Position = styled.div`
   right: 0.5rem;
 `;
 
-export const CustomIconButton = styled(IconButton)`
-  background-color: ${({ theme }) => theme.palette.background.default};
+export const StyledIconButton = styled(IconButton)`
+  background-color: ${({ theme }) => theme.palette.primary.main};
+  color: ${({ theme }) => theme.palette.common.white};
 
   &:hover {
-    background-color: ${({ theme }) => theme.palette.action.hover};
+    background-color: ${({ theme }) => theme.palette.primary.dark};
   }
 `;

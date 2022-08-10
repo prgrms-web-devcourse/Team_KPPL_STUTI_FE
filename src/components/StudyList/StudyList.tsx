@@ -1,8 +1,8 @@
 import { forwardRef } from 'react';
 import { StudyListType } from '@interfaces/studyList';
-import { StudyCard, SpinnerIcon } from '@components';
+import { StudyCard, SkeletonStudyCard, ItemCard } from '@components';
 
-import { Ul, ItemCard } from './StudyList.style';
+import { Ul } from './StudyList.style';
 
 interface Props {
   studyList: StudyListType;
@@ -46,9 +46,7 @@ const StudyList = forwardRef<Ref, Props>(function StudyList(
       )}
       {loading && (
         <li>
-          <ItemCard>
-            <SpinnerIcon />
-          </ItemCard>
+          <SkeletonStudyCard />
         </li>
       )}
     </Ul>

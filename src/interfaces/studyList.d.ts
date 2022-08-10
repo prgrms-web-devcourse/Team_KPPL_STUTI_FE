@@ -1,14 +1,13 @@
 export type StudyItemType = {
   studyGroupId: number;
-  leaderId: number;
+  memberId: number;
   thumbnailUrl: string;
   topic: string;
   title: string;
   preferredMBTIs: string[];
-  isOnline: boolean;
   region: string;
-  startDate: string;
-  endDate: string;
+  startDateTime: string;
+  endDateTime: string;
   numberOfMembers: number;
   numberOfRecruits: number;
 };

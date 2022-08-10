@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-import { Position, CustomIconButton } from './MoreButton.style';
+import { Position, StyledIconButton } from './MoreButton.style';
 
 interface Props {
   studyId: number;
@@ -26,7 +26,7 @@ function MoreButton({ studyId, onStudyDelete }: Props) {
   };
   return (
     <Position>
-      <CustomIconButton
+      <StyledIconButton
         id='more-button'
         aria-controls={open ? 'more-menu' : undefined}
         aria-haspopup='true'
@@ -34,7 +34,7 @@ function MoreButton({ studyId, onStudyDelete }: Props) {
         onClick={openMenu}
       >
         <MoreHorizIcon />
-      </CustomIconButton>
+      </StyledIconButton>
       <Menu
         id='more-menu'
         aria-labelledby='more-button'
