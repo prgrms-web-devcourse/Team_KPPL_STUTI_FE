@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { StudyListType } from '@interfaces/studyList';
 import { useInterSectionObserver } from '@hooks/useIntersectionObserver';
 import { StudyList } from '@components';
-import { deleteStudy, getStudyList } from '@apis/studyGroups';
+import { getAllStudies, deleteStudy } from '@apis/studyGroups';
 
 import StudyListFilter from '../StudyListFilter/StudyListFilter';
 
@@ -43,7 +43,7 @@ function StudyListSection() {
       try {
         setLoading(true);
         const { contents: newStudylist, hasNext: newHasNext } =
-          await getStudyList({
+          await getAllStudies({
             lastStudyGroupId: lastStudyId,
             mbti: filter.mbti,
             topic: filter.topic,
