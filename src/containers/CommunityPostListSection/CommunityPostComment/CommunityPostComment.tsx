@@ -27,7 +27,7 @@ import { PostCommentContainer } from './style';
 
 interface Props extends CommunityPostCommentType {
   size: number;
-  postId: string;
+  postId: number;
   onCount: (commentCountType: string) => void;
 }
 
@@ -47,7 +47,7 @@ function CommunityPostComment({
   const handleInputSub = useRef<inputHandle[]>([]);
 
   const requestComment = async (
-    postId: string,
+    postId: number,
     size: number,
     lastCommunityPostCommentId: number,
   ) => {
@@ -68,7 +68,7 @@ function CommunityPostComment({
   };
 
   const createComment = async (
-    postId: string,
+    postId: number,
     parentId: number | null,
     contents: string,
     index: number,
@@ -102,7 +102,7 @@ function CommunityPostComment({
   };
 
   const updateComment = async (
-    postId: string,
+    postId: number,
     postCommentId: number,
     contents: string,
     index: number,
@@ -137,7 +137,7 @@ function CommunityPostComment({
     }
   };
 
-  const removeComment = async (postId: string, postCommentId: number) => {
+  const removeComment = async (postId: number, postCommentId: number) => {
     try {
       const res: CommentContentsType | childrenCommentType =
         await deleteCommunityPostCommentApi(postId, postCommentId);
@@ -169,11 +169,13 @@ function CommunityPostComment({
           contents: text = '참여하고 싶어요!',
           updatedAt = '2022-02-22 10:00:00',
           children = [],
+          memberId,
         } = content;
         return (
           <Reply
             ref={(el) => el && (handleInput.current[index] = el)}
             key={content.postCommentId}
+            memberId={memberId}
             profileImageUrl={profileImageUrl}
             nickname={nickname}
             contents={text}
@@ -201,6 +203,7 @@ function CommunityPostComment({
                 <Reply
                   ref={(el) => el && (handleInputSub.current[index] = el)}
                   key={postCommentId}
+                  memberId={memberId}
                   profileImageUrl={profileImageUrl}
                   nickname={nickname}
                   contents={contents}

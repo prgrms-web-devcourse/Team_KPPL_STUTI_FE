@@ -16,7 +16,7 @@ export const getCommunityDataApi = async (size: number) => {
   }
 };
 
-export const deleteCommunityPostApi = async (postId: string) => {
+export const deleteCommunityPostApi = async (postId: number) => {
   try {
     const res = await axiosInstance({
       baseURL: `${process.env.REACT_APP_API_ENDPOINT}`,
@@ -51,7 +51,7 @@ export const postCommunityPostApi = async (postFormData: FormData) => {
 };
 
 export const editCommunityPostApi = async (
-  postId: string,
+  postId: number,
   postFormData: FormData,
 ) => {
   try {
@@ -71,7 +71,7 @@ export const editCommunityPostApi = async (
   }
 };
 
-export const postCommunityPostLikeApi = async (postId: string) => {
+export const postCommunityPostLikeApi = async (postId: number) => {
   try {
     const res = await axiosInstance({
       baseURL: `${process.env.REACT_APP_API_ENDPOINT}`,
@@ -87,7 +87,7 @@ export const postCommunityPostLikeApi = async (postId: string) => {
   }
 };
 
-export const deleteCommunityPostLikeApi = async (postId: string) => {
+export const deleteCommunityPostLikeApi = async (postId: number) => {
   try {
     const res = await axiosInstance({
       baseURL: `${process.env.REACT_APP_API_ENDPOINT}`,
@@ -104,7 +104,7 @@ export const deleteCommunityPostLikeApi = async (postId: string) => {
 };
 
 export const getCommunityPostCommentApi = async (
-  postId: string,
+  postId: number,
   size: number,
   lastCommunityPostCommentId?: number,
 ) => {
@@ -124,7 +124,7 @@ export const getCommunityPostCommentApi = async (
 };
 
 export const createCommunityPostCommentApi = async (
-  postId: string,
+  postId: number,
   parentId: number | null,
   contents: string,
 ) => {
@@ -148,7 +148,7 @@ export const createCommunityPostCommentApi = async (
 };
 
 export const changeCommunityPostCommentApi = async (
-  postId: string,
+  postId: number,
   communityPostCommentId: number,
   contents: string,
 ) => {
@@ -171,7 +171,7 @@ export const changeCommunityPostCommentApi = async (
 };
 
 export const deleteCommunityPostCommentApi = async (
-  postId: string,
+  postId: number,
   communityPostCommentId: number,
 ) => {
   try {

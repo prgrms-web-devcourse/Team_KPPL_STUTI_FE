@@ -1,5 +1,5 @@
 export interface CommunityPostType {
-  postId: string;
+  postId: number;
   memberId: number;
   nickname: string;
   mbti: string;
@@ -17,7 +17,7 @@ export interface CommunityType {
 }
 
 export interface CommunityModalType {
-  postId: string;
+  postId: number;
   nickname?: string;
   profileImageUrl?: string;
   contents?: string;
@@ -28,7 +28,7 @@ export interface CommunityModalType {
 }
 
 interface CommunityPostMenuIconButtonType {
-  postId: string;
+  postId: number;
   memberId: number;
   nickname: string;
   profileImageUrl?: string;

@@ -65,7 +65,6 @@ function CommunityModal({
 
     postFormData.append('contents', values.contents);
     values.postImage && postFormData.append('postImage', values.postImage);
-
     switch (modalType) {
       case 'CREATE':
         await postCommunityPostApi(postFormData);
