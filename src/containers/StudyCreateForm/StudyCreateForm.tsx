@@ -207,16 +207,63 @@ function StudyCreateFormContainer() {
       return res;
     } catch (error) {
       console.error(error);
-      dispatch(
-        openAlert({
-          severity: 'error',
-          title: '죄송합니다',
-          content: '스터디 생성에 실패했습니다.',
-        }),
-      );
+
       const { response } = error as AxiosError;
       const { data }: { data: errorType } = response as AxiosResponse;
       const { errorCode } = data;
+
+      if (errorCode === 'C001') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '잘못 입력된 값이 있습니다.',
+            content: '다시 한 번 확인해주세요.',
+          }),
+        );
+      }
+      if (errorCode === 'SG001') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '스터디 기간이 잘 못 설정되었습니다.',
+            content: '시작일은 종료일보다 과거여야 합니다.',
+          }),
+        );
+      }
+      if (errorCode === 'F001') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '지원하지 않는 형식의 파일입니다.',
+            content: 'PNG, JPEG, JPG만 가능합니다.',
+          }),
+        );
+      }
+      if (errorCode === 'F002') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '파일 크기가 1MB를 초과합니다.',
+            content: '최대 1MB까지 가능합니다.',
+          }),
+        );
+      }
+      if (errorCode === 'F003') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '파일 업로드 실패.',
+            content: '파일 업로드에 실패했습니다.',
+          }),
+        );
+      }
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다.',
+          content: '스터디 생성에 실패했습니다.',
+        }),
+      );
     }
   };
 
