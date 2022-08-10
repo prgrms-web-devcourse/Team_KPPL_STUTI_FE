@@ -7,3 +7,4 @@ export const STUDY_EDIT = '/study/:study_id/edit';
 export const PROFILE_DETAIL = '/user/:user_id';
 export const PROFILE_EDIT = '/user/:user_id/edit';
 export const SIGN_UP = '/sign-up';
+export const LOGIN = '/login';

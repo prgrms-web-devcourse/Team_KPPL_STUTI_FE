@@ -1,13 +1,9 @@
-import { isDev } from '@constants/nodeEnv';
-import axiosInstance from '@apis/axiosInstance';
+import axiosInstance, { axiosAuthInstance } from '@apis/axiosInstance';
 
 export const login = async (id: number) => {
   const { data } = await axiosInstance({
-    baseURL: isDev
-      ? 'http://localhost:3000'
-      : process.env.REACT_APP_API_ENDPOINT,
-    url: isDev ? '/mock/loginUser.json' : '/api/v1/login',
-    method: isDev ? 'GET' : 'POST',
+    url: '/api/v1/login',
+    method: 'POST',
     data: {
       id,
     },
@@ -17,11 +13,8 @@ export const login = async (id: number) => {
 };
 
 export const getAuthUser = async () => {
-  const { data } = await axiosInstance({
-    baseURL: isDev
-      ? 'http://localhost:3000'
-      : process.env.REACT_APP_API_ENDPOINT,
-    url: isDev ? '/mock/authUser.json' : '/api/v1/auth',
+  const { data } = await axiosAuthInstance({
+    url: '/api/v1/auth',
     method: 'GET',
   });
 
@@ -29,7 +22,7 @@ export const getAuthUser = async () => {
 };
 
 export const logout = async () => {
-  const { data } = await axiosInstance({
+  const { data } = await axiosAuthInstance({
     url: '/api/v1/logout',
     method: 'POST',
   });
