@@ -1,7 +1,9 @@
 import * as Yup from 'yup';
 import { useParams } from 'react-router';
-import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { Formik, Field } from 'formik';
+import { openAlert } from '@store/slices/flashAlert';
 import {
   MultiLineInput,
   LabelInput,
@@ -53,8 +55,7 @@ function StudyEditForm() {
   const [thumbnailImage, setThumbnailImage] = useState<string>('');
   const [fileErrorMessage, setFileErrorMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const titleRef = useRef<null | HTMLDivElement>(null);
-  const descriptionRef = useRef<null | HTMLDivElement>(null);
+  const dispatch = useDispatch();
 
   const { study_id = '0' } = useParams();
 
@@ -110,6 +111,19 @@ function StudyEditForm() {
     setFileErrorMessage('');
   };
 
+  const handleClick = (values: formikData) => {
+    const { title, description } = values;
+    if (!title || !description) {
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '누락된 값이 있습니다.',
+          content: '다시 확인해 주세요.',
+        }),
+      );
+    }
+  };
+
   const createFormData = (values: formikData) => {
     const formData = new FormData();
     const { title, description } = values;
@@ -142,31 +156,29 @@ function StudyEditForm() {
         }, 3000);
       }}
     >
-      {(formik) => {
+      {({
+        handleSubmit,
+        handleChange,
+        values,
+        isSubmitting,
+        touched,
+        errors,
+      }) => {
         return (
-          <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <StudyEditWrapper>
               <StudyEditHeading>
                 <Typography variant='h4'>스터디 수정</Typography>
                 <InputWrapper>
-                  {formik.touched.title && formik.errors.title && (
-                    <ErrorMessage ref={titleRef}>
-                      {(() => {
-                        if (titleRef.current) {
-                          titleRef.current.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start',
-                          });
-                        }
-                        return formik.errors.title;
-                      })()}
-                    </ErrorMessage>
-                  )}
                   <Field
                     as={LabelInput}
-                    label='스터디명'
                     id='title'
-                    {...formik.getFieldProps('title')}
+                    name='title'
+                    label='스터디명'
+                    error={touched.title && errors.title ? true : false}
+                    helperText={touched.title && errors.title}
+                    onChange={handleChange}
+                    autoFocus={true}
                   />
                 </InputWrapper>
               </StudyEditHeading>
@@ -194,29 +206,28 @@ function StudyEditForm() {
               </StudyEditImageWrapper>
               <StudyDescriptionWrapper>
                 <Typography variant='h5'>상세 설명</Typography>
-                {formik.touched.description && formik.errors.description && (
-                  <ErrorMessage ref={descriptionRef}>
-                    {(() => {
-                      if (descriptionRef.current && !titleRef.current) {
-                        descriptionRef.current.scrollIntoView({
-                          behavior: 'smooth',
-                          block: 'start',
-                        });
-                      }
-                      return formik.errors.description;
-                    })()}
-                  </ErrorMessage>
-                )}
                 <Field
                   as={MultiLineInput}
                   id='description'
+                  name='description'
+                  label='상세 설명'
                   placeholder='스터디 내용을 기재해주세요.'
                   height='500px'
-                  {...formik.getFieldProps('description')}
+                  error={
+                    touched.description && errors.description ? true : false
+                  }
+                  helperText={touched.description && errors.description}
+                  onChange={handleChange}
                 />
               </StudyDescriptionWrapper>
-              <Button type='submit' disabled={formik.isSubmitting}>
-                제출
+              <Button
+                type='submit'
+                disabled={isSubmitting}
+                onClick={() => {
+                  handleClick(values);
+                }}
+              >
+                {isSubmitting ? <SpinnerIcon /> : '제출'}
               </Button>
             </StudyEditWrapper>
           </form>
