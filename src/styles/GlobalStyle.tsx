@@ -13,48 +13,6 @@ const styles = css`
     }
   }
 
-  /* input {
-    border: 0;
-    background-color: transparent;
-    color: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-  } */
-
-  /* textarea {
-    border: 0;
-    background-color: transparent;
-    color: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    resize: none;
-  } */
-
-  /* select {
-    border: 0;
-    background-color: transparent;
-    color: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-  } */
-
-  fieldset {
-    border: 0;
-  }
-
-  /* button {
-    border: 0;
-    background-color: transparent;
-    color: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    cursor: pointer;
-  } */
-
   a {
     color: inherit;
     text-decoration: none;
@@ -64,21 +22,6 @@ const styles = css`
   ol {
     list-style: none;
   }
-
-  table {
-    border: 0;
-    border-collapse: collapse;
-    border-spacing: 0;
-  }
-
-  dialog {
-    border: 0;
-  }
-
-  /* img {
-    max-width: 100%;
-    height: auto;
-  } */
 
   /* fonts */
   body {
