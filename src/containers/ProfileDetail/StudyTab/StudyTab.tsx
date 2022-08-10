@@ -24,7 +24,7 @@ function StudyTab() {
         setLoading(true);
         const { content: newStudyList, hasNext: newHasNext } =
           await getStudyList({
-            lastStudyId,
+            lastStudyGroupId: lastStudyId,
           });
         setStudyList([...studyList, ...newStudyList]);
         setHasNext(newHasNext);

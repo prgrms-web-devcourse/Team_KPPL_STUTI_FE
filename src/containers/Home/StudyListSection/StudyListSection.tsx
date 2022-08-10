@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { StudyListType } from '@interfaces/studyList';
 import { useInterSectionObserver } from '@hooks/useIntersectionObserver';
 import { StudyList } from '@components';
-import { getStudyList } from '@apis/studyGroups';
+import { deleteStudy, getStudyList } from '@apis/studyGroups';
 
 import StudyListFilter from '../StudyListFilter/StudyListFilter';
 
-type Filter = {
+export type Filter = {
   mbti: string;
   topic: string;
   region: string;
@@ -25,14 +25,14 @@ function StudyListSection() {
     topic: '',
     region: '',
   });
-
+  const [lastStudyId, setLastStudyId] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [hasNext, setHasNext] = useState(true);
-  const [lastStudyId, setLastStudyId] = useState(0);
   const { targetRef } = useInterSectionObserver({
     onTargetObserve: () => {
-      if (lastStudyId < 2) setLastStudyId(lastStudyId + 1);
+      const newLastStudyId = studyList[studyList.length - 1].studyGroupId;
+      setLastStudyId(newLastStudyId);
     },
     observerOptions: {},
   });
@@ -44,18 +44,21 @@ function StudyListSection() {
         setLoading(true);
         const { contents: newStudylist, hasNext: newHasNext } =
           await getStudyList({
-            lastStudyId,
+            lastStudyGroupId: lastStudyId,
+            mbti: filter.mbti,
+            topic: filter.topic,
+            region: filter.region,
+            size: 10,
           });
         setStudyList([...studyList, ...newStudylist]);
         setHasNext(newHasNext);
       } catch (e) {
-        console.error(e);
         setError(true);
       } finally {
         setLoading(false);
       }
     })();
-  }, [lastStudyId]);
+  }, [lastStudyId, filter]);
 
   const onFilterChange = (newFilter: OptionalFilter) => {
     setFilter({ ...filter, ...newFilter });
@@ -66,13 +69,38 @@ function StudyListSection() {
     setLastStudyId(0);
   };
 
-  const onStudyDelete = (studyId: number) => {
-    console.log(studyId, 'delete');
+  const onFilterReset = () => {
+    setFilter({
+      mbti: '',
+      topic: '',
+      region: '',
+    });
+    setStudyList([]);
+    setLoading(false);
+    setError(false);
+    setHasNext(true);
+    setLastStudyId(0);
+  };
+
+  const onStudyDelete = async (studyId: number) => {
+    try {
+      await deleteStudy(studyId);
+      const newStudyList = studyList.filter(
+        (study) => study.studyGroupId !== studyId,
+      );
+      setStudyList(newStudyList);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
     <section>
-      <StudyListFilter onFilterChange={onFilterChange} />
+      <StudyListFilter
+        filter={filter}
+        onFilterChange={onFilterChange}
+        onFilterReset={onFilterReset}
+      />
       <StudyList
         studyList={studyList}
         loading={loading}
