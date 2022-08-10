@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { removeStorageItem } from '@src/utils/storage';
 import { selectUser, logoutUser } from '@src/store/slices/user';
-import { googleUrl } from '@src/constants/oauth';
+import { githubUrl, googleUrl } from '@src/constants/oauth';
 import LogoIcon from '@src/components/LogoIcon/LogoIcon';
 import GoogleIcon from '@src/components/GoogleIcon/GoogleIcon';
 import GitHubIcon from '@src/components/GitHubIcon/GitHubIcon';
@@ -171,7 +171,7 @@ function NavigationHeader() {
                         </a>
                         <a
                           href={`${
-                            process.env.REACT_APP_API_ENDPOINT + googleUrl
+                            process.env.REACT_APP_API_ENDPOINT + githubUrl
                           }`}
                         >
                           <LoginButton
