@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, MouseEvent, useState } from 'react';
+import { ChangeEvent, FormEvent } from 'react';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import {
   mbtiOptions,
