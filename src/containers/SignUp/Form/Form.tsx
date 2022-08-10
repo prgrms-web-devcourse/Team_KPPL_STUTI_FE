@@ -12,7 +12,7 @@ import { errorType } from '@src/interfaces/error';
 import { MBTI_TEST_URL } from '@src/constants/externalUrl';
 import { Select } from '@src/components';
 import { signUp } from '@src/apis/user';
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, CircularProgress, TextField, Typography } from '@mui/material';
 import { careers, jobs, mbtis } from '@containers/SignUp/options';
 
 import {
@@ -171,7 +171,11 @@ function Form() {
             </MbtiWrapper>
           </MbtiContainer>
           <Button size='large' type='submit' disabled={isSubmitting} fullWidth>
-            가입
+            {isSubmitting ? (
+              <CircularProgress color='primary' size={16} />
+            ) : (
+              '가입하기'
+            )}
           </Button>
         </FormInputContainer>
       </StyledForm>
