@@ -74,6 +74,33 @@ function MemberControl({
         }),
       );
     } catch (error) {
+      console.error(error);
+      const { response } = error as AxiosError;
+      const { data }: { data: errorType } = response as AxiosResponse;
+      const { errorCode } = data;
+
+      if (errorCode === 'SG002') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '스터디 그룹을 찾지 못했습니다!',
+            content: '홈으로 갔다가 다시 시도해주세요!',
+          }),
+        );
+        return;
+      }
+
+      if (errorCode === 'SG005') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '해당 멤버를 찾지 못했습니다!',
+            content: '다시 시도해주세요!',
+          }),
+        );
+        return;
+      }
+
       dispatch(
         openAlert({
           severity: 'error',
@@ -81,10 +108,6 @@ function MemberControl({
           content: '스터디 멤버 수락에 실패했습니다.',
         }),
       );
-      console.error(error);
-      const { response } = error as AxiosError;
-      const { data }: { data: errorType } = response as AxiosResponse;
-      const { errorCode } = data;
     }
   };
 
@@ -102,6 +125,33 @@ function MemberControl({
         }),
       );
     } catch (error) {
+      console.error(error);
+      const { response } = error as AxiosError;
+      const { data }: { data: errorType } = response as AxiosResponse;
+      const { errorCode } = data;
+
+      if (errorCode === 'SG002') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '스터디 그룹을 찾지 못했습니다!',
+            content: '홈으로 갔다가 다시 시도해주세요!',
+          }),
+        );
+        return;
+      }
+
+      if (errorCode === 'SG005') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '해당 멤버를 찾지 못했습니다!',
+            content: '다시 시도해주세요!',
+          }),
+        );
+        return;
+      }
+
       dispatch(
         openAlert({
           severity: 'error',
@@ -109,10 +159,6 @@ function MemberControl({
           content: '스터디 멤버 제외에 실패했습니다.',
         }),
       );
-      console.error(error);
-      const { response } = error as AxiosError;
-      const { data }: { data: errorType } = response as AxiosResponse;
-      const { errorCode } = data;
     }
   };
 
@@ -125,22 +171,45 @@ function MemberControl({
       dispatch(
         openAlert({
           severity: 'success',
-          title: '멤버가 제외되었습니다!',
-          content: '스터디 멤버가 성공적으로 제외되었습니다!',
+          title: '지원자가 거절되었습니다!',
+          content: '스터디 지원자가 성공적으로 거절되었습니다!',
         }),
       );
     } catch (error) {
-      dispatch(
-        openAlert({
-          severity: 'error',
-          title: '죄송합니다',
-          content: '스터디 멤버 제외에 실패했습니다.',
-        }),
-      );
       console.error(error);
       const { response } = error as AxiosError;
       const { data }: { data: errorType } = response as AxiosResponse;
       const { errorCode } = data;
+
+      if (errorCode === 'SG002') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '스터디 그룹을 찾지 못했습니다!',
+            content: '홈으로 갔다가 다시 시도해주세요!',
+          }),
+        );
+        return;
+      }
+
+      if (errorCode === 'SG005') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '해당 멤버를 찾지 못했습니다!',
+            content: '다시 시도해주세요!',
+          }),
+        );
+        return;
+      }
+
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다',
+          content: '스터디 지원자 거절에 실패했습니다.',
+        }),
+      );
     }
   };
 
@@ -220,7 +289,6 @@ function MemberControl({
             field = '',
             career = '',
             mbti = '',
-            studyGroupMemberRole = '',
           } = member;
 
           return (
@@ -261,7 +329,6 @@ function MemberControl({
               field = '',
               career = '',
               mbti = '',
-              studyGroupMemberRole = '',
             } = applicant;
 
             return (

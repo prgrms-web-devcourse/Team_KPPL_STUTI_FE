@@ -1,11 +1,8 @@
-import { isDev } from '@constants/nodeEnv';
 import axiosInstance from '@apis/axiosInstance';
 
 export const getStudyDetailInfomation = async (studyGroupId: string) => {
   const { data } = await axiosInstance({
-    url: isDev
-      ? '/mock/studyDetailMockData.json'
-      : `/api/v1/study-groups/${studyGroupId}`,
+    url: `/api/v1/study-groups/${studyGroupId}`,
     method: 'GET',
   });
   return data;
@@ -17,12 +14,9 @@ export const getStudyQuestionInformation = async (
   laststudyGroupQuestionId?: number,
 ) => {
   const { data } = await axiosInstance({
-    url: isDev
-      ? '/mock/studyDetailQustionMockData.json'
-      : `/api/v1/study-groups/${studyGroupId}/questions?size=${size}${
-          laststudyGroupQuestionId &&
-          `&lastStudyGroupQuestionId=${laststudyGroupQuestionId}`
-        }`,
+    url: laststudyGroupQuestionId
+      ? `/api/v1/study-groups/${studyGroupId}/questions?size=${size}&lastStudyGroupQuestionId=${laststudyGroupQuestionId}`
+      : `/api/v1/study-groups/${studyGroupId}/questions?size=${size}`,
     method: 'GET',
   });
   return data;
@@ -31,14 +25,14 @@ export const getStudyQuestionInformation = async (
 export const createStudyQuestion = async (
   studyGroupId: string,
   parentId: number | null,
-  content: string,
+  contents: string,
 ) => {
   const { data } = await axiosInstance({
     url: `/api/v1/study-groups/${studyGroupId}/questions`,
     method: 'POST',
     data: {
       parentId,
-      content,
+      contents,
     },
   });
   return data;
@@ -47,13 +41,13 @@ export const createStudyQuestion = async (
 export const changeStudyQuestion = async (
   studyGroupId: string,
   studyGroupQuestionId: number,
-  content: string,
+  contents: string,
 ) => {
   const { data } = await axiosInstance({
     url: `/api/v1/study-groups/${studyGroupId}/questions/${studyGroupQuestionId}`,
     method: 'PUT',
     data: {
-      content,
+      contents,
     },
   });
   return data;
@@ -72,7 +66,7 @@ export const deleteStudyQuestion = async (
 
 export const joinStudyGroup = async (studyGroupId: string) => {
   const { data } = await axiosInstance({
-    url: `/api/1v/study-groups/${studyGroupId}`,
+    url: `/api/v1/study-groups/${studyGroupId}/members`,
     method: 'POST',
   });
   return data;

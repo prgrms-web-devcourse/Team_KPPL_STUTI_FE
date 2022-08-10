@@ -1,11 +1,8 @@
-import { isDev } from '@constants/nodeEnv';
 import axiosInstance from '@apis/axiosInstance';
 
 export const getStudyManageInfomation = async (studyGroupId: string) => {
   const { data } = await axiosInstance({
-    url: isDev
-      ? '/mock/studyManageMockData.json'
-      : `/api/v1/study-groups/${studyGroupId}/members`,
+    url: `/api/v1/study-groups/${studyGroupId}/members`,
     method: 'GET',
   });
   return data;

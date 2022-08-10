@@ -35,6 +35,22 @@ function StudyManage() {
         setData(res);
         setLoading(false);
       } catch (error) {
+        console.error(error);
+        const { response } = error as AxiosError;
+        const { data }: { data: errorType } = response as AxiosResponse;
+        const { errorCode } = data;
+
+        if (errorCode === 'SG002') {
+          dispatch(
+            openAlert({
+              severity: 'error',
+              title: '스터디 그룹을 찾지 못했습니다!',
+              content: '홈으로 갔다가 다시 시도해주세요!',
+            }),
+          );
+          return;
+        }
+
         dispatch(
           openAlert({
             severity: 'error',
@@ -42,10 +58,6 @@ function StudyManage() {
             content: '스터디 관리 정보를 가져오는데 실패했습니다.',
           }),
         );
-        console.error(error);
-        const { response } = error as AxiosError;
-        const { data }: { data: errorType } = response as AxiosResponse;
-        const { errorCode } = data;
       }
     };
 
@@ -80,6 +92,34 @@ function StudyManage() {
       handleClickLink(e);
     } catch (error) {
       setDeleteStudyLoading(false);
+
+      console.error(error);
+      const { response } = error as AxiosError;
+      const { data }: { data: errorType } = response as AxiosResponse;
+      const { errorCode } = data;
+
+      if (errorCode === 'SG002') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '스터디 그룹을 찾지 못했습니다!',
+            content: '홈으로 갔다가 다시 시도해주세요!',
+          }),
+        );
+        return;
+      }
+
+      if (errorCode === 'SG003') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '스터디 그룹의 리더만 스터디 삭제가 가능합니다!',
+            content: '로그인 정보를 다시 확인해주세요!',
+          }),
+        );
+        return;
+      }
+
       dispatch(
         openAlert({
           severity: 'error',
@@ -87,10 +127,6 @@ function StudyManage() {
           content: '스터디를 삭제하는데 실패했습니다.',
         }),
       );
-      console.error(error);
-      const { response } = error as AxiosError;
-      const { data }: { data: errorType } = response as AxiosResponse;
-      const { errorCode } = data;
     }
   };
 

@@ -1,9 +1,8 @@
 import axios, { AxiosInstance } from 'axios';
 
-const host = process.env.REACT_APP_API_HOST ?? 'localhost';
-const port = process.env.REACT_APP_API_PORT ?? 3000;
+const host = process.env.REACT_APP_API_ENDPOINT ?? 'http://localhost:3000';
 
-const API_ENDPOINT = `http://${host}:${port}`;
+const API_ENDPOINT = host;
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: API_ENDPOINT, // baseURL 미리세팅

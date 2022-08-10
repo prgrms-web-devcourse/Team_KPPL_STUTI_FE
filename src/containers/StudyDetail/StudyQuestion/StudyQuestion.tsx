@@ -7,6 +7,7 @@ import {
   changeQuestion,
   deleteQuestion,
 } from '@store/slices/question';
+import { openAlert } from '@store/slices/flashAlert';
 import { errorType } from '@src/interfaces/error';
 import { Typography } from '@mui/material';
 import {
@@ -63,6 +64,25 @@ function StudyQuestion({
       const { response } = error as AxiosError;
       const { data }: { data: errorType } = response as AxiosResponse;
       const { errorCode } = data;
+
+      if (errorCode === 'SG008') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '스터디 그룹을 찾지 못했습니다!',
+            content: '홈으로 갔다가 다시 시도해주세요!',
+          }),
+        );
+        return;
+      }
+
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다',
+          content: '질문을 수정하는데에 실패했습니다.',
+        }),
+      );
     }
   };
 
@@ -97,6 +117,36 @@ function StudyQuestion({
       } else {
         handleInput.current[index]?.handleErrorTrue();
       }
+
+      if (errorCode === 'SG002') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '스터디 그룹을 찾지 못했습니다!',
+            content: '홈으로 갔다가 다시 시도해주세요!',
+          }),
+        );
+        return;
+      }
+
+      if (errorCode === 'SG008') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '생성하려는 질문이 속한 스터디 그룹이 아닙니다!',
+            content: '홈으로 갔다가 다시 시도해주세요!',
+          }),
+        );
+        return;
+      }
+
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다',
+          content: '질문을 수정하는데에 실패했습니다.',
+        }),
+      );
     }
   };
 
@@ -133,6 +183,36 @@ function StudyQuestion({
       } else {
         handleInput.current[index]?.handleErrorTrue();
       }
+
+      if (errorCode === 'SG007') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '작성자만 수정할 수 있습니다!',
+            content: '로그인을 다시 부탁드려요!',
+          }),
+        );
+        return;
+      }
+
+      if (errorCode === 'SG008') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '수정하려하신 질문이 속한 스터디 그룹이 아닙니다!',
+            content: '홈으로 갔다가 다시 시도해주세요!',
+          }),
+        );
+        return;
+      }
+
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다',
+          content: '질문을 수정하는데에 실패했습니다.',
+        }),
+      );
     }
   };
 
@@ -150,6 +230,36 @@ function StudyQuestion({
       const { response } = error as AxiosError;
       const { data }: { data: errorType } = response as AxiosResponse;
       const { errorCode } = data;
+
+      if (errorCode === 'SG007') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '작성자만 삭제할 수 있습니다!',
+            content: '로그인을 다시 부탁드려요!',
+          }),
+        );
+        return;
+      }
+
+      if (errorCode === 'SG008') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '삭제하려하신 질문이 속한 스터디 그룹이 아닙니다!',
+            content: '홈으로 갔다가 다시 시도해주세요!',
+          }),
+        );
+        return;
+      }
+
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다',
+          content: '질문을 삭제하는데에 실패했습니다.',
+        }),
+      );
     }
   };
 
@@ -171,11 +281,13 @@ function StudyQuestion({
           contents: text = '참여하고 싶어요!',
           updatedAt = '2022-02-22 10:00:00',
           children = [],
+          memberId,
         } = content;
         return (
           <Reply
             ref={(el) => el && (handleInput.current[index] = el)}
             key={content.studyGroupQuestionId}
+            memberId={memberId}
             profileImageUrl={profileImageUrl}
             nickname={nickname}
             contents={text}
@@ -198,11 +310,13 @@ function StudyQuestion({
                 nickname = '',
                 contents = '',
                 updatedAt = '2022-02-22 10:00:00',
+                memberId,
               } = reply;
               return (
                 <Reply
                   ref={(el) => el && (handleInputSub.current[index] = el)}
                   key={studyGroupQuestionId}
+                  memberId={memberId}
                   profileImageUrl={profileImageUrl}
                   nickname={nickname}
                   contents={contents}
@@ -225,7 +339,7 @@ function StudyQuestion({
           </Reply>
         );
       })}
-      {!hasNext && (
+      {hasNext && (
         <Typography
           color='secondary'
           sx={{ cursor: 'pointer' }}

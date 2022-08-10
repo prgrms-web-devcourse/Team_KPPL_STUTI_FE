@@ -6,7 +6,9 @@ export const getStudyList = async ({
   lastStudyId?: number;
 }) => {
   const { data } = await axiosInstance({
-    url: `/mock/studyList${lastStudyId}.json`,
+    url: process.env.REACT_APP_API_ENDPOINT
+      ? '/api/v1/study-groups'
+      : `/mock/studyList${lastStudyId}.json`,
     method: 'GET',
   });
   return data;

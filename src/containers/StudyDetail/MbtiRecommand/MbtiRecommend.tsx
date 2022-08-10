@@ -6,15 +6,15 @@ import { Typography } from '@mui/material';
 import { MbtiTag } from '@components';
 
 interface Props {
-  preferredMbtis: string[];
+  preferredMBTIs: string[];
 }
 
-function MbtiRecommend({ preferredMbtis }: Props) {
+function MbtiRecommend({ preferredMBTIs }: Props) {
   return (
     <MbtiRecommandContainer>
       <Typography variant='h5'>선호 MBTI</Typography>
       <MbtiTagWrapper>
-        {preferredMbtis.map((mbti, index) => (
+        {preferredMBTIs.map((mbti, index) => (
           <MbtiTag key={`${mbti}-${index}`} mbti={mbti} size='small' />
         ))}
       </MbtiTagWrapper>

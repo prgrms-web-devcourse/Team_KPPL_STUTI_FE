@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+import { useSelector } from 'react-redux';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import moment from 'moment';
 import 'moment/locale/ko';
+import { selectUser } from '@store/slices/user';
 import {
   ReplyContainer,
   ReplyControlTypography,
@@ -12,10 +14,12 @@ import {
 import ReplyInput, { errorHandle } from '@src/containers/Reply/ReplyInput';
 import { Typography } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
+import { UserProfileType } from '@interfaces/userProfile';
 import { childrenQuestionType } from '@interfaces/studyDetailQuestion';
 import { DefaultAvatar } from '@components';
 
 interface Props {
+  memberId: number;
   profileImageUrl: string;
   nickname: string;
   contents: string;
@@ -34,6 +38,7 @@ export interface inputHandle extends errorHandle {
 
 const Reply = forwardRef<inputHandle, Props>(function Reply(
   {
+    memberId,
     profileImageUrl,
     nickname,
     contents,
@@ -48,6 +53,23 @@ const Reply = forwardRef<inputHandle, Props>(function Reply(
 ) {
   const [commentFlag, setCommentFlag] = useState(false);
   const [updateFlag, setUpdateFlag] = useState(false);
+
+  type userType = {
+    user: UserProfileType;
+    isLogin: boolean;
+  };
+
+  const { user, isLogin } = useSelector(selectUser) as userType;
+
+  const isSameLoginUser = (user: UserProfileType, memberId: number) => {
+    if (!isLogin) return false;
+
+    if (!user) return false;
+
+    if (user.id !== memberId) return false;
+
+    return true;
+  };
 
   const handleInputError = useRef<errorHandle>({
     handleErrorFalse: () => {},
@@ -115,22 +137,26 @@ const Reply = forwardRef<inputHandle, Props>(function Reply(
               답글 달기
             </ReplyControlTypography>
           )}
-          <ReplyControlTypography
-            color='secondary'
-            component='button'
-            onClick={() => {
-              handleUpdateReply();
-            }}
-          >
-            수정하기
-          </ReplyControlTypography>
-          <ReplyControlTypography
-            color='secondary'
-            component='button'
-            onClick={requestDeleteReply}
-          >
-            삭제하기
-          </ReplyControlTypography>
+          {isSameLoginUser(user, memberId) && (
+            <>
+              <ReplyControlTypography
+                color='secondary'
+                component='button'
+                onClick={() => {
+                  handleUpdateReply();
+                }}
+              >
+                수정하기
+              </ReplyControlTypography>
+              <ReplyControlTypography
+                color='secondary'
+                component='button'
+                onClick={requestDeleteReply}
+              >
+                삭제하기
+              </ReplyControlTypography>
+            </>
+          )}
         </ReplyControlWrapper>
         {commentFlag && (
           <ReplyInput
