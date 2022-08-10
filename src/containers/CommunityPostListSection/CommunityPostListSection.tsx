@@ -12,7 +12,6 @@ function CommunityPostListSection() {
   const [error, setError] = useState(false);
   const [postTarget, setPostTarget] = useState();
 
-  //redux
   const dispatch = useDispatch();
   const post = useSelector(selectPost);
 
@@ -41,11 +40,11 @@ function CommunityPostListSection() {
   }, [postTarget]);
 
   const handleInfiniteScroll = async (entries: any) => {
-    if (entries[0].isIntersecting && post.value.posts && post.value.hasNext) {
-      const lastPostId = post.value.posts.at(-1)?.postId;
-      const res = await getCommunityDataApi(5, lastPostId);
-      dispatch(addPost(res));
-    }
+    if (!entries[0].isIntersecting || !post.value.posts || !post.value.hasNext)
+      return;
+    const lastPostId = post.value.posts.at(-1)?.postId;
+    const res = await getCommunityDataApi(5, lastPostId);
+    dispatch(addPost(res));
   };
 
   return (

@@ -173,6 +173,7 @@ function CommunityPostComment({
       if (!state.isLogin) return;
       const res: CommentContentsType | childrenCommentType =
         await deleteCommunityPostCommentApi(postId, postCommentId);
+      console.log(res);
       dispatch(deleteComment(res));
 
       onCount('DOWN');

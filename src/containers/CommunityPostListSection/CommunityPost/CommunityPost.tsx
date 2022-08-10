@@ -1,6 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import React, { useState, useRef, useLayoutEffect, forwardRef } from 'react';
+import React, {
+  useState,
+  useRef,
+  useLayoutEffect,
+  forwardRef,
+  useEffect,
+} from 'react';
 import moment from 'moment';
 import { selectUser } from '@store/slices/user';
 import { setComment, selectComment } from '@store/slices/comment';
@@ -20,6 +26,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import {
   CommunityPostType,
   CommunityPostCommentType,
+  CommentContentsType,
 } from '@interfaces/community';
 import CommunityPostTypographyButton from '@containers/CommunityPostListSection/CommunityPostTypographyButton/CommunityPostTypographyButton';
 import CommunityPostMenuIconButton from '@containers/CommunityPostListSection/CommunityPostMenuIconButton/CommunityPostMenuIconButton';
@@ -50,17 +57,17 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   },
   ref,
 ) {
-  const dispatch = useDispatch();
-  const postComments = useSelector(selectComment);
-  const state = useSelector(selectUser);
-
   const [commentLoading, setCommentLoading] = useState(false);
   const [commentCount, setCommentCount] = useState(0);
   const [liked, setLiked] = useState({ check: false, count: 0 });
   const [isExpand, setIsExpand] = useState<string | number>('none');
-  const [isComment, setIsComment] = useState(false);
-
+  const [onCommentOpen, setOnCommentOpen] = useState(false);
+  const [postComments, setPostComments] = useState<CommunityPostCommentType>();
   const contentsRef = useRef<HTMLInputElement>(null);
+
+  const dispatch = useDispatch();
+  // const postComments = useSelector(selectComment);
+  const state = useSelector(selectUser);
 
   const checkLoginAndUser = () => state.isLogin && state.user;
   const checkLikedMembers = () => likedMembers.includes(state.user?.id as any);
@@ -113,14 +120,16 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
     }
   };
 
-  const handleOpenComment = async () => {
-    setIsComment(!isComment);
-    if (isComment) return;
+  const handleSetComment = async () => {
+    setOnCommentOpen(!onCommentOpen);
+    if (!onCommentOpen) return;
     setCommentLoading(true);
     const res: CommunityPostCommentType = await getCommunityPostCommentApi(
       postId,
       3,
     );
+    console.log(res);
+    setPostComments(res);
     dispatch(setComment(res));
     setCommentLoading(false);
   };
@@ -188,7 +197,7 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
           {liked.count}
         </CommunityPostTypographyButton>
         <CommunityPostTypographyButton
-          onClick={handleOpenComment}
+          onClick={handleSetComment}
           name='댓글'
           margin='0 1rem 0 auto'
         >
@@ -200,14 +209,14 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
           <CircularProgress />
         </ItemCard>
       )}
-      {!commentLoading && isComment && (
+      {!commentLoading && onCommentOpen && (
         <CommunityPostCommentWrapper>
-          <CommunityPostComment
+          {/* <CommunityPostComment
             {...postComments}
             size={3}
             postId={postId}
             onCount={handleCommentCount}
-          />
+          /> */}
         </CommunityPostCommentWrapper>
       )}
     </Card>

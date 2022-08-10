@@ -1,11 +1,15 @@
 import axiosInstance, { axiosAuthInstance } from '@apis/axiosInstance';
 
-export const getCommunityDataApi = async (size: number) => {
+export const getCommunityDataApi = async (
+  size: number,
+  lastPostId?: number,
+) => {
   try {
     const { data } = await axiosInstance({
       url: '/api/v1/posts',
       method: 'GET',
       params: {
+        lastPostId: lastPostId,
         size: size,
       },
     });
@@ -95,14 +99,14 @@ export const deleteCommunityPostLikeApi = async (postId: number) => {
 export const getCommunityPostCommentApi = async (
   postId: number,
   size: number,
-  lastCommunityPostCommentId?: number,
+  lastCommentId?: number,
 ) => {
   try {
     const { data } = await axiosInstance({
       url: `/api/v1/posts/${postId}/comments`,
       method: 'GET',
       params: {
-        lastPostId: lastCommunityPostCommentId,
+        lastCommentId: lastCommentId,
         size: size,
       },
     });
