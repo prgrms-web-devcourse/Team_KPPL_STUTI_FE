@@ -36,7 +36,7 @@ import {
   CommunityPostCommentWrapper,
   CustomCardMedia,
 } from '@containers/CommunityPostListSection/CommunityPost/CommunityPost.style';
-import { ItemCard } from '@components/StudyList/StudyList.style';
+import { ItemCard } from '@components';
 import {
   postCommunityPostLikeApi,
   deleteCommunityPostLikeApi,
