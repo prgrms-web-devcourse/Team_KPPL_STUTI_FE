@@ -1,5 +1,11 @@
+import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import { useState } from 'react';
+import { setStorageItem } from '@src/utils/storage';
+import { getQueryString } from '@src/utils/queryString';
+import { loginUser } from '@src/store/slices/user';
 import { MBTI_TEST_URL } from '@src/constants/externalUrl';
+import { signUp } from '@src/apis/user';
 import { Button, TextField, Typography } from '@mui/material';
 import { careers, jobs, mbtis } from '@containers/SignUp/options';
 import Select from '@containers/SignUp/Select/Select';
@@ -13,17 +19,30 @@ import {
 } from './style';
 
 function Form() {
-  const [nickname, setNickname] = useState('');
-  const [job, setJob] = useState('');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const email = getQueryString('email', 'string') + '';
+  const [nickname, setNickname] = useState(
+    getQueryString('name', 'string') + '',
+  );
+  const [field, setField] = useState('');
   const [career, setCareer] = useState('');
   const [mbti, setMbti] = useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(`nickname: ${nickname}`);
-    console.log(`job: ${job}`);
-    console.log(`career: ${career}`);
-    console.log(`mbti: ${mbti}`);
+    const formData = {
+      email,
+      nickname,
+      field,
+      career,
+      MBTI: mbti,
+    };
+
+    const data = await signUp(formData);
+    dispatch(loginUser(data.member));
+    setStorageItem('token', data.accesstoken);
+    navigate('/', { replace: true });
   };
 
   const handleClick = () => {
@@ -45,10 +64,10 @@ function Form() {
           />
           <Select
             label='직무'
-            handleChange={setJob}
+            handleChange={setField}
             required
             options={jobs}
-            value={job}
+            value={field}
           />
           <Select
             label='경력'
