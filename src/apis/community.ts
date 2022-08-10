@@ -1,16 +1,15 @@
-import axios from 'axios';
 import axiosInstance from '@apis/axiosInstance';
 
 export const getCommunityDataApi = async (size: number) => {
   try {
     const { data } = await axiosInstance({
-      url: '/posts',
+      baseURL: `${process.env.REACT_APP_API_ENDPOINT}`,
+      url: '/api/v1/posts',
       method: 'GET',
       params: {
         size: size,
       },
     });
-    console.log(data);
     return data;
   } catch (error) {
     new Error('Community를 가져오는데 오류가 발생하였습니다.');
@@ -19,9 +18,13 @@ export const getCommunityDataApi = async (size: number) => {
 
 export const deleteCommunityPostApi = async (postId: string) => {
   try {
-    const res = await axios({
-      url: `/posts/${postId}`,
+    const res = await axiosInstance({
+      baseURL: `${process.env.REACT_APP_API_ENDPOINT}`,
+      url: `/api/v1/posts/${postId}`,
       method: 'DELETE',
+      headers: {
+        Authorization: `bearer ${process.env.REACT_APP_TEST_TOKEN}`,
+      },
     });
     console.log(res);
   } catch (error) {
@@ -31,10 +34,15 @@ export const deleteCommunityPostApi = async (postId: string) => {
 
 export const postCommunityPostApi = async (postFormData: FormData) => {
   try {
-    const res = await axios({
-      url: '/posts',
+    const res = await axiosInstance({
+      baseURL: `${process.env.REACT_APP_API_ENDPOINT}`,
+      url: '/api/v1/posts',
       method: 'POST',
       data: postFormData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `bearer ${process.env.REACT_APP_TEST_TOKEN}`,
+      },
     });
     console.log(res);
   } catch (error) {
@@ -47,10 +55,15 @@ export const editCommunityPostApi = async (
   postFormData: FormData,
 ) => {
   try {
-    const res = await axios({
-      url: `/posts/${postId}`,
+    const res = await axiosInstance({
+      baseURL: `${process.env.REACT_APP_API_ENDPOINT}`,
+      url: `/api/v1/posts/${postId}`,
       method: 'PATCH',
       data: postFormData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `bearer ${process.env.REACT_APP_TEST_TOKEN}`,
+      },
     });
     console.log(res);
   } catch (error) {
@@ -60,9 +73,13 @@ export const editCommunityPostApi = async (
 
 export const postCommunityPostLikeApi = async (postId: string) => {
   try {
-    const res = await axios({
-      url: `/posts/${postId}/like`,
+    const res = await axiosInstance({
+      baseURL: `${process.env.REACT_APP_API_ENDPOINT}`,
+      url: `/api/v1/posts/${postId}/likes`,
       method: 'POST',
+      headers: {
+        Authorization: `bearer ${process.env.REACT_APP_TEST_TOKEN}`,
+      },
     });
     console.log(res);
   } catch (error) {
@@ -72,9 +89,13 @@ export const postCommunityPostLikeApi = async (postId: string) => {
 
 export const deleteCommunityPostLikeApi = async (postId: string) => {
   try {
-    const res = await axios({
-      url: `/posts/${postId}/like`,
+    const res = await axiosInstance({
+      baseURL: `${process.env.REACT_APP_API_ENDPOINT}`,
+      url: `/api/v1/posts/${postId}/likes`,
       method: 'DELETE',
+      headers: {
+        Authorization: `bearer ${process.env.REACT_APP_TEST_TOKEN}`,
+      },
     });
     console.log(res);
   } catch (error) {
@@ -83,14 +104,18 @@ export const deleteCommunityPostLikeApi = async (postId: string) => {
 };
 
 export const getCommunityPostCommentApi = async (
-  postId?: string,
-  size?: number,
+  postId: string,
+  size: number,
   lastCommunityPostCommentId?: number,
 ) => {
   try {
     const { data } = await axiosInstance({
-      url: '/mock/communityPostCommentMockData.json',
+      baseURL: `${process.env.REACT_APP_API_ENDPOINT}`,
+      url: `/api/v1/posts/${postId}/comments`,
       method: 'GET',
+      params: {
+        size: size,
+      },
     });
     return data;
   } catch (error) {
@@ -105,11 +130,15 @@ export const createCommunityPostCommentApi = async (
 ) => {
   try {
     const { data } = await axiosInstance({
-      url: `/posts/${postId}/comments`,
+      baseURL: `${process.env.REACT_APP_API_ENDPOINT}`,
+      url: `/api/v1/posts/${postId}/comments`,
       method: 'POST',
       data: {
         parentId,
         contents,
+      },
+      headers: {
+        Authorization: `bearer ${process.env.REACT_APP_TEST_TOKEN}`,
       },
     });
     return data;
@@ -125,10 +154,14 @@ export const changeCommunityPostCommentApi = async (
 ) => {
   try {
     const { data } = await axiosInstance({
-      url: `/posts/${postId}/comments/${communityPostCommentId}`,
+      baseURL: `${process.env.REACT_APP_API_ENDPOINT}`,
+      url: `/api/v1/posts/${postId}/comments/${communityPostCommentId}`,
       method: 'PUT',
       data: {
         contents,
+      },
+      headers: {
+        Authorization: `bearer ${process.env.REACT_APP_TEST_TOKEN}`,
       },
     });
     return data;
@@ -143,8 +176,12 @@ export const deleteCommunityPostCommentApi = async (
 ) => {
   try {
     const { data } = await axiosInstance({
-      url: `/posts/${postId}/comments/${communityPostCommentId}`,
+      baseURL: `${process.env.REACT_APP_API_ENDPOINT}`,
+      url: `/api/v1/posts/${postId}/comments/${communityPostCommentId}`,
       method: 'DELETE',
+      headers: {
+        Authorization: `bearer ${process.env.REACT_APP_TEST_TOKEN}`,
+      },
     });
     return data;
   } catch (error) {

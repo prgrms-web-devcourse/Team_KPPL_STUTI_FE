@@ -95,11 +95,11 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
     if (!state.isLogin) return;
     switch (liked.check) {
       case true:
-        setLiked({ check: false, count: (liked.count -= 1) });
+        setLiked({ check: false, count: liked.count - 1 });
         await deleteCommunityPostLikeApi(postId);
         break;
       case false:
-        setLiked({ check: true, count: (liked.count += 1) });
+        setLiked({ check: true, count: liked.count + 1 });
         await postCommunityPostLikeApi(postId);
         break;
     }
