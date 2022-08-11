@@ -252,6 +252,17 @@ function StudyDetail() {
       const { data }: { data: errorType } = response as AxiosResponse;
       const { errorCode } = data;
 
+      if (errorCode === 'S001') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '로그인 상태를 확인해주세요!!',
+            content: '로그인을 눌러 로그인 후 요청 부탁드립니다!!',
+          }),
+        );
+        return;
+      }
+
       if (errorCode === 'SG004') {
         dispatch(
           openAlert({
