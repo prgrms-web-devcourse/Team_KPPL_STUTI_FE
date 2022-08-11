@@ -21,7 +21,7 @@ import { deleteStudyMember, patchStudyMember } from '@apis/studyManage';
 interface Props {
   numberOfMembers: number;
   numberOfRecruits: number;
-  numberOfApplicant: number;
+  numberOfApplicants: number;
   studyMembers: studyManageMemberType[];
   studyApplicants: studyManageStudyApplicantsType[];
   studyGroupId: string;
@@ -30,7 +30,7 @@ interface Props {
 function MemberControl({
   numberOfMembers = 0,
   numberOfRecruits = 0,
-  numberOfApplicant = 0,
+  numberOfApplicants = 0,
   studyMembers = [],
   studyApplicants = [],
   studyGroupId = '0',
@@ -57,8 +57,8 @@ function MemberControl({
   }, [numberOfMembers]);
 
   useEffect(() => {
-    setApplicantNumber(numberOfApplicant);
-  }, [numberOfApplicant]);
+    setApplicantNumber(numberOfApplicants);
+  }, [numberOfApplicants]);
 
   const acceptStudyMember = async (
     studyGroupId: string,
@@ -238,7 +238,10 @@ function MemberControl({
       (applicant) => applicant.studyGroupMemberId !== targetId,
     );
     setMembers(filterArray);
-    setMemberNumber((prevState) => (prevState -= 1));
+    setMemberNumber((prevState) => {
+      if (prevState === 1) return 0;
+      else return (prevState -= 1);
+    });
   };
 
   const deleteApplicants = (
@@ -249,7 +252,10 @@ function MemberControl({
       (applicant) => applicant.studyGroupMemberId !== targetId,
     );
     setApplicants(filterArray);
-    setApplicantNumber((prevState) => (prevState -= 1));
+    setApplicantNumber((prevState) => {
+      if (prevState === 1) return 0;
+      else return (prevState -= 1);
+    });
   };
 
   return (

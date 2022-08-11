@@ -25,6 +25,6 @@ export interface studyManageType {
   numberOfMembers: number;
   numberOfRecruits: number;
   studyMembers: studyManageMemberType[];
-  numberOfApplicant: number;
+  numberOfApplicants: number;
   studyApplicants: studyManagestudyApplicantsType[];
 }

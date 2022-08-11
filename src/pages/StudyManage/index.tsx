@@ -180,7 +180,7 @@ function StudyManage() {
             )}
           </StudyManageButtonWrapper>
           <StudyManageMemberControl
-            numberOfApplicant={data.numberOfApplicant}
+            numberOfApplicants={data.numberOfApplicants}
             numberOfMembers={data.numberOfMembers}
             numberOfRecruits={data.numberOfRecruits}
             studyMembers={data.studyMembers}
