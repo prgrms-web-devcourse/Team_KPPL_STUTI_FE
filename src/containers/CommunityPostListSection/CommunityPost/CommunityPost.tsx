@@ -1,15 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import React, {
-  useState,
-  useRef,
-  useLayoutEffect,
-  forwardRef,
-  useEffect,
-} from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import moment from 'moment';
+import { AxiosError, AxiosResponse } from 'axios';
 import { selectUser } from '@store/slices/user';
-import { setComment, selectComment, resetComment } from '@store/slices/comment';
+import { openAlert } from '@store/slices/flashAlert';
+import { errorType } from '@src/interfaces/error';
 import {
   Avatar,
   CircularProgress,
@@ -26,7 +22,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import {
   CommunityPostType,
   CommunityPostCommentType,
-  CommentContentsType,
 } from '@interfaces/community';
 import CommunityPostTypographyButton from '@containers/CommunityPostListSection/CommunityPostTypographyButton/CommunityPostTypographyButton';
 import CommunityPostMenuIconButton from '@containers/CommunityPostListSection/CommunityPostMenuIconButton/CommunityPostMenuIconButton';
@@ -43,20 +38,17 @@ import {
   getCommunityPostCommentApi,
 } from '@apis/community';
 
-const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
-  {
-    postId,
-    memberId,
-    nickname,
-    updatedAt,
-    profileImageUrl,
-    contents,
-    postImageUrl,
-    likedMembers,
-    totalPostComments,
-  },
-  ref,
-) {
+function CommunityPost({
+  postId,
+  memberId,
+  nickname,
+  updatedAt,
+  profileImageUrl,
+  contents,
+  postImageUrl,
+  likedMembers,
+  totalPostComments,
+}: CommunityPostType) {
   const [commentLoading, setCommentLoading] = useState(false);
   const [likeLoading, setLikeLoading] = useState(false);
   const [commentCount, setCommentCount] = useState(0);
@@ -64,10 +56,9 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   const [isExpand, setIsExpand] = useState<string | number>('none');
   const [onCommentOpen, setOnCommentOpen] = useState(false);
   const [commentsInit, setCommentsInit] = useState<any>();
-  const contentsRef = useRef<HTMLInputElement>(null);
 
-  // const dispatch = useDispatch();
-  // const postComments = useSelector(selectComment);
+  const contentsRef = useRef<HTMLInputElement>(null);
+  const dispatch = useDispatch();
   const state = useSelector(selectUser);
 
   const checkLoginAndUser = () => state.isLogin && state.user;
@@ -116,6 +107,34 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
       }
     } catch (e) {
       console.error(e);
+      const { response } = e as AxiosError;
+      const { data }: { data: errorType } = response as AxiosResponse;
+      const { errorCode } = data;
+
+      switch (errorCode) {
+        case 'P002': {
+          dispatch(
+            openAlert({
+              severity: 'error',
+              title: '이미 좋아요 된 Post입니다.',
+              content: '홈으로 갔다가 다시 시도해주세요!',
+            }),
+          );
+          break;
+        }
+        case 'P003': {
+          dispatch(
+            openAlert({
+              severity: 'error',
+              title: 'Post의 좋아요를 찾을 수 없습니다.',
+              content: '홈으로 갔다가 다시 시도해주세요!',
+            }),
+          );
+          break;
+        }
+      }
+
+      console.error(e);
     }
   };
 
@@ -137,7 +156,6 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
         postId,
         3,
       );
-      // dispatch(setComment(res));
       setCommentsInit(res);
       setOnCommentOpen(!onCommentOpen);
       setCommentLoading(false);
@@ -147,7 +165,7 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   };
 
   return (
-    <Card ref={ref}>
+    <Card>
       <CardHeader
         avatar={
           <Avatar
@@ -237,6 +255,6 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
       )}
     </Card>
   );
-});
+}
 
 export default CommunityPost;

@@ -1,17 +1,6 @@
-import { resolveSoa } from 'dns';
-
-import { useDispatch, useSelector } from 'react-redux';
-import { useLayoutEffect, useEffect, useRef, useState } from 'react';
-import { AxiosError, AxiosResponse } from 'axios';
-import { selectUser } from '@store/slices/user';
-import comment, {
-  addNewComment,
-  addComment,
-  changeComment,
-  deleteComment,
-} from '@store/slices/comment';
+import { useDispatch } from 'react-redux';
+import { useEffect, useRef, useState } from 'react';
 import { openAlert } from '@src/store/slices/flashAlert';
-import { errorType } from '@src/interfaces/error';
 import { Typography } from '@mui/material';
 import {
   childrenCommentType,
@@ -36,6 +25,8 @@ interface Props {
 }
 
 function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
+  const dispatch = useDispatch();
+
   const [commentLoading, setCommentLoading] = useState(false);
   const [commentContents, setCommentContents] = useState<any>();
   const [hasNext, setHasNext] = useState<boolean>(false);
@@ -44,8 +35,6 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
   const handleInputError = useRef<errorHandle>(null);
   const handleInput = useRef<inputHandle[]>([]);
   const handleInputSub = useRef<inputHandle[]>([]);
-
-  const state = useSelector(selectUser);
 
   useEffect(() => {
     setCommentContents(commentsInit.contents);
@@ -71,7 +60,6 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
     size: number,
     lastCommentId: number,
   ) => {
-    if (!state.isLogin) return;
     try {
       setCommentLoading(true);
       const res: CommunityPostCommentType = await getCommunityPostCommentApi(
@@ -84,6 +72,13 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
       setTotalElements(res.totalElements);
     } catch (e) {
       console.error(e);
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다',
+          content: '질문을 요청하는데에 실패했습니다.',
+        }),
+      );
     } finally {
       setCommentLoading(false);
     }
@@ -96,8 +91,6 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
     index: number,
     isDefaultInput?: boolean,
   ) => {
-    if (!state.isLogin) return;
-
     try {
       setCommentLoading(true);
       const res: CommentContentsType | childrenCommentType =
@@ -142,6 +135,13 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
       }
     } catch (e) {
       console.error(e);
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다',
+          content: '질문을 생성하는데에 실패했습니다.',
+        }),
+      );
     } finally {
       setCommentLoading(false);
     }
@@ -154,7 +154,6 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
     index: number,
     isSub?: boolean,
   ) => {
-    if (!state.isLogin) return;
     try {
       setCommentLoading(true);
       const res: CommentContentsType | childrenCommentType =
@@ -207,13 +206,19 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
       }
     } catch (e) {
       console.error(e);
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다',
+          content: '질문을 수정하는데에 실패했습니다.',
+        }),
+      );
     } finally {
       setCommentLoading(false);
     }
   };
 
   const removeComment = async (postId: number, postCommentId: number) => {
-    if (!state.isLogin) return;
     try {
       setCommentLoading(true);
       const res: CommentContentsType | childrenCommentType =
@@ -254,6 +259,13 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
       }
     } catch (e) {
       console.error(e);
+      dispatch(
+        openAlert({
+          severity: 'error',
+          title: '죄송합니다',
+          content: '질문을 삭제하는데에 실패했습니다.',
+        }),
+      );
     } finally {
       setCommentLoading(false);
     }
@@ -268,7 +280,7 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
           createComment(postId, null, contents, -1, true);
         }}
       />
-      {commentContents &&
+      {!commentLoading &&
         commentContents?.map((content: any, index: number) => {
           const {
             postCommentId,
