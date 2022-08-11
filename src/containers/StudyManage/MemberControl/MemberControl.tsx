@@ -21,7 +21,7 @@ import { deleteStudyMember, patchStudyMember } from '@apis/studyManage';
 interface Props {
   numberOfMembers: number;
   numberOfRecruits: number;
-  numberOfApplicant: number;
+  numberOfApplicants: number;
   studyMembers: studyManageMemberType[];
   studyApplicants: studyManageStudyApplicantsType[];
   studyGroupId: string;
@@ -30,7 +30,7 @@ interface Props {
 function MemberControl({
   numberOfMembers = 0,
   numberOfRecruits = 0,
-  numberOfApplicant = 0,
+  numberOfApplicants = 0,
   studyMembers = [],
   studyApplicants = [],
   studyGroupId = '0',
@@ -57,8 +57,8 @@ function MemberControl({
   }, [numberOfMembers]);
 
   useEffect(() => {
-    setApplicantNumber(numberOfApplicant);
-  }, [numberOfApplicant]);
+    setApplicantNumber(numberOfApplicants);
+  }, [numberOfApplicants]);
 
   const acceptStudyMember = async (
     studyGroupId: string,
@@ -109,6 +109,17 @@ function MemberControl({
             severity: 'error',
             title: '해당 멤버를 찾지 못했습니다!',
             content: '다시 시도해주세요!',
+          }),
+        );
+        return;
+      }
+
+      if (errorCode === 'SG009') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '스터디 멤버가 꽉 찼습니다!!',
+            content: '멤버 한자리를 비우고 시도해주세요!!',
           }),
         );
         return;
@@ -230,6 +241,10 @@ function MemberControl({
     }
   };
 
+  const isLeader = (studyGroupMemberRole: string) => {
+    return studyGroupMemberRole !== '리더';
+  };
+
   const deleteMembers = (
     array: Array<studyManageMemberType>,
     targetId: number,
@@ -238,7 +253,10 @@ function MemberControl({
       (applicant) => applicant.studyGroupMemberId !== targetId,
     );
     setMembers(filterArray);
-    setMemberNumber((prevState) => (prevState -= 1));
+    setMemberNumber((prevState) => {
+      if (prevState === 1) return 0;
+      else return (prevState -= 1);
+    });
   };
 
   const deleteApplicants = (
@@ -249,7 +267,10 @@ function MemberControl({
       (applicant) => applicant.studyGroupMemberId !== targetId,
     );
     setApplicants(filterArray);
-    setApplicantNumber((prevState) => (prevState -= 1));
+    setApplicantNumber((prevState) => {
+      if (prevState === 1) return 0;
+      else return (prevState -= 1);
+    });
   };
 
   return (
@@ -268,6 +289,7 @@ function MemberControl({
             field = '',
             career = '',
             mbti = '',
+            studyGroupMemberRole = '',
           } = member;
 
           return (
@@ -279,16 +301,18 @@ function MemberControl({
                 career={career}
                 mbti={mbti}
               />
-              <Button
-                variant='text'
-                color='secondary'
-                size='small'
-                onClick={() => {
-                  removeStudyMember(studyGroupId, members, memberID);
-                }}
-              >
-                제외
-              </Button>
+              {isLeader(studyGroupMemberRole) && (
+                <Button
+                  variant='text'
+                  color='secondary'
+                  size='small'
+                  onClick={() => {
+                    removeStudyMember(studyGroupId, members, memberID);
+                  }}
+                >
+                  제외
+                </Button>
+              )}
             </UserInfoWrapper>
           );
         })}

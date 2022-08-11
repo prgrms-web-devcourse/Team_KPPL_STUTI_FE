@@ -54,11 +54,14 @@ export const questionSlice = createSlice({
 
         if (targetIndex === -1) return;
 
-        state.value.contents[targetIndex].children.unshift(
+        state.value.contents[targetIndex].children.push(
           action.payload as childrenQuestionType,
         );
       } else {
-        state.value.contents.unshift(action.payload as questionContentType);
+        state.value.contents.unshift({
+          ...action.payload,
+          children: [],
+        } as questionContentType);
       }
     },
     changeQuestion: (
