@@ -279,7 +279,7 @@ function StudyEditForm() {
                         helperText={touched.title && errors.title}
                         onChange={handleChange}
                         autoFocus={true}
-                        disabled={isSubmitting}
+                        disabled={isSubmitting || isLoading}
                       />
                     </InputWrapper>
                   </StudyEditHeading>
@@ -305,7 +305,7 @@ function StudyEditForm() {
                       <FileInput
                         message='이미지 업로드'
                         onChange={onImageChange}
-                        disabled={isSubmitting}
+                        disabled={isSubmitting || isLoading}
                       />
                     </ButtonWrapper>
                   </StudyEditImageWrapper>
@@ -323,12 +323,12 @@ function StudyEditForm() {
                       }
                       helperText={touched.description && errors.description}
                       onChange={handleChange}
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || isLoading}
                     />
                   </StudyDescriptionWrapper>
                   <Button
                     type='submit'
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || isLoading}
                     onClick={() => {
                       handleClick(values);
                     }}
