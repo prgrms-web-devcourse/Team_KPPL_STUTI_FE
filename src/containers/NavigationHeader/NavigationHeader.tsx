@@ -114,10 +114,10 @@ function NavigationHeader() {
                     horizontal: 'right',
                   }}
                 >
-                  <MenuItem component={Link} to='/user/1'>
+                  <MenuItem component={Link} to={`/user/${user.user?.id}`}>
                     <Typography variant='button'>마이페이지</Typography>
                   </MenuItem>
-                  <MenuItem component={Link} to={'/user/1/edit'}>
+                  <MenuItem component={Link} to={`/user/${user.user?.id}/edit`}>
                     <Typography variant='button'>프로필 수정</Typography>
                   </MenuItem>
                   <MenuItem component={Link} to={'/'} onClick={handleLogout}>
