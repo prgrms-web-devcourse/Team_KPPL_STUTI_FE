@@ -105,13 +105,13 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
           res.parentId,
         );
 
-        const NewCommentContents: any = commentContents.slice();
-        NewCommentContents[parentIndex].children = [
+        const newCommentContents: any = commentContents.slice();
+        newCommentContents[parentIndex].children = [
           res,
-          ...NewCommentContents[parentIndex].children,
+          ...newCommentContents[parentIndex].children,
         ];
 
-        setCommentContents(NewCommentContents);
+        setCommentContents(newCommentContents);
         break;
       }
       case false: {
@@ -147,11 +147,39 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
     switch (checkParent(res)) {
       case true: {
         //parent가 있는 것
+        const parentIndex = findCommentsTargetIdIndex(
+          commentContents,
+          res.parentId,
+        );
+
+        const targetIndex = findCommentsTargetIdIndex(
+          commentContents[parentIndex],
+          res.postCommentId,
+        );
+
+        const newResponseCommentContents: any = { ...res };
+        const newCommentContents: any = commentContents.slice();
+        newCommentContents[parentIndex].children[targetIndex] =
+          newResponseCommentContents;
+        setCommentContents(newCommentContents);
         break;
       }
       case false: {
         //parent가 없는 것
-        break;
+        const targetIndex = findCommentsTargetIdIndex(
+          commentContents,
+          res.postCommentId,
+        );
+
+        const newCommentContents: any = commentContents.slice();
+        const newResponseCommentContents: any = { ...res };
+        const newCommentContentsChildren =
+          commentContents[targetIndex].children.slice();
+
+        newResponseCommentContents.children = newCommentContentsChildren;
+
+        newCommentContents[targetIndex] = newResponseCommentContents;
+        setCommentContents(newCommentContents);
       }
     }
     if (isSub) {
@@ -184,10 +212,10 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
           res.postCommentId,
         );
 
-        const NewCommentContents: any = commentContents.slice();
+        const newCommentContents: any = commentContents.slice();
 
         setCommentContents(
-          NewCommentContents[parentIndex].children.splice(targetIndex, 1),
+          newCommentContents[parentIndex].children.splice(targetIndex, 1),
         );
         break;
       }
