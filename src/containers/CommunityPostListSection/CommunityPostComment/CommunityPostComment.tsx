@@ -36,6 +36,7 @@ interface Props {
 }
 
 function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
+  const [commentLoading, setCommentLoading] = useState(false);
   const [commentContents, setCommentContents] = useState<any>();
   const [hasNext, setHasNext] = useState<boolean>(false);
   const [totalElements, setTotalElements] = useState<number>(0);
@@ -71,14 +72,21 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
     lastCommentId: number,
   ) => {
     if (!state.isLogin) return;
-    const res: CommunityPostCommentType = await getCommunityPostCommentApi(
-      postId,
-      size,
-      lastCommentId,
-    );
-    setCommentContents([...commentContents, ...res.contents]);
-    setHasNext(res.hasNext);
-    setTotalElements(res.totalElements);
+    try {
+      setCommentLoading(true);
+      const res: CommunityPostCommentType = await getCommunityPostCommentApi(
+        postId,
+        size,
+        lastCommentId,
+      );
+      setCommentContents([...commentContents, ...res.contents]);
+      setHasNext(res.hasNext);
+      setTotalElements(res.totalElements);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setCommentLoading(false);
+    }
   };
 
   const createComment = async (
@@ -90,45 +98,52 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
   ) => {
     if (!state.isLogin) return;
 
-    const res: CommentContentsType | childrenCommentType =
-      await createCommunityPostCommentApi(postId, parentId, contents);
+    try {
+      setCommentLoading(true);
+      const res: CommentContentsType | childrenCommentType =
+        await createCommunityPostCommentApi(postId, parentId, contents);
 
-    switch (checkParent(res)) {
-      case true: {
-        const parentIndex = findCommentsTargetIdIndex(
-          commentContents,
-          res.parentId,
-        );
+      switch (checkParent(res)) {
+        case true: {
+          const parentIndex = findCommentsTargetIdIndex(
+            commentContents,
+            res.parentId,
+          );
 
-        const newCommentContents: any = commentContents.slice();
-        newCommentContents[parentIndex].children = [
-          res,
-          ...newCommentContents[parentIndex].children,
-        ];
+          const newCommentContents: any = commentContents.slice();
+          newCommentContents[parentIndex].children = [
+            res,
+            ...newCommentContents[parentIndex].children,
+          ];
 
-        setCommentContents(newCommentContents);
-        break;
+          setCommentContents(newCommentContents);
+          break;
+        }
+        case false: {
+          const newResponseCommentContents = { ...res, children: [] };
+          const newCommentContents = [
+            newResponseCommentContents,
+            ...commentContents,
+          ];
+          setCommentContents(newCommentContents);
+          onCount('UP');
+          break;
+        }
       }
-      case false: {
-        const newResponseCommentContents = { ...res, children: [] };
-        const newCommentContents = [
-          newResponseCommentContents,
-          ...commentContents,
-        ];
-        setCommentContents(newCommentContents);
-        onCount('UP');
-        break;
-      }
-    }
 
-    setTotalElements(totalElements + 1);
-    if (isDefaultInput) {
-      handleInputError.current?.resetValue();
-      handleInputError.current?.handleErrorFalse();
-    } else {
-      handleInput.current[index]?.resetValue();
-      handleInput.current[index]?.handleCommentFlag();
-      handleInput.current[index]?.handleErrorFalse();
+      setTotalElements(totalElements + 1);
+      if (isDefaultInput) {
+        handleInputError.current?.resetValue();
+        handleInputError.current?.handleErrorFalse();
+      } else {
+        handleInput.current[index]?.resetValue();
+        handleInput.current[index]?.handleCommentFlag();
+        handleInput.current[index]?.handleErrorFalse();
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setCommentLoading(false);
     }
   };
 
@@ -140,91 +155,107 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
     isSub?: boolean,
   ) => {
     if (!state.isLogin) return;
-    const res: CommentContentsType | childrenCommentType =
-      await changeCommunityPostCommentApi(postId, postCommentId, contents);
+    try {
+      setCommentLoading(true);
+      const res: CommentContentsType | childrenCommentType =
+        await changeCommunityPostCommentApi(postId, postCommentId, contents);
 
-    switch (checkParent(res)) {
-      case true: {
-        const parentIndex = findCommentsTargetIdIndex(
-          commentContents,
-          res.parentId,
-        );
+      switch (checkParent(res)) {
+        case true: {
+          const parentIndex = findCommentsTargetIdIndex(
+            commentContents,
+            res.parentId,
+          );
 
-        const targetIndex = findCommentsTargetIdIndex(
-          commentContents[parentIndex].children,
-          res.postCommentId,
-        );
+          const targetIndex = findCommentsTargetIdIndex(
+            commentContents[parentIndex].children,
+            res.postCommentId,
+          );
 
-        const newResponseCommentContents: any = { ...res };
-        const newCommentContents: any = commentContents.slice();
-        newCommentContents[parentIndex].children[targetIndex] =
-          newResponseCommentContents;
-        setCommentContents(newCommentContents);
-        break;
+          const newResponseCommentContents: any = { ...res };
+          const newCommentContents: any = commentContents.slice();
+          newCommentContents[parentIndex].children[targetIndex] =
+            newResponseCommentContents;
+          setCommentContents(newCommentContents);
+          break;
+        }
+        case false: {
+          const targetIndex = findCommentsTargetIdIndex(
+            commentContents,
+            res.postCommentId,
+          );
+
+          const newCommentContents: any = commentContents.slice();
+          const newResponseCommentContents: any = { ...res };
+          const newCommentContentsChildren =
+            commentContents[targetIndex].children?.slice() || [];
+
+          newResponseCommentContents.children = newCommentContentsChildren;
+          newResponseCommentContents.children.push();
+          newCommentContents[targetIndex] = newResponseCommentContents;
+          setCommentContents(newCommentContents);
+        }
       }
-      case false: {
-        const targetIndex = findCommentsTargetIdIndex(
-          commentContents,
-          res.postCommentId,
-        );
-
-        const newCommentContents: any = commentContents.slice();
-        const newResponseCommentContents: any = { ...res };
-        const newCommentContentsChildren =
-          commentContents[targetIndex].children?.slice() || [];
-
-        newResponseCommentContents.children = newCommentContentsChildren;
-        newResponseCommentContents.children.push();
-        newCommentContents[targetIndex] = newResponseCommentContents;
-        setCommentContents(newCommentContents);
+      if (isSub) {
+        handleInputSub.current[index]?.resetValue();
+        handleInputSub.current[index]?.handleUpdateFlag();
+        handleInputSub.current[index]?.handleErrorFalse();
+      } else {
+        handleInput.current[index]?.resetValue();
+        handleInput.current[index]?.handleUpdateFlag();
+        handleInput.current[index]?.handleErrorFalse();
       }
-    }
-    if (isSub) {
-      handleInputSub.current[index]?.resetValue();
-      handleInputSub.current[index]?.handleUpdateFlag();
-      handleInputSub.current[index]?.handleErrorFalse();
-    } else {
-      handleInput.current[index]?.resetValue();
-      handleInput.current[index]?.handleUpdateFlag();
-      handleInput.current[index]?.handleErrorFalse();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setCommentLoading(false);
     }
   };
 
   const removeComment = async (postId: number, postCommentId: number) => {
     if (!state.isLogin) return;
-    const res: CommentContentsType | childrenCommentType =
-      await deleteCommunityPostCommentApi(postId, postCommentId);
+    try {
+      setCommentLoading(true);
+      const res: CommentContentsType | childrenCommentType =
+        await deleteCommunityPostCommentApi(postId, postCommentId);
 
-    switch (checkParent(res)) {
-      case true: {
-        const parentIndex = findCommentsTargetIdIndex(
-          commentContents,
-          res.parentId,
-        );
-
-        const newCommentContents: any = commentContents.slice();
-        const newCommentContentsChildren = commentContents[parentIndex].children
-          ?.slice()
-          .filter(
-            (childrenComment: any) =>
-              childrenComment.postCommentId !== res.postCommentId,
+      switch (checkParent(res)) {
+        case true: {
+          const parentIndex = findCommentsTargetIdIndex(
+            commentContents,
+            res.parentId,
           );
 
-        newCommentContents[parentIndex].children = newCommentContentsChildren;
-        setCommentContents(newCommentContents);
-        break;
+          const newCommentContents: any = commentContents.slice();
+          const newCommentContentsChildren = commentContents[
+            parentIndex
+          ].children
+            ?.slice()
+            .filter(
+              (childrenComment: any) =>
+                childrenComment.postCommentId !== res.postCommentId,
+            );
+
+          newCommentContents[parentIndex].children = newCommentContentsChildren;
+          setCommentContents(newCommentContents);
+          break;
+        }
+        case false: {
+          const newCommentContents = commentContents
+            .slice()
+            .filter(
+              (commentContent: any) =>
+                commentContent.postCommentId !== res.postCommentId,
+            );
+          setCommentContents(newCommentContents);
+          onCount('DOWN');
+          break;
+        }
       }
-      case false: {
-        const newCommentContents = commentContents
-          .slice()
-          .filter(
-            (commentContent: any) =>
-              commentContent.postCommentId !== res.postCommentId,
-          );
-        setCommentContents(newCommentContents);
-        onCount('DOWN');
-        break;
-      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setCommentLoading(false);
     }
   };
 

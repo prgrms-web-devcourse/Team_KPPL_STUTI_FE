@@ -58,6 +58,7 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   ref,
 ) {
   const [commentLoading, setCommentLoading] = useState(false);
+  const [likeLoading, setLikeLoading] = useState(false);
   const [commentCount, setCommentCount] = useState(0);
   const [liked, setLiked] = useState({ check: false, count: 0 });
   const [isExpand, setIsExpand] = useState<string | number>('none');
@@ -96,17 +97,25 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
 
   const handleLiked = async (e: React.MouseEvent<HTMLElement>) => {
     if (!state.isLogin) return;
-    switch (liked.check) {
-      case true: {
-        setLiked({ check: false, count: liked.count - 1 });
-        await deleteCommunityPostLikeApi(postId);
-        break;
+    try {
+      switch (liked.check) {
+        case true: {
+          setLikeLoading(true);
+          setLiked({ check: false, count: liked.count - 1 });
+          await deleteCommunityPostLikeApi(postId);
+          setLikeLoading(false);
+          break;
+        }
+        case false: {
+          setLikeLoading(true);
+          setLiked({ check: true, count: liked.count + 1 });
+          await postCommunityPostLikeApi(postId);
+          setLikeLoading(false);
+          break;
+        }
       }
-      case false: {
-        setLiked({ check: true, count: liked.count + 1 });
-        await postCommunityPostLikeApi(postId);
-        break;
-      }
+    } catch (e) {
+      console.error(e);
     }
   };
 
@@ -122,15 +131,19 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   };
 
   const handleSetComment = async () => {
-    setCommentLoading(true);
-    const res: CommunityPostCommentType = await getCommunityPostCommentApi(
-      postId,
-      3,
-    );
-    // dispatch(setComment(res));
-    setCommentsInit(res);
-    setOnCommentOpen(!onCommentOpen);
-    setCommentLoading(false);
+    try {
+      setCommentLoading(true);
+      const res: CommunityPostCommentType = await getCommunityPostCommentApi(
+        postId,
+        3,
+      );
+      // dispatch(setComment(res));
+      setCommentsInit(res);
+      setOnCommentOpen(!onCommentOpen);
+      setCommentLoading(false);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
@@ -189,7 +202,11 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
         </Box>
       )}
       <CardActions disableSpacing>
-        <IconButton aria-label='settings' onClick={handleLiked}>
+        <IconButton
+          aria-label='settings'
+          disabled={likeLoading}
+          onClick={handleLiked}
+        >
           {liked.check ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
         <CommunityPostTypographyButton>
