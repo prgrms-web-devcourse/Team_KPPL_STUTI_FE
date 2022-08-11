@@ -1,6 +1,4 @@
-import axiosInstance from '@apis/axiosInstance';
-
-const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+import axiosInstance, { axiosAuthInstance } from '@apis/axiosInstance';
 
 export const getAllStudies = async (queries: {
   mbti?: string;
@@ -20,11 +18,9 @@ export const getAllStudies = async (queries: {
     .join('')
     .slice(0, -1);
 
-  const url = `${API_ENDPOINT}/api/v1/study-groups?${queryStrings}`;
-
   const { data } = await axiosInstance({
     method: 'GET',
-    url,
+    url: `/api/v1/study-groups?${queryStrings}`,
   });
 
   return data;
@@ -49,30 +45,17 @@ export const getUserStudies = async (
     .join('')
     .slice(0, -1);
 
-  const url = `${API_ENDPOINT}/api/v1/study-groups/members/${userId}?${queryStrings}`;
-
   const { data } = await axiosInstance({
     method: 'GET',
-    url,
-    // 로그인 구현 후 axiosInstance 변경
-    headers: {
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2Iiwicm9sZXMiOiJST0xFX01FTUJFUiIsImlhdCI6MTY2MDAyMzIyOCwiZXhwIjoxNjYzMDIzMjI4fQ.lequMTJd6iooVkkY7-f7ALWTSg7qabGZLuM-uiRoWZs',
-    },
+    url: `/api/v1/study-groups/members/${userId}?${queryStrings}`,
   });
 
   return data;
 };
 
 export const deleteStudy = async (studyId: number) => {
-  const url = `${API_ENDPOINT}/api/v1/study-groups/${studyId}`;
-  await axiosInstance({
+  await axiosAuthInstance({
     method: 'DELETE',
-    url,
-    // 로그인 구현 후 axiosInstance 변경
-    headers: {
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2Iiwicm9sZXMiOiJST0xFX01FTUJFUiIsImlhdCI6MTY2MDAyMzIyOCwiZXhwIjoxNjYzMDIzMjI4fQ.lequMTJd6iooVkkY7-f7ALWTSg7qabGZLuM-uiRoWZs',
-    },
+    url: `/api/v1/study-groups/${studyId}`,
   });
 };

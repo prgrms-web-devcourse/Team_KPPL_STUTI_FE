@@ -8,7 +8,7 @@ import { getUserProfile } from '@apis/members';
 import { Section, Loading, Error } from './InfoSection.style';
 
 function InfoSection() {
-  const { user_id: userId } = useParams<{ user_id: string }>();
+  const { user_id: paramUserId } = useParams<{ user_id: string }>();
 
   const [userProfile, setUserProfile] = useState<UserProfileType>({
     id: 0,
@@ -29,7 +29,7 @@ function InfoSection() {
     (async () => {
       try {
         setLoading(true);
-        const res = await getUserProfile(Number(userId));
+        const res = await getUserProfile(Number(paramUserId));
         setUserProfile(res);
       } catch (e) {
         console.error(e);

@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router';
+import { useSelector } from 'react-redux';
+import { selectUser } from '@store/slices/user';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import LinkIcon from '@mui/icons-material/Link';
@@ -44,6 +47,10 @@ interface Props {
 }
 
 function UserProfile({ userProfile }: Props) {
+  const { user_id: paramUserId } = useParams<{ user_id: string }>();
+  const { user, isLogin } = useSelector(selectUser);
+  const loggedInUserId = user?.id;
+
   return (
     <Content>
       <Avatar
@@ -58,7 +65,7 @@ function UserProfile({ userProfile }: Props) {
           userProfile.career,
         )}`}
       </P>
-      {userProfile.githubUrl !== '' && userProfile.blogUrl !== '' && (
+      {userProfile.githubUrl && userProfile.blogUrl && (
         <Dl>
           <Flex>
             <Dt>
@@ -92,10 +99,11 @@ function UserProfile({ userProfile }: Props) {
           </Flex>
         </Dl>
       )}
-      {/* userProfile.id === loggedInUserId */}
-      <Button component={Link} to={`/user/${userProfile.id}/edit`} fullWidth>
-        프로필 수정
-      </Button>
+      {isLogin && loggedInUserId === Number(paramUserId) && (
+        <Button component={Link} to={`/user/${userProfile.id}/edit`} fullWidth>
+          프로필 수정
+        </Button>
+      )}
     </Content>
   );
 }
