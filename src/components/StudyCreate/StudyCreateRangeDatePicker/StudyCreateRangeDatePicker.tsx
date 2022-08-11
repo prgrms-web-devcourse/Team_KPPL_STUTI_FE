@@ -10,6 +10,7 @@ interface Props {
   endLabel: string;
   getStartValue: (value: string) => void;
   getEndValue: (value: string) => void;
+  disabled?: boolean;
 }
 
 function StudyCreateRangeDatePicker({
@@ -17,6 +18,7 @@ function StudyCreateRangeDatePicker({
   endLabel,
   getStartValue,
   getEndValue,
+  disabled,
 }: Props) {
   const [startDate, setStartDate] = useState(moment());
   const [endDate, setEndDate] = useState(moment().add(7, 'days'));
@@ -52,6 +54,7 @@ function StudyCreateRangeDatePicker({
             {...params}
           />
         )}
+        disabled={disabled}
       />
       <DatePicker
         minDate={moment().add(diffDays, 'days')}
@@ -72,6 +75,7 @@ function StudyCreateRangeDatePicker({
             {...params}
           />
         )}
+        disabled={disabled}
       />
     </RangeDatePickerWRapper>
   );

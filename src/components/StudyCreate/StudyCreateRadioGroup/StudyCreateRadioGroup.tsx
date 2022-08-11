@@ -14,6 +14,7 @@ interface Props {
   value: string;
   row?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
 }
 
 function StudyCreateRadioGroup({
@@ -23,6 +24,7 @@ function StudyCreateRadioGroup({
   row,
   value,
   onChange,
+  disabled,
 }: Props) {
   return (
     <RadioGroup
@@ -40,6 +42,7 @@ function StudyCreateRadioGroup({
             value={label.value}
             control={<Radio />}
             label={label.label}
+            disabled={disabled}
           />
         ))}
     </RadioGroup>
