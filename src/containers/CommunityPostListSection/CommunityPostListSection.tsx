@@ -11,17 +11,24 @@ function CommunityPostListSection() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const { targetRef } = useInterSectionObserver({
-    onTargetObserve: async () => {
-      if (!post.value.posts) return;
-      const lastPostId = post.value.posts.at(-1)?.postId;
-      const res = await getCommunityDataApi(5, lastPostId);
-      dispatch(addPost(res));
-    },
-  });
-
   const dispatch = useDispatch();
   const post = useSelector(selectPost);
+
+  const { targetRef } = useInterSectionObserver({
+    onTargetObserve: async () => {
+      if (!post.value.posts || !post.value.hasNext) return;
+      const lastPostId = post.value.posts.at(-1)?.postId;
+      try {
+        setLoading(true);
+        const res = await getCommunityDataApi(5, lastPostId);
+        dispatch(addPost(res));
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    },
+  });
 
   useEffect(() => {
     (async () => {
