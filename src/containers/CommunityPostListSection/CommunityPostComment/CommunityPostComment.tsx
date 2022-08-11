@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
-import { openAlert } from '@src/store/slices/flashAlert';
+import { openAlert } from '@store/slices/flashAlert';
 import { Typography } from '@mui/material';
 import {
   childrenCommentType,
@@ -19,12 +19,11 @@ import {
 
 interface Props {
   commentsInit: CommunityPostCommentType;
-  size: number;
   postId: number;
   onCount: (commentCountType: string) => void;
 }
 
-function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
+function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
   const dispatch = useDispatch();
 
   const [commentLoading, setCommentLoading] = useState(false);

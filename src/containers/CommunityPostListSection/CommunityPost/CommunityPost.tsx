@@ -5,7 +5,6 @@ import moment from 'moment';
 import { AxiosError, AxiosResponse } from 'axios';
 import { selectUser } from '@store/slices/user';
 import { openAlert } from '@store/slices/flashAlert';
-import { errorType } from '@src/interfaces/error';
 import {
   Avatar,
   CircularProgress,
@@ -19,6 +18,7 @@ import {
 } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { errorType } from '@interfaces/error';
 import {
   CommunityPostType,
   CommunityPostCommentType,
@@ -247,7 +247,6 @@ function CommunityPost({
         <CommunityPostCommentWrapper>
           <CommunityPostComment
             commentsInit={commentsInit}
-            size={3}
             postId={postId}
             onCount={handleCommentCount}
           />
