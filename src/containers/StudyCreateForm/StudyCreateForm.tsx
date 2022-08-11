@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+import { CircularProgress } from '@mui/material';
 import { errorType } from '@interfaces/error';
 import {
   topicOptions,
@@ -472,7 +473,15 @@ function StudyCreateFormContainer() {
                   handleClick(values);
                 }}
               >
-                {isSubmitting ? <SpinnerIcon /> : '제출'}
+                {isSubmitting ? (
+                  <CircularProgress
+                    color='secondary'
+                    size='1.5rem'
+                    sx={{ margin: '-0.25rem' }}
+                  />
+                ) : (
+                  '제출'
+                )}
               </Button>
             </StudyCreateWrapper>
           </form>

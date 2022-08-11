@@ -334,7 +334,11 @@ function StudyEditForm() {
                     }}
                   >
                     {isSubmitting ? (
-                      <CircularProgress color='inherit' size='1rem' />
+                      <CircularProgress
+                        color='secondary'
+                        size='1.5rem'
+                        sx={{ margin: '-0.25rem' }}
+                      />
                     ) : (
                       '제출'
                     )}
