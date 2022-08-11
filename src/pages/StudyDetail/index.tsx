@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -27,7 +28,6 @@ import {
   StudyDetailHeader,
   UserInfo,
 } from '@components';
-import NoImage from '@assets/noImage.jpeg';
 import {
   getStudyDetailInfomation,
   getStudyQuestionInformation,
@@ -154,12 +154,6 @@ function StudyDetail() {
     return title;
   };
 
-  const getImageUrl = () => {
-    const { imageUrl = NoImage } = data;
-
-    return imageUrl ? imageUrl : NoImage;
-  };
-
   const getDescription = () => {
     const { description = '' } = data;
 
@@ -251,12 +245,24 @@ function StudyDetail() {
       const { response } = error as AxiosError;
       const { data }: { data: errorType } = response as AxiosResponse;
       const { errorCode } = data;
-      if (errorCode === 'SG003') {
+
+      if (errorCode === 'S001') {
         dispatch(
           openAlert({
             severity: 'error',
-            title: '이미 가입하신 스터디입니다!',
-            content: '가입하신 스터디로 확인됩니다~',
+            title: '로그인 상태를 확인해주세요!!',
+            content: '로그인을 눌러 로그인 후 요청 부탁드립니다!!',
+          }),
+        );
+        return;
+      }
+
+      if (errorCode === 'SG004') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '이미 가입된 스터디입니다!!',
+            content: '다른 스터디에 가입해주세요!!',
           }),
         );
         return;
@@ -295,7 +301,7 @@ function StudyDetail() {
           <StudyDetailHeader
             topic={getTopic()}
             title={getTitle()}
-            imageUrl={getImageUrl()}
+            imageUrl={data.imageUrl}
           />
           {isLoginUserStudy(user) && (
             <StudyDetailButtonWrapper>

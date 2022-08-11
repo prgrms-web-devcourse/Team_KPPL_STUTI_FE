@@ -12,6 +12,7 @@ export interface errorHandle {
   handleErrorFalse: () => void;
   handleErrorTrue: () => void;
   resetValue: () => void;
+  flag: boolean;
 }
 
 const ReplyInput = forwardRef<errorHandle, Props>(function ReplyInput(
@@ -22,7 +23,7 @@ const ReplyInput = forwardRef<errorHandle, Props>(function ReplyInput(
   const [error, setError] = useState(false);
 
   const handleErrorFalse = () => {
-    setError(true);
+    setError(false);
   };
 
   const handleErrorTrue = () => {
@@ -37,6 +38,7 @@ const ReplyInput = forwardRef<errorHandle, Props>(function ReplyInput(
     handleErrorFalse,
     handleErrorTrue,
     resetValue,
+    flag: error,
   }));
 
   const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,6 +72,7 @@ const ReplyInput = forwardRef<errorHandle, Props>(function ReplyInput(
         placeholder={
           isUpdate ? '수정할 내용을 입력하세요.' : '댓글을 입력하세요'
         }
+        value={value}
         onChange={handleInputValue}
         fullWidth
         multiline

@@ -75,6 +75,7 @@ const Reply = forwardRef<inputHandle, Props>(function Reply(
     handleErrorFalse: () => {},
     handleErrorTrue: () => {},
     resetValue: () => {},
+    flag: false,
   });
 
   const handleCommentFlag = () => {
@@ -91,6 +92,7 @@ const Reply = forwardRef<inputHandle, Props>(function Reply(
     resetValue: handleInputError.current?.resetValue,
     handleCommentFlag,
     handleUpdateFlag,
+    flag: handleInputError.current?.flag,
   }));
 
   const handleCommentReply = () => {

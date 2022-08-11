@@ -15,7 +15,12 @@ function MbtiRecommend({ preferredMBTIs }: Props) {
       <Typography variant='h5'>선호 MBTI</Typography>
       <MbtiTagWrapper>
         {preferredMBTIs.map((mbti, index) => (
-          <MbtiTag key={`${mbti}-${index}`} mbti={mbti} size='small' />
+          <MbtiTag
+            key={`${mbti}-${index}`}
+            mbti={mbti}
+            size='small'
+            variant='filled'
+          />
         ))}
       </MbtiTagWrapper>
     </MbtiRecommandContainer>

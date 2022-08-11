@@ -62,10 +62,23 @@ function MemberControl({
 
   const acceptStudyMember = async (
     studyGroupId: string,
+    applicant: studyManageStudyApplicantsType,
+    studyMembers: studyManageMemberType[],
     studyGroupMemberId: number,
+    studyApplicants: studyManageStudyApplicantsType[],
   ) => {
     try {
       await patchStudyMember(studyGroupId, studyGroupMemberId);
+      const newMembersList = [
+        ...studyMembers,
+        {
+          ...applicant,
+          studyGroupMemberRole: 'MEMBER',
+        },
+      ];
+      setMembers(newMembersList);
+      setMemberNumber((prevState) => (prevState += 1));
+      deleteApplicants(studyApplicants, studyGroupMemberId);
       dispatch(
         openAlert({
           severity: 'success',
@@ -113,10 +126,12 @@ function MemberControl({
 
   const removeStudyMember = async (
     studyGroupId: string,
+    studyMembers: studyManageMemberType[],
     studyGroupMemberId: number,
   ) => {
     try {
       await deleteStudyMember(studyGroupId, studyGroupMemberId);
+      deleteMembers(studyMembers, studyGroupMemberId);
       dispatch(
         openAlert({
           severity: 'success',
@@ -165,9 +180,11 @@ function MemberControl({
   const removeStudyApplicant = async (
     studyGroupId: string,
     studyGroupMemberId: number,
+    studyApplicants: studyManageStudyApplicantsType[],
   ) => {
     try {
       await deleteStudyMember(studyGroupId, studyGroupMemberId);
+      deleteApplicants(studyApplicants, studyGroupMemberId);
       dispatch(
         openAlert({
           severity: 'success',
@@ -235,44 +252,6 @@ function MemberControl({
     setApplicantNumber((prevState) => (prevState -= 1));
   };
 
-  const exceptMember = (
-    studyGroupId: string,
-    studyMembers: studyManageMemberType[],
-    memberID: number,
-  ) => {
-    removeStudyMember(studyGroupId, memberID);
-    deleteMembers(studyMembers, memberID);
-  };
-
-  const acceptApplicantToMember = (
-    studyGroupId: string,
-    applicant: studyManageStudyApplicantsType,
-    studyMembers: studyManageMemberType[],
-    applicantID: number,
-    studyApplicants: studyManageStudyApplicantsType[],
-  ) => {
-    acceptStudyMember(studyGroupId, applicantID);
-    const newMembersList = [
-      ...studyMembers,
-      {
-        ...applicant,
-        studyGroupMemberRole: 'MEMBER',
-      },
-    ];
-    setMembers(newMembersList);
-    setMemberNumber((prevState) => (prevState += 1));
-    deleteApplicants(studyApplicants, applicantID);
-  };
-
-  const rejectApplicant = (
-    studyGroupId: string,
-    applicantID: number,
-    studyApplicants: studyManageStudyApplicantsType[],
-  ) => {
-    removeStudyApplicant(studyGroupId, applicantID);
-    deleteApplicants(studyApplicants, applicantID);
-  };
-
   return (
     <MemberControlContainer>
       <UserInfoContainer>
@@ -305,7 +284,7 @@ function MemberControl({
                 color='secondary'
                 size='small'
                 onClick={() => {
-                  exceptMember(studyGroupId, members, memberID);
+                  removeStudyMember(studyGroupId, members, memberID);
                 }}
               >
                 제외
@@ -346,7 +325,7 @@ function MemberControl({
                     color='secondary'
                     size='small'
                     onClick={() => {
-                      acceptApplicantToMember(
+                      acceptStudyMember(
                         studyGroupId,
                         applicant,
                         members,
@@ -362,7 +341,11 @@ function MemberControl({
                     color='secondary'
                     size='small'
                     onClick={() => {
-                      rejectApplicant(studyGroupId, applicantID, applicants);
+                      removeStudyApplicant(
+                        studyGroupId,
+                        applicantID,
+                        applicants,
+                      );
                     }}
                   >
                     거절

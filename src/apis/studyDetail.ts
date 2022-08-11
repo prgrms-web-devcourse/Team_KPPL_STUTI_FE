@@ -1,4 +1,4 @@
-import axiosInstance from '@apis/axiosInstance';
+import axiosInstance, { axiosAuthInstance } from '@apis/axiosInstance';
 
 export const getStudyDetailInfomation = async (studyGroupId: string) => {
   const { data } = await axiosInstance({
@@ -27,7 +27,7 @@ export const createStudyQuestion = async (
   parentId: number | null,
   contents: string,
 ) => {
-  const { data } = await axiosInstance({
+  const { data } = await axiosAuthInstance({
     url: `/api/v1/study-groups/${studyGroupId}/questions`,
     method: 'POST',
     data: {
@@ -43,9 +43,9 @@ export const changeStudyQuestion = async (
   studyGroupQuestionId: number,
   contents: string,
 ) => {
-  const { data } = await axiosInstance({
+  const { data } = await axiosAuthInstance({
     url: `/api/v1/study-groups/${studyGroupId}/questions/${studyGroupQuestionId}`,
-    method: 'PUT',
+    method: 'PATCH',
     data: {
       contents,
     },
@@ -57,7 +57,7 @@ export const deleteStudyQuestion = async (
   studyGroupId: string,
   studyGroupQuestionId: number,
 ) => {
-  const { data } = await axiosInstance({
+  const { data } = await axiosAuthInstance({
     url: `/api/v1/study-groups/${studyGroupId}/questions/${studyGroupQuestionId}`,
     method: 'DELETE',
   });
@@ -65,7 +65,7 @@ export const deleteStudyQuestion = async (
 };
 
 export const joinStudyGroup = async (studyGroupId: string) => {
-  const { data } = await axiosInstance({
+  const { data } = await axiosAuthInstance({
     url: `/api/v1/study-groups/${studyGroupId}/members`,
     method: 'POST',
   });
