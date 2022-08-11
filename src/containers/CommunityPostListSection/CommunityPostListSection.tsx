@@ -44,6 +44,7 @@ function CommunityPostListSection() {
       return;
     const lastPostId = post.value.posts.at(-1)?.postId;
     const res = await getCommunityDataApi(5, lastPostId);
+    console.log(res);
     dispatch(addPost(res));
   };
 

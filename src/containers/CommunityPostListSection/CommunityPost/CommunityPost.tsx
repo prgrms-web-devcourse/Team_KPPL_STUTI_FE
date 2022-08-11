@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 import moment from 'moment';
 import { selectUser } from '@store/slices/user';
-import { setComment, selectComment } from '@store/slices/comment';
+import { setComment, selectComment, resetComment } from '@store/slices/comment';
 import {
   Avatar,
   CircularProgress,
@@ -62,10 +62,10 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   const [liked, setLiked] = useState({ check: false, count: 0 });
   const [isExpand, setIsExpand] = useState<string | number>('none');
   const [onCommentOpen, setOnCommentOpen] = useState(false);
-  const [postComments, setPostComments] = useState<CommunityPostCommentType>();
+  const [commentsInit, setCommentsInit] = useState<any>();
   const contentsRef = useRef<HTMLInputElement>(null);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // const postComments = useSelector(selectComment);
   const state = useSelector(selectUser);
 
@@ -98,14 +98,16 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   const handleLiked = async (e: React.MouseEvent<HTMLElement>) => {
     if (!state.isLogin) return;
     switch (liked.check) {
-      case true:
+      case true: {
         setLiked({ check: false, count: liked.count - 1 });
         await deleteCommunityPostLikeApi(postId);
         break;
-      case false:
+      }
+      case false: {
         setLiked({ check: true, count: liked.count + 1 });
         await postCommunityPostLikeApi(postId);
         break;
+      }
     }
   };
 
@@ -121,16 +123,14 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   };
 
   const handleSetComment = async () => {
-    setOnCommentOpen(!onCommentOpen);
-    if (!onCommentOpen) return;
     setCommentLoading(true);
     const res: CommunityPostCommentType = await getCommunityPostCommentApi(
       postId,
       3,
     );
-    console.log(res);
-    setPostComments(res);
-    dispatch(setComment(res));
+    // dispatch(setComment(res));
+    setCommentsInit(res);
+    setOnCommentOpen(!onCommentOpen);
     setCommentLoading(false);
   };
 
@@ -211,12 +211,12 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
       )}
       {!commentLoading && onCommentOpen && (
         <CommunityPostCommentWrapper>
-          {/* <CommunityPostComment
-            {...postComments}
+          <CommunityPostComment
+            commentsInit={commentsInit}
             size={3}
             postId={postId}
             onCount={handleCommentCount}
-          /> */}
+          />
         </CommunityPostCommentWrapper>
       )}
     </Card>

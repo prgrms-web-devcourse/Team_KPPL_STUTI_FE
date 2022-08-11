@@ -1,5 +1,7 @@
+import { resolveSoa } from 'dns';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import { selectUser } from '@store/slices/user';
 import {
@@ -26,57 +28,60 @@ import {
   deleteCommunityPostCommentApi,
 } from '@apis/community';
 
-interface Props extends CommunityPostCommentType {
+interface Props {
+  commentsInit: CommunityPostCommentType;
   size: number;
   postId: number;
   onCount: (commentCountType: string) => void;
 }
 
-function CommunityPostComment({
-  contents = [],
-  totalElements,
-  hasNext,
-  size,
-  postId,
-  onCount,
-}: Props) {
+function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
   const dispatch = useDispatch();
-  const [newSize, setNewSize] = useState(size);
+  // const [newSize, setNewSize] = useState(size);
+
+  const [commentContents, setCommentContents] = useState<any>();
+  const [hasNext, setHasNext] = useState<boolean>(false);
+  const [totalElements, setTotalElements] = useState<number>(0);
 
   const handleInputError = useRef<errorHandle>(null);
   const handleInput = useRef<inputHandle[]>([]);
   const handleInputSub = useRef<inputHandle[]>([]);
 
   const state = useSelector(selectUser);
+  const checkParent = (target: CommentContentsType | childrenCommentType) =>
+    !!target.parentId;
+
+  const findCommentsTargetIdIndex = (
+    comments: CommentContentsType[] | childrenCommentType[],
+    targetId: number | null,
+  ): number => {
+    return comments.findIndex(
+      (comment: CommentContentsType | childrenCommentType) =>
+        comment.postCommentId === targetId,
+    );
+  };
+
+  useEffect(() => {
+    setCommentContents(commentsInit.contents);
+    setHasNext(commentsInit.hasNext);
+    setTotalElements(commentsInit.totalElements);
+  }, []);
 
   const requestComment = async (
     postId: number,
     size: number,
-    lastCommunityPostCommentId: number,
+    lastCommentId: number,
   ) => {
-    try {
-      if (!state.isLogin) return;
-      const res: CommunityPostCommentType = await getCommunityPostCommentApi(
-        postId,
-        size,
-        lastCommunityPostCommentId,
-      );
-
-      dispatch(addComment(res));
-    } catch (error) {
-      console.error(error);
-      const { response } = error as AxiosError;
-      const { data }: { data: errorType } = response as AxiosResponse;
-      const { errorCode } = data;
-
-      dispatch(
-        openAlert({
-          severity: 'error',
-          title: '죄송합니다.',
-          content: '질문을 생성하는데에 실패했습니다.',
-        }),
-      );
-    }
+    if (!state.isLogin) return;
+    const res: CommunityPostCommentType = await getCommunityPostCommentApi(
+      postId,
+      size,
+      lastCommentId,
+    );
+    setCommentContents([...commentContents, ...res.contents]);
+    setHasNext(res.hasNext);
+    setTotalElements(res.totalElements);
+    // dispatch(addComment(res));
   };
 
   const createComment = async (
@@ -86,111 +91,117 @@ function CommunityPostComment({
     index: number,
     isDefaultInput?: boolean,
   ) => {
-    try {
-      if (!state.isLogin) return;
-      const res: CommentContentsType | childrenCommentType =
-        await createCommunityPostCommentApi(postId, parentId, contents);
-      dispatch(addNewComment(res));
+    if (!state.isLogin) return;
 
-      onCount('UP');
-      if (isDefaultInput) {
-        handleInputError.current?.resetValue();
-        handleInputError.current?.handleErrorFalse();
-      } else {
-        handleInput.current[index]?.resetValue();
-        handleInput.current[index]?.handleCommentFlag();
-        handleInput.current[index]?.handleErrorFalse();
-      }
-    } catch (error) {
-      console.error(error);
-      const { response } = error as AxiosError;
-      const { data }: { data: errorType } = response as AxiosResponse;
-      const { errorCode } = data;
-      if (isDefaultInput) {
-        handleInputError.current?.handleErrorTrue();
-      } else {
-        handleInput.current[index]?.handleErrorTrue();
-      }
+    const res: CommentContentsType | childrenCommentType =
+      await createCommunityPostCommentApi(postId, parentId, contents);
+    // dispatch(addNewComment(res));
 
-      dispatch(
-        openAlert({
-          severity: 'error',
-          title: '죄송합니다',
-          content: '질문을 생성하는데에 실패했습니다.',
-        }),
-      );
-      return;
+    switch (checkParent(res)) {
+      case true: {
+        //parent가 있는 것
+        const parentIndex = findCommentsTargetIdIndex(
+          commentContents,
+          res.parentId,
+        );
+
+        const NewCommentContents: any = commentContents.slice();
+        NewCommentContents[parentIndex].children = [
+          res,
+          ...NewCommentContents[parentIndex].children,
+        ];
+
+        setCommentContents(NewCommentContents);
+        break;
+      }
+      case false: {
+        //parent가 없는 것
+        setCommentContents([res, ...commentContents]);
+        break;
+      }
+    }
+
+    onCount('UP');
+    if (isDefaultInput) {
+      handleInputError.current?.resetValue();
+      handleInputError.current?.handleErrorFalse();
+    } else {
+      handleInput.current[index]?.resetValue();
+      handleInput.current[index]?.handleCommentFlag();
+      handleInput.current[index]?.handleErrorFalse();
     }
   };
 
-  const updateComment = async (
+  const editComment = async (
     postId: number,
     postCommentId: number,
     contents: string,
     index: number,
     isSub?: boolean,
   ) => {
-    try {
-      if (!state.isLogin) return;
-      const res: CommentContentsType | childrenCommentType =
-        await changeCommunityPostCommentApi(postId, postCommentId, contents);
+    if (!state.isLogin) return;
+    const res: CommentContentsType | childrenCommentType =
+      await changeCommunityPostCommentApi(postId, postCommentId, contents);
 
-      dispatch(changeComment(res));
-
-      if (isSub) {
-        handleInputSub.current[index]?.resetValue();
-        handleInputSub.current[index]?.handleUpdateFlag();
-        handleInputSub.current[index]?.handleErrorFalse();
-      } else {
-        handleInput.current[index]?.resetValue();
-        handleInput.current[index]?.handleUpdateFlag();
-        handleInput.current[index]?.handleErrorFalse();
+    // dispatch(changeComment(res));
+    switch (checkParent(res)) {
+      case true: {
+        //parent가 있는 것
+        break;
       }
-    } catch (error) {
-      console.error(error);
-      const { response } = error as AxiosError;
-      const { data }: { data: errorType } = response as AxiosResponse;
-      const { errorCode } = data;
-
-      if (isSub) {
-        handleInputSub.current[index]?.handleErrorTrue();
-      } else {
-        handleInput.current[index]?.handleErrorTrue();
+      case false: {
+        //parent가 없는 것
+        break;
       }
-
-      dispatch(
-        openAlert({
-          severity: 'error',
-          title: '죄송합니다',
-          content: '질문을 수정하는데에 실패했습니다.',
-        }),
-      );
+    }
+    if (isSub) {
+      handleInputSub.current[index]?.resetValue();
+      handleInputSub.current[index]?.handleUpdateFlag();
+      handleInputSub.current[index]?.handleErrorFalse();
+    } else {
+      handleInput.current[index]?.resetValue();
+      handleInput.current[index]?.handleUpdateFlag();
+      handleInput.current[index]?.handleErrorFalse();
     }
   };
 
   const removeComment = async (postId: number, postCommentId: number) => {
-    try {
-      if (!state.isLogin) return;
-      const res: CommentContentsType | childrenCommentType =
-        await deleteCommunityPostCommentApi(postId, postCommentId);
-      console.log(res);
-      dispatch(deleteComment(res));
+    if (!state.isLogin) return;
 
-      onCount('DOWN');
-    } catch (error) {
-      console.error(error);
-      const { response } = error as AxiosError;
-      const { data }: { data: errorType } = response as AxiosResponse;
-      const { errorCode } = data;
+    const res: CommentContentsType | childrenCommentType =
+      await deleteCommunityPostCommentApi(postId, postCommentId);
+    // dispatch(deleteComment(res));
 
-      dispatch(
-        openAlert({
-          severity: 'error',
-          title: '죄송합니다',
-          content: '질문을 삭제하는데에 실패했습니다.',
-        }),
-      );
+    switch (checkParent(res)) {
+      case true: {
+        //parent가 있는 것
+        const parentIndex = findCommentsTargetIdIndex(
+          commentContents,
+          res.parentId,
+        );
+        const targetIndex = findCommentsTargetIdIndex(
+          commentContents[parentIndex],
+          res.postCommentId,
+        );
+
+        const NewCommentContents: any = commentContents.slice();
+
+        setCommentContents(
+          NewCommentContents[parentIndex].children.splice(targetIndex, 1),
+        );
+        break;
+      }
+      case false: {
+        //parent가 없는 것
+        const targetIndex = findCommentsTargetIdIndex(
+          commentContents,
+          res.postCommentId,
+        );
+        setCommentContents(commentContents.slice().splice(targetIndex, 1));
+        break;
+      }
     }
+    onCount('DOWN');
   };
 
   return (
@@ -202,80 +213,81 @@ function CommunityPostComment({
           createComment(postId, null, contents, -1, true);
         }}
       />
-      {contents.map((content, index) => {
-        const {
-          postCommentId,
-          profileImageUrl = '',
-          nickname = '프룽이',
-          contents: text = '참여하고 싶어요!',
-          updatedAt = '2022-02-22 10:00:00',
-          children = [],
-          memberId,
-        } = content;
-        return (
-          <Reply
-            ref={(el) => el && (handleInput.current[index] = el)}
-            key={content.postCommentId}
-            memberId={memberId}
-            profileImageUrl={profileImageUrl}
-            nickname={nickname}
-            contents={text}
-            replies={children}
-            updatedAt={updatedAt}
-            onCreate={(contents: string) => {
-              createComment(postId, postCommentId, contents, index);
-            }}
-            onUpdate={(contents: string) => {
-              updateComment(postId, postCommentId, contents, index);
-            }}
-            onDelete={() => {
-              removeComment(postId, postCommentId);
-            }}
-          >
-            {children.map((reply: any, index: any) => {
-              const {
-                postCommentId,
-                profileImageUrl = '',
-                nickname = '',
-                contents = '',
-                updatedAt = '2022-02-22 10:00:00',
-              } = reply;
-              return (
-                <Reply
-                  ref={(el) => el && (handleInputSub.current[index] = el)}
-                  key={postCommentId}
-                  memberId={memberId}
-                  profileImageUrl={profileImageUrl}
-                  nickname={nickname}
-                  contents={contents}
-                  updatedAt={updatedAt}
-                  onUpdate={(contents: string) => {
-                    updateComment(postId, postCommentId, contents, index, true);
-                  }}
-                  onDelete={() => {
-                    removeComment(postId, postCommentId);
-                  }}
-                />
-              );
-            })}
-          </Reply>
-        );
-      })}
+      {commentContents &&
+        commentContents.map((content: any, index: number) => {
+          const {
+            postCommentId,
+            profileImageUrl = '',
+            nickname = '프룽이',
+            contents: text = '참여하고 싶어요!',
+            updatedAt = '2022-02-22 10:00:00',
+            children = [],
+            memberId,
+          } = content;
+          return (
+            <Reply
+              ref={(el) => el && (handleInput.current[index] = el)}
+              key={content.postCommentId}
+              memberId={memberId}
+              profileImageUrl={profileImageUrl}
+              nickname={nickname}
+              contents={text}
+              replies={children}
+              updatedAt={updatedAt}
+              onCreate={(contents: string) => {
+                createComment(postId, postCommentId, contents, index);
+              }}
+              onUpdate={(contents: string) => {
+                editComment(postId, postCommentId, contents, index);
+              }}
+              onDelete={() => {
+                removeComment(postId, postCommentId);
+              }}
+            >
+              {children.map((reply: any, index: any) => {
+                const {
+                  postCommentId,
+                  profileImageUrl = '',
+                  nickname = '',
+                  contents = '',
+                  updatedAt = '2022-02-22 10:00:00',
+                } = reply;
+                return (
+                  <Reply
+                    ref={(el) => el && (handleInputSub.current[index] = el)}
+                    key={postCommentId}
+                    memberId={memberId}
+                    profileImageUrl={profileImageUrl}
+                    nickname={nickname}
+                    contents={contents}
+                    updatedAt={updatedAt}
+                    onUpdate={(contents: string) => {
+                      editComment(postId, postCommentId, contents, index, true);
+                    }}
+                    onDelete={() => {
+                      removeComment(postId, postCommentId);
+                    }}
+                  />
+                );
+              })}
+            </Reply>
+          );
+        })}
       {hasNext && (
         <Typography
           color='secondary'
           sx={{ cursor: 'pointer' }}
           onClick={() => {
-            const lastQuestion = contents.at(-1);
+            const lastQuestion = commentContents.at(-1);
             if (!lastQuestion) return;
-            const postSize = newSize + size;
-            setNewSize(postSize);
+            // const postSize = newSize + size;
+            // setNewSize(postSize);
 
             const lastCommunityPostCommentId = lastQuestion.postCommentId;
-            requestComment(postId, postSize, lastCommunityPostCommentId);
+            requestComment(postId, 3, lastCommunityPostCommentId);
           }}
         >
-          댓글 {totalElements - contents.length}개 더 보기
+          댓글 {totalElements - commentContents.length}개 더 보기
         </Typography>
       )}
     </PostCommentContainer>

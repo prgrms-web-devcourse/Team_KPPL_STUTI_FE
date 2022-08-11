@@ -140,13 +140,13 @@ export const createCommunityPostCommentApi = async (
 
 export const changeCommunityPostCommentApi = async (
   postId: number,
-  communityPostCommentId: number,
+  postCommentId: number,
   contents: string,
 ) => {
   try {
     const { data } = await axiosAuthInstance({
-      url: `/api/v1/posts/${postId}/comments/${communityPostCommentId}`,
-      method: 'PUT',
+      url: `/api/v1/posts/${postId}/comments/${postCommentId}`,
+      method: 'POST',
       data: {
         contents,
       },
@@ -160,11 +160,11 @@ export const changeCommunityPostCommentApi = async (
 
 export const deleteCommunityPostCommentApi = async (
   postId: number,
-  communityPostCommentId: number,
+  postCommentId: number,
 ) => {
   try {
     const { data } = await axiosAuthInstance({
-      url: `/api/v1/posts/${postId}/comments/${communityPostCommentId}`,
+      url: `/api/v1/posts/${postId}/comments/${postCommentId}`,
       method: 'DELETE',
     });
     return data;

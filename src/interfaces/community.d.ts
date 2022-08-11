@@ -45,8 +45,8 @@ export interface CommunityPostTypographyButtonType {
 
 //Comment 부분
 export interface childrenCommentType {
-  parentId: number;
   postCommentId: number;
+  parentId: number;
   profileImageUrl: string;
   memberId: number;
   nickname: string;
@@ -66,7 +66,7 @@ export interface CommentContentsType {
 }
 
 export interface CommunityPostCommentType {
-  contents: CommentContentType[];
+  contents: CommentContentsType[];
   hasNext: boolean;
   totalElements: number;
 }
