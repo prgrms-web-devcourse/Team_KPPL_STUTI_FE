@@ -1,10 +1,10 @@
 import { resolveSoa } from 'dns';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useEffect, useRef, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import { selectUser } from '@store/slices/user';
-import {
+import comment, {
   addNewComment,
   addComment,
   changeComment,
@@ -36,8 +36,6 @@ interface Props {
 }
 
 function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
-  const dispatch = useDispatch();
-  // const [newSize, setNewSize] = useState(size);
   const [commentContents, setCommentContents] = useState<any>();
   const [hasNext, setHasNext] = useState<boolean>(false);
   const [totalElements, setTotalElements] = useState<number>(0);
@@ -47,6 +45,13 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
   const handleInputSub = useRef<inputHandle[]>([]);
 
   const state = useSelector(selectUser);
+
+  useEffect(() => {
+    setCommentContents(commentsInit.contents);
+    setHasNext(commentsInit.hasNext);
+    setTotalElements(commentsInit.totalElements);
+  }, []);
+
   const checkParent = (target: CommentContentsType | childrenCommentType) =>
     !!target.parentId;
 
@@ -59,12 +64,6 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
         comment.postCommentId === targetId,
     );
   };
-
-  useEffect(() => {
-    setCommentContents(commentsInit.contents);
-    setHasNext(commentsInit.hasNext);
-    setTotalElements(commentsInit.totalElements);
-  }, []);
 
   const requestComment = async (
     postId: number,
@@ -96,7 +95,6 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
 
     switch (checkParent(res)) {
       case true: {
-        //parent가 있는 것
         const parentIndex = findCommentsTargetIdIndex(
           commentContents,
           res.parentId,
@@ -112,13 +110,18 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
         break;
       }
       case false: {
-        //parent가 없는 것
-        setCommentContents([res, ...commentContents]);
+        const newResponseCommentContents = { ...res, children: [] };
+        const newCommentContents = [
+          newResponseCommentContents,
+          ...commentContents,
+        ];
+        setCommentContents(newCommentContents);
+        onCount('UP');
         break;
       }
     }
 
-    onCount('UP');
+    setTotalElements(totalElements + 1);
     if (isDefaultInput) {
       handleInputError.current?.resetValue();
       handleInputError.current?.handleErrorFalse();
@@ -142,7 +145,6 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
 
     switch (checkParent(res)) {
       case true: {
-        //parent가 있는 것
         const parentIndex = findCommentsTargetIdIndex(
           commentContents,
           res.parentId,
@@ -161,7 +163,6 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
         break;
       }
       case false: {
-        //parent가 없는 것
         const targetIndex = findCommentsTargetIdIndex(
           commentContents,
           res.postCommentId,
@@ -169,13 +170,11 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
 
         const newCommentContents: any = commentContents.slice();
         const newResponseCommentContents: any = { ...res };
-        // if (commentContents[targetIndex].children) {
-        //   const newCommentContentsChildren =
-        //     commentContents[targetIndex].children.slice();
-        //   newResponseCommentContents.children = newCommentContentsChildren;
-        // } else {
-        //   newResponseCommentContents.children.push()
-        // }
+        const newCommentContentsChildren =
+          commentContents[targetIndex].children?.slice() || [];
+
+        newResponseCommentContents.children = newCommentContentsChildren;
+        newResponseCommentContents.children.push();
         newCommentContents[targetIndex] = newResponseCommentContents;
         setCommentContents(newCommentContents);
       }
@@ -193,41 +192,40 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
 
   const removeComment = async (postId: number, postCommentId: number) => {
     if (!state.isLogin) return;
-
     const res: CommentContentsType | childrenCommentType =
       await deleteCommunityPostCommentApi(postId, postCommentId);
 
     switch (checkParent(res)) {
       case true: {
-        //parent가 있는 것
-        console.log('>>>>');
         const parentIndex = findCommentsTargetIdIndex(
           commentContents,
           res.parentId,
         );
-        const targetIndex = findCommentsTargetIdIndex(
-          commentContents[parentIndex].children,
-          res.postCommentId,
-        );
 
         const newCommentContents: any = commentContents.slice();
+        const newCommentContentsChildren = commentContents[parentIndex].children
+          ?.slice()
+          .filter(
+            (childrenComment: any) =>
+              childrenComment.postCommentId !== res.postCommentId,
+          );
 
-        setCommentContents(
-          newCommentContents[parentIndex].children.splice(targetIndex, 1),
-        );
+        newCommentContents[parentIndex].children = newCommentContentsChildren;
+        setCommentContents(newCommentContents);
         break;
       }
       case false: {
-        //parent가 없는 것
-        const targetIndex = findCommentsTargetIdIndex(
-          commentContents,
-          res.postCommentId,
-        );
-        setCommentContents(commentContents.slice().splice(targetIndex, 1));
+        const newCommentContents = commentContents
+          .slice()
+          .filter(
+            (commentContent: any) =>
+              commentContent.postCommentId !== res.postCommentId,
+          );
+        setCommentContents(newCommentContents);
+        onCount('DOWN');
         break;
       }
     }
-    onCount('DOWN');
   };
 
   return (
@@ -306,8 +304,6 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
           onClick={() => {
             const lastQuestion = commentContents.at(-1);
             if (!lastQuestion) return;
-            // const postSize = newSize + size;
-            // setNewSize(postSize);
 
             const lastCommunityPostCommentId = lastQuestion.postCommentId;
             requestComment(postId, 3, lastCommunityPostCommentId);
