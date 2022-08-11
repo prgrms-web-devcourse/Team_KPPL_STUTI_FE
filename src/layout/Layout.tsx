@@ -1,6 +1,7 @@
+import { useLocation } from 'react-router-dom';
 import { Outlet } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { selectFlashAlert } from '@store/slices/flashAlert';
 import { getStorageItem } from '@src/utils/storage';
 import { loginUser, selectUser } from '@src/store/slices/user';
@@ -13,6 +14,11 @@ function Layout() {
   const state = useSelector(selectFlashAlert);
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const pathname = useLocation();
+
+  useLayoutEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
     const autoLogin = async () => {
