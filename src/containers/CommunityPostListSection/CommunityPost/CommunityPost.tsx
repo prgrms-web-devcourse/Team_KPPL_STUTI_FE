@@ -71,7 +71,6 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
 
   const checkLoginAndUser = () => state.isLogin && state.user;
   const checkLikedMembers = () => likedMembers.includes(state.user?.id as any);
-
   useLayoutEffect(() => {
     checkLiked();
     setCommentCount(totalPostComments);
@@ -185,7 +184,7 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
             component='img'
             image={postImageUrl}
             alt='postImage'
-            sx={{ height: '21rem' }}
+            sx={{ height: '21rem', borderRadius: '8px' }}
           />
         </Box>
       )}
