@@ -6,13 +6,13 @@ export interface CommunityPostType {
   updatedAt: string;
   profileImageUrl?: string;
   contents: string;
-  postImageUrl: string;
+  postImageUrl?: string;
   likedMembers: number[];
   totalPostComments: number;
 }
 
 export interface CommunityType {
-  posts?: CommunityPostType[];
+  posts: CommunityPostType[];
   hasNext: boolean;
 }
 

@@ -38,7 +38,6 @@ interface Props {
 function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
   const dispatch = useDispatch();
   // const [newSize, setNewSize] = useState(size);
-
   const [commentContents, setCommentContents] = useState<any>();
   const [hasNext, setHasNext] = useState<boolean>(false);
   const [totalElements, setTotalElements] = useState<number>(0);
@@ -81,7 +80,6 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
     setCommentContents([...commentContents, ...res.contents]);
     setHasNext(res.hasNext);
     setTotalElements(res.totalElements);
-    // dispatch(addComment(res));
   };
 
   const createComment = async (
@@ -95,7 +93,6 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
 
     const res: CommentContentsType | childrenCommentType =
       await createCommunityPostCommentApi(postId, parentId, contents);
-    // dispatch(addNewComment(res));
 
     switch (checkParent(res)) {
       case true: {
@@ -143,7 +140,6 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
     const res: CommentContentsType | childrenCommentType =
       await changeCommunityPostCommentApi(postId, postCommentId, contents);
 
-    // dispatch(changeComment(res));
     switch (checkParent(res)) {
       case true: {
         //parent가 있는 것
@@ -153,7 +149,7 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
         );
 
         const targetIndex = findCommentsTargetIdIndex(
-          commentContents[parentIndex],
+          commentContents[parentIndex].children,
           res.postCommentId,
         );
 
@@ -173,11 +169,13 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
 
         const newCommentContents: any = commentContents.slice();
         const newResponseCommentContents: any = { ...res };
-        const newCommentContentsChildren =
-          commentContents[targetIndex].children.slice();
-
-        newResponseCommentContents.children = newCommentContentsChildren;
-
+        // if (commentContents[targetIndex].children) {
+        //   const newCommentContentsChildren =
+        //     commentContents[targetIndex].children.slice();
+        //   newResponseCommentContents.children = newCommentContentsChildren;
+        // } else {
+        //   newResponseCommentContents.children.push()
+        // }
         newCommentContents[targetIndex] = newResponseCommentContents;
         setCommentContents(newCommentContents);
       }
@@ -198,17 +196,17 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
 
     const res: CommentContentsType | childrenCommentType =
       await deleteCommunityPostCommentApi(postId, postCommentId);
-    // dispatch(deleteComment(res));
 
     switch (checkParent(res)) {
       case true: {
         //parent가 있는 것
+        console.log('>>>>');
         const parentIndex = findCommentsTargetIdIndex(
           commentContents,
           res.parentId,
         );
         const targetIndex = findCommentsTargetIdIndex(
-          commentContents[parentIndex],
+          commentContents[parentIndex].children,
           res.postCommentId,
         );
 
@@ -242,14 +240,14 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
         }}
       />
       {commentContents &&
-        commentContents.map((content: any, index: number) => {
+        commentContents?.map((content: any, index: number) => {
           const {
             postCommentId,
-            profileImageUrl = '',
-            nickname = '프룽이',
-            contents: text = '참여하고 싶어요!',
-            updatedAt = '2022-02-22 10:00:00',
-            children = [],
+            profileImageUrl,
+            nickname,
+            contents: text,
+            updatedAt,
+            children,
             memberId,
           } = content;
           return (
@@ -272,7 +270,7 @@ function CommunityPostComment({ commentsInit, size, postId, onCount }: Props) {
                 removeComment(postId, postCommentId);
               }}
             >
-              {children.map((reply: any, index: any) => {
+              {children?.map((reply: any, index: any) => {
                 const {
                   postCommentId,
                   profileImageUrl = '',
