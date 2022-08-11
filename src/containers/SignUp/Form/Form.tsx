@@ -175,7 +175,11 @@ function Form() {
           </MbtiContainer>
           <Button size='large' type='submit' disabled={isSubmitting} fullWidth>
             {isSubmitting ? (
-              <CircularProgress color='primary' size={16} />
+              <CircularProgress
+                color='secondary'
+                size='1.5rem'
+                sx={{ margin: '-0.25rem' }}
+              />
             ) : (
               '가입하기'
             )}
