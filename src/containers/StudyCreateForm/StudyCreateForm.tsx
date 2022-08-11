@@ -327,6 +327,7 @@ function StudyCreateFormContainer() {
                   helperText={touched.title && errors.title}
                   onChange={handleChange}
                   autoFocus={true}
+                  disabled={isSubmitting}
                 />
               </InputWrapper>
               <TopicWrapper>
@@ -340,6 +341,7 @@ function StudyCreateFormContainer() {
                   onChange={handleChange}
                   error={touched.topic && errors.topic ? true : false}
                   helperText={touched.topic && errors.topic}
+                  disabled={isSubmitting}
                 />
               </TopicWrapper>
               <LocationWrapper>
@@ -350,6 +352,7 @@ function StudyCreateFormContainer() {
                   value={values.isOnline}
                   row={true}
                   onChange={handleChange}
+                  disabled={isSubmitting}
                 />
                 <Select
                   id='region'
@@ -379,6 +382,7 @@ function StudyCreateFormContainer() {
                   helperText={
                     touched.numberOfRecruits && errors.numberOfRecruits
                   }
+                  disabled={isSubmitting}
                 />
               </PeopleWrapper>
               <RangeDatePicker
@@ -386,6 +390,7 @@ function StudyCreateFormContainer() {
                 endLabel='종료일'
                 getStartValue={getStartDate}
                 getEndValue={getEndDate}
+                disabled={isSubmitting}
               />
               <MbtiWrapper>
                 <MbtiHeadingWrapper>
@@ -397,7 +402,11 @@ function StudyCreateFormContainer() {
                         onChange={() => {
                           setMbtiPreference(!mbtiPreference);
                         }}
-                        disabled={mbtiCheckedList.length > 0 ? true : false}
+                        disabled={
+                          mbtiCheckedList.length > 0 || isSubmitting
+                            ? true
+                            : false
+                        }
                       />
                     }
                     label='선택 안함'
@@ -407,7 +416,7 @@ function StudyCreateFormContainer() {
                 <MbtiSelectWrapper>
                   <MbtiSelect
                     onChange={onMbtiSelectChange}
-                    disabled={mbtiPreference ? false : true}
+                    disabled={isSubmitting || !mbtiPreference ? true : false}
                     limit={mbtiCheckedList.length}
                     checkedList={mbtiCheckedList}
                   />
@@ -432,7 +441,11 @@ function StudyCreateFormContainer() {
                   </ImageWrapper>
                 </ImageContainer>
                 <ButtonWrapper>
-                  <FileInput message='이미지 업로드' onChange={onImageChange} />
+                  <FileInput
+                    message='이미지 업로드'
+                    onChange={onImageChange}
+                    disabled={isSubmitting}
+                  />
                 </ButtonWrapper>
               </FileUploadWrapper>
               <StudyDescriptionWrapper>
@@ -449,6 +462,7 @@ function StudyCreateFormContainer() {
                   }
                   helperText={touched.description && errors.description}
                   onChange={handleChange}
+                  disabled={isSubmitting}
                 />
               </StudyDescriptionWrapper>
               <Button
