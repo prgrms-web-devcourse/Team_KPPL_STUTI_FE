@@ -1,3 +1,4 @@
+import { UserSignUpType } from '@src/interfaces/user';
 import axiosInstance, { axiosAuthInstance } from '@apis/axiosInstance';
 
 export const login = async (id: number) => {
@@ -25,6 +26,28 @@ export const logout = async () => {
   const { data } = await axiosAuthInstance({
     url: '/api/v1/logout',
     method: 'POST',
+  });
+
+  return data;
+};
+
+export const signUp = async ({
+  email,
+  nickname,
+  field,
+  career,
+  MBTI,
+}: UserSignUpType) => {
+  const { data } = await axiosInstance({
+    url: '/api/v1/signup',
+    method: 'POST',
+    data: {
+      email,
+      nickname,
+      field,
+      career,
+      MBTI,
+    },
   });
 
   return data;
