@@ -39,8 +39,8 @@ const StudyList = forwardRef<Ref, Props>(function StudyList(
       {error && (
         <li>
           <ItemCard>
-            서버로부터 스터디 정보를 불러오지 못했습니다. 잠시 후 다시
-            시도해주세요.
+            서버로부터 스터디 정보를 불러오지 못했습니다. 잠시 후 다시 시도해
+            주세요.
           </ItemCard>
         </li>
       )}

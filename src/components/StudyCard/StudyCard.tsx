@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import moment from 'moment';
+import { selectUser } from '@store/slices/user';
 import { StudyItemType } from '@interfaces/studyList';
 import { MbtiTag, DefaultImage } from '@components';
 
@@ -21,6 +23,9 @@ interface Props {
 }
 
 function StudyCard({ study, onStudyDelete }: Props) {
+  const { user, isLogin } = useSelector(selectUser);
+  const loggedInUserId = user?.id;
+
   const format = (date: string) => {
     return moment(date).format('YYYY.MM.DD');
   };
@@ -58,16 +63,20 @@ function StudyCard({ study, onStudyDelete }: Props) {
             </div>
           </LeftColumn>
           <RightColumn>
-            {study.thumbnailUrl ? (
-              <Img src={study.thumbnailUrl} alt='' loading='lazy' />
+            {study.imageUrl ? (
+              <Img src={study.imageUrl} alt='' loading='lazy' />
             ) : (
               <DefaultImage />
             )}
           </RightColumn>
         </Flex>
       </Link>
-      {/* study.leaderId === loggedInUserId && */}
-      <MoreButton studyId={study.studyGroupId} onStudyDelete={onStudyDelete} />
+      {isLogin && loggedInUserId === study.memberId && (
+        <MoreButton
+          studyId={study.studyGroupId}
+          onStudyDelete={onStudyDelete}
+        />
+      )}
     </Article>
   );
 }

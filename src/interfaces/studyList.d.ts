@@ -1,7 +1,7 @@
 export type StudyItemType = {
   studyGroupId: number;
   memberId: number;
-  thumbnailUrl: string;
+  imageUrl: string;
   topic: string;
   title: string;
   preferredMBTIs: string[];
