@@ -13,3 +13,4 @@ export { default as DefaultAlert } from './DefaultAlert/DefaultAlert';
 export { default as DefaultImage } from './DefaultImage/DefaultImage';
 export { default as Select } from './Select/Select';
 export { default as ItemCard } from './ItemCard/ItemCard';
+export { default as SkeletonPost } from './SkeletonPost/SkeletonPost';

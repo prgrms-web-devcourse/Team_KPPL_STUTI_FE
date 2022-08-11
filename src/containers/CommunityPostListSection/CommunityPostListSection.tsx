@@ -5,10 +5,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useInterSectionObserver } from '@hooks/useIntersectionObserver';
 import { CommunityPostWrapper } from '@containers/CommunityPostListSection/CommunityPostListSection.style';
 import CommunityPost from '@containers/CommunityPostListSection/CommunityPost/CommunityPost';
-import { ItemCard } from '@components';
+import { ItemCard, SkeletonPost } from '@components';
 import { getCommunityDataApi } from '@apis/community';
 function CommunityPostListSection() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   const dispatch = useDispatch();
@@ -21,11 +21,12 @@ function CommunityPostListSection() {
       try {
         setLoading(true);
         const res = await getCommunityDataApi(5, lastPostId);
+        if (!res) return;
         dispatch(addPost(res));
       } catch (e) {
         console.error(e);
       } finally {
-        setLoading(false);
+        // setLoading(false);
       }
     },
   });
@@ -72,11 +73,7 @@ function CommunityPostListSection() {
           다시시도해주세요.
         </ItemCard>
       )}
-      {loading && (
-        <ItemCard>
-          <CircularProgress />
-        </ItemCard>
-      )}
+      {loading && <SkeletonPost />}
     </CommunityPostWrapper>
   );
 }
