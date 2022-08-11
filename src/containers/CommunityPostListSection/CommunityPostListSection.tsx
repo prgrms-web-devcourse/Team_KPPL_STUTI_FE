@@ -1,14 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { addPost, selectPost, setPost } from '@store/slices/post';
-import CircularProgress from '@mui/material/CircularProgress';
 import { useInterSectionObserver } from '@hooks/useIntersectionObserver';
 import { CommunityPostWrapper } from '@containers/CommunityPostListSection/CommunityPostListSection.style';
 import CommunityPost from '@containers/CommunityPostListSection/CommunityPost/CommunityPost';
 import { ItemCard, SkeletonPost } from '@components';
 import { getCommunityDataApi } from '@apis/community';
 function CommunityPostListSection() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   const dispatch = useDispatch();
@@ -26,7 +25,7 @@ function CommunityPostListSection() {
       } catch (e) {
         console.error(e);
       } finally {
-        // setLoading(false);
+        setLoading(false);
       }
     },
   });
