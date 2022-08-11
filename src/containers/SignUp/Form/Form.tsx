@@ -105,10 +105,6 @@ function Form() {
     },
   });
 
-  const handleClick = () => {
-    window.open(MBTI_TEST_URL);
-  };
-
   useEffect(() => {
     setFieldValue('nickname', getQueryString('name', 'string'));
   }, []);
@@ -165,7 +161,14 @@ function Form() {
               />
             </MbtiWrapper>
             <MbtiWrapper>
-              <Button size='large' fullWidth onClick={handleClick}>
+              <Button
+                size='large'
+                component='a'
+                href={MBTI_TEST_URL}
+                target='_blank'
+                rel='noopener noreferrer'
+                fullWidth
+              >
                 MBTI 검사하기
               </Button>
             </MbtiWrapper>
