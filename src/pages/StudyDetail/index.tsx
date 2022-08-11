@@ -251,12 +251,13 @@ function StudyDetail() {
       const { response } = error as AxiosError;
       const { data }: { data: errorType } = response as AxiosResponse;
       const { errorCode } = data;
-      if (errorCode === 'SG003') {
+
+      if (errorCode === 'SG004') {
         dispatch(
           openAlert({
             severity: 'error',
-            title: '이미 가입하신 스터디입니다!',
-            content: '가입하신 스터디로 확인됩니다~',
+            title: '이미 가입된 스터디입니다!!',
+            content: '다른 스터디에 가입해주세요!!',
           }),
         );
         return;

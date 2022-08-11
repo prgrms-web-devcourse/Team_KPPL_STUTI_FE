@@ -1,5 +1,5 @@
 import { Link, useLinkClickHandler } from 'react-router-dom';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
@@ -9,6 +9,7 @@ import {
   StudyManageButtonWrapper,
   StudyManageContainer,
 } from '@src/pages/StudyManage/style';
+import { HOME } from '@router/path';
 import { Button, Typography } from '@mui/material';
 import { studyManageType } from '@interfaces/studyManage';
 import { errorType } from '@interfaces/error';
@@ -26,6 +27,8 @@ function StudyManage() {
   const { study_id = '0' } = useParams();
 
   const handleClickLink = useLinkClickHandler('/');
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,6 +51,7 @@ function StudyManage() {
               content: '홈으로 갔다가 다시 시도해주세요!',
             }),
           );
+          navigate(HOME, { replace: true });
           return;
         }
 
@@ -106,6 +110,8 @@ function StudyManage() {
             content: '홈으로 갔다가 다시 시도해주세요!',
           }),
         );
+        navigate(HOME, { replace: true });
+
         return;
       }
 

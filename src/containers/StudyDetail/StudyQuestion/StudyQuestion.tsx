@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { useRef, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
@@ -9,6 +10,7 @@ import {
 } from '@store/slices/question';
 import { openAlert } from '@store/slices/flashAlert';
 import { errorType } from '@src/interfaces/error';
+import { HOME } from '@router/path';
 import { Typography } from '@mui/material';
 import {
   childrenQuestionType,
@@ -46,6 +48,8 @@ function StudyQuestion({
   const handleInput = useRef<inputHandle[]>([]);
   const handleInputSub = useRef<inputHandle[]>([]);
 
+  const navigate = useNavigate();
+
   const requestQuestion = async (
     study_id: string,
     size: number,
@@ -73,6 +77,8 @@ function StudyQuestion({
             content: '홈으로 갔다가 다시 시도해주세요!',
           }),
         );
+        navigate(HOME, { replace: true });
+
         return;
       }
 
@@ -126,6 +132,7 @@ function StudyQuestion({
             content: '홈으로 갔다가 다시 시도해주세요!',
           }),
         );
+        navigate(HOME, { replace: true });
         return;
       }
 
@@ -137,6 +144,7 @@ function StudyQuestion({
             content: '홈으로 갔다가 다시 시도해주세요!',
           }),
         );
+        navigate(HOME, { replace: true });
         return;
       }
 
