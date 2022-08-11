@@ -56,10 +56,6 @@ export const regionWithOnlineOptions = [
 
 export const recruitsNumberOptions = [
   {
-    value: '1',
-    label: '1명',
-  },
-  {
     value: '2',
     label: '2명',
   },
