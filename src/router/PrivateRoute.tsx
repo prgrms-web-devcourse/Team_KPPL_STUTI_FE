@@ -23,7 +23,7 @@ function PrivateRoute({ children }: Props) {
       }),
     );
 
-  return user.isLogin ? children : <Navigate to={HOME} />;
+  return user.isLogin ? children : <Navigate to={HOME} replace />;
 }
 
 export default PrivateRoute;
