@@ -5,17 +5,17 @@ import React, { useEffect, useState } from 'react';
 import { Formik, Field } from 'formik';
 import { AxiosError, AxiosResponse } from 'axios';
 import { openAlert } from '@store/slices/flashAlert';
-import { errorType } from '@src/interfaces/error';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import { CircularProgress } from '@mui/material';
+import { errorType } from '@interfaces/error';
 import {
   MultiLineInput,
   LabelInput,
   FileInput,
-} from '@src/components/StudyCreate&Edit';
-import { editStudy } from '@src/apis/studyEdit';
-import { getStudyDetailInfomation } from '@src/apis/studyDetail';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { CircularProgress } from '@mui/material';
+} from '@components/StudyCreate&Edit';
+import { editStudy } from '@apis/studyEdit';
+import { getStudyDetailInfomation } from '@apis/studyDetail';
 
 import {
   StudyEditHeading,

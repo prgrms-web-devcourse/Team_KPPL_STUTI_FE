@@ -5,7 +5,11 @@ import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
 import { AxiosError, AxiosResponse } from 'axios';
 import { openAlert } from '@store/slices/flashAlert';
-import { errorType } from '@src/interfaces/error';
+import Typography from '@mui/material/Typography';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Button from '@mui/material/Button';
+import { errorType } from '@interfaces/error';
 import {
   topicOptions,
   regionOptions,
@@ -13,25 +17,21 @@ import {
   topicValues,
   regionValues,
   recruitsNumberValues,
-} from '@src/constants/selectOptions';
+} from '@constants/selectOptions';
 import {
   MultiLineInput,
   LabelInput,
   FileInput,
-} from '@src/components/StudyCreate&Edit';
+} from '@components/StudyCreate&Edit';
 import {
   MbtiRecommend,
   RangeDatePicker,
   RadioGroup,
   MbtiSelect,
-} from '@src/components/StudyCreate';
-import Select from '@src/components/Select/Select';
-import { SpinnerIcon } from '@src/components';
-import { createNewStudy } from '@src/apis/studyCreate';
-import Typography from '@mui/material/Typography';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Button from '@mui/material/Button';
+} from '@components/StudyCreate';
+import Select from '@components/Select/Select';
+import { SpinnerIcon } from '@components';
+import { createNewStudy } from '@apis/studyCreate';
 
 import {
   ButtonWrapper,
