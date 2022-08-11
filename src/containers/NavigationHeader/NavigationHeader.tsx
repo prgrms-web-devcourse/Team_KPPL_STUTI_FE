@@ -94,7 +94,7 @@ function NavigationHeader() {
                 <ClickAwayListener onClickAway={handleMenuClose}>
                   <Avatar
                     alt='User Profile'
-                    src=''
+                    src={user.user?.profileImageUrl}
                     onClick={handleMenuOpen}
                     sx={{
                       cursor: 'pointer',
