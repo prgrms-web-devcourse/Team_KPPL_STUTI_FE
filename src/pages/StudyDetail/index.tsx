@@ -27,7 +27,6 @@ import {
   StudyDetailHeader,
   UserInfo,
 } from '@components';
-import NoImage from '@assets/noImage.jpeg';
 import {
   getStudyDetailInfomation,
   getStudyQuestionInformation,
@@ -152,12 +151,6 @@ function StudyDetail() {
     const { title = '' } = data;
 
     return title;
-  };
-
-  const getImageUrl = () => {
-    const { imageUrl = NoImage } = data;
-
-    return imageUrl ? imageUrl : NoImage;
   };
 
   const getDescription = () => {
@@ -307,7 +300,7 @@ function StudyDetail() {
           <StudyDetailHeader
             topic={getTopic()}
             title={getTitle()}
-            imageUrl={getImageUrl()}
+            imageUrl={data.imageUrl}
           />
           {isLoginUserStudy(user) && (
             <StudyDetailButtonWrapper>
