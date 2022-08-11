@@ -21,6 +21,8 @@ import Community from '@src/pages/Community';
 import Layout from '@src/layout/Layout';
 import { Home, NotFound, ProfileDetail, ProfileEdit } from '@pages';
 
+import PrivateRoute from './PrivateRoute';
+
 function Routers() {
   return (
     <BrowserRouter>
@@ -29,11 +31,39 @@ function Routers() {
           <Route index element={<Home />} />
           <Route path={COMMUNITY} element={<Community />} />
           <Route path={PROFILE_DETAIL} element={<ProfileDetail />} />
-          <Route path={PROFILE_EDIT} element={<ProfileEdit />} />
-          <Route path={STUDY_CREATE} element={<StudyCreate />} />
+          <Route
+            path={PROFILE_EDIT}
+            element={
+              <PrivateRoute>
+                <ProfileEdit />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={STUDY_CREATE}
+            element={
+              <PrivateRoute>
+                <StudyCreate />
+              </PrivateRoute>
+            }
+          />
           <Route path={STUDY_DETAIL} element={<StudyDetail />} />
-          <Route path={STUDY_EDIT} element={<StudyEdit />} />
-          <Route path={STUDY_MANAGE} element={<StudyManage />} />
+          <Route
+            path={STUDY_EDIT}
+            element={
+              <PrivateRoute>
+                <StudyEdit />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={STUDY_MANAGE}
+            element={
+              <PrivateRoute>
+                <StudyManage />
+              </PrivateRoute>
+            }
+          />
           <Route path={SIGN_UP} element={<SignUp />} />
         </Route>
         <Route path={LOGIN} element={<Login />} />
