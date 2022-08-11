@@ -3,11 +3,12 @@ import Button from '@mui/material/Button';
 interface Props {
   message: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
 }
 
-function StudyCreateFileInput({ message, onChange }: Props) {
+function StudyCreateFileInput({ message, onChange, disabled }: Props) {
   return (
-    <Button component='label'>
+    <Button component='label' disabled={disabled}>
       {message}
       <input
         hidden

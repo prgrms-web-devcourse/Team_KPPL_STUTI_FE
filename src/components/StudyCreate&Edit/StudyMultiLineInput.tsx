@@ -10,6 +10,7 @@ interface Props {
   error?: boolean;
   helperText?: string | false | undefined;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
 }
 
 function StudyCreateMultiLineInput({
@@ -22,6 +23,7 @@ function StudyCreateMultiLineInput({
   error,
   helperText,
   onChange,
+  disabled,
 }: Props) {
   return (
     <TextField
@@ -39,6 +41,7 @@ function StudyCreateMultiLineInput({
       helperText={helperText}
       onChange={onChange}
       multiline
+      disabled={disabled}
     />
   );
 }
