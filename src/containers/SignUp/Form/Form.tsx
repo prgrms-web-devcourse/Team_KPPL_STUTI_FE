@@ -125,6 +125,7 @@ function Form() {
             onBlur={handleBlur}
             error={touched.nickname && Boolean(errors.nickname)}
             helperText={touched.nickname && errors.nickname}
+            disabled={isSubmitting}
           />
           <Select
             id='field'
@@ -135,6 +136,7 @@ function Form() {
             value={values.field}
             error={touched.field && Boolean(errors.field)}
             helperText={touched.field && errors.field}
+            disabled={isSubmitting}
           />
           <Select
             id='career'
@@ -145,6 +147,7 @@ function Form() {
             value={values.career}
             error={touched.career && Boolean(errors.career)}
             helperText={touched.career && errors.career}
+            disabled={isSubmitting}
           />
           <MbtiContainer>
             <MbtiWrapper>
@@ -157,6 +160,7 @@ function Form() {
                 value={values.MBTI}
                 error={touched.MBTI && Boolean(errors.MBTI)}
                 helperText={touched.MBTI && errors.MBTI}
+                disabled={isSubmitting}
                 fullWidth
               />
             </MbtiWrapper>
