@@ -1,13 +1,9 @@
-import axiosInstance from '@apis/axiosInstance';
-
-const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+import axiosInstance, { axiosAuthInstance } from '@apis/axiosInstance';
 
 export const getUserProfile = async (userId: number) => {
-  const url = `${API_ENDPOINT}/api/v1/members/${userId}`;
-
   const { data } = await axiosInstance({
     method: 'GET',
-    url,
+    url: `/api/v1/members/${userId}`,
   });
 
   return data;
@@ -21,22 +17,15 @@ export const updateUserProfile = async (
     field?: string;
     career?: string;
     MBTI?: string;
-    githubUrl?: string;
-    blogUrl?: string;
+    githubUrl?: string | null;
+    blogUrl?: string | null;
   },
 ) => {
-  const url = `${API_ENDPOINT}/api/v1/members/${userId}`;
-
-  const res = await axiosInstance({
-    // API 수정 중
+  const { data: resData } = await axiosAuthInstance({
     method: 'PATCH',
-    url,
+    url: `/api/v1/members/${userId}`,
     data,
-    headers: {
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2Iiwicm9sZXMiOiJST0xFX01FTUJFUiIsImlhdCI6MTY2MDAyMzIyOCwiZXhwIjoxNjYzMDIzMjI4fQ.lequMTJd6iooVkkY7-f7ALWTSg7qabGZLuM-uiRoWZs',
-    },
   });
 
-  console.log(res);
+  return resData;
 };
