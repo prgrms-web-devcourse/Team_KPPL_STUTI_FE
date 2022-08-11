@@ -114,6 +114,17 @@ function MemberControl({
         return;
       }
 
+      if (errorCode === 'SG009') {
+        dispatch(
+          openAlert({
+            severity: 'error',
+            title: '스터디 멤버가 꽉 찼습니다!!',
+            content: '멤버 한자리를 비우고 시도해주세요!!',
+          }),
+        );
+        return;
+      }
+
       dispatch(
         openAlert({
           severity: 'error',
@@ -230,6 +241,10 @@ function MemberControl({
     }
   };
 
+  const isLeader = (studyGroupMemberRole: string) => {
+    return studyGroupMemberRole !== '리더';
+  };
+
   const deleteMembers = (
     array: Array<studyManageMemberType>,
     targetId: number,
@@ -274,6 +289,7 @@ function MemberControl({
             field = '',
             career = '',
             mbti = '',
+            studyGroupMemberRole = '',
           } = member;
 
           return (
@@ -285,16 +301,18 @@ function MemberControl({
                 career={career}
                 mbti={mbti}
               />
-              <Button
-                variant='text'
-                color='secondary'
-                size='small'
-                onClick={() => {
-                  removeStudyMember(studyGroupId, members, memberID);
-                }}
-              >
-                제외
-              </Button>
+              {isLeader(studyGroupMemberRole) && (
+                <Button
+                  variant='text'
+                  color='secondary'
+                  size='small'
+                  onClick={() => {
+                    removeStudyMember(studyGroupId, members, memberID);
+                  }}
+                >
+                  제외
+                </Button>
+              )}
             </UserInfoWrapper>
           );
         })}
