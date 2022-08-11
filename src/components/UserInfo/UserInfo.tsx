@@ -45,7 +45,7 @@ function UserInfo({
             <Typography variant='body1' color='#6B7280'>
               {career}
             </Typography>
-            <MbtiTag mbti={mbti} size='small' />
+            <MbtiTag mbti={mbti} size='small' variant='filled' />
           </UserSubInfoWrapper>
         </div>
       </UserInfoWrapper>
