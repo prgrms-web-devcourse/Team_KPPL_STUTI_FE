@@ -6,8 +6,8 @@ export interface UserProfileType {
   field: string;
   career: string;
   MBTI: string;
-  githubUrl: string;
-  blogUrl: string;
+  githubUrl: string | null;
+  blogUrl: string | null;
 }
 
 export interface UserProfileEditFormType {

@@ -16,7 +16,6 @@ export const Article = styled.article`
 export const Flex = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 204px;
   overflow: hidden;
   border-radius: 0.5rem;
 
@@ -30,7 +29,7 @@ export const LeftColumn = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  height: 100%;
+  height: 204px;
   padding: 1rem;
 `;
 
@@ -70,7 +69,7 @@ export const Ul = styled.ul`
 export const RightColumn = styled.div`
   flex-shrink: 0;
   width: 296px;
-  height: 100%;
+  height: 204px;
 
   @media (max-width: 568px) {
     width: 100%;

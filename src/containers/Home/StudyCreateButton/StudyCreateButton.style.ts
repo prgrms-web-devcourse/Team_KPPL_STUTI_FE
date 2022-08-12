@@ -5,6 +5,7 @@ export const Position = styled.div`
   justify-content: end;
   position: fixed;
   bottom: 0;
-  width: 640px;
+  max-width: 640px;
+  width: 100%;
   padding: 0 1rem 1rem 0;
 `;

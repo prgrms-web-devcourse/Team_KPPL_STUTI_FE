@@ -15,3 +15,12 @@ export const Flex = styled.div`
   gap: 1rem;
   width: 100%;
 `;
+
+export const Message = styled.div`
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${({ theme }) => theme.palette.secondary.main};
+  text-align: center;
+`;

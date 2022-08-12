@@ -1,13 +1,14 @@
 import { useParams } from 'react-router';
 import { useState, useEffect } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 import { UserProfileType } from '@interfaces/userProfile';
-import { SpinnerIcon, UserProfile } from '@components';
+import { UserProfile } from '@components';
 import { getUserProfile } from '@apis/members';
 
 import { Section, Loading, Error } from './InfoSection.style';
 
 function InfoSection() {
-  const { user_id: userId } = useParams<{ user_id: string }>();
+  const { user_id: paramUserId } = useParams<{ user_id: string }>();
 
   const [userProfile, setUserProfile] = useState<UserProfileType>({
     id: 0,
@@ -28,10 +29,10 @@ function InfoSection() {
     (async () => {
       try {
         setLoading(true);
-        const res = await getUserProfile({ userId: Number(userId) });
+        const userId = Number(paramUserId);
+        const res = await getUserProfile(userId);
         setUserProfile(res);
       } catch (e) {
-        console.error(e);
         setError(true);
       } finally {
         setLoading(false);
@@ -50,7 +51,7 @@ function InfoSection() {
       )}
       {loading && (
         <Loading>
-          <SpinnerIcon />
+          <CircularProgress color='secondary' />
         </Loading>
       )}
     </Section>

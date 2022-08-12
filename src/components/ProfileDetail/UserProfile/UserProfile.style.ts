@@ -14,16 +14,16 @@ export const H3 = styled.h3`
 `;
 
 export const P = styled.p`
-  margin-top: 0.25rem;
+  margin: 0.25rem 0 1rem;
   color: ${({ theme }) => theme.palette.text.secondary};
 `;
 
 export const Dl = styled.dl`
   width: 100%;
+  margin-bottom: 1rem;
   padding: 1rem;
   border-radius: 0.5rem;
   background-color: ${({ theme }) => theme.palette.grey[50]};
-  margin: 1rem 0;
 `;
 
 export const Flex = styled.div`
