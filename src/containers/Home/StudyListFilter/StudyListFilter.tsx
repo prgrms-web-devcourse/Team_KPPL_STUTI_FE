@@ -45,7 +45,7 @@ function StudyListFilter({ filter, onFilterChange, onFilterReset }: Props) {
         id={'filter-mbti'}
         name={'mbti'}
         label={'MBTI'}
-        value={filter.mbti ?? ''}
+        value={filter.mbti === null ? 'ALL' : filter.mbti}
         options={[{ value: 'ALL', label: '전체' }, ...mbtiOptions]}
         onChange={handleChange}
         fullWidth
@@ -54,7 +54,7 @@ function StudyListFilter({ filter, onFilterChange, onFilterReset }: Props) {
         id={'filter-topic'}
         name={'topic'}
         label={'주제'}
-        value={filter.topic ?? ''}
+        value={filter.topic === null ? 'ALL' : filter.topic}
         options={[{ value: 'ALL', label: '전체' }, ...topicOptions]}
         onChange={handleChange}
         fullWidth
@@ -63,7 +63,7 @@ function StudyListFilter({ filter, onFilterChange, onFilterReset }: Props) {
         id={'filter-region'}
         name={'region'}
         label={'지역'}
-        value={filter.region ?? ''}
+        value={filter.region === null ? 'ALL' : filter.region}
         options={[{ value: 'ALL', label: '전체' }, ...regionWithOnlineOptions]}
         onChange={handleChange}
         fullWidth
