@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import React, { useState, useRef, useLayoutEffect } from 'react';
