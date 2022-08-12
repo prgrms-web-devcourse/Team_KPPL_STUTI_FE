@@ -17,6 +17,8 @@ function PostTab() {
   const {
     value: { posts, hasNext },
   } = useSelector(selectPost);
+
+  const [lastPostId, setLastPostId] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -41,27 +43,29 @@ function PostTab() {
     })();
   }, []);
 
+  useEffect(() => {
+    if (hasNext && lastPostId !== 0) {
+      (async function requestGetUserPosts() {
+        try {
+          setLoading(true);
+          const res = await getUserPosts(Number(userId), {
+            lastPostId,
+            size: 5,
+          });
+          dispatch(addPost(res));
+        } catch (e) {
+          setError(true);
+        } finally {
+          setLoading(false);
+        }
+      })();
+    }
+  }, [lastPostId]);
+
   const { targetRef } = useInterSectionObserver({
     onTargetObserve: () => {
-      if (posts) {
-        if (hasNext) {
-          const lastPostId = posts[posts.length - 1].postId;
-          (async function requestGetUserPosts() {
-            try {
-              setLoading(true);
-              const res = await getUserPosts(Number(userId), {
-                lastPostId,
-                size: 5,
-              });
-              dispatch(addPost(res));
-            } catch (e) {
-              setError(true);
-            } finally {
-              setLoading(false);
-            }
-          })();
-        }
-      }
+      const newLastPostId = posts[posts.length - 1].postId;
+      setLastPostId(newLastPostId);
     },
     observerOptions: {},
   });

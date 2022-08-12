@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { addPost, selectPost, setPost } from '@store/slices/post';
 import { Box } from '@mui/material';
 import { useInterSectionObserver } from '@hooks/useIntersectionObserver';
@@ -11,6 +11,7 @@ import { getCommunityDataApi } from '@apis/community';
 function CommunityPostListSection() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [lastPostId, setLastPostId] = useState<number>(0);
 
   const dispatch = useDispatch();
   const {
@@ -18,23 +19,15 @@ function CommunityPostListSection() {
   } = useSelector(selectPost);
 
   const { targetRef } = useInterSectionObserver({
-    onTargetObserve: async () => {
-      setLoading(true);
-      try {
-        if (!posts || !hasNext) return;
-        const lastPostId = posts[posts.length - 1].postId;
-
-        if (!loading) {
-          const res = await getCommunityDataApi(5, lastPostId);
-          dispatch(addPost(res));
-        }
-      } catch (e) {
-        console.error(e);
-      } finally {
-        setLoading(false);
-      }
+    onTargetObserve: () => {
+      const newLastPostId = posts[posts.length - 1].postId;
+      setLastPostId(newLastPostId);
     },
   });
+
+  useLayoutEffect(() => {
+    dispatch(setPost({ posts: [], hasNext: true }));
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -50,6 +43,22 @@ function CommunityPostListSection() {
       }
     })();
   }, []);
+
+  useEffect(() => {
+    if (lastPostId === 0) return;
+    (async () => {
+      if (!hasNext) return;
+      try {
+        setLoading(true);
+        const res = await getCommunityDataApi(5, lastPostId);
+        dispatch(addPost(res));
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [lastPostId]);
 
   return (
     <CommunityPostWrapper>
