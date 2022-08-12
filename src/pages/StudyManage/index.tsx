@@ -14,7 +14,7 @@ import { CircularProgress, Button, Typography } from '@mui/material';
 import { studyManageType } from '@interfaces/studyManage';
 import { errorType } from '@interfaces/error';
 import { StudyManageMemberControl } from '@containers';
-import { deleteStudy, getStudyManageInfomation } from '@apis/studyManage';
+import { deleteStudy, getStudyManageInformation } from '@apis/studyManage';
 
 function StudyManage() {
   const [data, setData] = useState({} as studyManageType);
@@ -33,7 +33,7 @@ function StudyManage() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await getStudyManageInfomation(study_id);
+        const res = await getStudyManageInformation(study_id);
         setData(res);
         setLoading(false);
       } catch (error) {

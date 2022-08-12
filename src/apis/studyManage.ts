@@ -1,6 +1,6 @@
 import { axiosAuthInstance } from '@apis/axiosInstance';
 
-export const getStudyManageInfomation = async (studyGroupId: string) => {
+export const getStudyManageInformation = async (studyGroupId: string) => {
   const { data } = await axiosAuthInstance({
     url: `/api/v1/study-groups/${studyGroupId}/members`,
     method: 'GET',
