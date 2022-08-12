@@ -20,7 +20,7 @@ function StudyCreateRangeDatePicker({
   getEndValue,
   disabled,
 }: Props) {
-  const [startDate, setStartDate] = useState(moment());
+  const [startDate, setStartDate] = useState(moment().add(1, 'days'));
   const [endDate, setEndDate] = useState(moment().add(7, 'days'));
   const diffDays = moment.duration(startDate.diff(moment())).asDays() + 1;
 
@@ -34,6 +34,7 @@ function StudyCreateRangeDatePicker({
   return (
     <RangeDatePickerWRapper>
       <DatePicker
+        minDate={moment().add(1, 'days')}
         label={startLabel}
         value={startDate}
         onChange={(newValue) => {
@@ -45,6 +46,7 @@ function StudyCreateRangeDatePicker({
             setStartDate(newValue);
           }
         }}
+        disablePast
         renderInput={(params) => (
           <TextField
             onKeyDown={(e) => {

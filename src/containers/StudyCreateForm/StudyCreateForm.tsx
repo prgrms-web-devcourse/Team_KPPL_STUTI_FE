@@ -199,7 +199,10 @@ function StudyCreateFormContainer() {
     return formData;
   };
 
-  const createStudy = async (formData: FormData) => {
+  const createStudy = async (
+    formData: FormData,
+    setSubmitting: (isSubmitting: boolean) => void,
+  ) => {
     try {
       const res = await createNewStudy(formData);
       const { studyGroupId } = res;
@@ -265,6 +268,8 @@ function StudyCreateFormContainer() {
           content: '스터디 생성에 실패했습니다.',
         }),
       );
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -303,7 +308,7 @@ function StudyCreateFormContainer() {
         actions.setSubmitting(true);
 
         const formData = createFormData(values);
-        createStudy(formData);
+        createStudy(formData, actions.setSubmitting);
       }}
     >
       {({

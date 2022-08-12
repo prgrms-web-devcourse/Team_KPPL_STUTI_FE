@@ -12,7 +12,7 @@ import {
   StudyDetailButtonWrapper,
   StudyDetailContainer,
 } from '@pages/StudyDetail/style';
-import { Button } from '@mui/material';
+import { CircularProgress, Button } from '@mui/material';
 import { UserProfileType } from '@interfaces/userProfile';
 import { studyDetailQuestionType } from '@interfaces/studyDetailQuestion';
 import { detailMemberType, studyDetailType } from '@interfaces/studyDetail';
@@ -22,14 +22,9 @@ import {
   StudyDetailStudyInfo,
   StudyDetailStudyQuestion,
 } from '@containers';
+import { StudyDetailBody, StudyDetailHeader, UserInfo } from '@components';
 import {
-  SpinnerIcon,
-  StudyDetailBody,
-  StudyDetailHeader,
-  UserInfo,
-} from '@components';
-import {
-  getStudyDetailInfomation,
+  getStudyDetailInformation,
   getStudyQuestionInformation,
   joinStudyGroup,
 } from '@apis/studyDetail';
@@ -67,7 +62,7 @@ function StudyDetail() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await getStudyDetailInfomation(study_id);
+        const res = await getStudyDetailInformation(study_id);
         setData(res);
       } catch (error) {
         console.error(error);
@@ -294,7 +289,7 @@ function StudyDetail() {
     <StudyDetailContainer>
       {loading ? (
         <LoadingWrapper>
-          <SpinnerIcon />
+          <CircularProgress />
         </LoadingWrapper>
       ) : (
         <>
