@@ -128,7 +128,7 @@ const Reply = forwardRef<inputHandle, Props>(function Reply(
           <Typography color='secondary'>
             {moment(updatedAt, 'YYYY-MM-DD hh:mm:ss').fromNow()}
           </Typography>
-          {replies && (
+          {isLogin && replies && (
             <ReplyControlTypography
               color='secondary'
               component='button'
