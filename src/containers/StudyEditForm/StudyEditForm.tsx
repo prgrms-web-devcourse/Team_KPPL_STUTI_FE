@@ -156,9 +156,9 @@ function StudyEditForm() {
     const formData = new FormData();
     const { title, description } = values;
 
-    formData.append('title', title);
+    formData.append('title', title.trim());
     if (imageSrc) formData.append('imageFile', imageSrc);
-    formData.append('description', description);
+    formData.append('description', description.trim());
 
     return formData;
   };

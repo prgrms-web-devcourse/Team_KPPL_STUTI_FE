@@ -187,7 +187,7 @@ function StudyCreateFormContainer() {
     const formData = new FormData();
     const { title, topic, isOnline, region, numberOfRecruits, description } =
       values;
-    formData.append('title', title);
+    formData.append('title', title.trim());
     formData.append('topic', topic);
     formData.append('isOnline', isOnline === 'online' ? 'true' : 'false');
     if (isOnline === 'offline') formData.append('region', region);
@@ -196,7 +196,7 @@ function StudyCreateFormContainer() {
     formData.append('endDateTime', endDate);
     formData.append('preferredMBTIs', mbtiCheckedList.join(', '));
     if (imageSrc) formData.append('imageFile', imageSrc);
-    formData.append('description', description);
+    formData.append('description', description.trim());
     return formData;
   };
 
