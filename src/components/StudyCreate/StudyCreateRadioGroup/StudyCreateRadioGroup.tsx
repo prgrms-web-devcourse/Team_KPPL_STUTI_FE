@@ -1,6 +1,4 @@
-import RadioGroup from '@mui/material/RadioGroup';
-import Radio from '@mui/material/Radio';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import { RadioGroup, Radio, FormControlLabel } from '@mui/material';
 
 interface labelsType {
   value: string;

@@ -1,4 +1,4 @@
-import { StudyCreateForm } from '@src/containers';
+import { StudyCreateForm } from '@containers';
 
 function StudyCreate() {
   return <StudyCreateForm />;

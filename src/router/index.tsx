@@ -1,4 +1,5 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import Layout from '@src/layout/Layout';
 import {
   COMMUNITY,
   HOME,
@@ -10,16 +11,20 @@ import {
   STUDY_DETAIL,
   STUDY_EDIT,
   STUDY_MANAGE,
-} from '@src/router/path';
-import StudyManage from '@src/pages/StudyManage';
-import StudyEdit from '@src/pages/StudyEdit';
-import StudyDetail from '@src/pages/StudyDetail';
-import StudyCreate from '@src/pages/StudyCreate';
-import SignUp from '@src/pages/SignUp';
-import Login from '@src/pages/Login';
-import Community from '@src/pages/Community';
-import Layout from '@src/layout/Layout';
-import { Home, NotFound, ProfileDetail, ProfileEdit } from '@pages';
+} from '@router/path';
+import {
+  Home,
+  StudyDetail,
+  StudyCreate,
+  StudyEdit,
+  StudyManage,
+  ProfileDetail,
+  ProfileEdit,
+  Community,
+  NotFound,
+  Login,
+  SignUp,
+} from '@pages';
 
 import PrivateRoute from './PrivateRoute';
 

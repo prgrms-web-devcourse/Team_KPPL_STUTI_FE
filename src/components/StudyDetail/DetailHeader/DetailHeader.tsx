@@ -18,9 +18,11 @@ function DetailHeader({ topic, title, imageUrl }: Props) {
         {topic}
       </Typography>
       <Typography variant='h4'>{title}</Typography>
-      <ImageWrapper>
-        <Image src={imageUrl} alt='study-image' />
-      </ImageWrapper>
+      {imageUrl && (
+        <ImageWrapper>
+          <Image src={imageUrl} alt='study-image' />
+        </ImageWrapper>
+      )}
     </HeaderWrapper>
   );
 }

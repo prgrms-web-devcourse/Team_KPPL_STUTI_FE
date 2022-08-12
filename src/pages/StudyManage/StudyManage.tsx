@@ -4,12 +4,12 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import { openAlert } from '@store/slices/flashAlert';
+import { HOME } from '@router/path';
 import {
   LoadingWrapper,
   StudyManageButtonWrapper,
   StudyManageContainer,
-} from '@src/pages/StudyManage/style';
-import { HOME } from '@router/path';
+} from '@pages/StudyManage/style';
 import { CircularProgress, Button, Typography } from '@mui/material';
 import { studyManageType } from '@interfaces/studyManage';
 import { errorType } from '@interfaces/error';

@@ -1,5 +1,5 @@
 import Lottie from 'react-lottie-player';
-import Typography from '@mui/material/Typography';
+import { Typography } from '@mui/material';
 import LotttieHighFiveJson from '@assets/imgs/high-five.json';
 
 import { Section, Banner, Title } from './HeroSection.style';

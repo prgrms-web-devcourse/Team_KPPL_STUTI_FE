@@ -1,15 +1,11 @@
 import styled from '@emotion/styled';
 
-export const HeaderWrapper = styled.div`
-  width: 600px;
-  margin: 0 auto;
-  margin-bottom: 1rem;
-`;
+export const HeaderWrapper = styled.div``;
 
 export const ImageWrapper = styled.div`
   width: 100%;
   height: 400px;
-  margin-top: 1.25rem;
+  margin: 1.25rem 0 1rem;
   background-color: #eee;
 `;
 

@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import IconButton from '@mui/material/IconButton';
+import { MenuItem, Menu, IconButton } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 function FeedMenuIconButton() {

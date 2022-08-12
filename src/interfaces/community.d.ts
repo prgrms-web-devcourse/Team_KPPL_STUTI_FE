@@ -43,7 +43,6 @@ export interface CommunityPostTypographyButtonType {
   onClick?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
-//Comment 부분
 export interface childrenCommentType {
   postCommentId: number;
   parentId: number;

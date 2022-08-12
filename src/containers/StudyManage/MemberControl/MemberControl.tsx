@@ -6,15 +6,15 @@ import {
   studyManageStudyApplicantsType,
   studyManageMemberType,
 } from '@src/interfaces/studyManage';
-import { errorType } from '@src/interfaces/error';
+import { Button, Typography } from '@mui/material';
+import { errorType } from '@interfaces/error';
 import {
   MemberControlContainer,
   NoUserWrapper,
   UserInfoButtonWrapper,
   UserInfoContainer,
   UserInfoWrapper,
-} from '@src/containers/StudyManage/MemberControl/style';
-import { Button, Typography } from '@mui/material';
+} from '@containers/StudyManage/MemberControl/style';
 import { UserInfo } from '@components';
 import { deleteStudyMember, patchStudyMember } from '@apis/studyManage';
 

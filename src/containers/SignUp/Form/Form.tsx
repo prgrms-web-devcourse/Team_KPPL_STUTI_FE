@@ -4,16 +4,20 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { AxiosError, AxiosResponse } from 'axios';
-import { setStorageItem } from '@src/utils/storage';
-import { getQueryString } from '@src/utils/queryString';
-import { loginUser } from '@src/store/slices/user';
-import { openAlert } from '@src/store/slices/flashAlert';
-import { errorType } from '@src/interfaces/error';
-import { MBTI_TEST_URL } from '@src/constants/externalUrl';
-import { Select } from '@src/components';
-import { signUp } from '@src/apis/user';
+import { setStorageItem } from '@utils/storage';
+import { getQueryString } from '@utils/queryString';
+import { loginUser } from '@store/slices/user';
+import { openAlert } from '@store/slices/flashAlert';
 import { Button, CircularProgress, TextField, Typography } from '@mui/material';
-import { careers, jobs, mbtis } from '@containers/SignUp/options';
+import { errorType } from '@interfaces/error';
+import {
+  careerOptions,
+  fieldOptions,
+  mbtiOptions,
+} from '@constants/selectOptions';
+import { MBTI_TEST_URL } from '@constants/externalUrl';
+import { Select } from '@components';
+import { signUp } from '@apis/user';
 
 import {
   FormContainer,
@@ -132,7 +136,7 @@ function Form() {
             name='field'
             label='직무*'
             onChange={handleChange}
-            options={jobs}
+            options={fieldOptions}
             value={values.field}
             error={touched.field && Boolean(errors.field)}
             helperText={touched.field && errors.field}
@@ -143,7 +147,7 @@ function Form() {
             name='career'
             label='경력*'
             onChange={handleChange}
-            options={careers}
+            options={careerOptions}
             value={values.career}
             error={touched.career && Boolean(errors.career)}
             helperText={touched.career && errors.career}
@@ -156,7 +160,7 @@ function Form() {
                 name='MBTI'
                 label='MBTI'
                 onChange={handleChange}
-                options={mbtis}
+                options={mbtiOptions}
                 value={values.MBTI}
                 error={touched.MBTI && Boolean(errors.MBTI)}
                 helperText={touched.MBTI && errors.MBTI}

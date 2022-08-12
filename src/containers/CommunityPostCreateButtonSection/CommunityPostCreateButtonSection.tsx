@@ -25,6 +25,7 @@ function CommunityPostCreateButtonSection() {
       <CommunityModal
         postId={state.user?.id as any}
         nickname={state.user?.nickname}
+        profileImageUrl={state.user?.profileImageUrl}
         modalType='CREATE'
         isOpen={isModalOpen}
         onClose={handleCreateModalClose}

@@ -1,6 +1,6 @@
 import { forwardRef, useImperativeHandle, useState } from 'react';
-import { ReplyInputWrapper } from '@src/containers/Reply/style';
 import { Button, TextField } from '@mui/material';
+import { ReplyInputWrapper } from '@containers/Reply/style';
 
 interface Props {
   onCreate?: (content: string) => void;

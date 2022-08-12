@@ -6,17 +6,17 @@ import { StudyListType } from '@interfaces/studyList';
 import { errorType } from '@interfaces/error';
 import { useInterSectionObserver } from '@hooks/useIntersectionObserver';
 import { StudyList } from '@components';
-import { getAllStudies, deleteStudy } from '@apis/studyGroups';
+import { getAllStudies, deleteStudy } from '@apis/studyList';
 
 import StudyListFilter from '../StudyListFilter/StudyListFilter';
 
-export type Filter = {
+export type FilterType = {
   mbti: string | null;
   topic: string | null;
   region: string | null;
 };
 
-export type OptionalFilter = {
+export type OptionalFilterType = {
   mbti?: string | null;
   topic?: string | null;
   region?: string | null;
@@ -25,7 +25,7 @@ export type OptionalFilter = {
 function StudyListSection() {
   const dispatch = useDispatch();
   const [studyList, setStudyList] = useState<StudyListType>([]);
-  const [filter, setFilter] = useState<Filter>({
+  const [filter, setFilter] = useState<FilterType>({
     mbti: null,
     topic: null,
     region: null,
@@ -65,7 +65,7 @@ function StudyListSection() {
     })();
   }, [lastStudyId, filter]);
 
-  const onFilterChange = (newFilter: OptionalFilter) => {
+  const onFilterChange = (newFilter: OptionalFilterType) => {
     setFilter({ ...filter, ...newFilter });
     setStudyList([]);
     setLoading(false);

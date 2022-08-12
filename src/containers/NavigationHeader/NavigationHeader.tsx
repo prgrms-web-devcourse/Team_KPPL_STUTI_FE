@@ -1,13 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-import { removeStorageItem } from '@src/utils/storage';
-import { selectUser, logoutUser } from '@src/store/slices/user';
-import { githubUrl, googleUrl } from '@src/constants/oauth';
-import LogoIcon from '@src/components/LogoIcon/LogoIcon';
-import GoogleIcon from '@src/components/GoogleIcon/GoogleIcon';
-import GitHubIcon from '@src/components/GitHubIcon/GitHubIcon';
-import { logout } from '@src/apis/user';
+import { removeStorageItem } from '@utils/storage';
+import { selectUser, logoutUser } from '@store/slices/user';
 import {
   Avatar,
   ClickAwayListener,
@@ -19,6 +14,11 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTheme } from '@emotion/react';
+import { githubUrl, googleUrl } from '@constants/oauth';
+import LogoIcon from '@components/LogoIcon/LogoIcon';
+import GoogleIcon from '@components/GoogleIcon/GoogleIcon';
+import GitHubIcon from '@components/GitHubIcon/GitHubIcon';
+import { logout } from '@apis/user';
 
 import {
   HeaderContainer,

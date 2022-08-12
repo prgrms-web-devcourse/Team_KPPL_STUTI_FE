@@ -9,7 +9,6 @@ import {
   deleteQuestion,
 } from '@store/slices/question';
 import { openAlert } from '@store/slices/flashAlert';
-import { errorType } from '@src/interfaces/error';
 import { HOME } from '@router/path';
 import { Typography } from '@mui/material';
 import {
@@ -17,6 +16,7 @@ import {
   questionContentType,
   studyDetailQuestionType,
 } from '@interfaces/studyDetailQuestion';
+import { errorType } from '@interfaces/error';
 import { StudyDetailQuestionContainer } from '@containers/StudyDetail/StudyQuestion/style';
 import StudyQuestionInput, { errorHandle } from '@containers/Reply/ReplyInput';
 import Reply, { inputHandle } from '@containers/Reply/Reply';

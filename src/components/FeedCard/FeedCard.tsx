@@ -3,8 +3,8 @@ import {
   ContentsWrapper,
   CustomCardMedia,
 } from '@src/components/FeedCard/FeedCard.style';
-import Avatar from '@mui/material/Avatar';
 import {
+  Avatar,
   Card,
   CardHeader,
   IconButton,

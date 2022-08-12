@@ -1,4 +1,4 @@
-import TextField from '@mui/material/TextField';
+import { TextField } from '@mui/material';
 
 interface Props {
   id: string;

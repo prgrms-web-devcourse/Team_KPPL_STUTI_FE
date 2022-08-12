@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
 
 export const StudyDetailContainer = styled.div`
-  width: 600px;
-  margin: 3rem auto;
+  padding: 3rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;

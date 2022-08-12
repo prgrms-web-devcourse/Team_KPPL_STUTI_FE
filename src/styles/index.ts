@@ -1,2 +1,2 @@
-export { GlobalStyle } from './GlobalStyle';
-export { MuiProvider } from './MuiProvider';
+export { default as GlobalStyle } from './GlobalStyle';
+export { default as MuiProvider } from './MuiProvider';

@@ -1,11 +1,11 @@
 import { useLocation, useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { setStorageItem } from '@src/utils/storage';
-import { loginUser } from '@src/store/slices/user';
-import LogoIcon from '@src/components/LogoIcon/LogoIcon';
-import { login } from '@src/apis/user';
+import { setStorageItem } from '@utils/storage';
+import { loginUser } from '@store/slices/user';
 import { CircularProgress, Typography, useTheme } from '@mui/material';
+import LogoIcon from '@components/LogoIcon/LogoIcon';
+import { login } from '@apis/user';
 
 import { LoginContainer } from './style';
 

@@ -31,6 +31,8 @@ const styles = css`
   }
 `;
 
-export function GlobalStyle() {
+function GlobalStyle() {
   return <Global styles={styles} />;
 }
+
+export default GlobalStyle;

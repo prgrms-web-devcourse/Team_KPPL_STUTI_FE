@@ -1,4 +1,3 @@
-export { default as SpinnerIcon } from './SpinnerIcon/SpinnerIcon';
 export { default as LogoIcon } from './LogoIcon/LogoIcon';
 export { default as MbtiTag } from './MbtiTag/MbtiTag';
 export { default as StudyCard } from './StudyCard/StudyCard';
