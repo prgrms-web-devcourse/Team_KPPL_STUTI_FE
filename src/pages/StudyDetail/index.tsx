@@ -29,7 +29,7 @@ import {
   UserInfo,
 } from '@components';
 import {
-  getStudyDetailInfomation,
+  getStudyDetailInformation,
   getStudyQuestionInformation,
   joinStudyGroup,
 } from '@apis/studyDetail';
@@ -67,7 +67,7 @@ function StudyDetail() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await getStudyDetailInfomation(study_id);
+        const res = await getStudyDetailInformation(study_id);
         setData(res);
       } catch (error) {
         console.error(error);

@@ -15,7 +15,7 @@ import {
   FileInput,
 } from '@components/StudyCreate&Edit';
 import { editStudy } from '@apis/studyEdit';
-import { getStudyDetailInfomation } from '@apis/studyDetail';
+import { getStudyDetailInformation } from '@apis/studyDetail';
 
 import {
   StudyEditHeading,
@@ -69,7 +69,7 @@ function StudyEditForm() {
     const fetchData = async () => {
       setIsLoading(true);
       try {
-        const data = await getStudyDetailInfomation(study_id);
+        const data = await getStudyDetailInformation(study_id);
         const { title, description, imageUrl } = data;
 
         setTitle(title);
