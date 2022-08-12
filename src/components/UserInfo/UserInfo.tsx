@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import {
   UserInfoContainer,
   UserInfoWrapper,
@@ -15,6 +16,7 @@ export interface Props {
   career: string;
   mbti: string;
   title?: string;
+  memberId?: number;
 }
 
 function UserInfo({
@@ -24,18 +26,21 @@ function UserInfo({
   career,
   mbti,
   title,
+  memberId,
 }: Props) {
   return (
     <UserInfoContainer>
       {title && <Typography variant='h5'>{title}</Typography>}
       <UserInfoWrapper>
-        {typeof profileImageUrl === 'string' && profileImageUrl ? (
-          <DefaultAvatar src={profileImageUrl} alt='profile-image' />
-        ) : (
-          <DefaultAvatar>
-            <PersonIcon />
-          </DefaultAvatar>
-        )}
+        <Link to={`/user/${memberId}`}>
+          {typeof profileImageUrl === 'string' && profileImageUrl ? (
+            <DefaultAvatar src={profileImageUrl} alt='profile-image' />
+          ) : (
+            <DefaultAvatar>
+              <PersonIcon />
+            </DefaultAvatar>
+          )}
+        </Link>
         <div>
           <Typography variant='h6'>{nickname}</Typography>
           <UserSubInfoWrapper>

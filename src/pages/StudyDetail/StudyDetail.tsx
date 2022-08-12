@@ -193,7 +193,7 @@ function StudyDetail() {
   const getEndDateTime = () => {
     const { endDateTime = '2022-00-00 00:00:00' } = data;
 
-    const [date, time] = endDateTime.split(' ');
+    const [date] = endDateTime.split(' ');
 
     return date;
   };
@@ -323,6 +323,7 @@ function StudyDetail() {
             field={getLeaderInfo().field}
             career={getLeaderInfo().career}
             mbti={getLeaderInfo().mbti}
+            memberId={getLeaderInfo().memberId}
           />
           <StudyDetailMbtiRecommend preferredMBTIs={getpreferredMBTIs()} />
           <StudyDetailStudyInfo
