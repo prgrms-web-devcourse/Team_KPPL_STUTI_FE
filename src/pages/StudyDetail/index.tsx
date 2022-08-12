@@ -12,7 +12,7 @@ import {
   StudyDetailButtonWrapper,
   StudyDetailContainer,
 } from '@pages/StudyDetail/style';
-import { Button } from '@mui/material';
+import { CircularProgress, Button } from '@mui/material';
 import { UserProfileType } from '@interfaces/userProfile';
 import { studyDetailQuestionType } from '@interfaces/studyDetailQuestion';
 import { detailMemberType, studyDetailType } from '@interfaces/studyDetail';
@@ -22,12 +22,7 @@ import {
   StudyDetailStudyInfo,
   StudyDetailStudyQuestion,
 } from '@containers';
-import {
-  SpinnerIcon,
-  StudyDetailBody,
-  StudyDetailHeader,
-  UserInfo,
-} from '@components';
+import { StudyDetailBody, StudyDetailHeader, UserInfo } from '@components';
 import {
   getStudyDetailInformation,
   getStudyQuestionInformation,
@@ -294,7 +289,7 @@ function StudyDetail() {
     <StudyDetailContainer>
       {loading ? (
         <LoadingWrapper>
-          <SpinnerIcon />
+          <CircularProgress />
         </LoadingWrapper>
       ) : (
         <>
