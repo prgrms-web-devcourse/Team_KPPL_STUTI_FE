@@ -67,6 +67,18 @@
       ],
       "@pages/*": [
         "./pages/*"
+      ],
+      "@utils": [
+        "./utils"
+      ],
+      "@utils/*": [
+        "./utils/*"
+      ],
+      "@constants": [
+        "./constants"
+      ],
+      "@constants/*": [
+        "./constants/*"
       ]
     }
   }

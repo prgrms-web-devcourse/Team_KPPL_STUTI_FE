@@ -1,0 +1,11 @@
+{
+  "id": 1,
+  "email": "test@test.com",
+  "profileImageUrl": "https://picsum.photos/100",
+  "nickname": "test",
+  "field": "FRONTEND",
+  "career": "JUNIOR",
+  "MBTI": "INTP",
+  "githubUrl": "https://test.github.com",
+  "blogUrl": "https://test.blog.com"
+}

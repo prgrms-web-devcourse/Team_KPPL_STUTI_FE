@@ -1,0 +1,48 @@
+{
+  "studyGroupId": 1,
+  "topic": "프론트엔드",
+  "title": "자바스크립트 헬로우 월드",
+  "numberOfMembers": 2,
+  "numberOfRecruits": 5,
+  "studyMembers": [
+    {
+      "studyGroupMemberId": 1,
+      "profileImageUrl": "https://picsum.photos/100",
+      "nickname": "멤버1",
+      "field": "프론트엔드",
+      "career": "N년차",
+      "mbti": "INFP",
+      "studyGroupMemberRole": "MEMBER"
+    },
+    {
+      "studyGroupMemberId": 2,
+      "profileImageUrl": "https://picsum.photos/100",
+      "nickname": "멤버2",
+      "field": "프론트엔드",
+      "career": "N년차",
+      "mbti": "ENTP",
+      "studyGroupMemberRole": "MEMBER"
+    }
+  ],
+  "numberOfApplicant": 2,
+  "studyApplicants": [
+    {
+      "studyGroupMemberId": 3,
+      "profileImageUrl": "https://picsum.photos/100",
+      "nickname": "지원자1",
+      "field": "프론트엔드",
+      "career": "N년차",
+      "mbti": "ISTP",
+      "studyGroupMemberRole": "APPLICANT"
+    },
+    {
+      "studyGroupMemberId": 4,
+      "profileImageUrl": "https://picsum.photos/100",
+      "nickname": "지원자2",
+      "field": "프론트엔드",
+      "career": "N년차",
+      "mbti": "ESFP",
+      "studyGroupMemberRole": "APPLICANT"
+    }
+  ]
+}

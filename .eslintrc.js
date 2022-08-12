@@ -20,19 +20,8 @@ module.exports = {
     'prettier',
   ],
   rules: {
-    'prettier/prettier': [
-      'off',
-      {
-        endOfLine: 'auto',
-        printWidth: 80,
-        semi: true,
-        singleQuote: true,
-        tabWidth: 2,
-        trailingComma: 'all',
-        'arrow-body-style': 'off',
-        'prefer-arrow-callback': 'off',
-      },
-    ],
+    quotes: ['error', 'single'],
+    'jsx-quotes': ['error', 'prefer-single'],
     'react/react-in-jsx-scope': 'off',
     'import/order': [
       'error',
@@ -54,7 +43,10 @@ module.exports = {
     'import/no-unresolved': 'off',
     'import/named': 'off',
   },
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    parser: '@typescript-eslint/parser',
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
 };

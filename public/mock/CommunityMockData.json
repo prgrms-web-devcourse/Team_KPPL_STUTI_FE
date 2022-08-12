@@ -1,0 +1,89 @@
+{
+  "posts": [
+    {
+      "postId": 1,
+      "memberId": 1,
+      "nickname": "팽1",
+      "mbti": "ENTP",
+      "updatedAt": "2022-02-11 10:11:12",
+      "profileImageUrl": null,
+      "contents": "오늘 spring security jwt에 대해서 학습했습니다.",
+      "postImageUrl": null,
+      "likedMembers": [11, 22, 33, 44],
+      "totalPostComments": 5
+    },
+    {
+      "postId": 2,
+      "memberId": 2,
+      "nickname": "박이2",
+      "mbti": "ENTJ",
+      "updatedAt": "2022-02-11 10:11:12",
+      "profileImageUrl": "http://prgrms.stuti/profile/image1.jpg",
+      "contents": "오늘 spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대spring security jwt에 대spring security jwt에 대spring security jwt에 대spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대해서 학습했습니다.오늘 spring security jwt에 대해서 학습했습니다.",
+      "postImageUrl": "https://picsum.photos/300/200",
+      "likedMembers": [11, 22],
+      "totalPostComments": 10
+    },
+    {
+      "postId": 3,
+      "memberId": 3,
+      "nickname": "김3",
+      "mbti": "ENTP",
+      "updatedAt": "2022-02-11 10:11:12",
+      "profileImageUrl": "http://prgrms.stuti/profile/image1.jpg",
+      "contents": "오늘 spring security jwt에 대해서 학습했습니다.",
+      "postImageUrl": "https://picsum.photos/300/200",
+      "likedMembers": [11, 22, 4, 5],
+      "totalPostComments": 2
+    },
+    {
+      "postId": 4,
+      "memberId": 4,
+      "nickname": "김4",
+      "mbti": "ENTJ",
+      "updatedAt": "2022-03-11 10:11:12",
+      "profileImageUrl": "http://prgrms.stuti/profile/image1.jpg",
+      "contents": "오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다오늘빡세다",
+      "postImageUrl": "https://picsum.photos/300/200",
+      "likedMembers": [1, 2, 3, 22],
+      "totalPostComments": 50
+    },
+    {
+      "postId": 5,
+      "memberId": 5,
+      "nickname": "팽5",
+      "mbti": "INTP",
+      "updatedAt": "2022-02-11 10:11:12",
+      "profileImageUrl": "http://prgrms.stuti/profile/image1.jpg",
+      "contents": "오늘 놀았닼ㅋㅋㅋ",
+      "postImageUrl": "https://picsum.photos/300/200",
+      "likedMembers": [1, 2, 3, 4, 5, 6, 22],
+      "totalPostComments": 132
+    },
+    {
+      "postId": 6,
+      "memberId": 6,
+      "nickname": "팽6",
+      "mbti": "INTP",
+      "updatedAt": "2022-02-11 10:11:12",
+      "profileImageUrl": "http://prgrms.stuti/profile/image1.jpg",
+      "contents": "오",
+      "postImageUrl": "https://picsum.photos/300/200",
+      "likedMembers": [11, 13, 14, 15, 22],
+      "totalPostComments": 5
+    },
+    {
+      "postId": 7,
+      "memberId": 7,
+      "nickname": "팽7",
+      "mbti": "INTP",
+      "updatedAt": "2022-02-11 10:11:12",
+      "profileImageUrl": "http://prgrms.stuti/profile/image1.jpg",
+      "contents": "오늘 놀았닼ㅋㅋㅋ",
+      "postImageUrl": "https://picsum.photos/300/200",
+      "likedMembers": [11, 16, 17, 18, 22],
+      "totalPostComments": 22
+    }
+  ],
+  "hasNext": true
+}

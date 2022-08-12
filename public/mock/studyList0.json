@@ -1,0 +1,61 @@
+{
+  "content": [
+    {
+      "studyGroupId": 1,
+      "leaderId": 1,
+      "thumbnailUrl": "https://picsum.photos/300/200",
+      "topic": "FRONTEND",
+      "title": "1. 자바스크립트 헬로우 월드",
+      "preferredMBTIs": ["INTJ", "INFP", "ESTJ"],
+      "isOnline": false,
+      "region": "SEOUL",
+      "startDate": "2022-02-22 00:00:00",
+      "endDate": "2022-02-22 00:00:00",
+      "numberOfMembers": 0,
+      "numberOfRecruits": 5
+    },
+    {
+      "studyGroupId": 2,
+      "leaderId": 1,
+      "thumbnailUrl": "https://picsum.photos/300/200",
+      "topic": "FRONTEND",
+      "title": "2. 자바스크립트 헬로우 월드",
+      "preferredMBTIs": ["INTJ", "INFP", "ESTJ"],
+      "isOnline": false,
+      "region": "SEOUL",
+      "startDate": "2022-02-22 00:00:00",
+      "endDate": "2022-02-22 00:00:00",
+      "numberOfMembers": 0,
+      "numberOfRecruits": 5
+    },
+    {
+      "studyGroupId": 3,
+      "leaderId": 1,
+      "thumbnailUrl": "https://picsum.photos/300/200",
+      "topic": "FRONTEND",
+      "title": "3. 자바스크립트 헬로우 월드",
+      "preferredMBTIs": ["INTJ", "INFP", "ESTJ"],
+      "isOnline": false,
+      "region": "SEOUL",
+      "startDate": "2022-02-22 00:00:00",
+      "endDate": "2022-02-22 00:00:00",
+      "numberOfMembers": 0,
+      "numberOfRecruits": 5
+    },
+    {
+      "studyGroupId": 4,
+      "leaderId": 1,
+      "thumbnailUrl": "https://picsum.photos/300/200",
+      "topic": "FRONTEND",
+      "title": "4. 자바스크립트 헬로우 월드",
+      "preferredMBTIs": ["INTJ", "INFP", "ESTJ"],
+      "isOnline": false,
+      "region": "SEOUL",
+      "startDate": "2022-02-22 00:00:00",
+      "endDate": "2022-02-22 00:00:00",
+      "numberOfMembers": 0,
+      "numberOfRecruits": 5
+    }
+  ],
+  "hasNext": true
+}
