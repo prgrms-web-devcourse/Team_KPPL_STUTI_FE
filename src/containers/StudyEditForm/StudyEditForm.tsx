@@ -165,7 +165,11 @@ function StudyEditForm() {
     return formData;
   };
 
-  const updateStudy = async (formData: FormData, study_id: string) => {
+  const updateStudy = async (
+    formData: FormData,
+    study_id: string,
+    setSubmitting: (isSubmitting: boolean) => void,
+  ) => {
     try {
       const res = await editStudy(formData, study_id);
       const { studyGroupId } = res;
@@ -231,6 +235,8 @@ function StudyEditForm() {
           content: '스터디 생성에 실패했습니다.',
         }),
       );
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -247,7 +253,7 @@ function StudyEditForm() {
 
         const formData = createFormData(values);
 
-        updateStudy(formData, study_id);
+        updateStudy(formData, study_id, actions.setSubmitting);
       }}
     >
       {({
