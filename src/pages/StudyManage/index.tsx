@@ -10,11 +10,10 @@ import {
   StudyManageContainer,
 } from '@src/pages/StudyManage/style';
 import { HOME } from '@router/path';
-import { Button, Typography } from '@mui/material';
+import { CircularProgress, Button, Typography } from '@mui/material';
 import { studyManageType } from '@interfaces/studyManage';
 import { errorType } from '@interfaces/error';
 import { StudyManageMemberControl } from '@containers';
-import { SpinnerIcon } from '@components';
 import { deleteStudy, getStudyManageInfomation } from '@apis/studyManage';
 
 function StudyManage() {
@@ -145,7 +144,7 @@ function StudyManage() {
     <StudyManageContainer>
       {loading ? (
         <LoadingWrapper>
-          <SpinnerIcon />
+          <CircularProgress />
         </LoadingWrapper>
       ) : (
         <>
@@ -165,7 +164,11 @@ function StudyManage() {
             </Button>
             {deleteStudyLoading ? (
               <Button sx={{ height: '3rem' }} fullWidth color='error'>
-                <SpinnerIcon />
+                <CircularProgress
+                  color='secondary'
+                  size='1.5rem'
+                  sx={{ margin: '-0.25rem' }}
+                />
               </Button>
             ) : (
               <Button
