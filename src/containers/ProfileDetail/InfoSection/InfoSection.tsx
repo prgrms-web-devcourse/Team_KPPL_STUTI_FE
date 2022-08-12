@@ -38,7 +38,7 @@ function InfoSection() {
         setLoading(false);
       }
     })();
-  }, []);
+  }, [paramUserId]);
 
   return (
     <Section>
