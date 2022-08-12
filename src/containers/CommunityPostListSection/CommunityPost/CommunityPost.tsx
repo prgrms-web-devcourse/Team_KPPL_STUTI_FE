@@ -62,6 +62,8 @@ function CommunityPost({
   const dispatch = useDispatch();
   const state = useSelector(selectUser);
 
+  const body = contents.replaceAll('\r', '').split('\n');
+
   const checkLogin = () => state.isLogin;
   const checkLikedMembers = () => likedMembers.includes(Number(state.user?.id));
 
@@ -199,7 +201,12 @@ function CommunityPost({
       />
       <CardContent sx={{ paddingBottom: '0' }}>
         <ContentsWrapper maxLine={isExpand}>
-          <Typography ref={contentsRef}>{contents}</Typography>
+          <Typography ref={contentsRef}>
+            {body.map((content, index) => {
+              if (content === '') return <br key={index} />;
+              return [content, <br key={index} />];
+            })}
+          </Typography>
         </ContentsWrapper>
         {isExpand !== 'none' && (
           <CommunityPostTypographyButton onClick={() => setIsExpand('none')}>
