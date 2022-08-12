@@ -1,4 +1,4 @@
-import { StudyEditForm } from '@src/containers';
+import { StudyEditForm } from '@containers';
 
 function StudyEdit() {
   return <StudyEditForm />;

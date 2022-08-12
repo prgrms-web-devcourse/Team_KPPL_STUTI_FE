@@ -2,11 +2,11 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { addPost, selectPost, setPost } from '@store/slices/post';
-import { getUserPosts } from '@src/apis/posts';
 import { CircularProgress } from '@mui/material';
 import { useInterSectionObserver } from '@hooks/useIntersectionObserver';
 import CommunityPost from '@containers/CommunityPostListSection/CommunityPost/CommunityPost';
 import { ItemCard } from '@components';
+import { getUserPosts } from '@apis/posts';
 
 import { Ul } from './PostTab.style';
 

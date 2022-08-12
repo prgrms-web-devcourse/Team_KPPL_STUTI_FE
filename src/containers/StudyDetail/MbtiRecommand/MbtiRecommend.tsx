@@ -1,8 +1,8 @@
+import { Typography } from '@mui/material';
 import {
   MbtiRecommandContainer,
   MbtiTagWrapper,
-} from '@src/containers/StudyDetail/MbtiRecommand/style';
-import { Typography } from '@mui/material';
+} from '@containers/StudyDetail/MbtiRecommand/style';
 import { MbtiTag } from '@components';
 
 interface Props {

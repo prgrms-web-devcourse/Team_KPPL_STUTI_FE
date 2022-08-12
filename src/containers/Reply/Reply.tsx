@@ -4,17 +4,17 @@ import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import moment from 'moment';
 import 'moment/locale/ko';
 import { selectUser } from '@store/slices/user';
+import { Typography } from '@mui/material';
+import PersonIcon from '@mui/icons-material/Person';
+import { UserType } from '@interfaces/user';
+import { childrenQuestionType } from '@interfaces/studyDetailQuestion';
 import {
   ReplyContainer,
   ReplyControlTypography,
   ReplyControlWrapper,
   ReplyInfoWrapper,
   ReplyProfileWrapper,
-} from '@src/containers/Reply/style';
-import { Typography } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
-import { UserType } from '@interfaces/user';
-import { childrenQuestionType } from '@interfaces/studyDetailQuestion';
+} from '@containers/Reply/style';
 import ReplyInput, { errorHandle } from '@containers/Reply/ReplyInput';
 import { DefaultAvatar } from '@components';
 

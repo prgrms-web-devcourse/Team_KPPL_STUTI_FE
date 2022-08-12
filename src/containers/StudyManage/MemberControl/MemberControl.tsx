@@ -2,11 +2,11 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import { openAlert } from '@store/slices/flashAlert';
+import { Button, Typography } from '@mui/material';
 import {
   studyManageStudyApplicantsType,
   studyManageMemberType,
-} from '@src/interfaces/studyManage';
-import { Button, Typography } from '@mui/material';
+} from '@interfaces/studyManage';
 import { errorType } from '@interfaces/error';
 import {
   MemberControlContainer,
