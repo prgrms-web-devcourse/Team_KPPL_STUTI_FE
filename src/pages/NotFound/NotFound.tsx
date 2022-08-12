@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import LogoIcon from '@src/components/LogoIcon/LogoIcon';
 import { Button, Typography, useTheme } from '@mui/material';
 
