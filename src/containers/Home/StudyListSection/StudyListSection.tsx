@@ -50,9 +50,9 @@ function StudyListSection() {
         const { contents: newStudylist, hasNext: newHasNext } =
           await getAllStudies({
             lastStudyGroupId: lastStudyId,
-            mbti: filter.mbti,
-            topic: filter.topic,
-            region: filter.region,
+            mbti: filter.mbti === 'ALL' ? null : filter.mbti,
+            topic: filter.topic === 'ALL' ? null : filter.topic,
+            region: filter.region === 'ALL' ? null : filter.region,
             size: 10,
           });
         setStudyList([...studyList, ...newStudylist]);
