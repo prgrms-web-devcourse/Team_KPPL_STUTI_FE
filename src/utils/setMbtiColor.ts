@@ -1,13 +1,4 @@
-export interface Props {
-  mbti: string;
-  size?: 'small' | 'medium';
-  cursor?: boolean;
-  variant?: 'outlined' | 'filled';
-  disabled?: boolean;
-  filled?: boolean;
-}
-
-export const setMbtiColor = ({ mbti }: Props) => {
+export const setMbtiColor = (mbti: string) => {
   if (mbti === 'ISTJ') {
     return '#24a347';
   }

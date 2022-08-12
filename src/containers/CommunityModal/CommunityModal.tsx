@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import React, { useState, useRef, useLayoutEffect } from 'react';
 import { useFormik } from 'formik';
-import { createPost, editPost } from '@src/store/slices/post';
+import { createPost, editPost } from '@store/slices/post';
 import IconButton from '@mui/material/IconButton';
 import {
   Modal,
@@ -81,7 +81,6 @@ function CommunityModal({
     }
   };
 
-  //formik
   const formik = useFormik({
     initialValues: {
       contents: contents || '',

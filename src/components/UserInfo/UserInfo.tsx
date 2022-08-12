@@ -39,10 +39,10 @@ function UserInfo({
         <div>
           <Typography variant='h6'>{nickname}</Typography>
           <UserSubInfoWrapper>
-            <Typography variant='body1' color='#6B7280'>
+            <Typography variant='body1' color='secondary'>
               {field}
             </Typography>
-            <Typography variant='body1' color='#6B7280'>
+            <Typography variant='body1' color='secondary'>
               {career}
             </Typography>
             <MbtiTag mbti={mbti} size='small' variant='filled' />

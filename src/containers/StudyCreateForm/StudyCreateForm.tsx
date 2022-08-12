@@ -31,7 +31,6 @@ import {
   MbtiSelect,
 } from '@components/StudyCreate';
 import Select from '@components/Select/Select';
-import { SpinnerIcon } from '@components';
 import { createNewStudy } from '@apis/studyCreate';
 
 import {
@@ -323,6 +322,7 @@ function StudyCreateFormContainer() {
           <form onSubmit={handleSubmit}>
             <StudyCreateWrapper>
               <Typography variant='h4'>스터디 생성</Typography>
+
               <InputWrapper>
                 <Field
                   as={LabelInput}
@@ -434,10 +434,11 @@ function StudyCreateFormContainer() {
                   {fileErrorMessage && (
                     <ErrorMessage>{fileErrorMessage}</ErrorMessage>
                   )}
+
                   <ImageWrapper>
                     {isLoading ? (
                       <SpinnerWrapper>
-                        <SpinnerIcon />
+                        <CircularProgress color='secondary' size='1.5rem' />
                       </SpinnerWrapper>
                     ) : thumbnailImage ? (
                       <Image src={thumbnailImage} alt='study-image' />

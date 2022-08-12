@@ -7,13 +7,16 @@ import {
 } from '@constants/selectOptions';
 import { Select } from '@components';
 
-import { Filter, OptionalFilter } from '../StudyListSection/StudyListSection';
+import {
+  FilterType,
+  OptionalFilterType,
+} from '../StudyListSection/StudyListSection';
 
 import { Form, StyledButton } from './StudyListFilter.style';
 
 interface Props {
-  filter: Filter;
-  onFilterChange: (select: OptionalFilter) => void;
+  filter: FilterType;
+  onFilterChange: (select: OptionalFilterType) => void;
   onFilterReset: () => void;
 }
 

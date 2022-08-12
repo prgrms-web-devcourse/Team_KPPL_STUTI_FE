@@ -6,7 +6,7 @@ const host = process.env.REACT_APP_API_ENDPOINT ?? 'http://localhost:3000';
 const API_ENDPOINT = host;
 
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: API_ENDPOINT, // baseURL 미리세팅
+  baseURL: API_ENDPOINT,
   timeout: 5000,
   headers: {
     'Content-Type': 'application/json',

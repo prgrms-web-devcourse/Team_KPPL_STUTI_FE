@@ -1,7 +1,7 @@
 import { useParams } from 'react-router';
 import { useState, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import { UserProfileType } from '@interfaces/userProfile';
+import { UserType } from '@interfaces/user';
 import { UserProfile } from '@components';
 import { getUserProfile } from '@apis/members';
 
@@ -10,7 +10,7 @@ import { Section, Loading, Error } from './InfoSection.style';
 function InfoSection() {
   const { user_id: paramUserId } = useParams<{ user_id: string }>();
 
-  const [userProfile, setUserProfile] = useState<UserProfileType>({
+  const [userProfile, setUserProfile] = useState<UserType>({
     id: 0,
     email: '',
     profileImageUrl: '',

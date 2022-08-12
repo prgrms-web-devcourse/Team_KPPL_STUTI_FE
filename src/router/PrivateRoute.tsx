@@ -1,8 +1,8 @@
 import { Navigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import React from 'react';
-import { selectUser } from '@src/store/slices/user';
-import { openAlert } from '@src/store/slices/flashAlert';
+import { selectUser } from '@store/slices/user';
+import { openAlert } from '@store/slices/flashAlert';
 
 import { HOME } from './path';
 

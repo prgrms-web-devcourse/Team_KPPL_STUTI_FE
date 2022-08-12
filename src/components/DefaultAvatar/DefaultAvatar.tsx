@@ -8,11 +8,7 @@ interface Props {
 
 function DefaultAvatar({ children, src, alt }: Props) {
   return (
-    <Avatar
-      src={src}
-      alt={alt}
-      sx={{ backgroundColor: '#D1D5DB', color: '#ffffff' }}
-    >
+    <Avatar src={src} alt={alt}>
       {children}
     </Avatar>
   );

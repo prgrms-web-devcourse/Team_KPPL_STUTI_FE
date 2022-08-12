@@ -1,9 +1,9 @@
-import { RootState } from '@src/store';
-import { UserProfileType } from '@src/interfaces/userProfile';
+import { RootState } from '@store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { UserType } from '@interfaces/user';
 
 interface UserState {
-  user: UserProfileType | null;
+  user: UserType | null;
   isLogin: boolean;
 }
 
@@ -16,7 +16,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    loginUser: (state: UserState, action: PayloadAction<UserProfileType>) => {
+    loginUser: (state: UserState, action: PayloadAction<UserType>) => {
       state.user = action.payload;
       state.isLogin = true;
     },
@@ -24,7 +24,7 @@ export const userSlice = createSlice({
       state.user = null;
       state.isLogin = false;
     },
-    updateUser: (state: UserState, action: PayloadAction<UserProfileType>) => {
+    updateUser: (state: UserState, action: PayloadAction<UserType>) => {
       state.user = action.payload;
     },
   },

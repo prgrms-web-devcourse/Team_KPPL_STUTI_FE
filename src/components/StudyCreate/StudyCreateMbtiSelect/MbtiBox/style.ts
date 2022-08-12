@@ -1,4 +1,4 @@
-import { setMbtiColor } from '@src/utils/setMbtiColor';
+import { setMbtiColor } from '@utils/setMbtiColor';
 import styled from '@emotion/styled';
 
 interface Props {
@@ -11,8 +11,8 @@ export const OutlinedMbtiBox = styled.div<Props>`
   transition: all 0.3s ease-in-out;
   width: 5rem;
   height: 5rem;
-  color: ${({ theme, disabled }) =>
-    disabled ? theme.palette.grey[400] : setMbtiColor};
+  color: ${({ theme, disabled, mbti }) =>
+    disabled ? theme.palette.grey[400] : setMbtiColor(mbti)};
   background-color: ${({ theme, disabled }) =>
     disabled ? theme.palette.grey[200] : ''};
   border: ${({ disabled }) => (disabled ? '' : '2px solid')};
@@ -28,7 +28,7 @@ export const FilledMbtiBox = styled.div<Props>`
   width: 5rem;
   height: 5rem;
   color: #fff;
-  background-color: ${setMbtiColor};
+  background-color: ${({ mbti }) => setMbtiColor(mbti)};
   border-radius: 0.5rem;
   font-weight: 700;
   display: flex;

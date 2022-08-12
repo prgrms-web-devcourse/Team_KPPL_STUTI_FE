@@ -1,11 +1,11 @@
 import { MouseEvent } from 'react';
-import { RoleType, RoleNullableType } from '@interfaces/studyList';
+import { RoleType } from '@interfaces/studyList';
 
 import { Background, Button } from './Role.style';
 
 interface Props {
-  role: RoleNullableType;
-  onRoleChange: (role: RoleNullableType) => void;
+  role: RoleType;
+  onRoleChange: (role: RoleType) => void;
 }
 
 function RoleFilter({ role, onRoleChange }: Props) {

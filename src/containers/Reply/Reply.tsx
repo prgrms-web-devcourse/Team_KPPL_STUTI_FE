@@ -11,11 +11,11 @@ import {
   ReplyInfoWrapper,
   ReplyProfileWrapper,
 } from '@src/containers/Reply/style';
-import ReplyInput, { errorHandle } from '@src/containers/Reply/ReplyInput';
 import { Typography } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
-import { UserProfileType } from '@interfaces/userProfile';
+import { UserType } from '@interfaces/user';
 import { childrenQuestionType } from '@interfaces/studyDetailQuestion';
+import ReplyInput, { errorHandle } from '@containers/Reply/ReplyInput';
 import { DefaultAvatar } from '@components';
 
 interface Props {
@@ -55,13 +55,13 @@ const Reply = forwardRef<inputHandle, Props>(function Reply(
   const [updateFlag, setUpdateFlag] = useState(false);
 
   type userType = {
-    user: UserProfileType;
+    user: UserType;
     isLogin: boolean;
   };
 
   const { user, isLogin } = useSelector(selectUser) as userType;
 
-  const isSameLoginUser = (user: UserProfileType, memberId: number) => {
+  const isSameLoginUser = (user: UserType, memberId: number) => {
     if (!isLogin) return false;
 
     if (!user) return false;
