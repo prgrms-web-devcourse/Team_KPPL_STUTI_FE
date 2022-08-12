@@ -26,7 +26,6 @@ interface Props {
 function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
   const dispatch = useDispatch();
 
-  const [commentLoading, setCommentLoading] = useState(false);
   const [commentContents, setCommentContents] = useState<any>();
   const [hasNext, setHasNext] = useState<boolean>(false);
   const [totalElements, setTotalElements] = useState<number>(0);
@@ -60,7 +59,6 @@ function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
     lastCommentId: number,
   ) => {
     try {
-      setCommentLoading(true);
       const res: CommunityPostCommentType = await getCommunityPostCommentApi(
         postId,
         size,
@@ -78,8 +76,6 @@ function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
           content: '질문을 요청하는데에 실패했습니다.',
         }),
       );
-    } finally {
-      setCommentLoading(false);
     }
   };
 
@@ -91,7 +87,6 @@ function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
     isDefaultInput?: boolean,
   ) => {
     try {
-      setCommentLoading(true);
       const res: CommentContentsType | childrenCommentType =
         await createCommunityPostCommentApi(postId, parentId, contents);
 
@@ -141,8 +136,6 @@ function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
           content: '질문을 생성하는데에 실패했습니다.',
         }),
       );
-    } finally {
-      setCommentLoading(false);
     }
   };
 
@@ -154,7 +147,6 @@ function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
     isSub?: boolean,
   ) => {
     try {
-      setCommentLoading(true);
       const res: CommentContentsType | childrenCommentType =
         await changeCommunityPostCommentApi(postId, postCommentId, contents);
 
@@ -212,14 +204,11 @@ function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
           content: '질문을 수정하는데에 실패했습니다.',
         }),
       );
-    } finally {
-      setCommentLoading(false);
     }
   };
 
   const removeComment = async (postId: number, postCommentId: number) => {
     try {
-      setCommentLoading(true);
       const res: CommentContentsType | childrenCommentType =
         await deleteCommunityPostCommentApi(postId, postCommentId);
 
@@ -265,8 +254,6 @@ function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
           content: '질문을 삭제하는데에 실패했습니다.',
         }),
       );
-    } finally {
-      setCommentLoading(false);
     }
   };
 
@@ -279,66 +266,65 @@ function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
           createComment(postId, null, contents, -1, true);
         }}
       />
-      {!commentLoading &&
-        commentContents?.map((content: any, index: number) => {
-          const {
-            postCommentId,
-            profileImageUrl,
-            nickname,
-            contents: text,
-            updatedAt,
-            children,
-            memberId,
-          } = content;
-          return (
-            <Reply
-              ref={(el) => el && (handleInput.current[index] = el)}
-              key={content.postCommentId}
-              memberId={memberId}
-              profileImageUrl={profileImageUrl}
-              nickname={nickname}
-              contents={text}
-              replies={children}
-              updatedAt={updatedAt}
-              onCreate={(contents: string) => {
-                createComment(postId, postCommentId, contents, index);
-              }}
-              onUpdate={(contents: string) => {
-                editComment(postId, postCommentId, contents, index);
-              }}
-              onDelete={() => {
-                removeComment(postId, postCommentId);
-              }}
-            >
-              {children?.map((reply: any, index: any) => {
-                const {
-                  postCommentId,
-                  profileImageUrl = '',
-                  nickname = '',
-                  contents = '',
-                  updatedAt = '2022-02-22 10:00:00',
-                } = reply;
-                return (
-                  <Reply
-                    ref={(el) => el && (handleInputSub.current[index] = el)}
-                    key={postCommentId}
-                    memberId={memberId}
-                    profileImageUrl={profileImageUrl}
-                    nickname={nickname}
-                    contents={contents}
-                    updatedAt={updatedAt}
-                    onUpdate={(contents: string) => {
-                      editComment(postId, postCommentId, contents, index, true);
-                    }}
-                    onDelete={() => {
-                      removeComment(postId, postCommentId);
-                    }}
-                  />
-                );
-              })}
-            </Reply>
-          );
-        })}
+      {commentContents?.map((content: any, index: number) => {
+        const {
+          postCommentId,
+          profileImageUrl,
+          nickname,
+          contents: text,
+          updatedAt,
+          children,
+          memberId,
+        } = content;
+        return (
+          <Reply
+            ref={(el) => el && (handleInput.current[index] = el)}
+            key={content.postCommentId}
+            memberId={memberId}
+            profileImageUrl={profileImageUrl}
+            nickname={nickname}
+            contents={text}
+            replies={children}
+            updatedAt={updatedAt}
+            onCreate={(contents: string) => {
+              createComment(postId, postCommentId, contents, index);
+            }}
+            onUpdate={(contents: string) => {
+              editComment(postId, postCommentId, contents, index);
+            }}
+            onDelete={() => {
+              removeComment(postId, postCommentId);
+            }}
+          >
+            {children?.map((reply: any, index: any) => {
+              const {
+                postCommentId,
+                profileImageUrl = '',
+                nickname = '',
+                contents = '',
+                updatedAt = '2022-02-22 10:00:00',
+              } = reply;
+              return (
+                <Reply
+                  ref={(el) => el && (handleInputSub.current[index] = el)}
+                  key={postCommentId}
+                  memberId={memberId}
+                  profileImageUrl={profileImageUrl}
+                  nickname={nickname}
+                  contents={contents}
+                  updatedAt={updatedAt}
+                  onUpdate={(contents: string) => {
+                    editComment(postId, postCommentId, contents, index, true);
+                  }}
+                  onDelete={() => {
+                    removeComment(postId, postCommentId);
+                  }}
+                />
+              );
+            })}
+          </Reply>
+        );
+      })}
       {hasNext && (
         <Typography
           color='secondary'
