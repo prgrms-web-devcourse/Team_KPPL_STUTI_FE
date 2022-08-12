@@ -1,5 +1,5 @@
-import Skeleton from '@mui/material/Skeleton';
-import { Card, CardHeader, CardContent } from '@mui/material';
+import { Skeleton, Card, CardHeader, CardContent } from '@mui/material';
+
 function SkeletonPost() {
   return (
     <Card>

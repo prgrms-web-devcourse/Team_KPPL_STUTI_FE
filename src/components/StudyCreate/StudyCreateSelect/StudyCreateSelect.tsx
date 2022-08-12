@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
+import { TextField, MenuItem } from '@mui/material';
 
 interface optionsType {
   value: string | number;

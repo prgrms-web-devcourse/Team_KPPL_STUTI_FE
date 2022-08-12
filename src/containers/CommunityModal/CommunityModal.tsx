@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 import React, { useState, useRef, useLayoutEffect } from 'react';
 import { FormikHelpers, useFormik } from 'formik';
 import { createPost, editPost } from '@store/slices/post';
-import IconButton from '@mui/material/IconButton';
 import {
+  IconButton,
   Modal,
   Avatar,
   CardHeader,

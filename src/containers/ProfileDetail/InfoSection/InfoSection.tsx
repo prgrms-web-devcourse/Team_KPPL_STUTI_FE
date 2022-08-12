@@ -1,6 +1,6 @@
 import { useParams } from 'react-router';
 import { useState, useEffect } from 'react';
-import CircularProgress from '@mui/material/CircularProgress';
+import { CircularProgress } from '@mui/material';
 import { UserType } from '@interfaces/user';
 import { UserProfile } from '@components';
 import { getUserProfile } from '@apis/members';

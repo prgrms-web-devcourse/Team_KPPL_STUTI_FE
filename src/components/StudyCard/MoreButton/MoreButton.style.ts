@@ -1,4 +1,4 @@
-import IconButton from '@mui/material/IconButton';
+import { IconButton } from '@mui/material';
 import styled from '@emotion/styled';
 
 export const Position = styled.div`

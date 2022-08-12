@@ -5,11 +5,13 @@ import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
 import { AxiosError, AxiosResponse } from 'axios';
 import { openAlert } from '@store/slices/flashAlert';
-import Typography from '@mui/material/Typography';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Button from '@mui/material/Button';
-import { CircularProgress } from '@mui/material';
+import {
+  Typography,
+  FormControlLabel,
+  Checkbox,
+  Button,
+  CircularProgress,
+} from '@mui/material';
 import { errorType } from '@interfaces/error';
 import {
   topicOptions,

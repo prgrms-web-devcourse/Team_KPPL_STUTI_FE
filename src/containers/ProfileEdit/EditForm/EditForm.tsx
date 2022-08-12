@@ -6,10 +6,7 @@ import { useFormik } from 'formik';
 import { AxiosError, AxiosResponse } from 'axios';
 import { updateUser } from '@store/slices/user';
 import { openAlert } from '@store/slices/flashAlert';
-import TextField from '@mui/material/TextField';
-import CircularProgress from '@mui/material/CircularProgress';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
+import { TextField, CircularProgress, Button, Avatar } from '@mui/material';
 import { UserEditFormType } from '@interfaces/user';
 import { errorType } from '@interfaces/error';
 import {
