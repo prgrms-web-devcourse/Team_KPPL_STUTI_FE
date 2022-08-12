@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import moment from 'moment';
 import { AxiosError, AxiosResponse } from 'axios';
 import { selectUser } from '@store/slices/user';
@@ -53,22 +53,21 @@ function CommunityPost({
   const [commentLoading, setCommentLoading] = useState(false);
   const [likeLoading, setLikeLoading] = useState(false);
   const [commentCount, setCommentCount] = useState(0);
-  const [liked, setLiked] = useState({ check: false, count: 0 });
+  const [liked, setLiked] = useState({
+    check: false,
+    count: 0,
+  });
   const [isExpand, setIsExpand] = useState<string | number>('none');
   const [onCommentOpen, setOnCommentOpen] = useState(false);
   const [commentsInit, setCommentsInit] = useState<any>();
 
   const contentsRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
-  const state = useSelector(selectUser);
+  const { isLogin, user } = useSelector(selectUser);
 
   const body = contents.replaceAll('\r', '').split('\n');
 
-  const checkLogin = () => state.isLogin;
-  const checkLikedMembers = () => likedMembers.includes(Number(state.user?.id));
-
   useLayoutEffect(() => {
-    checkLiked();
     setCommentCount(totalPostComments);
     if (contentsRef.current) {
       const contentsHeight = contentsRef.current.getBoundingClientRect().height;
@@ -76,22 +75,16 @@ function CommunityPost({
     }
   }, []);
 
-  const checkLiked = () => {
-    switch (true) {
-      case checkLogin() && checkLikedMembers():
-        setLiked({ check: true, count: likedMembers.length });
-        break;
-      case checkLogin() && !checkLikedMembers():
-        setLiked({ check: false, count: likedMembers.length });
-        break;
-      default:
-        setLiked({ check: false, count: likedMembers.length });
-        break;
+  useEffect(() => {
+    if (isLogin && user && likedMembers.includes(user.id)) {
+      setLiked({ check: true, count: likedMembers.length });
+    } else {
+      setLiked({ check: false, count: likedMembers.length });
     }
-  };
+  }, [user, isLogin]);
 
   const handleLiked = async () => {
-    if (!state.isLogin) return;
+    if (!isLogin) return;
     try {
       setLikeLoading(true);
       switch (liked.check) {
@@ -177,14 +170,18 @@ function CommunityPost({
           />
         }
         action={
-          <CommunityPostMenuIconButton
-            postId={postId}
-            memberId={memberId}
-            nickname={nickname}
-            profileImageUrl={profileImageUrl}
-            contents={contents}
-            postImageUrl={postImageUrl}
-          />
+          isLogin &&
+          user &&
+          user.id === memberId && (
+            <CommunityPostMenuIconButton
+              postId={postId}
+              memberId={memberId}
+              nickname={nickname}
+              profileImageUrl={profileImageUrl}
+              contents={contents}
+              postImageUrl={postImageUrl}
+            />
+          )
         }
         title={
           <Typography
@@ -227,7 +224,7 @@ function CommunityPost({
       <CardActions disableSpacing>
         <IconButton
           aria-label='settings'
-          disabled={likeLoading}
+          disabled={likeLoading || !isLogin}
           onClick={handleLiked}
         >
           {liked.check ? <FavoriteIcon /> : <FavoriteBorderIcon />}
