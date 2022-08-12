@@ -2,7 +2,7 @@
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 import React, { useState, useRef, useLayoutEffect } from 'react';
-import { useFormik } from 'formik';
+import { FormikHelpers, useFormik } from 'formik';
 import { createPost, editPost } from '@store/slices/post';
 import IconButton from '@mui/material/IconButton';
 import {
@@ -59,10 +59,13 @@ function CommunityModal({
     formik.setFieldValue('postImage', e.currentTarget.files[0]);
   };
 
-  const handleSubmitPost = async (values: {
-    contents: string;
-    postImage?: string;
-  }) => {
+  const handleSubmitPost = async (
+    values: {
+      contents: string;
+      postImage?: string;
+    },
+    helpers: FormikHelpers<{ contents: string }>,
+  ) => {
     const postFormData = new FormData();
     let returnApiData;
 
@@ -79,17 +82,19 @@ function CommunityModal({
         dispatch(editPost(returnApiData));
         break;
     }
+
+    helpers.resetForm();
   };
 
   const formik = useFormik({
     initialValues: {
       contents: contents || '',
     },
-    onSubmit: (values, { setSubmitting }) => {
-      setSubmitting(true);
-      handleSubmitPost(values);
+    onSubmit: (values, helpers) => {
+      helpers.setSubmitting(true);
+      handleSubmitPost(values, helpers);
       exitRef.current.click();
-      setSubmitting(false);
+      helpers.setSubmitting(false);
     },
     validationSchema: Yup.object({
       contents: Yup.string()
@@ -111,7 +116,7 @@ function CommunityModal({
     >
       <CardWrapper>
         <CardHeader
-          avatar={<Avatar alt='User 1' src={profileImageUrl} />}
+          avatar={<Avatar alt='' src={profileImageUrl} />}
           action={
             <IconButton aria-label='delete' ref={exitRef} onClick={onClose}>
               <ClearIcon />
