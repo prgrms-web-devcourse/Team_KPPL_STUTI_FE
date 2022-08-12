@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useRef, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import {
@@ -9,7 +9,6 @@ import {
   deleteQuestion,
 } from '@store/slices/question';
 import { openAlert } from '@store/slices/flashAlert';
-import { selectUser } from '@src/store/slices/user';
 import { HOME } from '@router/path';
 import { Typography } from '@mui/material';
 import {
@@ -43,7 +42,7 @@ function StudyQuestion({
   title,
 }: Props) {
   const dispatch = useDispatch();
-  const { user, isLogin } = useSelector(selectUser);
+
   const [newSize, setNewSize] = useState(size);
 
   const handleInputError = useRef<errorHandle>(null);
@@ -276,15 +275,15 @@ function StudyQuestion({
   return (
     <StudyDetailQuestionContainer>
       <Typography variant='h5'>{title}</Typography>
-      {isLogin && (
-        <StudyQuestionInput
-          ref={handleInputError}
-          isUpdate={false}
-          onCreate={async (content: string) => {
-            createQuestion(study_id, null, content, -1, true);
-          }}
-        />
-      )}
+
+      <StudyQuestionInput
+        ref={handleInputError}
+        isUpdate={false}
+        onCreate={async (content: string) => {
+          createQuestion(study_id, null, content, -1, true);
+        }}
+      />
+
       {contents.map((content, index) => {
         const {
           studyGroupQuestionId,
