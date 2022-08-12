@@ -12,10 +12,8 @@ export const useInterSectionObserver = ({
   useEffect(() => {
     if (targetRef.current == null) return;
 
-    // console.log('connect');
     const io = new IntersectionObserver((entries, observer) => {
       if (entries[0].isIntersecting) {
-        // console.log('observe', entries[0].target);
         onTargetObserve(entries[0].target, observer);
       }
     }, observerOptions);
@@ -23,7 +21,6 @@ export const useInterSectionObserver = ({
     io.observe(targetRef.current);
 
     return () => {
-      // console.log('disconnect');
       io.disconnect();
     };
   });

@@ -1,19 +1,33 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { addPost, selectPost, setPost } from '@store/slices/post';
-import CircularProgress from '@mui/material/CircularProgress';
+import { Box } from '@mui/material';
+import { useInterSectionObserver } from '@hooks/useIntersectionObserver';
 import { CommunityPostWrapper } from '@containers/CommunityPostListSection/CommunityPostListSection.style';
 import CommunityPost from '@containers/CommunityPostListSection/CommunityPost/CommunityPost';
-import { ItemCard } from '@components';
+import { ItemCard, SkeletonPost } from '@components';
 import { getCommunityDataApi } from '@apis/community';
 
 function CommunityPostListSection() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [postTarget, setPostTarget] = useState();
+  const [lastPostId, setLastPostId] = useState<number>(0);
 
   const dispatch = useDispatch();
-  const post = useSelector(selectPost);
+  const {
+    value: { posts, hasNext },
+  } = useSelector(selectPost);
+
+  const { targetRef } = useInterSectionObserver({
+    onTargetObserve: () => {
+      const newLastPostId = posts[posts.length - 1].postId;
+      setLastPostId(newLastPostId);
+    },
+  });
+
+  useLayoutEffect(() => {
+    dispatch(setPost({ posts: [], hasNext: true }));
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -31,26 +45,28 @@ function CommunityPostListSection() {
   }, []);
 
   useEffect(() => {
-    let io: any;
-    if (postTarget) {
-      io = new IntersectionObserver(handleInfiniteScroll);
-      io.observe(postTarget);
-    }
-    return () => io && io.disconnect();
-  }, [postTarget]);
-
-  const handleInfiniteScroll = async (entries: any) => {
-    if (!entries[0].isIntersecting || !post.value.posts || !post.value.hasNext)
-      return;
-    const lastPostId = post.value.posts.at(-1)?.postId;
-    const res = await getCommunityDataApi(5, lastPostId);
-    dispatch(addPost(res));
-  };
+    if (lastPostId === 0) return;
+    (async () => {
+      if (!hasNext) return;
+      try {
+        setLoading(true);
+        const res = await getCommunityDataApi(5, lastPostId);
+        dispatch(addPost(res));
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [lastPostId]);
 
   return (
     <CommunityPostWrapper>
-      {post.value.posts &&
-        post.value.posts.map((post) => (
+      {posts.map((post, index) => (
+        <Box
+          ref={index === posts.length - 1 ? targetRef : null}
+          key={post.postId}
+        >
           <CommunityPost
             key={post.postId}
             postId={post.postId}
@@ -63,10 +79,10 @@ function CommunityPostListSection() {
             postImageUrl={post.postImageUrl}
             likedMembers={post.likedMembers}
             totalPostComments={post.totalPostComments}
-            ref={setPostTarget}
           />
-        ))}
-      {!loading && !error && !post.value.posts && (
+        </Box>
+      ))}
+      {!loading && !error && !posts && (
         <ItemCard>커뮤니티가 없습니다.</ItemCard>
       )}
       {error && (
@@ -75,11 +91,7 @@ function CommunityPostListSection() {
           다시시도해주세요.
         </ItemCard>
       )}
-      {loading && (
-        <ItemCard>
-          <CircularProgress />
-        </ItemCard>
-      )}
+      {loading && <SkeletonPost />}
     </CommunityPostWrapper>
   );
 }

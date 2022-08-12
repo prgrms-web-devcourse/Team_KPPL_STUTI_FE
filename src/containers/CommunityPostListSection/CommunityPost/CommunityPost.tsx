@@ -1,15 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import React, {
-  useState,
-  useRef,
-  useLayoutEffect,
-  forwardRef,
-  useEffect,
-} from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import moment from 'moment';
+import { AxiosError, AxiosResponse } from 'axios';
 import { selectUser } from '@store/slices/user';
-import { setComment, selectComment } from '@store/slices/comment';
+import { openAlert } from '@store/slices/flashAlert';
 import {
   Avatar,
   CircularProgress,
@@ -23,10 +18,10 @@ import {
 } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { errorType } from '@interfaces/error';
 import {
   CommunityPostType,
   CommunityPostCommentType,
-  CommentContentsType,
 } from '@interfaces/community';
 import CommunityPostTypographyButton from '@containers/CommunityPostListSection/CommunityPostTypographyButton/CommunityPostTypographyButton';
 import CommunityPostMenuIconButton from '@containers/CommunityPostListSection/CommunityPostMenuIconButton/CommunityPostMenuIconButton';
@@ -43,34 +38,31 @@ import {
   getCommunityPostCommentApi,
 } from '@apis/community';
 
-const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
-  {
-    postId,
-    memberId,
-    nickname,
-    updatedAt,
-    profileImageUrl,
-    contents,
-    postImageUrl,
-    likedMembers,
-    totalPostComments,
-  },
-  ref,
-) {
+function CommunityPost({
+  postId,
+  memberId,
+  nickname,
+  updatedAt,
+  profileImageUrl,
+  contents,
+  postImageUrl,
+  likedMembers,
+  totalPostComments,
+}: CommunityPostType) {
   const [commentLoading, setCommentLoading] = useState(false);
+  const [likeLoading, setLikeLoading] = useState(false);
   const [commentCount, setCommentCount] = useState(0);
   const [liked, setLiked] = useState({ check: false, count: 0 });
   const [isExpand, setIsExpand] = useState<string | number>('none');
   const [onCommentOpen, setOnCommentOpen] = useState(false);
-  const [postComments, setPostComments] = useState<CommunityPostCommentType>();
-  const contentsRef = useRef<HTMLInputElement>(null);
+  const [commentsInit, setCommentsInit] = useState<any>();
 
+  const contentsRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
-  // const postComments = useSelector(selectComment);
   const state = useSelector(selectUser);
 
-  const checkLoginAndUser = () => state.isLogin && state.user;
-  const checkLikedMembers = () => likedMembers.includes(state.user?.id as any);
+  const checkLogin = () => state.isLogin;
+  const checkLikedMembers = () => likedMembers.includes(Number(state.user?.id));
 
   useLayoutEffect(() => {
     checkLiked();
@@ -83,10 +75,10 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
 
   const checkLiked = () => {
     switch (true) {
-      case checkLoginAndUser() && checkLikedMembers():
+      case checkLogin() && checkLikedMembers():
         setLiked({ check: true, count: likedMembers.length });
         break;
-      case checkLoginAndUser() && !checkLikedMembers():
+      case checkLogin() && !checkLikedMembers():
         setLiked({ check: false, count: likedMembers.length });
         break;
       default:
@@ -95,17 +87,52 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
     }
   };
 
-  const handleLiked = async (e: React.MouseEvent<HTMLElement>) => {
+  const handleLiked = async () => {
     if (!state.isLogin) return;
-    switch (liked.check) {
-      case true:
-        setLiked({ check: false, count: liked.count - 1 });
-        await deleteCommunityPostLikeApi(postId);
-        break;
-      case false:
-        setLiked({ check: true, count: liked.count + 1 });
-        await postCommunityPostLikeApi(postId);
-        break;
+    try {
+      setLikeLoading(true);
+      switch (liked.check) {
+        case true: {
+          setLiked({ check: false, count: liked.count - 1 });
+          await deleteCommunityPostLikeApi(postId);
+          break;
+        }
+        case false: {
+          setLiked({ check: true, count: liked.count + 1 });
+          await postCommunityPostLikeApi(postId);
+          break;
+        }
+      }
+    } catch (e) {
+      console.error(e);
+      const { response } = e as AxiosError;
+      const { data }: { data: errorType } = response as AxiosResponse;
+      const { errorCode } = data;
+
+      switch (errorCode) {
+        case 'P002': {
+          dispatch(
+            openAlert({
+              severity: 'error',
+              title: '이미 좋아요 된 Post입니다.',
+              content: '홈으로 갔다가 다시 시도해주세요!',
+            }),
+          );
+          break;
+        }
+        case 'P003': {
+          dispatch(
+            openAlert({
+              severity: 'error',
+              title: 'Post의 좋아요를 찾을 수 없습니다.',
+              content: '홈으로 갔다가 다시 시도해주세요!',
+            }),
+          );
+          break;
+        }
+      }
+    } finally {
+      setLikeLoading(false);
     }
   };
 
@@ -121,25 +148,25 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
   };
 
   const handleSetComment = async () => {
-    setOnCommentOpen(!onCommentOpen);
-    if (!onCommentOpen) return;
-    setCommentLoading(true);
-    const res: CommunityPostCommentType = await getCommunityPostCommentApi(
-      postId,
-      3,
-    );
-    console.log(res);
-    setPostComments(res);
-    dispatch(setComment(res));
-    setCommentLoading(false);
+    try {
+      setCommentLoading(true);
+      const res: CommunityPostCommentType = await getCommunityPostCommentApi(
+        postId,
+        3,
+      );
+      setCommentsInit(res);
+      setOnCommentOpen(!onCommentOpen);
+      setCommentLoading(false);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (
-    <Card ref={ref}>
+    <Card>
       <CardHeader
         avatar={
           <Avatar
-            alt='User 1'
             src={profileImageUrl}
             sx={{ cursor: 'pointer' }}
             component={Link}
@@ -185,12 +212,16 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
             component='img'
             image={postImageUrl}
             alt='postImage'
-            sx={{ height: '21rem' }}
+            sx={{ height: '21rem', borderRadius: '0.5rem' }}
           />
         </Box>
       )}
       <CardActions disableSpacing>
-        <IconButton aria-label='settings' onClick={handleLiked}>
+        <IconButton
+          aria-label='settings'
+          disabled={likeLoading}
+          onClick={handleLiked}
+        >
           {liked.check ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
         <CommunityPostTypographyButton>
@@ -211,16 +242,15 @@ const CommunityPost = forwardRef<any, CommunityPostType>(function CommunityPost(
       )}
       {!commentLoading && onCommentOpen && (
         <CommunityPostCommentWrapper>
-          {/* <CommunityPostComment
-            {...postComments}
-            size={3}
+          <CommunityPostComment
+            commentsInit={commentsInit}
             postId={postId}
             onCount={handleCommentCount}
-          /> */}
+          />
         </CommunityPostCommentWrapper>
       )}
     </Card>
   );
-});
+}
 
 export default CommunityPost;

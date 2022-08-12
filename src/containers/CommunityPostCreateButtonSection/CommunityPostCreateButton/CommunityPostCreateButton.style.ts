@@ -1,9 +1,7 @@
 import styled from '@emotion/styled';
 
 export const CommunityPostCreateButtonWrapper = styled.div`
-  display: flex;
-  justify-content: end;
-  position: fixed;
+  float: right;
+  position: sticky;
   bottom: 1rem;
-  width: 608px;
 `;

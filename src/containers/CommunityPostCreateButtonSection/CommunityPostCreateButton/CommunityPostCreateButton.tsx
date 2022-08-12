@@ -9,7 +9,7 @@ interface CommunityPostCreateButtonType {
 function CommunityPostCreateButton({ onClick }: CommunityPostCreateButtonType) {
   return (
     <CommunityPostCreateButtonWrapper>
-      <Fab color='primary' onClick={onClick}>
+      <Fab color='primary' onClick={onClick} sx={{ marginRight: '1rem' }}>
         <AddIcon />
       </Fab>
     </CommunityPostCreateButtonWrapper>
