@@ -169,7 +169,6 @@ function CommunityPost({
       <CardHeader
         avatar={
           <Avatar
-            alt='User 1'
             src={profileImageUrl}
             sx={{ cursor: 'pointer' }}
             component={Link}
