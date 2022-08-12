@@ -61,8 +61,9 @@ function CommunityPost({
   const dispatch = useDispatch();
   const state = useSelector(selectUser);
 
-  const checkLoginAndUser = () => state.isLogin && state.user;
-  const checkLikedMembers = () => likedMembers.includes(state.user?.id as any);
+  const checkLogin = () => state.isLogin;
+  const checkLikedMembers = () => likedMembers.includes(Number(state.user?.id));
+
   useLayoutEffect(() => {
     checkLiked();
     setCommentCount(totalPostComments);
@@ -74,10 +75,10 @@ function CommunityPost({
 
   const checkLiked = () => {
     switch (true) {
-      case checkLoginAndUser() && checkLikedMembers():
+      case checkLogin() && checkLikedMembers():
         setLiked({ check: true, count: likedMembers.length });
         break;
-      case checkLoginAndUser() && !checkLikedMembers():
+      case checkLogin() && !checkLikedMembers():
         setLiked({ check: false, count: likedMembers.length });
         break;
       default:
@@ -86,22 +87,19 @@ function CommunityPost({
     }
   };
 
-  const handleLiked = async (e: React.MouseEvent<HTMLElement>) => {
+  const handleLiked = async () => {
     if (!state.isLogin) return;
     try {
+      setLikeLoading(true);
       switch (liked.check) {
         case true: {
-          setLikeLoading(true);
           setLiked({ check: false, count: liked.count - 1 });
           await deleteCommunityPostLikeApi(postId);
-          setLikeLoading(false);
           break;
         }
         case false: {
-          setLikeLoading(true);
           setLiked({ check: true, count: liked.count + 1 });
           await postCommunityPostLikeApi(postId);
-          setLikeLoading(false);
           break;
         }
       }
@@ -133,8 +131,8 @@ function CommunityPost({
           break;
         }
       }
-
-      console.error(e);
+    } finally {
+      setLikeLoading(false);
     }
   };
 
@@ -214,7 +212,7 @@ function CommunityPost({
             component='img'
             image={postImageUrl}
             alt='postImage'
-            sx={{ height: '21rem', borderRadius: '8px' }}
+            sx={{ height: '21rem', borderRadius: '0.5rem' }}
           />
         </Box>
       )}
