@@ -25,10 +25,11 @@ function PostTab() {
   }, []);
 
   useEffect(() => {
-    (async () => {
+    (async function requestGetUserPosts() {
       try {
         setLoading(true);
         const res = await getUserPosts(Number(userId), {
+          lastPostId: null,
           size: 5,
         });
         dispatch(setPost(res));
@@ -45,7 +46,7 @@ function PostTab() {
       if (posts) {
         if (hasNext) {
           const lastPostId = posts[posts.length - 1].postId;
-          (async () => {
+          (async function requestGetUserPosts() {
             try {
               setLoading(true);
               const res = await getUserPosts(Number(userId), {

@@ -1,19 +1,12 @@
 import Skeleton from '@mui/material/Skeleton';
-import PhotoIcon from '@mui/icons-material/Photo';
-import { MbtiTag } from '@components';
 
 import {
   Article,
   Flex,
   LeftColumn,
-  P,
-  H3,
   Ul,
   RightColumn,
-  Img,
-  DefaultBackground,
 } from './SklectonCard.style';
-// import MoreButton from './MoreButton/MoreButton';
 
 function StudyCard() {
   return (
@@ -21,12 +14,6 @@ function StudyCard() {
       <Flex>
         <LeftColumn>
           <div>
-            {/* <Skeleton
-              variant='rectangular'
-              width='75%'
-              height='1rem'
-              sx={{ mb: '0.25rem' }}
-            /> */}
             <Skeleton
               variant='rectangular'
               width='100%'
@@ -47,12 +34,6 @@ function StudyCard() {
             </Ul>
           </div>
           <div>
-            {/* <Skeleton
-              variant='rectangular'
-              width='100%'
-              height='1rem'
-              sx={{ mb: '0.25rem' }}
-            /> */}
             <Skeleton
               variant='rectangular'
               width='100%'

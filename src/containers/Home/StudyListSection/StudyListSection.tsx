@@ -1,5 +1,9 @@
+import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { AxiosError, AxiosResponse } from 'axios';
+import { openAlert } from '@store/slices/flashAlert';
 import { StudyListType } from '@interfaces/studyList';
+import { errorType } from '@interfaces/error';
 import { useInterSectionObserver } from '@hooks/useIntersectionObserver';
 import { StudyList } from '@components';
 import { getAllStudies, deleteStudy } from '@apis/studyGroups';
@@ -7,25 +11,26 @@ import { getAllStudies, deleteStudy } from '@apis/studyGroups';
 import StudyListFilter from '../StudyListFilter/StudyListFilter';
 
 export type Filter = {
-  mbti: string;
-  topic: string;
-  region: string;
+  mbti: string | null;
+  topic: string | null;
+  region: string | null;
 };
 
 export type OptionalFilter = {
-  mbti?: string;
-  topic?: string;
-  region?: string;
+  mbti?: string | null;
+  topic?: string | null;
+  region?: string | null;
 };
 
 function StudyListSection() {
+  const dispatch = useDispatch();
   const [studyList, setStudyList] = useState<StudyListType>([]);
   const [filter, setFilter] = useState<Filter>({
-    mbti: '',
-    topic: '',
-    region: '',
+    mbti: null,
+    topic: null,
+    region: null,
   });
-  const [lastStudyId, setLastStudyId] = useState(0);
+  const [lastStudyId, setLastStudyId] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [hasNext, setHasNext] = useState(true);
@@ -66,20 +71,20 @@ function StudyListSection() {
     setLoading(false);
     setError(false);
     setHasNext(true);
-    setLastStudyId(0);
+    setLastStudyId(null);
   };
 
   const onFilterReset = () => {
     setFilter({
-      mbti: '',
-      topic: '',
-      region: '',
+      mbti: null,
+      topic: null,
+      region: null,
     });
     setStudyList([]);
     setLoading(false);
     setError(false);
     setHasNext(true);
-    setLastStudyId(0);
+    setLastStudyId(null);
   };
 
   const onStudyDelete = async (studyId: number) => {
@@ -90,7 +95,39 @@ function StudyListSection() {
       );
       setStudyList(newStudyList);
     } catch (e) {
-      console.error(e);
+      const { response } = e as AxiosError;
+      const {
+        data: { errorCode },
+      } = response as AxiosResponse<errorType>;
+
+      switch (errorCode) {
+        case 'SG002':
+          dispatch(
+            openAlert({
+              severity: 'error',
+              title: '스터디 삭제에 실패했습니다.',
+              content: '스터디 정보를 찾을 수 없습니다.',
+            }),
+          );
+          break;
+        case 'SG003':
+          dispatch(
+            openAlert({
+              severity: 'error',
+              title: '스터디 삭제에 실패했습니다.',
+              content: '스터디 삭제 권한이 없습니다.',
+            }),
+          );
+          break;
+        default:
+          dispatch(
+            openAlert({
+              severity: 'error',
+              title: '스터디 삭제에 실패했습니다. ',
+              content: '잠시후 다시 시도해 주세요.',
+            }),
+          );
+      }
     }
   };
 

@@ -14,4 +14,6 @@ export type StudyItemType = {
 
 export type StudyListType = StudyItemType[];
 
-export type RoleType = 'STUDY_LEADER' | 'STUDY_MEMBER' | 'STUDY_APPLICANT' | '';
+export type RoleType = 'STUDY_LEADER' | 'STUDY_MEMBER' | 'STUDY_APPLICANT';
+
+export type RoleNullableType = RoleType | null;

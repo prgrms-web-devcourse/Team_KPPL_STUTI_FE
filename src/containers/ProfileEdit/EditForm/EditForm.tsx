@@ -98,7 +98,7 @@ function EditForm() {
             githubUrl: values.githubUrl !== '' ? values.githubUrl : null,
             blogUrl: values.blogUrl !== '' ? values.blogUrl : null,
           };
-          const newUser = await updateUserProfile(Number(userId), values);
+          const newUser = await updateUserProfile(Number(userId), data);
           dispatch(updateUser(newUser));
           navigate(`/user/${userId}`);
         } catch (e) {

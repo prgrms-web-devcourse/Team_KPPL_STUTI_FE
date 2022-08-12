@@ -29,7 +29,7 @@ function StudyListFilter({ filter, onFilterChange, onFilterReset }: Props) {
         `label: ${name} - label은 'mbti', 'topic', 'region'만 가능합니다.`,
       );
     }
-    onFilterChange({ [name]: value === 'ALL' ? '' : value });
+    onFilterChange({ [name]: value === 'ALL' ? null : value });
   };
 
   const handleClick = () => {
@@ -42,7 +42,7 @@ function StudyListFilter({ filter, onFilterChange, onFilterReset }: Props) {
         id={'filter-mbti'}
         name={'mbti'}
         label={'MBTI'}
-        value={filter.mbti}
+        value={filter.mbti ?? ''}
         options={[{ value: 'ALL', label: '전체' }, ...mbtiOptions]}
         onChange={handleChange}
         fullWidth
@@ -51,7 +51,7 @@ function StudyListFilter({ filter, onFilterChange, onFilterReset }: Props) {
         id={'filter-topic'}
         name={'topic'}
         label={'주제'}
-        value={filter.topic}
+        value={filter.topic ?? ''}
         options={[{ value: 'ALL', label: '전체' }, ...topicOptions]}
         onChange={handleChange}
         fullWidth
@@ -60,7 +60,7 @@ function StudyListFilter({ filter, onFilterChange, onFilterReset }: Props) {
         id={'filter-region'}
         name={'region'}
         label={'지역'}
-        value={filter.region}
+        value={filter.region ?? ''}
         options={[{ value: 'ALL', label: '전체' }, ...regionWithOnlineOptions]}
         onChange={handleChange}
         fullWidth

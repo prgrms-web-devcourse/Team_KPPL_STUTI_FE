@@ -1,26 +1,16 @@
 import axiosInstance, { axiosAuthInstance } from '@apis/axiosInstance';
 
-export const getAllStudies = async (queries: {
-  mbti?: string;
-  topic?: string;
-  region?: string;
-  lastStudyGroupId?: number;
-  size?: number;
+export const getAllStudies = async (params: {
+  mbti: string | null;
+  topic: string | null;
+  region: string | null;
+  lastStudyGroupId: number | null;
+  size: number | null;
 }) => {
-  const queryStrings = Object.entries(queries)
-    .map(([key, value]) => {
-      if (value) {
-        return `${key}=${value}&`;
-      } else {
-        return '';
-      }
-    })
-    .join('')
-    .slice(0, -1);
-
   const { data } = await axiosInstance({
     method: 'GET',
-    url: `/api/v1/study-groups?${queryStrings}`,
+    url: '/api/v1/study-groups',
+    params,
   });
 
   return data;
@@ -28,26 +18,17 @@ export const getAllStudies = async (queries: {
 
 export const getUserStudies = async (
   userId: number,
-  queries: {
-    studyGroupMemberRole?: string;
-    lastStudyGroupId?: number;
-    size?: number;
+  params: {
+    studyGroupMemberRole: string | null;
+    lastStudyGroupId: number | null;
+    size: number | null;
   },
 ) => {
-  const queryStrings = Object.entries(queries)
-    .map(([key, value]) => {
-      if (value) {
-        return `${key}=${value}&`;
-      } else {
-        return '';
-      }
-    })
-    .join('')
-    .slice(0, -1);
-
   const { data } = await axiosInstance({
     method: 'GET',
-    url: `/api/v1/study-groups/members/${userId}?${queryStrings}`,
+    // url: `/api/v1/study-groups/members/${userId}?${queryStrings}`,
+    url: `/api/v1/study-groups/members/${userId}`,
+    params,
   });
 
   return data;

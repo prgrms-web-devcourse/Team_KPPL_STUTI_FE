@@ -1,22 +1,17 @@
-import axiosInstance, { axiosAuthInstance } from '@apis/axiosInstance';
+import axiosInstance from '@apis/axiosInstance';
 
 export const getUserPosts = async (
   userId: number,
   params: {
-    lastPostId?: number;
+    lastPostId: number | null;
     size: number;
   },
 ) => {
   const { data } = await axiosInstance({
     method: 'GET',
     url: `/api/v1/posts/members/${userId}`,
-    params: {
-      ...params,
-      lastPostId: params.lastPostId === 0 ? null : params.lastPostId,
-    },
+    params,
   });
-
-  console.log(data);
 
   return data;
 };

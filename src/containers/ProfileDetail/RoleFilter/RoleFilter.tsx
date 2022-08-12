@@ -1,11 +1,11 @@
 import { MouseEvent } from 'react';
-import { RoleType } from '@interfaces/studyList';
+import { RoleType, RoleNullableType } from '@interfaces/studyList';
 
 import { Background, Button } from './Role.style';
 
 interface Props {
-  role: RoleType;
-  onRoleChange: (role: RoleType) => void;
+  role: RoleNullableType;
+  onRoleChange: (role: RoleNullableType) => void;
 }
 
 function RoleFilter({ role, onRoleChange }: Props) {
@@ -17,14 +17,14 @@ function RoleFilter({ role, onRoleChange }: Props) {
       | 'leader';
 
     const role =
-      value === 'all' ? '' : (`STUDY_${value.toUpperCase()}` as RoleType);
+      value === 'all' ? null : (`STUDY_${value.toUpperCase()}` as RoleType);
 
     onRoleChange(role);
   };
 
   return (
     <Background>
-      <Button selected={role === ''} data-value='all' onClick={handleClick}>
+      <Button selected={role === null} data-value='all' onClick={handleClick}>
         전체 보기
       </Button>
       <Button

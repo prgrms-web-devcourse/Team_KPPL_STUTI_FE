@@ -29,10 +29,10 @@ function InfoSection() {
     (async () => {
       try {
         setLoading(true);
-        const res = await getUserProfile(Number(paramUserId));
+        const userId = Number(paramUserId);
+        const res = await getUserProfile(userId);
         setUserProfile(res);
       } catch (e) {
-        console.error(e);
         setError(true);
       } finally {
         setLoading(false);
