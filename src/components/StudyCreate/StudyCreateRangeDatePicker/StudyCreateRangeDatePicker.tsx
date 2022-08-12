@@ -34,6 +34,7 @@ function StudyCreateRangeDatePicker({
   return (
     <RangeDatePickerWRapper>
       <DatePicker
+        minDate={moment().add(1, 'days')}
         label={startLabel}
         value={startDate}
         onChange={(newValue) => {
@@ -45,6 +46,7 @@ function StudyCreateRangeDatePicker({
             setStartDate(newValue);
           }
         }}
+        disablePast
         renderInput={(params) => (
           <TextField
             onKeyDown={(e) => {
