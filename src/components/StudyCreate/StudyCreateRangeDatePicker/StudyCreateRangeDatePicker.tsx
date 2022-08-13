@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { DatePicker } from '@mui/x-date-pickers';
-import TextField from '@mui/material/TextField';
+import { TextField } from '@mui/material';
 
 import { RangeDatePickerWRapper } from './style';
 

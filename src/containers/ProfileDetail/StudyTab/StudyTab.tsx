@@ -3,11 +3,11 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import { openAlert } from '@store/slices/flashAlert';
-import { StudyListType, RoleNullableType } from '@interfaces/studyList';
+import { StudyListType, RoleType } from '@interfaces/studyList';
 import { errorType } from '@interfaces/error';
 import { useInterSectionObserver } from '@hooks/useIntersectionObserver';
 import { StudyList } from '@components';
-import { deleteStudy, getUserStudies } from '@apis/studyGroups';
+import { deleteStudy, getUserStudies } from '@apis/studyList';
 
 import RoleFilter from '../RoleFilter/RoleFilter';
 
@@ -15,7 +15,7 @@ function StudyTab() {
   const dispatch = useDispatch();
   const { user_id: userId } = useParams<{ user_id: string }>();
   const [studyList, setStudyList] = useState<StudyListType>([]);
-  const [role, setRole] = useState<RoleNullableType>(null);
+  const [role, setRole] = useState<RoleType>(null);
   const [lastStudyId, setLastStudyId] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -93,7 +93,7 @@ function StudyTab() {
     }
   };
 
-  const onRoleChange = (role: RoleNullableType) => {
+  const onRoleChange = (role: RoleType) => {
     setRole(role);
     setStudyList([]);
     setLastStudyId(null);

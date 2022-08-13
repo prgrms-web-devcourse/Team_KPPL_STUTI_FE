@@ -1,4 +1,11 @@
 export { default as Home } from './Home/Home';
+export { default as StudyDetail } from './StudyDetail/StudyDetail';
+export { default as StudyCreate } from './StudyCreate/StudyCreate';
+export { default as StudyEdit } from './StudyEdit/StudyEdit';
+export { default as StudyManage } from './StudyManage/StudyManage';
 export { default as ProfileDetail } from './ProfileDetail/ProfileDetail';
 export { default as ProfileEdit } from './ProfileEdit/ProfileEdit';
+export { default as Community } from './Community/Community';
 export { default as NotFound } from './NotFound/NotFound';
+export { default as Login } from './Login/Login';
+export { default as SignUp } from './SignUp/SignUp';

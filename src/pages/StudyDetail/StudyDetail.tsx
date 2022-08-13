@@ -13,7 +13,7 @@ import {
   StudyDetailContainer,
 } from '@pages/StudyDetail/style';
 import { CircularProgress, Button } from '@mui/material';
-import { UserProfileType } from '@interfaces/userProfile';
+import { UserType } from '@interfaces/user';
 import { studyDetailQuestionType } from '@interfaces/studyDetailQuestion';
 import { detailMemberType, studyDetailType } from '@interfaces/studyDetail';
 import { errorType } from '@interfaces/error';
@@ -37,13 +37,13 @@ function StudyDetail() {
   const dispatch = useDispatch();
 
   type userType = {
-    user: UserProfileType;
+    user: UserType;
     isLogin: boolean;
   };
 
   const { user, isLogin } = useSelector(selectUser) as userType;
 
-  const isLoginUserStudy = (user: UserProfileType) => {
+  const isLoginUserStudy = (user: UserType) => {
     if (!isLogin) return false;
 
     if (!user) return false;
@@ -193,7 +193,7 @@ function StudyDetail() {
   const getEndDateTime = () => {
     const { endDateTime = '2022-00-00 00:00:00' } = data;
 
-    const [date, time] = endDateTime.split(' ');
+    const [date] = endDateTime.split(' ');
 
     return date;
   };
@@ -323,6 +323,7 @@ function StudyDetail() {
             field={getLeaderInfo().field}
             career={getLeaderInfo().career}
             mbti={getLeaderInfo().mbti}
+            memberId={getLeaderInfo().memberId}
           />
           <StudyDetailMbtiRecommend preferredMBTIs={getpreferredMBTIs()} />
           <StudyDetailStudyInfo

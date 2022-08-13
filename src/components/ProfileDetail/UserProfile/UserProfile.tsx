@@ -2,10 +2,9 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { useSelector } from 'react-redux';
 import { selectUser } from '@store/slices/user';
-import Button from '@mui/material/Button';
-import Avatar from '@mui/material/Avatar';
+import { Button, Avatar } from '@mui/material';
 import LinkIcon from '@mui/icons-material/Link';
-import { UserProfileType } from '@interfaces/userProfile';
+import { UserType } from '@interfaces/user';
 import { fieldOptions, careerOptions } from '@constants/selectOptions';
 import { MbtiTag } from '@components';
 
@@ -43,7 +42,7 @@ export const getCareerLabel = (careerValue: string): string => {
 };
 
 interface Props {
-  userProfile: UserProfileType;
+  userProfile: UserType;
 }
 
 function UserProfile({ userProfile }: Props) {

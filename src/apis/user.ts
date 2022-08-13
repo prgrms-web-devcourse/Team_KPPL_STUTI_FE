@@ -1,4 +1,4 @@
-import { UserSignUpType } from '@src/interfaces/user';
+import { UserSignUpFormType } from '@interfaces/user';
 import axiosInstance, { axiosAuthInstance } from '@apis/axiosInstance';
 
 export const login = async (id: number) => {
@@ -37,7 +37,7 @@ export const signUp = async ({
   field,
   career,
   MBTI,
-}: UserSignUpType) => {
+}: UserSignUpFormType) => {
   const { data } = await axiosInstance({
     url: '/api/v1/signup',
     method: 'POST',

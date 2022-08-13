@@ -1,6 +1,6 @@
-import { RootState } from '@src/store';
-import { CommunityType, CommunityPostType } from '@src/interfaces/community';
+import { RootState } from '@store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { CommunityType, CommunityPostType } from '@interfaces/community';
 
 export interface postState {
   value: CommunityType;

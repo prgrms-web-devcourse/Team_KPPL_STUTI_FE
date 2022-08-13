@@ -3,5 +3,6 @@ import styled from '@emotion/styled';
 export const SignUpContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 12rem;
+  justify-content: center;
+  min-height: calc(100vh - 3.75rem);
 `;

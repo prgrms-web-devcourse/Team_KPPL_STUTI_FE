@@ -369,7 +369,7 @@ const theme = createTheme({
   },
 });
 
-export function MuiProvider({ children }) {
+function MuiProvider({ children }) {
   return (
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterMoment}>
@@ -382,3 +382,5 @@ export function MuiProvider({ children }) {
 MuiProvider.propTypes = {
   children: Proptypes.node,
 };
+
+export default MuiProvider;

@@ -5,11 +5,13 @@ import React, { useState } from 'react';
 import { Formik, Field } from 'formik';
 import { AxiosError, AxiosResponse } from 'axios';
 import { openAlert } from '@store/slices/flashAlert';
-import Typography from '@mui/material/Typography';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Button from '@mui/material/Button';
-import { CircularProgress } from '@mui/material';
+import {
+  Typography,
+  FormControlLabel,
+  Checkbox,
+  Button,
+  CircularProgress,
+} from '@mui/material';
 import { errorType } from '@interfaces/error';
 import {
   topicOptions,
@@ -31,7 +33,6 @@ import {
   MbtiSelect,
 } from '@components/StudyCreate';
 import Select from '@components/Select/Select';
-import { SpinnerIcon } from '@components';
 import { createNewStudy } from '@apis/studyCreate';
 
 import {
@@ -186,7 +187,7 @@ function StudyCreateFormContainer() {
     const formData = new FormData();
     const { title, topic, isOnline, region, numberOfRecruits, description } =
       values;
-    formData.append('title', title);
+    formData.append('title', title.trim());
     formData.append('topic', topic);
     formData.append('isOnline', isOnline === 'online' ? 'true' : 'false');
     if (isOnline === 'offline') formData.append('region', region);
@@ -195,7 +196,7 @@ function StudyCreateFormContainer() {
     formData.append('endDateTime', endDate);
     formData.append('preferredMBTIs', mbtiCheckedList.join(', '));
     if (imageSrc) formData.append('imageFile', imageSrc);
-    formData.append('description', description);
+    formData.append('description', description.trim());
     return formData;
   };
 
@@ -323,6 +324,7 @@ function StudyCreateFormContainer() {
           <form onSubmit={handleSubmit}>
             <StudyCreateWrapper>
               <Typography variant='h4'>스터디 생성</Typography>
+
               <InputWrapper>
                 <Field
                   as={LabelInput}
@@ -434,10 +436,11 @@ function StudyCreateFormContainer() {
                   {fileErrorMessage && (
                     <ErrorMessage>{fileErrorMessage}</ErrorMessage>
                   )}
+
                   <ImageWrapper>
                     {isLoading ? (
                       <SpinnerWrapper>
-                        <SpinnerIcon />
+                        <CircularProgress color='secondary' size='1.5rem' />
                       </SpinnerWrapper>
                     ) : thumbnailImage ? (
                       <Image src={thumbnailImage} alt='study-image' />

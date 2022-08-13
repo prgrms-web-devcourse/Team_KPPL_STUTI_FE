@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState, MouseEvent } from 'react';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+import { MenuItem, Menu } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 import { Position, StyledIconButton } from './MoreButton.style';

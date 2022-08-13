@@ -1,6 +1,8 @@
+import { useSelector } from 'react-redux';
 import { forwardRef, useImperativeHandle, useState } from 'react';
-import { ReplyInputWrapper } from '@src/containers/Reply/style';
+import { selectUser } from '@store/slices/user';
 import { Button, TextField } from '@mui/material';
+import { ReplyInputWrapper } from '@containers/Reply/style';
 
 interface Props {
   onCreate?: (content: string) => void;
@@ -21,6 +23,7 @@ const ReplyInput = forwardRef<errorHandle, Props>(function ReplyInput(
 ) {
   const [value, setValue] = useState('');
   const [error, setError] = useState(false);
+  const { isLogin } = useSelector(selectUser);
 
   const handleErrorFalse = () => {
     setError(false);
@@ -76,6 +79,7 @@ const ReplyInput = forwardRef<errorHandle, Props>(function ReplyInput(
         onChange={handleInputValue}
         fullWidth
         multiline
+        disabled={!isLogin}
         {...(error && { error: true, helperText: setHelperText(isUpdate) })}
       />
       {isHaveLength(value) && (

@@ -26,7 +26,6 @@ export const getUserStudies = async (
 ) => {
   const { data } = await axiosInstance({
     method: 'GET',
-    // url: `/api/v1/study-groups/members/${userId}?${queryStrings}`,
     url: `/api/v1/study-groups/members/${userId}`,
     params,
   });

@@ -12,7 +12,8 @@ export const CardWrapper = styled(Card)`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 608px;
+  max-width: 608px;
+  width: 100%;
 `;
 
 export const ModalErrorMessage = styled(Typography)`

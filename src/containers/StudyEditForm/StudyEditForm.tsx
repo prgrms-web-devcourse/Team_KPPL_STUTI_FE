@@ -5,9 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { Formik, Field } from 'formik';
 import { AxiosError, AxiosResponse } from 'axios';
 import { openAlert } from '@store/slices/flashAlert';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import { CircularProgress } from '@mui/material';
+import { Typography, Button, CircularProgress } from '@mui/material';
 import { errorType } from '@interfaces/error';
 import {
   MultiLineInput,
@@ -158,9 +156,9 @@ function StudyEditForm() {
     const formData = new FormData();
     const { title, description } = values;
 
-    formData.append('title', title);
+    formData.append('title', title.trim());
     if (imageSrc) formData.append('imageFile', imageSrc);
-    formData.append('description', description);
+    formData.append('description', description.trim());
 
     return formData;
   };

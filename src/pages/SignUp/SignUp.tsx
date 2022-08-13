@@ -1,5 +1,5 @@
-import { SignUpForm } from '@src/containers';
 import { Typography } from '@mui/material';
+import { SignUpForm } from '@containers';
 
 import { SignUpContainer } from './style';
 

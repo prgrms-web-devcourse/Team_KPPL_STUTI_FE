@@ -2,11 +2,12 @@ import { useLocation } from 'react-router-dom';
 import { Outlet } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useLayoutEffect } from 'react';
+import { getStorageItem } from '@utils/storage';
+import { loginUser, selectUser } from '@store/slices/user';
 import { selectFlashAlert } from '@store/slices/flashAlert';
-import { getStorageItem } from '@src/utils/storage';
-import { loginUser, selectUser } from '@src/store/slices/user';
-import { getAuthUser } from '@src/apis/user';
+import { useAxiosInterceptor } from '@hooks/useAxiosAuthInterceptor';
 import { FlashAlert, NavigationHeader } from '@containers';
+import { getAuthUser } from '@apis/user';
 
 import { LayoutContainer } from './style';
 
@@ -15,6 +16,7 @@ function Layout() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const pathname = useLocation();
+  useAxiosInterceptor();
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -23,8 +25,13 @@ function Layout() {
   useEffect(() => {
     const autoLogin = async () => {
       if (!getStorageItem('token', '') || user.isLogin) return;
-      const data = await getAuthUser();
-      dispatch(loginUser(data));
+
+      try {
+        const data = await getAuthUser();
+        dispatch(loginUser(data));
+      } catch (err) {
+        return;
+      }
     };
 
     autoLogin();

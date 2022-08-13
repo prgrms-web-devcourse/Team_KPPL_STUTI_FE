@@ -9,7 +9,6 @@ import {
   deleteQuestion,
 } from '@store/slices/question';
 import { openAlert } from '@store/slices/flashAlert';
-import { errorType } from '@src/interfaces/error';
 import { HOME } from '@router/path';
 import { Typography } from '@mui/material';
 import {
@@ -17,6 +16,7 @@ import {
   questionContentType,
   studyDetailQuestionType,
 } from '@interfaces/studyDetailQuestion';
+import { errorType } from '@interfaces/error';
 import { StudyDetailQuestionContainer } from '@containers/StudyDetail/StudyQuestion/style';
 import StudyQuestionInput, { errorHandle } from '@containers/Reply/ReplyInput';
 import Reply, { inputHandle } from '@containers/Reply/Reply';
@@ -42,6 +42,7 @@ function StudyQuestion({
   title,
 }: Props) {
   const dispatch = useDispatch();
+
   const [newSize, setNewSize] = useState(size);
 
   const handleInputError = useRef<errorHandle>(null);
@@ -274,6 +275,7 @@ function StudyQuestion({
   return (
     <StudyDetailQuestionContainer>
       <Typography variant='h5'>{title}</Typography>
+
       <StudyQuestionInput
         ref={handleInputError}
         isUpdate={false}
@@ -281,6 +283,7 @@ function StudyQuestion({
           createQuestion(study_id, null, content, -1, true);
         }}
       />
+
       {contents.map((content, index) => {
         const {
           studyGroupQuestionId,

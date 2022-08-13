@@ -1,4 +1,4 @@
-import { RootState } from '@src/store';
+import { RootState } from '@store';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   childrenQuestionType,

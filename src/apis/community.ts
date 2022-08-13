@@ -51,14 +51,14 @@ export const editCommunityPostApi = async (
 };
 
 export const postCommunityPostLikeApi = async (postId: number) => {
-  const res = await axiosAuthInstance({
+  await axiosAuthInstance({
     url: `/api/v1/posts/${postId}/likes`,
     method: 'POST',
   });
 };
 
 export const deleteCommunityPostLikeApi = async (postId: number) => {
-  const res = await axiosAuthInstance({
+  await axiosAuthInstance({
     url: `/api/v1/posts/${postId}/likes`,
     method: 'DELETE',
   });

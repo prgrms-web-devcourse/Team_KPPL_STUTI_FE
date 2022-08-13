@@ -1,5 +1,5 @@
-import { mbtiOptions } from '@src/constants/selectOptions';
-import Checkbox from '@mui/material/Checkbox';
+import { Checkbox } from '@mui/material';
+import { mbtiOptions } from '@constants/selectOptions';
 
 import { MbtisWrapper } from './style';
 import MbtiBox from './MbtiBox/MbtiBox';

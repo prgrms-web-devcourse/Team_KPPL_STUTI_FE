@@ -2,19 +2,19 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import { openAlert } from '@store/slices/flashAlert';
+import { Button, Typography } from '@mui/material';
 import {
   studyManageStudyApplicantsType,
   studyManageMemberType,
-} from '@src/interfaces/studyManage';
-import { errorType } from '@src/interfaces/error';
+} from '@interfaces/studyManage';
+import { errorType } from '@interfaces/error';
 import {
   MemberControlContainer,
   NoUserWrapper,
   UserInfoButtonWrapper,
   UserInfoContainer,
   UserInfoWrapper,
-} from '@src/containers/StudyManage/MemberControl/style';
-import { Button, Typography } from '@mui/material';
+} from '@containers/StudyManage/MemberControl/style';
 import { UserInfo } from '@components';
 import { deleteStudyMember, patchStudyMember } from '@apis/studyManage';
 

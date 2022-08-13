@@ -1,6 +1,5 @@
 import React from 'react';
-import AvatarGroup from '@mui/material/AvatarGroup';
-import Avatar from '@mui/material/Avatar';
+import { AvatarGroup, Avatar } from '@mui/material';
 
 export default {
   title: 'Mui/Avatar',

@@ -1,4 +1,4 @@
-import Chip from '@mui/material/Chip';
+import { Chip } from '@mui/material';
 
 export default {
   title: 'Mui/Chip',
