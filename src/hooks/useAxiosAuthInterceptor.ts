@@ -5,6 +5,7 @@ import {
   removeStorageItem,
   setStorageItem,
 } from '@utils/storage';
+import { logoutUser } from '@store/slices/user';
 import { openAlert } from '@store/slices/flashAlert';
 import { HOME } from '@router/path';
 import { axiosAuthInstance } from '@apis/axiosInstance';
@@ -43,6 +44,7 @@ export const useAxiosInterceptor = () => {
             }),
           );
           removeStorageItem('token');
+          dispatch(logoutUser());
           navigate(HOME, { replace: true });
           break;
 
