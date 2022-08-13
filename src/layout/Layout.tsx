@@ -5,6 +5,7 @@ import { useEffect, useLayoutEffect } from 'react';
 import { getStorageItem } from '@utils/storage';
 import { loginUser, selectUser } from '@store/slices/user';
 import { selectFlashAlert } from '@store/slices/flashAlert';
+import { useAxiosInterceptor } from '@hooks/useAxiosAuthInterceptor';
 import { FlashAlert, NavigationHeader } from '@containers';
 import { getAuthUser } from '@apis/user';
 
@@ -15,6 +16,7 @@ function Layout() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const pathname = useLocation();
+  useAxiosInterceptor();
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
@@ -23,8 +25,13 @@ function Layout() {
   useEffect(() => {
     const autoLogin = async () => {
       if (!getStorageItem('token', '') || user.isLogin) return;
-      const data = await getAuthUser();
-      dispatch(loginUser(data));
+
+      try {
+        const data = await getAuthUser();
+        dispatch(loginUser(data));
+      } catch (err) {
+        return;
+      }
     };
 
     autoLogin();
