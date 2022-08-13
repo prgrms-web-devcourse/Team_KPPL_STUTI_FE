@@ -5,7 +5,7 @@ import { useEffect, useLayoutEffect } from 'react';
 import { getStorageItem } from '@utils/storage';
 import { loginUser, selectUser } from '@store/slices/user';
 import { selectFlashAlert } from '@store/slices/flashAlert';
-import { useAxiosInterceptor } from '@src/hooks/useAxiosAuthInterceptor';
+import { useAxiosInterceptor } from '@hooks/useAxiosAuthInterceptor';
 import { FlashAlert, NavigationHeader } from '@containers';
 import { getAuthUser } from '@apis/user';
 
@@ -30,7 +30,7 @@ function Layout() {
         const data = await getAuthUser();
         dispatch(loginUser(data));
       } catch (err) {
-        console.error(`자동 로그인 에러: ${err}`);
+        return;
       }
     };
 
