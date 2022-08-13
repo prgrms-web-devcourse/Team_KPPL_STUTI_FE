@@ -1,12 +1,18 @@
+import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import {
   getStorageItem,
   removeStorageItem,
   setStorageItem,
 } from '@utils/storage';
+import { openAlert } from '@store/slices/flashAlert';
 import { HOME } from '@router/path';
 import { axiosAuthInstance } from '@apis/axiosInstance';
 
 export const useAxiosInterceptor = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   axiosAuthInstance.interceptors.request.use((config) => {
     const token = getStorageItem('token', '');
 
@@ -30,9 +36,15 @@ export const useAxiosInterceptor = () => {
           return await axiosAuthInstance.request(err.config);
 
         case 'T002':
-          console.error('다시 로그인 하셔야 합니다!');
+          dispatch(
+            openAlert({
+              severity: 'error',
+              title: '요청 실패',
+              content: '로그인이 필요합니다.',
+            }),
+          );
           removeStorageItem('token');
-          window.history.replaceState('', '', HOME);
+          navigate(HOME, { replace: true });
           break;
 
         default:
