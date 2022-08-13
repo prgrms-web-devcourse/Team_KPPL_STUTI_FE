@@ -32,7 +32,6 @@ export const useAxiosInterceptor = () => {
       switch (errorCode) {
         case 'T001':
           setStorageItem('token', data.newToken);
-          console.log('set New Token and repeat request!');
           return await axiosAuthInstance.request(err.config);
 
         case 'T002':
