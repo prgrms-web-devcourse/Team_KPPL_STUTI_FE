@@ -1,5 +1,9 @@
 import axios, { AxiosInstance } from 'axios';
-import { getStorageItem, setStorageItem } from '@utils/storage';
+import {
+  getStorageItem,
+  removeStorageItem,
+  setStorageItem,
+} from '@utils/storage';
 import { HOME } from '@src/router/path';
 
 const host = process.env.REACT_APP_API_ENDPOINT ?? 'http://localhost:3000';
@@ -51,6 +55,7 @@ axiosAuthInstance.interceptors.response.use(
 
       case 'T002':
         console.error('다시 로그인 하셔야 합니다!');
+        removeStorageItem('token');
         window.history.replaceState('', '', HOME);
         break;
 
