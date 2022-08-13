@@ -5,6 +5,7 @@ import { useEffect, useLayoutEffect } from 'react';
 import { getStorageItem } from '@utils/storage';
 import { loginUser, selectUser } from '@store/slices/user';
 import { openAlert, selectFlashAlert } from '@store/slices/flashAlert';
+import { useAxiosInterceptor } from '@src/hooks/useAxiosAuthInterceptor';
 import { FlashAlert, NavigationHeader } from '@containers';
 import { getAuthUser } from '@apis/user';
 
@@ -15,6 +16,7 @@ function Layout() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const pathname = useLocation();
+  useAxiosInterceptor();
 
   useLayoutEffect(() => {
     window.scrollTo(0, 0);
