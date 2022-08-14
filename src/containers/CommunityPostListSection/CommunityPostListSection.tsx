@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect, useLayoutEffect } from 'react';
 import { addPost, selectPost, setPost } from '@store/slices/post';
+import { selectUser } from '@src/store/slices/user';
 import { Box } from '@mui/material';
 import { useInterSectionObserver } from '@hooks/useIntersectionObserver';
 import { CommunityPostWrapper } from '@containers/CommunityPostListSection/CommunityPostListSection.style';
@@ -9,6 +10,8 @@ import { ItemCard, SkeletonPost } from '@components';
 import { getCommunityDataApi } from '@apis/community';
 
 function CommunityPostListSection() {
+  const { isLogin } = useSelector(selectUser);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [lastPostId, setLastPostId] = useState<number>(0);
@@ -61,7 +64,7 @@ function CommunityPostListSection() {
   }, [lastPostId]);
 
   return (
-    <CommunityPostWrapper>
+    <CommunityPostWrapper isLogin={isLogin}>
       {posts.map((post, index) => (
         <Box
           ref={index === posts.length - 1 ? targetRef : null}
