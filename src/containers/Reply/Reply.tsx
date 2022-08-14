@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import moment from 'moment';
 import 'moment/locale/ko';
 import { selectUser } from '@store/slices/user';
-import { Typography } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
+import { Typography, Avatar } from '@mui/material';
 import { UserType } from '@interfaces/user';
 import { childrenQuestionType } from '@interfaces/studyDetailQuestion';
 import {
@@ -16,7 +16,6 @@ import {
   ReplyProfileWrapper,
 } from '@containers/Reply/style';
 import ReplyInput, { errorHandle } from '@containers/Reply/ReplyInput';
-import { DefaultAvatar } from '@components';
 
 interface Props {
   memberId: number;
@@ -113,16 +112,16 @@ const Reply = forwardRef<inputHandle, Props>(function Reply(
   return (
     <ReplyContainer>
       <ReplyProfileWrapper>
-        {typeof profileImageUrl === 'string' && profileImageUrl ? (
-          <DefaultAvatar src={profileImageUrl} alt='profile-image' />
-        ) : (
-          <DefaultAvatar>
-            <PersonIcon />
-          </DefaultAvatar>
-        )}
+        <Avatar
+          src={profileImageUrl}
+          component={Link}
+          to={`/user/${memberId}`}
+        />
       </ReplyProfileWrapper>
       <ReplyInfoWrapper>
-        <Typography variant='h6'>{nickname}</Typography>
+        <Typography variant='h6' component={Link} to={`/user/${memberId}`}>
+          {nickname}
+        </Typography>
         <div>{contents}</div>
         <ReplyControlWrapper>
           <Typography color='secondary'>
