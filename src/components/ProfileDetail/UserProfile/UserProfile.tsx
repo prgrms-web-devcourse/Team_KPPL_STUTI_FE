@@ -8,7 +8,7 @@ import { UserType } from '@interfaces/user';
 import { fieldOptions, careerOptions } from '@constants/selectOptions';
 import { MbtiTag } from '@components';
 
-import { Content, H3, P, Dl, Flex, Dt, A } from './UserProfile.style';
+import { Content, H3, P, Dl, Flex, Dt, A, Dd } from './UserProfile.style';
 
 type Option = {
   value: string;
@@ -71,7 +71,7 @@ function UserProfile({ userProfile }: Props) {
               <LinkIcon fontSize='small' />
               github
             </Dt>
-            <dd>
+            <Dd>
               <A
                 href={userProfile.githubUrl}
                 target='_blank'
@@ -79,14 +79,14 @@ function UserProfile({ userProfile }: Props) {
               >
                 {userProfile.githubUrl}
               </A>
-            </dd>
+            </Dd>
           </Flex>
           <Flex>
             <Dt>
               <LinkIcon fontSize='small' />
               blog
             </Dt>
-            <dd>
+            <Dd>
               <A
                 href={userProfile.blogUrl}
                 target='_blank'
@@ -94,7 +94,7 @@ function UserProfile({ userProfile }: Props) {
               >
                 {userProfile.blogUrl}
               </A>
-            </dd>
+            </Dd>
           </Flex>
         </Dl>
       )}

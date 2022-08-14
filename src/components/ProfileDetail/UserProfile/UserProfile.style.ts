@@ -38,6 +38,12 @@ export const Dt = styled.dt`
   color: ${({ theme }) => theme.palette.text.secondary};
 `;
 
+export const Dd = styled.dd`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`;
+
 export const A = styled.a`
   &:hover {
     text-decoration: underline;
