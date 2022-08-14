@@ -42,7 +42,9 @@ function UserInfo({
           )}
         </Link>
         <div>
-          <Typography variant='h6'>{nickname}</Typography>
+          <Link to={`/user/${memberId}`}>
+            <Typography variant='h6'>{nickname}</Typography>
+          </Link>
           <UserSubInfoWrapper>
             <Typography variant='body1' color='secondary'>
               {field}
