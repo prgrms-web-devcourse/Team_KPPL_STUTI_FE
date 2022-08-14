@@ -229,9 +229,7 @@ function CommunityPost({
         >
           {liked.check ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </IconButton>
-        <CommunityPostTypographyButton>
-          {liked.count}
-        </CommunityPostTypographyButton>
+        <Typography>{liked.count}</Typography>
         <CommunityPostTypographyButton
           onClick={handleSetComment}
           name='댓글'
