@@ -1,8 +1,7 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 
-export const Background = styled.div`
-  background-color: ${({ theme }) => theme.palette.grey[50]};
+export const Container = styled.div`
   padding: 2rem 1rem 0 1rem;
 `;
 

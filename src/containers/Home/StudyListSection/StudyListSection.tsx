@@ -1,7 +1,8 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { AxiosError, AxiosResponse } from 'axios';
 import { openAlert } from '@store/slices/flashAlert';
+import { selectUser } from '@src/store/slices/user';
 import { StudyListType } from '@interfaces/studyList';
 import { errorType } from '@interfaces/error';
 import { useInterSectionObserver } from '@hooks/useIntersectionObserver';
@@ -9,6 +10,8 @@ import { StudyList } from '@components';
 import { getAllStudies, deleteStudy } from '@apis/studyList';
 
 import StudyListFilter from '../StudyListFilter/StudyListFilter';
+
+import { Container } from './StudyListSection.style';
 
 export type FilterType = {
   mbti: string | null;
@@ -23,6 +26,7 @@ export type OptionalFilterType = {
 };
 
 function StudyListSection() {
+  const { isLogin } = useSelector(selectUser);
   const dispatch = useDispatch();
   const [studyList, setStudyList] = useState<StudyListType>([]);
   const [filter, setFilter] = useState<FilterType>({
@@ -138,13 +142,15 @@ function StudyListSection() {
         onFilterChange={onFilterChange}
         onFilterReset={onFilterReset}
       />
-      <StudyList
-        studyList={studyList}
-        loading={loading}
-        error={error}
-        onStudyDelete={onStudyDelete}
-        ref={targetRef}
-      />
+      <Container isLogin={isLogin}>
+        <StudyList
+          studyList={studyList}
+          loading={loading}
+          error={error}
+          onStudyDelete={onStudyDelete}
+          ref={targetRef}
+        />
+      </Container>
     </section>
   );
 }
