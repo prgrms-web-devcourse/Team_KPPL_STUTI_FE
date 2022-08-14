@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react';
 import { RoleType } from '@interfaces/studyList';
 
-import { Background, Button } from './Role.style';
+import { Container, Button } from './Role.style';
 
 interface Props {
   role: RoleType;
@@ -11,21 +11,23 @@ interface Props {
 function RoleFilter({ role, onRoleChange }: Props) {
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     const value = e.currentTarget.dataset.value as
-      | 'all'
       | 'member'
       | 'applicant'
       | 'leader';
 
-    const role =
-      value === 'all' ? null : (`STUDY_${value.toUpperCase()}` as RoleType);
+    const role = `STUDY_${value.toUpperCase()}` as RoleType;
 
     onRoleChange(role);
   };
 
   return (
-    <Background>
-      <Button selected={role === null} data-value='all' onClick={handleClick}>
-        전체 보기
+    <Container>
+      <Button
+        selected={role === 'STUDY_LEADER'}
+        data-value='leader'
+        onClick={handleClick}
+      >
+        생성한 스터디
       </Button>
       <Button
         selected={role === 'STUDY_MEMBER'}
@@ -41,14 +43,7 @@ function RoleFilter({ role, onRoleChange }: Props) {
       >
         지원한 스터디
       </Button>
-      <Button
-        selected={role === 'STUDY_LEADER'}
-        data-value='leader'
-        onClick={handleClick}
-      >
-        생성한 스터디
-      </Button>
-    </Background>
+    </Container>
   );
 }
 

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { selectUser } from '@store/slices/user';
-import { StudyItemType } from '@interfaces/studyList';
+import { StudyItemType, RoleType } from '@interfaces/studyList';
 import { MbtiTag, DefaultImage } from '@components';
 
 import {
@@ -19,10 +19,11 @@ import {
 import MoreButton from './MoreButton/MoreButton';
 interface Props {
   study: StudyItemType;
+  role?: RoleType;
   onStudyDelete: (studyId: number) => void;
 }
 
-function StudyCard({ study, onStudyDelete }: Props) {
+function StudyCard({ study, role, onStudyDelete }: Props) {
   const { user, isLogin } = useSelector(selectUser);
   const loggedInUserId = user?.id;
 
@@ -71,12 +72,15 @@ function StudyCard({ study, onStudyDelete }: Props) {
           </RightColumn>
         </Flex>
       </Link>
-      {isLogin && loggedInUserId === study.memberId && (
-        <MoreButton
-          studyId={study.studyGroupId}
-          onStudyDelete={onStudyDelete}
-        />
-      )}
+      {role !== 'STUDY_MEMBER' &&
+        role !== 'STUDY_APPLICANT' &&
+        isLogin &&
+        loggedInUserId === study.memberId && (
+          <MoreButton
+            studyId={study.studyGroupId}
+            onStudyDelete={onStudyDelete}
+          />
+        )}
     </Article>
   );
 }

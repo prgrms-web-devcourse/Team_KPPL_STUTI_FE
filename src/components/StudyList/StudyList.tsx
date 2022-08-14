@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { StudyListType } from '@interfaces/studyList';
+import { StudyListType, RoleType } from '@interfaces/studyList';
 import { StudyCard, SkeletonStudyCard, ItemCard } from '@components';
 
 import { Ul } from './StudyList.style';
@@ -8,13 +8,14 @@ interface Props {
   studyList: StudyListType;
   error: boolean;
   loading: boolean;
+  role?: RoleType;
   onStudyDelete: (studyId: number) => void;
 }
 
 export type Ref = HTMLLIElement;
 
 const StudyList = forwardRef<Ref, Props>(function StudyList(
-  { studyList, loading, error, onStudyDelete },
+  { studyList, loading, error, role, onStudyDelete },
   ref,
 ) {
   return (
@@ -23,7 +24,11 @@ const StudyList = forwardRef<Ref, Props>(function StudyList(
         studyList.map((studyItem, index) =>
           index === studyList.length - 1 ? (
             <li ref={ref} key={studyItem.studyGroupId}>
-              <StudyCard study={studyItem} onStudyDelete={onStudyDelete} />
+              <StudyCard
+                study={studyItem}
+                onStudyDelete={onStudyDelete}
+                role={role}
+              />
             </li>
           ) : (
             <li key={studyItem.studyGroupId}>

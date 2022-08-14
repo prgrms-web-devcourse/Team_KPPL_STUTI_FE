@@ -11,11 +11,13 @@ import { deleteStudy, getUserStudies } from '@apis/studyList';
 
 import RoleFilter from '../RoleFilter/RoleFilter';
 
+import { Container } from './StudyTab.style';
+
 function StudyTab() {
   const dispatch = useDispatch();
   const { user_id: userId } = useParams<{ user_id: string }>();
   const [studyList, setStudyList] = useState<StudyListType>([]);
-  const [role, setRole] = useState<RoleType>(null);
+  const [role, setRole] = useState<RoleType>('STUDY_LEADER');
   const [lastStudyId, setLastStudyId] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -103,7 +105,7 @@ function StudyTab() {
   };
 
   return (
-    <>
+    <Container>
       <RoleFilter role={role} onRoleChange={onRoleChange} />
       <StudyList
         studyList={studyList}
@@ -111,8 +113,9 @@ function StudyTab() {
         error={error}
         onStudyDelete={requestDeleteStudy}
         ref={targetRef}
+        role={role}
       />
-    </>
+    </Container>
   );
 }
 

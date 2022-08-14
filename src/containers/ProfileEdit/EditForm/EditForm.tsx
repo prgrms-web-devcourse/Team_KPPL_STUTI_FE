@@ -52,9 +52,9 @@ function EditForm() {
     validationSchema: yup.object({
       nickname: yup
         .string()
-        .trim('앞, 뒤 공백을 제거해 주세요.')
+        .trim('앞, 뒤 공백을 제거해주세요')
         .strict()
-        .max(16)
+        .max(16, '닉네임은 최대 16글자 까지 가능합니다.')
         .required('닉네임을 입력해 주세요.'),
       field: yup
         .string()
