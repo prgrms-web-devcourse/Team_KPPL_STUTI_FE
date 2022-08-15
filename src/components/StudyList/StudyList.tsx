@@ -26,13 +26,17 @@ const StudyList = forwardRef<Ref, Props>(function StudyList(
             <li ref={ref} key={studyItem.studyGroupId}>
               <StudyCard
                 study={studyItem}
-                onStudyDelete={onStudyDelete}
                 role={role}
+                onStudyDelete={onStudyDelete}
               />
             </li>
           ) : (
             <li key={studyItem.studyGroupId}>
-              <StudyCard study={studyItem} onStudyDelete={onStudyDelete} />
+              <StudyCard
+                study={studyItem}
+                role={role}
+                onStudyDelete={onStudyDelete}
+              />
             </li>
           ),
         )}
