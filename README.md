@@ -26,17 +26,17 @@
 
 ### 프론트엔드
 
-| [팽건우(Paeng)](https://github.com/GeonWooPaeng) | [김가연(Kaia)](https://github.com/lexie-kaia) | [김정환(Padd)](https://github.com/padd60) | [박민제(Jay)](https://github.com/mieumje) | [이재웅(Mckee)](https://github.com/jaeung-E) |
+| [팽건우(Paeng)👑 ](https://github.com/GeonWooPaeng) | [김가연(Kaia)](https://github.com/lexie-kaia) | [김정환(Padd)](https://github.com/padd60) | [박민제(Jay)](https://github.com/mieumje) | [이재웅(Mckee)](https://github.com/jaeung-E) |
 | :---: | :---: | :---: | :---: | :---: | 
 | ![](https://avatars.githubusercontent.com/u/53526987?v=4) | ![](https://avatars.githubusercontent.com/u/73787590?v=4) | ![](https://avatars.githubusercontent.com/u/65111990?v=4) | ![](https://avatars.githubusercontent.com/u/66072832?v=4) | ![](https://avatars.githubusercontent.com/u/62253743?v=4) |
 | 커뮤니티 게시물 목록<br/>게시물 생성<br/>게시물 수정 | 스터디 목록<br/>프로필 상세<br/>프로필 수정 | 스터디 상세<br/>스터디 관리 | 스터디 생성<br/>스터디 수정 | 로그인<br/>회원가입<br/>레이아웃<br/>라우터 처리 |
-| 화면 및 기능 명세 | 디자인 | 보일러 플레이트 | 코딩 컨벤션 문서화 | 깃 & 깃허브 워크플로우 |
+| 팀장<br/>화면 및 기능 명세 | 디자인 | 보일러 플레이트 | 코딩 컨벤션 문서화 | 깃 & 깃허브 워크플로우 |
 
 
 ### 백엔드
 
 
-| [김성현(LA)](https://github.com/Gosh95) | [이용훈(Cheeseball)](https://github.com/YHLEE9753) | [이예림(Celine)](https://github.com/Leeyerimearth) | [이인후](https://github.com/ordilov) |
+| [김성현(LA)](https://github.com/Gosh95)👑 | [이용훈(Cheeseball)](https://github.com/YHLEE9753) | [이예림(Celine)](https://github.com/Leeyerimearth) | [이인후](https://github.com/ordilov) |
 | :---: | :---: | :---: | :---: |
 | ![](https://avatars.githubusercontent.com/u/78140516?v=4) | ![](https://avatars.githubusercontent.com/u/71916223?v=4) | ![](https://avatars.githubusercontent.com/u/50127628?v=4) | ![](https://avatars.githubusercontent.com/u/96903161?v=4) |
 | Leader | Developer | Developer | Advisor |
