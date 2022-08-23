@@ -147,7 +147,7 @@ src
 
 - [팽건우(Paeng)](https://gwpaeng.tistory.com/424)
 - [김가연(Kaia)]()
-- [박민제(Jay)]()
+- [박민제(Jay)](https://mieumje.tistory.com/163)
 - [김정환(Padd)]()
 - [이재웅(Mckee)](https://velog.io/@jaeung5169/%EC%B5%9C%EC%A2%85-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-STUTI-%ED%9A%8C%EA%B3%A0)
 
