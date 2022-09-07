@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { selectUser } from '@store/slices/user';

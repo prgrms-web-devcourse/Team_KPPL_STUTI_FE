@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useDispatch } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
 import { openAlert } from '@store/slices/flashAlert';
 import { Typography } from '@mui/material';
-import { childrenQuestionType } from '@interfaces/studyDetailQuestion';
 import {
   childrenCommentType,
   CommentContentsType,

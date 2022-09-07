@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { boolean } from 'yup/lib/locale';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
