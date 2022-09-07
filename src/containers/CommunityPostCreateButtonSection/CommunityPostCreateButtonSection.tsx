@@ -22,14 +22,16 @@ function CommunityPostCreateButtonSection() {
   return (
     <>
       <CommunityPostCreateButton onClick={handleCreateModalOpen} />
-      <CommunityModal
-        postId={state.user?.id as any}
-        nickname={state.user?.nickname}
-        profileImageUrl={state.user?.profileImageUrl}
-        modalType='CREATE'
-        isOpen={isModalOpen}
-        onClose={handleCreateModalClose}
-      />
+      {state.user && (
+        <CommunityModal
+          postId={state.user.id}
+          nickname={state.user.nickname}
+          profileImageUrl={state.user.profileImageUrl}
+          modalType='CREATE'
+          isOpen={isModalOpen}
+          onClose={handleCreateModalClose}
+        />
+      )}
     </>
   );
 }

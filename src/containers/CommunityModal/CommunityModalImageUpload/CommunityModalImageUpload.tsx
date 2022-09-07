@@ -4,7 +4,7 @@ import { IconButton } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 
 export interface Props {
-  onChange: (e: React.ChangeEvent<any>) => void;
+  onChange: (e: React.ChangeEvent) => void;
 }
 
 function CommunityModalImageUpload(props: Props) {

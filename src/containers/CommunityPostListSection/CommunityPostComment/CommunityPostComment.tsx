@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
 import { openAlert } from '@store/slices/flashAlert';
 import { Typography } from '@mui/material';
+import { childrenQuestionType } from '@interfaces/studyDetailQuestion';
 import {
   childrenCommentType,
   CommentContentsType,
@@ -27,7 +28,9 @@ interface Props {
 function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
   const dispatch = useDispatch();
 
-  const [commentContents, setCommentContents] = useState<any>();
+  const [commentContents, setCommentContents] = useState<
+    (CommentContentsType | childrenCommentType)[]
+  >([]);
   const [hasNext, setHasNext] = useState<boolean>(false);
   const [totalElements, setTotalElements] = useState<number>(0);
 
@@ -45,7 +48,7 @@ function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
     !!target.parentId;
 
   const findCommentsTargetIdIndex = (
-    comments: CommentContentsType[] | childrenCommentType[],
+    comments: (CommentContentsType | childrenCommentType)[],
     targetId: number | null,
   ): number => {
     return comments.findIndex(
@@ -98,7 +101,7 @@ function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
             res.parentId,
           );
 
-          const newCommentContents: any = commentContents.slice();
+          const newCommentContents = commentContents.slice();
           newCommentContents[parentIndex].children = [
             res,
             ...newCommentContents[parentIndex].children,
@@ -163,8 +166,8 @@ function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
             res.postCommentId,
           );
 
-          const newResponseCommentContents: any = { ...res };
-          const newCommentContents: any = commentContents.slice();
+          const newResponseCommentContents = { ...res };
+          const newCommentContents = commentContents.slice();
           newCommentContents[parentIndex].children[targetIndex] =
             newResponseCommentContents;
           setCommentContents(newCommentContents);
@@ -176,8 +179,8 @@ function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
             res.postCommentId,
           );
 
-          const newCommentContents: any = commentContents.slice();
-          const newResponseCommentContents: any = { ...res };
+          const newCommentContents = commentContents.slice();
+          const newResponseCommentContents = { ...res };
           const newCommentContentsChildren =
             commentContents[targetIndex].children?.slice() || [];
 
@@ -220,13 +223,13 @@ function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
             res.parentId,
           );
 
-          const newCommentContents: any = commentContents.slice();
+          const newCommentContents = commentContents.slice();
           const newCommentContentsChildren = commentContents[
             parentIndex
           ].children
             ?.slice()
             .filter(
-              (childrenComment: any) =>
+              (childrenComment: childrenCommentType) =>
                 childrenComment.postCommentId !== res.postCommentId,
             );
 
@@ -238,7 +241,7 @@ function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
           const newCommentContents = commentContents
             .slice()
             .filter(
-              (commentContent: any) =>
+              (commentContent) =>
                 commentContent.postCommentId !== res.postCommentId,
             );
           setCommentContents(newCommentContents);
@@ -267,66 +270,69 @@ function CommunityPostComment({ commentsInit, postId, onCount }: Props) {
           createComment(postId, null, contents, -1, true);
         }}
       />
-      {commentContents?.map((content: any, index: number) => {
-        const {
-          postCommentId,
-          profileImageUrl,
-          nickname,
-          contents: text,
-          updatedAt,
-          children,
-          memberId,
-        } = content;
-        return (
-          <Reply
-            ref={(el) => el && (handleInput.current[index] = el)}
-            key={content.postCommentId}
-            memberId={memberId}
-            profileImageUrl={profileImageUrl}
-            nickname={nickname}
-            contents={text}
-            replies={children}
-            updatedAt={updatedAt}
-            onCreate={(contents: string) => {
-              createComment(postId, postCommentId, contents, index);
-            }}
-            onUpdate={(contents: string) => {
-              editComment(postId, postCommentId, contents, index);
-            }}
-            onDelete={() => {
-              removeComment(postId, postCommentId);
-            }}
-          >
-            {children?.map((reply: any, index: any) => {
-              const {
-                postCommentId,
-                profileImageUrl = '',
-                nickname = '',
-                contents = '',
-                updatedAt = '2022-02-22 10:00:00',
-                memberId,
-              } = reply;
-              return (
-                <Reply
-                  ref={(el) => el && (handleInputSub.current[index] = el)}
-                  key={postCommentId}
-                  memberId={memberId}
-                  profileImageUrl={profileImageUrl}
-                  nickname={nickname}
-                  contents={contents}
-                  updatedAt={updatedAt}
-                  onUpdate={(contents: string) => {
-                    editComment(postId, postCommentId, contents, index, true);
-                  }}
-                  onDelete={() => {
-                    removeComment(postId, postCommentId);
-                  }}
-                />
-              );
-            })}
-          </Reply>
-        );
-      })}
+
+      {commentContents.map(
+        (content: CommentContentsType | childrenCommentType, index: number) => {
+          const {
+            postCommentId,
+            profileImageUrl,
+            nickname,
+            contents: text,
+            updatedAt,
+            children,
+            memberId,
+          } = content;
+          return (
+            <Reply
+              ref={(el) => el && (handleInput.current[index] = el)}
+              key={content.postCommentId}
+              memberId={memberId}
+              profileImageUrl={profileImageUrl}
+              nickname={nickname}
+              contents={text}
+              replies={children}
+              updatedAt={updatedAt}
+              onCreate={(contents: string) => {
+                createComment(postId, postCommentId, contents, index);
+              }}
+              onUpdate={(contents: string) => {
+                editComment(postId, postCommentId, contents, index);
+              }}
+              onDelete={() => {
+                removeComment(postId, postCommentId);
+              }}
+            >
+              {children?.map((reply: childrenCommentType, index: number) => {
+                const {
+                  postCommentId,
+                  profileImageUrl = '',
+                  nickname = '',
+                  contents = '',
+                  updatedAt = '2022-02-22 10:00:00',
+                } = reply;
+                return (
+                  <Reply
+                    ref={(el) => el && (handleInputSub.current[index] = el)}
+                    key={postCommentId}
+                    memberId={memberId}
+                    profileImageUrl={profileImageUrl}
+                    nickname={nickname}
+                    contents={contents}
+                    updatedAt={updatedAt}
+                    onUpdate={(contents: string) => {
+                      editComment(postId, postCommentId, contents, index, true);
+                    }}
+                    onDelete={() => {
+                      removeComment(postId, postCommentId);
+                    }}
+                  />
+                );
+              })}
+            </Reply>
+          );
+        },
+      )}
+
       {hasNext && (
         <Typography
           color='secondary'
