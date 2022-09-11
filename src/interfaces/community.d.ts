@@ -54,14 +54,7 @@ export interface childrenCommentType {
   children?;
 }
 
-export interface CommentContentsType {
-  postCommentId: number;
-  parentId: number | null;
-  profileImageUrl: string;
-  memberId: number;
-  nickname: string;
-  contents: string;
-  updatedAt: string;
+export interface CommentContentsType extends childrenCommentType {
   children?: childrenCommentType[];
 }
 
