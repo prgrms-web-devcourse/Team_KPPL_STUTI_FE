@@ -30,6 +30,7 @@ import {
   ContentsWrapper,
   CommunityPostCommentWrapper,
   CustomCardMedia,
+  CustomTypography,
 } from '@containers/CommunityPostListSection/CommunityPost/CommunityPost.style';
 import { ItemCard } from '@components';
 import {
@@ -67,8 +68,6 @@ function CommunityPost({
   const contentsRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
   const { isLogin, user } = useSelector(selectUser);
-
-  const body = contents.replaceAll('\r', '').split('\n');
 
   useLayoutEffect(() => {
     setCommentCount(totalPostComments);
@@ -201,12 +200,7 @@ function CommunityPost({
       />
       <CardContent sx={{ paddingBottom: '0' }}>
         <ContentsWrapper maxLine={isExpand}>
-          <Typography ref={contentsRef}>
-            {body.map((content, index) => {
-              if (content === '') return <br key={index} />;
-              return [content, <br key={index} />];
-            })}
-          </Typography>
+          <CustomTypography ref={contentsRef}>{contents}</CustomTypography>
         </ContentsWrapper>
         {isExpand !== 'none' && (
           <CommunityPostTypographyButton onClick={() => setIsExpand('none')}>

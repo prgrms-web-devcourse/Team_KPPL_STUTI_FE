@@ -7,4 +7,5 @@ export const BodyWrapper = styled.div`
 
 export const Description = styled.div`
   padding: 0.625rem 0.3125rem;
+  white-space: pre-line;
 `;

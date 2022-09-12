@@ -9,17 +9,10 @@ interface Props {
 }
 
 function DetailBody({ description }: Props) {
-  const body = description.replaceAll('\r', '').split('\n');
-
   return (
     <BodyWrapper>
       <Typography variant='h5'>세부 내용</Typography>
-      <Description>
-        {body.map((content, index) => {
-          if (content === '') return <br key={index} />;
-          return [content, <br key={index} />];
-        })}
-      </Description>
+      <Description>{description}</Description>
     </BodyWrapper>
   );
 }
