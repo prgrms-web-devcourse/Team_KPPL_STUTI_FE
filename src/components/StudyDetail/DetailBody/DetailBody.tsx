@@ -1,6 +1,7 @@
 import {
   BodyWrapper,
   Description,
+  CustomLinkItUrl,
 } from '@src/components/StudyDetail/DetailBody/style';
 import { Typography } from '@mui/material';
 
@@ -12,7 +13,9 @@ function DetailBody({ description }: Props) {
   return (
     <BodyWrapper>
       <Typography variant='h5'>세부 내용</Typography>
-      <Description>{description}</Description>
+      <CustomLinkItUrl>
+        <Description>{description}</Description>
+      </CustomLinkItUrl>
     </BodyWrapper>
   );
 }

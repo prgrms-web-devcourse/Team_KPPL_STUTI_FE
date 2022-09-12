@@ -31,6 +31,7 @@ import {
   CommunityPostCommentWrapper,
   CustomCardMedia,
   CustomTypography,
+  CustomLinkItUrl,
 } from '@containers/CommunityPostListSection/CommunityPost/CommunityPost.style';
 import { ItemCard } from '@components';
 import {
@@ -200,7 +201,9 @@ function CommunityPost({
       />
       <CardContent sx={{ paddingBottom: '0' }}>
         <ContentsWrapper maxLine={isExpand}>
-          <CustomTypography ref={contentsRef}>{contents}</CustomTypography>
+          <CustomLinkItUrl>
+            <CustomTypography ref={contentsRef}>{contents}</CustomTypography>
+          </CustomLinkItUrl>
         </ContentsWrapper>
         {isExpand !== 'none' && (
           <CommunityPostTypographyButton onClick={() => setIsExpand('none')}>

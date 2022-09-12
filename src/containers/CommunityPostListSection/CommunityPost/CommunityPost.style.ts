@@ -1,3 +1,4 @@
+import { LinkItUrl } from 'react-linkify-it';
 import { CardMedia, Box, Typography } from '@mui/material';
 import styled from '@emotion/styled';
 
@@ -29,4 +30,10 @@ export const CommunityPostCommentWrapper = styled(Box)`
 
 export const CustomTypography = styled(Typography)`
   white-space: pre-line;
+`;
+
+export const CustomLinkItUrl = styled(LinkItUrl)`
+  &:hover {
+    color: ${({ theme }) => theme.palette.primary.main};
+  }
 `;
