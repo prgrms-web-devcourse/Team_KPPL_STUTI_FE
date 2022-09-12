@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useRef, useLayoutEffect, useEffect } from 'react';
@@ -59,7 +58,11 @@ function CommunityPost({
   });
   const [isExpand, setIsExpand] = useState<string | number>('none');
   const [onCommentOpen, setOnCommentOpen] = useState(false);
-  const [commentsInit, setCommentsInit] = useState<any>();
+  const [commentsInit, setCommentsInit] = useState<CommunityPostCommentType>({
+    contents: [],
+    hasNext: false,
+    totalElements: 0,
+  });
 
   const contentsRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
